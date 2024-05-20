@@ -1,7 +1,7 @@
 {
-	"type": "starry_skies:x_spot",
-	"type_data": {
-		"loot_table": "minecraft:chests/woodland_mansion",
-		"marking_block": "minecraft:stripped_birch_wood"
-	}
+  "type": "starry_skies:x_spot",
+  "type_data": {
+    "loot_table": "minecraft:chests/woodland_mansion",
+    "marking_block": "minecraft:stripped_birch_wood"
+  }
 }

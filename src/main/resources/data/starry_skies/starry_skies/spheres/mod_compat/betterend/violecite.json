@@ -1,20 +1,20 @@
 {
-	"generation_group": "starry_skies:end/essential",
-	"generation_weight": 0.4,
-	"min_size": 6,
-	"max_size": 14,
-	"type": "starry_skies:simple",
-	"type_data": {
-		"block": "betterend:violecite"
-	},
-	"decorators": {},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"betterend"
-			]
-		}
-	]
+  "generation_group": "starry_skies:end/essential",
+  "generation_weight": 0.4,
+  "min_size": 6,
+  "max_size": 14,
+  "type": "starry_skies:simple",
+  "type_data": {
+    "block": "betterend:violecite"
+  },
+  "decorators": {},
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "betterend"
+      ]
+    }
+  ]
 }

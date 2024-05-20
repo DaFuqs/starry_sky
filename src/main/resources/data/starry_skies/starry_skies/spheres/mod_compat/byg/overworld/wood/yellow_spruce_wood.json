@@ -1,23 +1,23 @@
 {
-	"generation_group": "starry_skies:overworld/wood",
-	"generation_weight": 0.3,
-	"min_size": 5,
-	"max_size": 15,
-	"type": "starry_skies:shell",
-	"type_data": {
-		"min_shell_size": 2,
-		"max_shell_size": 3,
-		"main_block": "minecraft:spruce_log",
-		"shell_block": "byg:yellow_spruce_leaves[distance=1]"
-	},
-	"decorators": {},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"byg"
-			]
-		}
-	]
+  "generation_group": "starry_skies:overworld/wood",
+  "generation_weight": 0.3,
+  "min_size": 5,
+  "max_size": 15,
+  "type": "starry_skies:shell",
+  "type_data": {
+    "min_shell_size": 2,
+    "max_shell_size": 3,
+    "main_block": "minecraft:spruce_log",
+    "shell_block": "byg:yellow_spruce_leaves[distance=1]"
+  },
+  "decorators": {},
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "byg"
+      ]
+    }
+  ]
 }

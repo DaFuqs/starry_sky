@@ -3,6 +3,7 @@ package de.dafuqs.starryskies.spheroids.spheroids;
 import com.google.gson.*;
 import com.mojang.brigadier.exceptions.*;
 import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.*;
 import net.minecraft.block.*;
 import net.minecraft.command.argument.*;
@@ -22,7 +23,7 @@ public class ShellSpheroid extends Spheroid {
 	private final LinkedHashMap<BlockArgumentParser.BlockResult, Float> shellSpeckleBlockStates;
 	
 	public ShellSpheroid(Spheroid.Template template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
-	                     BlockState innerBlock, BlockState shellBlock, float shellRadius, LinkedHashMap<BlockArgumentParser.BlockResult, Float> shellSpeckleBlockStates) {
+						 BlockState innerBlock, BlockState shellBlock, float shellRadius, LinkedHashMap<BlockArgumentParser.BlockResult, Float> shellSpeckleBlockStates) {
 		
 		super(template, radius, decorators, spawns, random);
 		this.radius = radius;
@@ -49,7 +50,7 @@ public class ShellSpheroid extends Spheroid {
 			this.innerBlock = StarrySkies.getStateFromString(JsonHelper.getString(typeData, "main_block"));
 			this.shellBlock = BlockStateSupplier.of(typeData.get("shell_block"));
 			
-			if(JsonHelper.hasJsonObject(typeData, "shell_speckles")) {
+			if (JsonHelper.hasJsonObject(typeData, "shell_speckles")) {
 				JsonObject speckleObject = JsonHelper.getObject(typeData, "shell_speckles");
 				shellSpeckleBlockStates.put(StarrySkies.getBlockResult(JsonHelper.getString(speckleObject, "block")), JsonHelper.getFloat(speckleObject, "chance"));
 			}
@@ -70,7 +71,7 @@ public class ShellSpheroid extends Spheroid {
 				"\nShell: " + this.shellBlock.toString() + " (Radius: " + this.shellRadius + ")" +
 				"\nCore: " + this.innerBlock.toString());
 		
-		for(Map.Entry<BlockArgumentParser.BlockResult, Float> speckle : this.shellSpeckleBlockStates.entrySet()) {
+		for (Map.Entry<BlockArgumentParser.BlockResult, Float> speckle : this.shellSpeckleBlockStates.entrySet()) {
 			s.append("\nShell: ").append(speckle.getKey().toString()).append(" (Radius: ").append(speckle.getValue()).append(")");
 		}
 		
@@ -117,7 +118,7 @@ public class ShellSpheroid extends Spheroid {
 									break;
 								}
 							}
-							if(!set) {
+							if (!set) {
 								chunk.setBlockState(currBlockPos, finalBlockState, false);
 							}
 						} else {
@@ -130,7 +131,7 @@ public class ShellSpheroid extends Spheroid {
 	}
 	
 	private boolean hasSpeckles() {
-		return this.shellSpeckleBlockStates.size() > 0;
+		return !this.shellSpeckleBlockStates.isEmpty();
 	}
 	
 }

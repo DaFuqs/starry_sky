@@ -1,31 +1,27 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.google.gson.JsonObject;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import de.dafuqs.starryskies.Support;
-import de.dafuqs.starryskies.spheroids.BlockStateSupplier;
-import de.dafuqs.starryskies.spheroids.SpheroidDecorator;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.CoralParentBlock;
-import net.minecraft.block.SeaPickleBlock;
-import net.minecraft.entity.EntityType;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.Pair;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.ChunkRandom;
-import net.minecraft.world.chunk.Chunk;
+import com.google.gson.*;
+import com.mojang.brigadier.exceptions.*;
+import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.*;
+import net.minecraft.block.*;
+import net.minecraft.entity.*;
+import net.minecraft.loot.*;
+import net.minecraft.registry.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.math.random.*;
+import net.minecraft.world.chunk.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class CoralsSpheroid extends Spheroid {
 	
 	protected BlockState shellBlock;
 	protected float shellRadius;
 	protected BlockState WATER = Blocks.WATER.getDefaultState();
-	protected Identifier centerChestLootTable;
+	protected RegistryKey<LootTable> centerChestLootTable;
 	
 	public static final ArrayList<BlockState> LIST_FULL_CORAL_BLOCKS = new ArrayList<>() {{
 		add(Blocks.BRAIN_CORAL_BLOCK.getDefaultState());
@@ -55,7 +51,7 @@ public class CoralsSpheroid extends Spheroid {
 	}};
 	
 	public CoralsSpheroid(Spheroid.Template template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
-	                      BlockState shellBlock, float shellRadius, Identifier centerChestLootTable) {
+						  BlockState shellBlock, float shellRadius, RegistryKey<LootTable> centerChestLootTable) {
 		
 		super(template, radius, decorators, spawns, random);
 		this.shellBlock = shellBlock;
@@ -68,7 +64,7 @@ public class CoralsSpheroid extends Spheroid {
 		private final BlockStateSupplier validShellBlocks;
 		private final int minShellRadius;
 		private final int maxShellRadius;
-		private Identifier lootTable; // TODO: huh
+		private RegistryKey<LootTable> lootTable;
 		float lootTableChance;
 		
 		public Template(Identifier identifier, JsonObject data) throws CommandSyntaxException {
@@ -78,18 +74,19 @@ public class CoralsSpheroid extends Spheroid {
 			this.minShellRadius = JsonHelper.getInt(typeData, "min_shell_size");
 			this.maxShellRadius = JsonHelper.getInt(typeData, "max_shell_size");
 			this.validShellBlocks = BlockStateSupplier.of(typeData.get("shell_block"));
+			
+			if (JsonHelper.hasJsonObject(typeData, "treasure_chest")) {
+				JsonObject treasureChestObject = JsonHelper.getObject(typeData, "treasure_chest");
+				this.lootTable = RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.tryParse(JsonHelper.getString(treasureChestObject, "loot_table")));
+				this.lootTableChance = JsonHelper.getFloat(treasureChestObject, "chance");
+			}
 		}
 		
 		@Override
 		public CoralsSpheroid generate(ChunkRandom random) {
 			int shellRadius = Support.getRandomBetween(random, this.minShellRadius, this.maxShellRadius);
 			BlockState shellBlockState = validShellBlocks.get(random);
-			
-			Identifier lootTable = null;
-			if (random.nextFloat() < lootTableChance) {
-				lootTable = this.lootTable;
-			}
-			
+			RegistryKey<LootTable> lootTable = random.nextFloat() < lootTableChance ? this.lootTable : null;
 			return new CoralsSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, shellBlockState, shellRadius, lootTable);
 		}
 		
@@ -127,7 +124,7 @@ public class CoralsSpheroid extends Spheroid {
 						continue;
 					}
 					currBlockPos.set(x2, y2, z2);
-
+					
 					if (d == 0 && hasChest) {
 						placeCenterChestWithLootTable(chunk, currBlockPos, this.centerChestLootTable, random, true);
 					} else if (d <= (this.radius - this.shellRadius - 1)) {

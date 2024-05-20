@@ -1,32 +1,32 @@
 {
-	"generation_group": "starry_skies:nether/decorative",
-	"generation_weight": 0.5,
-	"min_size": 10,
-	"max_size": 16,
-	"type": "starry_skies:shell",
-	"type_data": {
-		"min_shell_size": 1,
-		"max_shell_size": 1,
-		"main_block": "byg:warped_soul_sand",
-		"shell_block": "byg:warped_soul_sand",
-		"shell_speckles": {
-			"block": "byg:soul_shroom_block",
-			"chance": 0.05
-		}
-	},
-	"decorators": {
-		"starry_skies:mod_compat/byg/warped_cacti": 0.8,
-		"starry_skies:mod_compat/byg/warped_corals": 0.7,
-		"starry_skies:mod_compat/byg/warped_coral_fans": 0.6,
-		"starry_skies:mod_compat/byg/soul_shroom_spores": 0.5
-	},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"byg"
-			]
-		}
-	]
+  "generation_group": "starry_skies:nether/decorative",
+  "generation_weight": 0.5,
+  "min_size": 10,
+  "max_size": 16,
+  "type": "starry_skies:shell",
+  "type_data": {
+    "min_shell_size": 1,
+    "max_shell_size": 1,
+    "main_block": "byg:warped_soul_sand",
+    "shell_block": "byg:warped_soul_sand",
+    "shell_speckles": {
+      "block": "byg:soul_shroom_block",
+      "chance": 0.05
+    }
+  },
+  "decorators": {
+    "starry_skies:mod_compat/byg/warped_cacti": 0.8,
+    "starry_skies:mod_compat/byg/warped_corals": 0.7,
+    "starry_skies:mod_compat/byg/warped_coral_fans": 0.6,
+    "starry_skies:mod_compat/byg/soul_shroom_spores": 0.5
+  },
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "byg"
+      ]
+    }
+  ]
 }

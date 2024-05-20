@@ -1,25 +1,38 @@
 package de.dafuqs.starryskies.data_loaders;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import de.dafuqs.starryskies.StarrySkies;
-import de.dafuqs.starryskies.Support;
-import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.resource.JsonDataLoader;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
+import com.google.gson.*;
+import com.mojang.brigadier.exceptions.*;
+import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.registries.*;
+import net.fabricmc.fabric.api.resource.*;
+import net.minecraft.block.*;
+import net.minecraft.registry.*;
+import net.minecraft.registry.entry.*;
+import net.minecraft.resource.*;
+import net.minecraft.util.*;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.util.profiler.Profiler;
-import org.apache.logging.log4j.Level;
+import net.minecraft.util.profiler.*;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class WeightedBlockGroupsLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
+	
+	public record WeightedBlockGroup(List<BlockState> states) {
+		
+		public static WeightedBlockGroup register(Identifier id, WeightedBlockGroup block) {
+			return Registry.register(StarryRegistries.WEIGHTED_BLOCK_GROUP, id, block);
+		}
+		
+		public static BlockState getRandomState(Identifier groupId, Random random) {
+			Map<BlockState, Float> group = BLOCK_GROUPS.get(groupId);
+			if (group == null || group.isEmpty()) {
+				StarrySkies.log(Level.WARN, "Referencing empty/non-existing WeightedBlockGroup: " + groupId + ". Using AIR instead.");
+				return Blocks.AIR.getDefaultState();
+			}
+			return Support.getWeightedRandom(group, random);
+		}
+		
+	}
 	
 	public static final String ID = "starry_skies/weighted_block_groups";
 	public static final WeightedBlockGroupsLoader INSTANCE = new WeightedBlockGroupsLoader();
@@ -33,51 +46,34 @@ public class WeightedBlockGroupsLoader extends JsonDataLoader implements Identif
 	@Override
 	protected void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		prepared.forEach((identifier, jsonElement) -> {
-			
-			Map<BlockState, Float> map;
-			boolean newMap = false;
-			if (BLOCK_GROUPS.containsKey(identifier)) {
-				map = BLOCK_GROUPS.get(identifier);
-			} else {
-				map = new LinkedHashMap<>();
-				newMap = true;
-			}
-			
-			for (Map.Entry<String, JsonElement> e : jsonElement.getAsJsonObject().entrySet()) {
+			List<BlockState> states = new ArrayList<>();
+			for (JsonElement e : jsonElement.getAsJsonArray()) {
 				try {
-					BlockState state = StarrySkies.getStateFromString(e.getKey());
-					float weight = e.getValue().getAsFloat();
-					map.put(state, weight);
+					BlockState state = StarrySkies.getStateFromString(e.getAsString());
+					states.add(state);
 				} catch (CommandSyntaxException ex) {
 					if (StarrySkies.CONFIG.packCreatorMode) {
-						StarrySkies.log(Level.WARN, "Block group " + identifier + " tries to load a non-existing block: " + e.getKey() + ". Will be ignored.");
+						StarrySkies.log(Level.WARN, "'Weighted Block group " + identifier + " tries to load a non-existing block: " + e + ". Will be ignored.");
 					}
 				}
 			}
 			
-			if (newMap) {
-				BLOCK_GROUPS.put(identifier, map);
-			}
+			Optional<RegistryEntry.Reference<WeightedBlockGroup>> key = StarryRegistries.WEIGHTED_BLOCK_GROUP.getEntry(identifier);
+			WeightedBlockGroup blockGroup;
 			
+			if (key.isPresent()) {
+				blockGroup = key.get().value();
+				blockGroup.states().addAll(states);
+			} else {
+				blockGroup = new WeightedBlockGroup(states);
+				WeightedBlockGroup.register(identifier, blockGroup);
+			}
 		});
 	}
 	
 	@Override
 	public Identifier getFabricId() {
 		return StarrySkies.locate(ID);
-	}
-	
-	public static boolean existsGroup(Identifier identifier) {
-		return BLOCK_GROUPS.containsKey(identifier) && BLOCK_GROUPS.get(identifier).size() > 0;
-	}
-	
-	public static BlockState getRandomStateInGroup(Identifier identifier, Random random) {
-		Map<BlockState, Float> group = BLOCK_GROUPS.get(identifier);
-		if (group == null || group.size() == 0) {
-			StarrySkies.log(Level.WARN, "Referencing empty/non-existing WeightedBlockGroup: " + identifier + ". Using AIR instead.");
-			return Blocks.AIR.getDefaultState();
-		}
-		return Support.getWeightedRandom(group, random);
 	}
 	
 }

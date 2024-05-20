@@ -1,32 +1,24 @@
 package de.dafuqs.starryskies;
 
-import de.dafuqs.starryskies.dimension.StarrySkyDimension;
-import de.dafuqs.starryskies.mixin.EntityAccessor;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.NetherPortalBlock;
-import net.minecraft.entity.Entity;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
+import de.dafuqs.starryskies.dimension.*;
+import de.dafuqs.starryskies.mixin.*;
+import net.minecraft.block.*;
+import net.minecraft.entity.*;
+import net.minecraft.registry.*;
+import net.minecraft.server.network.*;
+import net.minecraft.server.world.*;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.function.BooleanBiFunction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockLocating;
-import net.minecraft.world.TeleportTarget;
-import net.minecraft.world.World;
-import net.minecraft.world.border.WorldBorder;
-import net.minecraft.world.dimension.DimensionType;
-import net.minecraft.world.dimension.NetherPortal;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.util.function.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.shape.*;
+import net.minecraft.world.*;
+import net.minecraft.world.border.*;
+import net.minecraft.world.dimension.*;
+import org.jetbrains.annotations.*;
 
-import java.util.Optional;
+import java.util.*;
 
-import static org.apache.logging.log4j.Level.ERROR;
+import static org.apache.logging.log4j.Level.*;
 
 public class StarrySkyDimensionTravelHandler {
 	

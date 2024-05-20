@@ -1,12 +1,12 @@
 {
-	"generation_group": "starry_skies:nether/decorative",
-	"generation_weight": 1.5,
-	"min_size": 5,
-	"max_size": 8,
-	"type": "starry_skies:simple",
-	"type_data": {
-		"block": "minecraft:obsidian"
-	},
-	"decorators": {},
-	"spawns": []
+  "generation_group": "starry_skies:nether/decorative",
+  "generation_weight": 1.5,
+  "min_size": 5,
+  "max_size": 8,
+  "type": "starry_skies:simple",
+  "type_data": {
+    "block": "minecraft:obsidian"
+  },
+  "decorators": {},
+  "spawns": []
 }

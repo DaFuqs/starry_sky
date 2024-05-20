@@ -12,7 +12,8 @@ import java.util.*;
 
 public class SpheroidDiscoveredCriterion extends AbstractCriterion<SpheroidDiscoveredCriterion.Conditions> {
 	
-	public record Conditions(Optional<LootContextPredicate> player, List<Identifier> identifiers) implements AbstractCriterion.Conditions {
+	public record Conditions(Optional<LootContextPredicate> player,
+							 List<Identifier> identifiers) implements AbstractCriterion.Conditions {
 		
 		public static final Codec<Conditions> CODEC = RecordCodecBuilder.create(
 				(instance) -> instance.group(

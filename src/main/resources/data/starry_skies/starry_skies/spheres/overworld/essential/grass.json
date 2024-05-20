@@ -1,73 +1,73 @@
 {
-	"generation_group": "starry_skies:overworld/essential",
-	"generation_weight": 10.0,
-	"min_size": 5,
-	"max_size": 20,
-	"type": "starry_skies:modular",
-	"type_data": {
-		"main_block": "minecraft:dirt",
-		"top_block": "minecraft:grass_block"
-	},
-	"decorators": {
-		"starry_skies:ruined_portal": 0.03,
-		"starry_skies:sugar_cane_pond": 0.15,
-		"starry_skies:pink_petals": 0.1,
-		"starry_skies:mod_compat/sandwichable/shrub": 0.2
-	},
-	"spawns": [
-		{
-			"type": "minecraft:cow",
-			"chance": 0.25,
-			"min_count": 2,
-			"max_count": 4
-		},
-		{
-			"type": "minecraft:sheep",
-			"chance": 0.25,
-			"min_count": 2,
-			"max_count": 4
-		},
-		{
-			"type": "minecraft:chicken",
-			"chance": 0.25,
-			"min_count": 2,
-			"max_count": 4
-		},
-		{
-			"type": "minecraft:pig",
-			"chance": 0.25,
-			"min_count": 2,
-			"max_count": 4
-		},
-		{
-			"type": "minecraft:wolf",
-			"chance": 0.08,
-			"min_count": 3,
-			"max_count": 5
-		},
-		{
-			"type": "minecraft:horse",
-			"chance": 0.08,
-			"min_count": 1,
-			"max_count": 3
-		},
-		{
-			"type": "minecraft:donkey",
-			"chance": 0.05,
-			"min_count": 1,
-			"max_count": 3
-		},
-		{
-			"type": "minecraft:mule",
-			"chance": 0.05,
-			"min_count": 1,
-			"max_count": 2
-		},
-		{
-			"type": "minecraft:goat",
-			"chance": 0.05,
-			"min_count": 1,
-			"max_count": 3
-		}
-	]
+  "generation_group": "starry_skies:overworld/essential",
+  "generation_weight": 10.0,
+  "min_size": 5,
+  "max_size": 20,
+  "type": "starry_skies:modular",
+  "type_data": {
+    "main_block": "minecraft:dirt",
+    "top_block": "minecraft:grass_block"
+  },
+  "decorators": {
+    "starry_skies:ruined_portal": 0.03,
+    "starry_skies:sugar_cane_pond": 0.15,
+    "starry_skies:pink_petals": 0.1,
+    "starry_skies:mod_compat/sandwichable/shrub": 0.2
+  },
+  "spawns": [
+    {
+      "type": "minecraft:cow",
+      "chance": 0.25,
+      "min_count": 2,
+      "max_count": 4
+    },
+    {
+      "type": "minecraft:sheep",
+      "chance": 0.25,
+      "min_count": 2,
+      "max_count": 4
+    },
+    {
+      "type": "minecraft:chicken",
+      "chance": 0.25,
+      "min_count": 2,
+      "max_count": 4
+    },
+    {
+      "type": "minecraft:pig",
+      "chance": 0.25,
+      "min_count": 2,
+      "max_count": 4
+    },
+    {
+      "type": "minecraft:wolf",
+      "chance": 0.08,
+      "min_count": 3,
+      "max_count": 5
+    },
+    {
+      "type": "minecraft:horse",
+      "chance": 0.08,
+      "min_count": 1,
+      "max_count": 3
+    },
+    {
+      "type": "minecraft:donkey",
+      "chance": 0.05,
+      "min_count": 1,
+      "max_count": 3
+    },
+    {
+      "type": "minecraft:mule",
+      "chance": 0.05,
+      "min_count": 1,
+      "max_count": 2
+    },
+    {
+      "type": "minecraft:goat",
+      "chance": 0.05,
+      "min_count": 1,
+      "max_count": 3
+    }
+  ]
 }

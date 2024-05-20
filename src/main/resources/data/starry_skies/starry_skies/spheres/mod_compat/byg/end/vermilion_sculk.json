@@ -1,23 +1,23 @@
 {
-	"generation_group": "starry_skies:end/decorative",
-	"generation_weight": 0.5,
-	"min_size": 6,
-	"max_size": 10,
-	"type": "starry_skies:modular",
-	"type_data": {
-		"main_block": "byg:ether_stone",
-		"top_block": "byg:vermilion_sculk"
-	},
-	"decorators": {
-		"starry_skies:mod_compat/byg/shulkren_fungi": 0.9
-	},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"byg"
-			]
-		}
-	]
+  "generation_group": "starry_skies:end/decorative",
+  "generation_weight": 0.5,
+  "min_size": 6,
+  "max_size": 10,
+  "type": "starry_skies:modular",
+  "type_data": {
+    "main_block": "byg:ether_stone",
+    "top_block": "byg:vermilion_sculk"
+  },
+  "decorators": {
+    "starry_skies:mod_compat/byg/shulkren_fungi": 0.9
+  },
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "byg"
+      ]
+    }
+  ]
 }

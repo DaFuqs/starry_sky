@@ -7,6 +7,7 @@ import de.dafuqs.starryskies.commands.*;
 import de.dafuqs.starryskies.configs.*;
 import de.dafuqs.starryskies.data_loaders.*;
 import de.dafuqs.starryskies.dimension.*;
+import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.*;
 import me.shedaniel.autoconfig.*;
 import me.shedaniel.autoconfig.serializer.*;
@@ -22,7 +23,6 @@ import net.minecraft.server.network.*;
 import net.minecraft.server.world.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
-import org.apache.logging.log4j.*;
 
 import static org.apache.logging.log4j.Level.*;
 
@@ -45,9 +45,11 @@ public class StarrySkies implements ModInitializer {
 		AutoConfig.register(StarrySkyConfig.class, JanksonConfigSerializer::new);
 		CONFIG = AutoConfig.getConfigHolder(StarrySkyConfig.class).getConfig();
 		
+		
 		// Register all the stuff
+		StarryRegistries.register();
+		StarryResourceConditionTypes.register();
 		Registry.register(Registries.CHUNK_GENERATOR, new Identifier(MOD_ID, "starry_skies_chunk_generator"), StarrySkyChunkGenerator.CODEC);
-		StarryResourceConditions.register();
 		StarrySkyBiomes.initialize();
 		if (CONFIG.registerStarryPortal) {
 			StarrySkyDimension.setupPortals();
@@ -56,7 +58,7 @@ public class StarrySkies implements ModInitializer {
 		StarryAdvancementCriteria.register();
 		
 		SpheroidTypes.initialize();
-		SpheroidDecoratorTypes.initialize();
+		SpheroidDecoratorType.initialize();
 		
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
 			ClosestSpheroidCommand.register(dispatcher);

@@ -1,24 +1,24 @@
 {
-	"generation_group": "starry_skies:overworld/decorative",
-	"generation_weight": 0.5,
-	"min_size": 10,
-	"max_size": 18,
-	"type": "starry_skies:modular",
-	"type_data": {
-		"main_block": "minecraft:sand",
-		"bottom_block": "minecraft:sandstone"
-	},
-	"decorators": {
-		"starry_skies:center_pond_underwater_ruin_small_chest": 1.0,
-		"starry_skies:mod_compat/byg/beach_grass": 0.25,
-		"starry_skies:mod_compat/byg/prairie_grass": 0.25
-	},
-	"spawns": [
-		{
-			"type": "minecraft:turtle",
-			"chance": 0.7,
-			"min_count": 3,
-			"max_count": 4
-		}
-	]
+  "generation_group": "starry_skies:overworld/decorative",
+  "generation_weight": 0.5,
+  "min_size": 10,
+  "max_size": 18,
+  "type": "starry_skies:modular",
+  "type_data": {
+    "main_block": "minecraft:sand",
+    "bottom_block": "minecraft:sandstone"
+  },
+  "decorators": {
+    "starry_skies:center_pond_underwater_ruin_small_chest": 1.0,
+    "starry_skies:mod_compat/byg/beach_grass": 0.25,
+    "starry_skies:mod_compat/byg/prairie_grass": 0.25
+  },
+  "spawns": [
+    {
+      "type": "minecraft:turtle",
+      "chance": 0.7,
+      "min_count": 3,
+      "max_count": 4
+    }
+  ]
 }

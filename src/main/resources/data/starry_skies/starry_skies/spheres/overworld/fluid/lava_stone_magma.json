@@ -1,29 +1,29 @@
 {
-	"generation_group": "starry_skies:overworld/fluid",
-	"generation_weight": 1.0,
-	"min_size": 5,
-	"max_size": 20,
-	"type": "starry_skies:fluid_core",
-	"type_data": {
-		"fluid": "minecraft:lava",
-		"min_shell_size": 3,
-		"max_shell_size": 6,
-		"min_fill_amount": 0.5,
-		"max_fill_amount": 0.8,
-		"hole_in_bottom_chance": 0.25,
-		"shell_block": {
-			"minecraft:stone": 5,
-			"minecraft:deepslate": 2,
-			"minecraft:granite": 1,
-			"minecraft:diorite": 1,
-			"minecraft:andesite": 1
-		},
-		"core_block": "minecraft:magma_block",
-		"min_core_size": 2,
-		"max_core_size": 5
-	},
-	"decorators": {
-		"starry_skies:x_spot_ruined_portal": 0.1
-	},
-	"spawns": []
+  "generation_group": "starry_skies:overworld/fluid",
+  "generation_weight": 1.0,
+  "min_size": 5,
+  "max_size": 20,
+  "type": "starry_skies:fluid_core",
+  "type_data": {
+    "fluid": "minecraft:lava",
+    "min_shell_size": 3,
+    "max_shell_size": 6,
+    "min_fill_amount": 0.5,
+    "max_fill_amount": 0.8,
+    "hole_in_bottom_chance": 0.25,
+    "shell_block": {
+      "minecraft:stone": 5,
+      "minecraft:deepslate": 2,
+      "minecraft:granite": 1,
+      "minecraft:diorite": 1,
+      "minecraft:andesite": 1
+    },
+    "core_block": "minecraft:magma_block",
+    "min_core_size": 2,
+    "max_core_size": 5
+  },
+  "decorators": {
+    "starry_skies:x_spot_ruined_portal": 0.1
+  },
+  "spawns": []
 }

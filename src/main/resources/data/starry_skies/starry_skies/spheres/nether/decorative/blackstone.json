@@ -1,19 +1,19 @@
 {
-	"generation_group": "starry_skies:nether/decorative",
-	"generation_weight": 2.0,
-	"min_size": 5,
-	"max_size": 10,
-	"type": "starry_skies:shell",
-	"type_data": {
-		"main_block": "minecraft:blackstone",
-		"shell_block": "minecraft:blackstone",
-		"min_shell_size": 1,
-		"max_shell_size": 2,
-		"shell_speckles": {
-			"block": "minecraft:gilded_blackstone",
-			"chance": 0.2
-		}
-	},
-	"decorators": {},
-	"spawns": []
+  "generation_group": "starry_skies:nether/decorative",
+  "generation_weight": 2.0,
+  "min_size": 5,
+  "max_size": 10,
+  "type": "starry_skies:shell",
+  "type_data": {
+    "main_block": "minecraft:blackstone",
+    "shell_block": "minecraft:blackstone",
+    "min_shell_size": 1,
+    "max_shell_size": 2,
+    "shell_speckles": {
+      "block": "minecraft:gilded_blackstone",
+      "chance": 0.2
+    }
+  },
+  "decorators": {},
+  "spawns": []
 }

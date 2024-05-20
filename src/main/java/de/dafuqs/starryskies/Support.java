@@ -1,25 +1,18 @@
 package de.dafuqs.starryskies;
 
-import de.dafuqs.starryskies.dimension.SystemGenerator;
-import de.dafuqs.starryskies.spheroids.spheroids.Spheroid;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
+import de.dafuqs.starryskies.dimension.*;
+import de.dafuqs.starryskies.spheroids.spheroids.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.server.world.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.WorldAccess;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.*;
+import org.jetbrains.annotations.*;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class Support {
 	

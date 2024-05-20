@@ -1,25 +1,17 @@
 package de.dafuqs.starryskies.data_loaders;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import de.dafuqs.starryskies.StarrySkies;
-import de.dafuqs.starryskies.Support;
-import de.dafuqs.starryskies.dimension.SpheroidDimensionType;
-import de.dafuqs.starryskies.spheroids.StarryRegistries;
-import de.dafuqs.starryskies.spheroids.spheroids.Spheroid;
-import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
-import net.minecraft.resource.JsonDataLoader;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.math.random.ChunkRandom;
-import net.minecraft.util.profiler.Profiler;
-import org.apache.logging.log4j.Level;
+import com.google.gson.*;
+import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.spheroids.*;
+import net.fabricmc.fabric.api.resource.*;
+import net.minecraft.resource.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.random.*;
+import net.minecraft.util.profiler.*;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.lang.reflect.*;
+import java.util.*;
 
 public class SpheroidTemplateLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
 	
@@ -27,7 +19,6 @@ public class SpheroidTemplateLoader extends JsonDataLoader implements Identifiab
 	public static final SpheroidTemplateLoader INSTANCE = new SpheroidTemplateLoader();
 	
 	private static LinkedHashMap<Identifier, LinkedHashMap<Spheroid.Template, Float>> WEIGHTED_SPHEROID_TYPES;
-	
 	
 	public static Identifier STARTER_OVERWORLD_ID = StarrySkies.locate("spawn/overworld");
 	public static Identifier STARTER_NETHER_ID = StarrySkies.locate("spawn/nether");
@@ -57,7 +48,7 @@ public class SpheroidTemplateLoader extends JsonDataLoader implements Identifiab
 				spheroidType = Identifier.tryParse(JsonHelper.getString(jsonObject, "type"));
 				
 				try {
-					Class<? extends Spheroid.Template> templateClass = StarryRegistries.SPHEROID_TYPE.get(spheroidType);
+					Spheroid.Template templateClass = StarryRegistries.SPHEROID_TEMPLATE.get(spheroidType);
 					template = templateClass.getConstructor(Identifier.class, jsonObject.getClass()).newInstance(identifier, jsonObject);
 				} catch (NullPointerException e) {
 					if (StarrySkies.CONFIG.packCreatorMode) {

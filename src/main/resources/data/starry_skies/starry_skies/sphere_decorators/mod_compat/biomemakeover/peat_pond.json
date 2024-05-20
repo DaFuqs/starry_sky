@@ -1,17 +1,17 @@
 {
-	"type": "starry_skies:center_pond",
-	"type_data": {
-		"beach_block": "biomemakeover:mossy_peat",
-		"fluid_block": "minecraft:water",
-		"loot_table": "minecraft:chests/underwater_ruin_small",
-		"loot_table_chance": 0.25
-	},
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"biomemakeover"
-			]
-		}
-	]
+  "type": "starry_skies:center_pond",
+  "type_data": {
+    "beach_block": "biomemakeover:mossy_peat",
+    "fluid_block": "minecraft:water",
+    "loot_table": "minecraft:chests/underwater_ruin_small",
+    "loot_table_chance": 0.25
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "biomemakeover"
+      ]
+    }
+  ]
 }

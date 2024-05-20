@@ -1,12 +1,11 @@
 package de.dafuqs.starryskies.mixin;
 
-import net.minecraft.block.entity.EndGatewayBlockEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.gen.feature.EndGatewayFeatureConfig;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
-import org.spongepowered.asm.mixin.gen.Invoker;
+import net.minecraft.block.entity.*;
+import net.minecraft.server.world.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.gen.feature.*;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.gen.*;
 
 @Mixin(EndGatewayBlockEntity.class)
 public interface EndGatewayBlockEntityAccessor {

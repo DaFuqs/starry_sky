@@ -1,15 +1,15 @@
 {
-	"type": "starry_skies:single_block",
-	"type_data": {
-		"block": "betterend:bushy_grass",
-		"chance": 0.25
-	},
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"betterend"
-			]
-		}
-	]
+  "type": "starry_skies:single_block",
+  "type_data": {
+    "block": "betterend:bushy_grass",
+    "chance": 0.25
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "betterend"
+      ]
+    }
+  ]
 }

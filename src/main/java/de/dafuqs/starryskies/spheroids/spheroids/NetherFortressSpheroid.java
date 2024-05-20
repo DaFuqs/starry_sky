@@ -1,34 +1,25 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.google.gson.JsonObject;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import de.dafuqs.starryskies.Support;
-import de.dafuqs.starryskies.spheroids.SpheroidDecorator;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.NetherWartBlock;
-import net.minecraft.entity.EntityType;
-import net.minecraft.loot.LootTables;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.Pair;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.random.ChunkRandom;
+import com.google.gson.*;
+import com.mojang.brigadier.exceptions.*;
+import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.registries.*;
+import net.minecraft.block.*;
+import net.minecraft.entity.*;
+import net.minecraft.loot.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.chunk.Chunk;
+import net.minecraft.util.math.random.*;
+import net.minecraft.world.*;
+import net.minecraft.world.chunk.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class NetherFortressSpheroid extends Spheroid {
 	
 	private final int shellRadius;
 	private final ArrayList<BlockPos> interiorDecoratorPositions = new ArrayList<>();
-	
-	private final Identifier NETHER_BRIDGE_CHEST = LootTables.NETHER_BRIDGE_CHEST;
 	
 	private final BlockState NETHER_BRICKS = Blocks.NETHER_BRICKS.getDefaultState();
 	private final BlockState AIR = Blocks.AIR.getDefaultState();
@@ -39,7 +30,7 @@ public class NetherFortressSpheroid extends Spheroid {
 	
 	
 	public NetherFortressSpheroid(Spheroid.Template template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
-	                              int shellRadius) {
+								  int shellRadius) {
 		
 		super(template, radius, decorators, spawns, random);
 		this.shellRadius = shellRadius;
@@ -181,7 +172,7 @@ public class NetherFortressSpheroid extends Spheroid {
 			}
 		}
 		
-		placeCenterChestWithLootTable(worldAccess.getChunk(blockPos), blockPos, NETHER_BRIDGE_CHEST, random, false);
+		placeCenterChestWithLootTable(worldAccess.getChunk(blockPos), blockPos, LootTables.NETHER_BRIDGE_CHEST, random, false);
 	}
 	
 	private void placeBlazeSpawnerRoom(WorldAccess worldAccess, BlockPos blockPos) {

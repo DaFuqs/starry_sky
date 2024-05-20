@@ -1,20 +1,17 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.google.gson.JsonObject;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import de.dafuqs.starryskies.StarrySkies;
-import de.dafuqs.starryskies.Support;
-import de.dafuqs.starryskies.spheroids.SpheroidDecorator;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityType;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.Pair;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.ChunkRandom;
-import net.minecraft.world.chunk.Chunk;
+import com.google.gson.*;
+import com.mojang.brigadier.exceptions.*;
+import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.registries.*;
+import net.minecraft.block.*;
+import net.minecraft.entity.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.math.random.*;
+import net.minecraft.world.chunk.*;
 
-import java.util.List;
+import java.util.*;
 
 public class ModularSpheroid extends Spheroid {
 	
@@ -23,7 +20,7 @@ public class ModularSpheroid extends Spheroid {
 	private final BlockState bottomBlock;
 	
 	public ModularSpheroid(Spheroid.Template template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
-	                       BlockState mainBlock, BlockState topBlock, BlockState bottomBlock) {
+						   BlockState mainBlock, BlockState topBlock, BlockState bottomBlock) {
 		
 		super(template, radius, decorators, spawns, random);
 		this.mainBlock = mainBlock;

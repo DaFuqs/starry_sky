@@ -1,23 +1,23 @@
 {
-	"generation_group": "starry_skies:nether/ores",
-	"generation_weight": 0.5,
-	"min_size": 7,
-	"max_size": 12,
-	"type": "starry_skies:core",
-	"type_data": {
-		"core_block": "byg:anthracite_ore",
-		"min_core_size": 3,
-		"max_core_size": 6,
-		"main_block": "byg:brimstone"
-	},
-	"decorators": {},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"byg"
-			]
-		}
-	]
+  "generation_group": "starry_skies:nether/ores",
+  "generation_weight": 0.5,
+  "min_size": 7,
+  "max_size": 12,
+  "type": "starry_skies:core",
+  "type_data": {
+    "core_block": "byg:anthracite_ore",
+    "min_core_size": 3,
+    "max_core_size": 6,
+    "main_block": "byg:brimstone"
+  },
+  "decorators": {},
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "byg"
+      ]
+    }
+  ]
 }

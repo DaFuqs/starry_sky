@@ -1,30 +1,30 @@
 {
-	"generation_group": "starry_skies:overworld/treasure",
-	"generation_weight": 0.2,
-	"min_size": 4,
-	"max_size": 7,
-	"type": "starry_skies:mushroom",
-	"type_data": {
-		"mushroom_block": "biomemakeover:purple_glowshroom_block",
-		"stem_block": "biomemakeover:glowshroom_stem",
-		"min_shell_size": 2,
-		"max_shell_size": 3
-	},
-	"decorators": {},
-	"spawns": [
-		{
-			"type": "minecraft:mooshroom",
-			"chance": 0.1,
-			"min_count": 1,
-			"max_count": 3
-		}
-	],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"biomemakeover"
-			]
-		}
-	]
+  "generation_group": "starry_skies:overworld/treasure",
+  "generation_weight": 0.2,
+  "min_size": 4,
+  "max_size": 7,
+  "type": "starry_skies:mushroom",
+  "type_data": {
+    "mushroom_block": "biomemakeover:purple_glowshroom_block",
+    "stem_block": "biomemakeover:glowshroom_stem",
+    "min_shell_size": 2,
+    "max_shell_size": 3
+  },
+  "decorators": {},
+  "spawns": [
+    {
+      "type": "minecraft:mooshroom",
+      "chance": 0.1,
+      "min_count": 1,
+      "max_count": 3
+    }
+  ],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "biomemakeover"
+      ]
+    }
+  ]
 }

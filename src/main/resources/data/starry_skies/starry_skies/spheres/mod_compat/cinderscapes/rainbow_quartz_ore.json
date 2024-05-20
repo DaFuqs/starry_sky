@@ -1,30 +1,30 @@
 {
-	"generation_group": "starry_skies:nether/ores",
-	"generation_weight": 0.2,
-	"min_size": 5,
-	"max_size": 12,
-	"type": "starry_skies:rainbow",
-	"type_data": {
-		"blocks": [
-			"minecraft:nether_quartz_ore",
-			"cinderscapes:sulfur_quartz_ore",
-			"cinderscapes:rose_quartz_ore",
-			"cinderscapes:smoky_quartz_ore"
-		]
-	},
-	"decorators": {
-		"starry_skies:mod_compat/cinderscapes/polypite_quartz": 0.5,
-		"starry_skies:mod_compat/cinderscapes/polypite_sulfur_quartz": 0.5,
-		"starry_skies:mod_compat/cinderscapes/polypite_smoky_quartz": 0.5,
-		"starry_skies:mod_compat/cinderscapes/polypite_rose_quartz": 0.5
-	},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"cinderscapes"
-			]
-		}
-	]
+  "generation_group": "starry_skies:nether/ores",
+  "generation_weight": 0.2,
+  "min_size": 5,
+  "max_size": 12,
+  "type": "starry_skies:rainbow",
+  "type_data": {
+    "blocks": [
+      "minecraft:nether_quartz_ore",
+      "cinderscapes:sulfur_quartz_ore",
+      "cinderscapes:rose_quartz_ore",
+      "cinderscapes:smoky_quartz_ore"
+    ]
+  },
+  "decorators": {
+    "starry_skies:mod_compat/cinderscapes/polypite_quartz": 0.5,
+    "starry_skies:mod_compat/cinderscapes/polypite_sulfur_quartz": 0.5,
+    "starry_skies:mod_compat/cinderscapes/polypite_smoky_quartz": 0.5,
+    "starry_skies:mod_compat/cinderscapes/polypite_rose_quartz": 0.5
+  },
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "cinderscapes"
+      ]
+    }
+  ]
 }

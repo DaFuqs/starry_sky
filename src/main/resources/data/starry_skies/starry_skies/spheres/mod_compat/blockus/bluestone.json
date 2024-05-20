@@ -1,20 +1,20 @@
 {
-	"generation_group": "starry_skies:overworld/decorative",
-	"generation_weight": 1.0,
-	"min_size": 5,
-	"max_size": 12,
-	"type": "starry_skies:simple",
-	"type_data": {
-		"block": "blockus:bluestone"
-	},
-	"decorators": {},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"blockus"
-			]
-		}
-	]
+  "generation_group": "starry_skies:overworld/decorative",
+  "generation_weight": 1.0,
+  "min_size": 5,
+  "max_size": 12,
+  "type": "starry_skies:simple",
+  "type_data": {
+    "block": "blockus:bluestone"
+  },
+  "decorators": {},
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "blockus"
+      ]
+    }
+  ]
 }

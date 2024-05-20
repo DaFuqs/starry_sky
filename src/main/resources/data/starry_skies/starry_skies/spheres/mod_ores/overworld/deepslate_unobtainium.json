@@ -1,23 +1,23 @@
 {
-	"generation_group": "starry_skies:overworld/ores",
-	"generation_weight": 0.02,
-	"min_size": 3,
-	"max_size": 4,
-	"type": "starry_skies:core",
-	"type_data": {
-		"core_block": "%starry_skies:deepslate_unobtainium_ore",
-		"min_core_size": 1,
-		"max_core_size": 1,
-		"main_block": "$starry_skies:deepslates"
-	},
-	"decorators": {},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "starry_skies:unique_block_group_exist",
-			"values": [
-				"starry_skies:deepslate_unobtainium_ore"
-			]
-		}
-	]
+  "generation_group": "starry_skies:overworld/ores",
+  "generation_weight": 0.02,
+  "min_size": 3,
+  "max_size": 4,
+  "type": "starry_skies:core",
+  "type_data": {
+    "core_block": "%starry_skies:deepslate_unobtainium_ore",
+    "min_core_size": 1,
+    "max_core_size": 1,
+    "main_block": "$starry_skies:deepslates"
+  },
+  "decorators": {},
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "starry_skies:unique_block_group_exist",
+      "values": [
+        "starry_skies:deepslate_unobtainium_ore"
+      ]
+    }
+  ]
 }

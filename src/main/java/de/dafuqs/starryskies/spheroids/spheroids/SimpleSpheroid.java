@@ -1,27 +1,24 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.google.gson.JsonObject;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import de.dafuqs.starryskies.StarrySkies;
-import de.dafuqs.starryskies.Support;
-import de.dafuqs.starryskies.spheroids.SpheroidDecorator;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityType;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.Pair;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.ChunkRandom;
-import net.minecraft.world.chunk.Chunk;
+import com.mojang.serialization.*;
+import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.*;
+import net.minecraft.block.*;
+import net.minecraft.entity.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.math.random.*;
+import net.minecraft.world.chunk.*;
 
-import java.util.List;
+import java.util.*;
 
 public class SimpleSpheroid extends Spheroid {
 	
 	private final BlockState blockState;
 	
 	public SimpleSpheroid(Spheroid.Template template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
-	                      BlockState blockState) {
+						  BlockState blockState) {
 		
 		super(template, radius, decorators, spawns, random);
 		this.blockState = blockState;
@@ -29,18 +26,19 @@ public class SimpleSpheroid extends Spheroid {
 	
 	public static class Template extends Spheroid.Template {
 		
-		protected final BlockState blockState;
+		public static final MapCodec<SimpleSpheroid.Template> CODEC = BlockState.CODEC.fieldOf("block").xmap(SimpleSpheroid.Template::new,
+				(template) -> template.state);
 		
-		public Template(Identifier identifier, JsonObject data) throws CommandSyntaxException {
-			super(identifier, data);
-			
-			JsonObject typeData = JsonHelper.getObject(data, "type_data");
-			this.blockState = StarrySkies.getStateFromString(JsonHelper.getString(typeData, "block"));
+		protected final BlockState state;
+		
+		public Template(int minSize, int maxSize, Map<SpheroidDecorator, Float> decorators, List<SpheroidEntitySpawnDefinition> spawns, BlockState state) {
+			super(minSize, maxSize, decorators, spawns);
+			this.state = state;
 		}
 		
 		@Override
 		public SimpleSpheroid generate(ChunkRandom random) {
-			return new SimpleSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, blockState);
+			return new SimpleSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, state);
 		}
 		
 	}

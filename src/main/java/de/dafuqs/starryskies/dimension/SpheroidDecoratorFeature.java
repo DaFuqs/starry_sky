@@ -1,16 +1,14 @@
 package de.dafuqs.starryskies.dimension;
 
-import com.mojang.serialization.Codec;
-import de.dafuqs.starryskies.StarrySkies;
-import de.dafuqs.starryskies.spheroids.spheroids.Spheroid;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.util.FeatureContext;
-import org.apache.logging.log4j.Level;
-import org.jetbrains.annotations.NotNull;
+import com.mojang.serialization.*;
+import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.spheroids.spheroids.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.util.*;
+import org.jetbrains.annotations.*;
 
-import java.util.List;
+import java.util.*;
 
 public class SpheroidDecoratorFeature extends Feature<DefaultFeatureConfig> {
 	

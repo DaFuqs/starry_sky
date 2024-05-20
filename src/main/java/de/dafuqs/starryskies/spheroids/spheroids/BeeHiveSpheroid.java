@@ -4,13 +4,11 @@ import com.google.gson.*;
 import com.mojang.brigadier.exceptions.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.data_loaders.*;
-import de.dafuqs.starryskies.spheroids.*;
+import de.dafuqs.starryskies.registries.*;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
 import net.minecraft.block.enums.*;
 import net.minecraft.entity.*;
-import net.minecraft.nbt.*;
-import net.minecraft.registry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
@@ -28,7 +26,7 @@ public class BeeHiveSpheroid extends Spheroid {
 	private final List<BeehiveBlockEntity> outerBeehiveBlockEntities;
 	
 	public BeeHiveSpheroid(Spheroid.Template template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
-	                       int shellRadius, int flowerRingRadius, int flowerRingSpacing) {
+						   int shellRadius, int flowerRingRadius, int flowerRingSpacing) {
 		
 		super(template, radius, decorators, spawns, random);
 		
@@ -196,22 +194,20 @@ public class BeeHiveSpheroid extends Spheroid {
 	public void populateEntities(ChunkPos chunkPos, ChunkRegion chunkRegion, ChunkRandom chunkRandom) {
 		if (isCenterInChunk(chunkPos)) {
 			if (queenBeehiveBlockEntity != null) {
-				queenBeehiveBlockEntity.addBee(getBee(), random.nextInt(599), false);
+				queenBeehiveBlockEntity.addBee(getBee());
 			}
 			
 			for (BeehiveBlockEntity beehiveBlockEntity : this.outerBeehiveBlockEntities) {
 				int beeCount = 2 + random.nextInt(2);
-				for(int j = 0; j < beeCount; ++j) {
-					beehiveBlockEntity.addBee(getBee(), random.nextInt(599), false);
+				for (int j = 0; j < beeCount; ++j) {
+					beehiveBlockEntity.addBee(getBee());
 				}
 			}
 		}
 	}
 	
-	public NbtCompound getBee() {
-		NbtCompound nbtCompound = new NbtCompound();
-		nbtCompound.putString("id", Registries.ENTITY_TYPE.getId(EntityType.BEE).toString());
-		return nbtCompound;
+	public BeehiveBlockEntity.BeeData getBee() {
+		return BeehiveBlockEntity.BeeData.create(random.nextInt(599));
 	}
 	
 }

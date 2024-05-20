@@ -1,19 +1,19 @@
 {
-	"generation_group": "starry_skies:overworld/decorative",
-	"generation_weight": 0.1,
-	"min_size": 5,
-	"max_size": 16,
-	"type": "starry_skies:stacked_horizontal",
-	"type_data": {
-		"blocks": [
-			"minecraft:red_wool",
-			"minecraft:orange_wool",
-			"minecraft:yellow_wool",
-			"minecraft:green_wool",
-			"minecraft:cyan_wool",
-			"minecraft:purple_wool"
-		]
-	},
-	"decorators": {},
-	"spawns": []
+  "generation_group": "starry_skies:overworld/decorative",
+  "generation_weight": 0.1,
+  "min_size": 5,
+  "max_size": 16,
+  "type": "starry_skies:stacked_horizontal",
+  "type_data": {
+    "blocks": [
+      "minecraft:red_wool",
+      "minecraft:orange_wool",
+      "minecraft:yellow_wool",
+      "minecraft:green_wool",
+      "minecraft:cyan_wool",
+      "minecraft:purple_wool"
+    ]
+  },
+  "decorators": {},
+  "spawns": []
 }

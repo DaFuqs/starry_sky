@@ -1,29 +1,29 @@
 {
-	"generation_group": "starry_skies:overworld/treasure",
-	"generation_weight": 1.0,
-	"min_size": 5,
-	"max_size": 16,
-	"type": "starry_skies:rainbow",
-	"type_data": {
-		"blocks": [
-			"white_wool",
-			"light_gray_wool",
-			"gray_wool",
-			"black_wool",
-			"brown_wool",
-			"red_wool",
-			"orange_wool",
-			"yellow_wool",
-			"lime_wool",
-			"green_wool",
-			"cyan_wool",
-			"light_blue_wool",
-			"blue_wool",
-			"purple_wool",
-			"magenta_wool",
-			"pink_wool"
-		]
-	},
-	"decorators": {},
-	"spawns": []
+  "generation_group": "starry_skies:overworld/treasure",
+  "generation_weight": 1.0,
+  "min_size": 5,
+  "max_size": 16,
+  "type": "starry_skies:rainbow",
+  "type_data": {
+    "blocks": [
+      "white_wool",
+      "light_gray_wool",
+      "gray_wool",
+      "black_wool",
+      "brown_wool",
+      "red_wool",
+      "orange_wool",
+      "yellow_wool",
+      "lime_wool",
+      "green_wool",
+      "cyan_wool",
+      "light_blue_wool",
+      "blue_wool",
+      "purple_wool",
+      "magenta_wool",
+      "pink_wool"
+    ]
+  },
+  "decorators": {},
+  "spawns": []
 }

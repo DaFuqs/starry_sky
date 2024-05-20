@@ -1,9 +1,9 @@
 {
-	"type": "starry_skies:bamboo",
-	"type_data": {
-		"bamboo_block": "minecraft:bamboo",
-		"sapling_block": "minecraft:bamboo_sapling",
-		"chance": 0.075,
-		"sapling_chance": 0.15
-	}
+  "type": "starry_skies:bamboo",
+  "type_data": {
+    "bamboo_block": "minecraft:bamboo",
+    "sapling_block": "minecraft:bamboo_sapling",
+    "chance": 0.075,
+    "sapling_chance": 0.15
+  }
 }

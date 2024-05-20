@@ -1,16 +1,14 @@
 package de.dafuqs.starryskies.dimension;
 
-import de.dafuqs.starryskies.StarrySkies;
-import net.kyrptonaught.customportalapi.CustomPortalApiRegistry;
-import net.kyrptonaught.customportalapi.util.PortalLink;
-import net.minecraft.block.Block;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import de.dafuqs.starryskies.*;
+import net.kyrptonaught.customportalapi.*;
+import net.kyrptonaught.customportalapi.util.*;
+import net.minecraft.block.*;
+import net.minecraft.registry.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 
-import static org.apache.logging.log4j.Level.INFO;
+import static org.apache.logging.log4j.Level.*;
 
 public class StarrySkyDimension {
 	

@@ -1,24 +1,24 @@
 {
-	"generation_group": "starry_skies:overworld/fluid",
-	"generation_weight": 3.0,
-	"min_size": 5,
-	"max_size": 20,
-	"type": "starry_skies:fluid",
-	"type_data": {
-		"fluid": "minecraft:lava",
-		"min_shell_size": 2,
-		"max_shell_size": 6,
-		"min_fill_amount": 0.1,
-		"max_fill_amount": 1.0,
-		"hole_in_bottom_chance": 0.25,
-		"shell_block": {
-			"minecraft:stone": 5,
-			"minecraft:deepslate": 2,
-			"minecraft:granite": 1,
-			"minecraft:diorite": 1,
-			"minecraft:andesite": 1
-		}
-	},
-	"decorators": {},
-	"spawns": []
+  "generation_group": "starry_skies:overworld/fluid",
+  "generation_weight": 3.0,
+  "min_size": 5,
+  "max_size": 20,
+  "type": "starry_skies:fluid",
+  "type_data": {
+    "fluid": "minecraft:lava",
+    "min_shell_size": 2,
+    "max_shell_size": 6,
+    "min_fill_amount": 0.1,
+    "max_fill_amount": 1.0,
+    "hole_in_bottom_chance": 0.25,
+    "shell_block": {
+      "minecraft:stone": 5,
+      "minecraft:deepslate": 2,
+      "minecraft:granite": 1,
+      "minecraft:diorite": 1,
+      "minecraft:andesite": 1
+    }
+  },
+  "decorators": {},
+  "spawns": []
 }

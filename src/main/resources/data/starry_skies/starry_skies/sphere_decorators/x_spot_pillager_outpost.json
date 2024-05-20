@@ -1,7 +1,7 @@
 {
-	"type": "starry_skies:x_spot",
-	"type_data": {
-		"loot_table": "minecraft:chests/pillager_outpost",
-		"marking_block": "minecraft:stripped_dark_oak_wood"
-	}
+  "type": "starry_skies:x_spot",
+  "type_data": {
+    "loot_table": "minecraft:chests/pillager_outpost",
+    "marking_block": "minecraft:stripped_dark_oak_wood"
+  }
 }

@@ -1,29 +1,21 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.google.gson.JsonObject;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import de.dafuqs.starryskies.StarrySkies;
-import de.dafuqs.starryskies.Support;
-import de.dafuqs.starryskies.spheroids.SpheroidDecorator;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.Pair;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MathHelper;
+import com.google.gson.*;
+import com.mojang.brigadier.exceptions.*;
+import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.registries.*;
+import net.minecraft.block.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.mob.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
-import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import static org.apache.logging.log4j.Level.WARN;
+import static org.apache.logging.log4j.Level.*;
 
 public class OceanMonumentSpheroid extends Spheroid {
 	
@@ -40,7 +32,7 @@ public class OceanMonumentSpheroid extends Spheroid {
 	private final ArrayList<BlockPos> guardianPositions = new ArrayList<>();
 	
 	public OceanMonumentSpheroid(Spheroid.Template template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
-	                             int coreRadius, int shellRadius) {
+								 int coreRadius, int shellRadius) {
 		
 		super(template, radius, decorators, spawns, random);
 		this.coreRadius = coreRadius;
@@ -146,7 +138,7 @@ public class OceanMonumentSpheroid extends Spheroid {
 	public void populateEntities(ChunkPos chunkPos, ChunkRegion chunkRegion, ChunkRandom chunkRandom) {
 		for (BlockPos guardianPosition : guardianPositions) {
 			if (Support.isBlockPosInChunkPos(chunkPos, guardianPosition)) {
-
+				
 				MobEntity mobentity;
 				if (random.nextFloat() < 0.08) {
 					mobentity = EntityType.ELDER_GUARDIAN.create(chunkRegion.toServerWorld());
@@ -163,7 +155,7 @@ public class OceanMonumentSpheroid extends Spheroid {
 						mobentity.refreshPositionAndAngles(xLength, guardianPosition.getY(), zLength, random.nextFloat() * 360.0F, 0.0F);
 						mobentity.setPersistent();
 						if (mobentity.canSpawn(chunkRegion, SpawnReason.CHUNK_GENERATION) && mobentity.canSpawn(chunkRegion)) {
-							mobentity.initialize(chunkRegion, chunkRegion.getLocalDifficulty(mobentity.getBlockPos()), SpawnReason.CHUNK_GENERATION, null, null);
+							mobentity.initialize(chunkRegion, chunkRegion.getLocalDifficulty(mobentity.getBlockPos()), SpawnReason.CHUNK_GENERATION, null);
 							boolean success = chunkRegion.spawnEntity(mobentity);
 							if (!success) {
 								return;

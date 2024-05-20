@@ -1,6 +1,6 @@
 package de.dafuqs.starryskies.spheroids;
 
-import net.minecraft.entity.EntityType;
+import net.minecraft.entity.*;
 
 public class SpheroidEntitySpawnDefinition {
 	

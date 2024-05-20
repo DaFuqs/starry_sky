@@ -1,37 +1,29 @@
 package de.dafuqs.starryskies.data_loaders;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import de.dafuqs.starryskies.StarrySkies;
-import de.dafuqs.starryskies.Support;
-import de.dafuqs.starryskies.dimension.SpheroidDimensionType;
-import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
-import net.minecraft.resource.JsonDataLoader;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.math.random.ChunkRandom;
-import net.minecraft.util.profiler.Profiler;
-import org.jetbrains.annotations.NotNull;
+import com.google.gson.*;
+import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.registries.*;
+import net.fabricmc.fabric.api.resource.*;
+import net.minecraft.registry.*;
+import net.minecraft.resource.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.random.*;
+import net.minecraft.util.profiler.*;
+import org.jetbrains.annotations.*;
 
 import java.util.*;
 
 public class SpheroidDistributionLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
 	
-	public static final String ID = "starry_skies/distributions";
+	public static final String ID = "starry_skies/distribution_type";
 	public static final SpheroidDistributionLoader INSTANCE = new SpheroidDistributionLoader();
 	
-	private static Map<SpheroidDimensionType, Map<Identifier, Float>> DISTRIBUTION_TYPES;
+	public record SpheroidDistributionType(SpheroidDimensionType dimensionType, Map<Identifier, Float> distribution) {
+	
+	}
 	
 	protected SpheroidDistributionLoader() {
 		super(new Gson(), ID);
-		
-		// initialize spheroid types list with empty LinkedHashMaps
-		DISTRIBUTION_TYPES = new HashMap<>();
-		for (SpheroidDimensionType dimensionType : SpheroidDimensionType.values()) {
-			DISTRIBUTION_TYPES.put(dimensionType, new LinkedHashMap<>());
-		}
 	}
 	
 	@Override
@@ -43,6 +35,10 @@ public class SpheroidDistributionLoader extends JsonDataLoader implements Identi
 			float weight = JsonHelper.getFloat(jsonObject, "weight");
 			
 			register(dimensionType, identifier, weight);
+			
+			SpheroidDistributionType distributionType = new SpheroidDistributionType();
+			
+			Registry.register(StarryRegistries.SPHEROID_DISTRIBUTION_TYPE, identifier, distributionType);
 		});
 	}
 	

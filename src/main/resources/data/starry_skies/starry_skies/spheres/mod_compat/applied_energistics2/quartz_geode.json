@@ -1,26 +1,26 @@
 {
-	"generation_group": "starry_skies:overworld/treasure",
-	"generation_weight": 1.0,
-	"min_size": 6,
-	"max_size": 10,
-	"type": "starry_skies:geode",
-	"type_data": {
-		"inner_block": "ae2:quartz_block",
-		"inner_speckles_block": "ae2:damaged_budding_quartz",
-		"inner_speckles_block_chance": 0.08,
-		"middle_block": "ae2:sky_stone_block",
-		"outer_block": "ae2:sky_stone_block"
-	},
-	"decorators": {
-		"starry_skies:mod_compat/ae2/x_spot_presses": 1.0
-	},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"ae2"
-			]
-		}
-	]
+  "generation_group": "starry_skies:overworld/treasure",
+  "generation_weight": 1.0,
+  "min_size": 6,
+  "max_size": 10,
+  "type": "starry_skies:geode",
+  "type_data": {
+    "inner_block": "ae2:quartz_block",
+    "inner_speckles_block": "ae2:damaged_budding_quartz",
+    "inner_speckles_block_chance": 0.08,
+    "middle_block": "ae2:sky_stone_block",
+    "outer_block": "ae2:sky_stone_block"
+  },
+  "decorators": {
+    "starry_skies:mod_compat/ae2/x_spot_presses": 1.0
+  },
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "ae2"
+      ]
+    }
+  ]
 }

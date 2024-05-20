@@ -1,18 +1,18 @@
 {
-	"type": "starry_skies:huge_hanging_plant",
-	"type_data": {
-		"block": "betternether:eye_vine",
-		"last_block": "betternether:eyeball",
-		"min_height": 4,
-		"max_height": 8,
-		"chance": 0.1
-	},
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"betternether"
-			]
-		}
-	]
+  "type": "starry_skies:huge_hanging_plant",
+  "type_data": {
+    "block": "betternether:eye_vine",
+    "last_block": "betternether:eyeball",
+    "min_height": 4,
+    "max_height": 8,
+    "chance": 0.1
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "betternether"
+      ]
+    }
+  ]
 }

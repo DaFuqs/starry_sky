@@ -1,21 +1,21 @@
 {
-	"generation_group": "starry_skies:nether/fluid",
-	"generation_weight": 4.0,
-	"min_size": 5,
-	"max_size": 20,
-	"type": "starry_skies:fluid_core",
-	"type_data": {
-		"fluid": "minecraft:lava",
-		"min_shell_size": 2,
-		"max_shell_size": 5,
-		"min_fill_amount": 0.5,
-		"max_fill_amount": 1.0,
-		"hole_in_bottom_chance": 0.50,
-		"shell_block": "$starry_skies:nether_glass",
-		"core_block": "minecraft:magma_block",
-		"min_core_size": 2,
-		"max_core_size": 5
-	},
-	"decorators": {},
-	"spawns": []
+  "generation_group": "starry_skies:nether/fluid",
+  "generation_weight": 4.0,
+  "min_size": 5,
+  "max_size": 20,
+  "type": "starry_skies:fluid_core",
+  "type_data": {
+    "fluid": "minecraft:lava",
+    "min_shell_size": 2,
+    "max_shell_size": 5,
+    "min_fill_amount": 0.5,
+    "max_fill_amount": 1.0,
+    "hole_in_bottom_chance": 0.50,
+    "shell_block": "$starry_skies:nether_glass",
+    "core_block": "minecraft:magma_block",
+    "min_core_size": 2,
+    "max_core_size": 5
+  },
+  "decorators": {},
+  "spawns": []
 }

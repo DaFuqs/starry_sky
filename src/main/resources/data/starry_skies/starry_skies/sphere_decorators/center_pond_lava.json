@@ -1,9 +1,9 @@
 {
-	"type": "starry_skies:center_pond",
-	"type_data": {
-		"beach_block": "minecraft:obsidian",
-		"fluid_block": "minecraft:lava",
-		"loot_table": "minecraft:chests/ruined_portal",
-		"loot_table_chance": 0.25
-	}
+  "type": "starry_skies:center_pond",
+  "type_data": {
+    "beach_block": "minecraft:obsidian",
+    "fluid_block": "minecraft:lava",
+    "loot_table": "minecraft:chests/ruined_portal",
+    "loot_table_chance": 0.25
+  }
 }

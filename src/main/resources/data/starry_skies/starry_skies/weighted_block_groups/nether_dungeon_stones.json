@@ -1,7 +1,7 @@
 {
-	"minecraft:nether_bricks": 5.0,
-	"minecraft:blackstone": 1.0,
-	"minecraft:netherrack": 0.5,
-	"minecraft:magma_block": 0.2,
-	"minecraft:obsidian": 0.2
+  "minecraft:nether_bricks": 5.0,
+  "minecraft:blackstone": 1.0,
+  "minecraft:netherrack": 0.5,
+  "minecraft:magma_block": 0.2,
+  "minecraft:obsidian": 0.2
 }

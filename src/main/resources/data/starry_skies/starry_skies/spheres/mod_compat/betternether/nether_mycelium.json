@@ -1,27 +1,27 @@
 {
-	"generation_group": "starry_skies:nether/decorative",
-	"generation_weight": 1.0,
-	"min_size": 8,
-	"max_size": 20,
-	"type": "starry_skies:modular",
-	"type_data": {
-		"main_block": "minecraft:nether_wart_block",
-		"top_block": "betternether:nether_mycelium"
-	},
-	"decorators": {
-		"starry_skies:mod_compat/betternether/gray_mold": 0.9,
-		"starry_skies:mod_compat/betternether/red_mold": 0.9,
-		"starry_skies:mod_compat/betternether/orange_mushrooms": 0.9,
-		"starry_skies:mod_compat/betternether/mushroom_fir_saplings": 0.9,
-		"starry_skies:mod_compat/betternether/giant_mold_saplings": 0.9
-	},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"betternether"
-			]
-		}
-	]
+  "generation_group": "starry_skies:nether/decorative",
+  "generation_weight": 1.0,
+  "min_size": 8,
+  "max_size": 20,
+  "type": "starry_skies:modular",
+  "type_data": {
+    "main_block": "minecraft:nether_wart_block",
+    "top_block": "betternether:nether_mycelium"
+  },
+  "decorators": {
+    "starry_skies:mod_compat/betternether/gray_mold": 0.9,
+    "starry_skies:mod_compat/betternether/red_mold": 0.9,
+    "starry_skies:mod_compat/betternether/orange_mushrooms": 0.9,
+    "starry_skies:mod_compat/betternether/mushroom_fir_saplings": 0.9,
+    "starry_skies:mod_compat/betternether/giant_mold_saplings": 0.9
+  },
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "betternether"
+      ]
+    }
+  ]
 }

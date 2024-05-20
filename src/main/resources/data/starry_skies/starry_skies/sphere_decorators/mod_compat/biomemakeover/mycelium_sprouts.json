@@ -1,15 +1,15 @@
 {
-	"type": "starry_skies:single_block",
-	"type_data": {
-		"block": "biomemakeover:mycelium_sprouts",
-		"chance": 0.03
-	},
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"biomemakeover"
-			]
-		}
-	]
+  "type": "starry_skies:single_block",
+  "type_data": {
+    "block": "biomemakeover:mycelium_sprouts",
+    "chance": 0.03
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "biomemakeover"
+      ]
+    }
+  ]
 }

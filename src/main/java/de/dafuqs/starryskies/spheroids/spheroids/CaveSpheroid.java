@@ -1,22 +1,20 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.google.gson.JsonObject;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import de.dafuqs.starryskies.StarrySkies;
-import de.dafuqs.starryskies.Support;
-import de.dafuqs.starryskies.spheroids.BlockStateSupplier;
-import de.dafuqs.starryskies.spheroids.SpheroidDecorator;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.Pair;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.ChunkRandom;
-import net.minecraft.world.chunk.Chunk;
+import com.google.gson.*;
+import com.mojang.brigadier.exceptions.*;
+import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.*;
+import net.minecraft.block.*;
+import net.minecraft.entity.*;
+import net.minecraft.loot.*;
+import net.minecraft.registry.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.math.random.*;
+import net.minecraft.world.chunk.*;
 
-import java.util.List;
+import java.util.*;
 
 public class CaveSpheroid extends Spheroid {
 	
@@ -26,10 +24,10 @@ public class CaveSpheroid extends Spheroid {
 	private final BlockState bottomBlock;
 	private final BlockState shellBlock;
 	private final float shellRadius;
-	Identifier chestLootTable;
+	RegistryKey<LootTable> chestLootTable;
 	
 	public CaveSpheroid(Spheroid.Template template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
-	                    BlockState caveFloorBlock, BlockState shellBlock, float shellRadius, BlockState topBlock, BlockState bottomBlock, Identifier chestLootTable) {
+						BlockState caveFloorBlock, BlockState shellBlock, float shellRadius, BlockState topBlock, BlockState bottomBlock, RegistryKey<LootTable> chestLootTable) {
 		
 		super(template, radius, decorators, spawns, random);
 		
@@ -49,7 +47,7 @@ public class CaveSpheroid extends Spheroid {
 		private BlockState caveFloorBlock = null;
 		private BlockState topBlock = null;
 		private BlockState bottomBlock = null;
-		private Identifier lootTable = null;
+		private RegistryKey<LootTable> lootTable = null;
 		private float lootTableChance = 0;
 		
 		public Template(Identifier identifier, JsonObject data) throws CommandSyntaxException {
@@ -70,7 +68,7 @@ public class CaveSpheroid extends Spheroid {
 			}
 			if (JsonHelper.hasJsonObject(typeData, "treasure_chest")) {
 				JsonObject treasureChestObject = JsonHelper.getObject(typeData, "treasure_chest");
-				this.lootTable = Identifier.tryParse(JsonHelper.getString(treasureChestObject, "loot_table"));
+				this.lootTable = RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.tryParse(JsonHelper.getString(treasureChestObject, "loot_table")));
 				this.lootTableChance = JsonHelper.getFloat(treasureChestObject, "chance");
 			}
 		}
@@ -79,7 +77,7 @@ public class CaveSpheroid extends Spheroid {
 		public CaveSpheroid generate(ChunkRandom random) {
 			int shellRadius = Support.getRandomBetween(random, this.minShellRadius, this.maxShellRadius);
 			
-			Identifier lootTable = null;
+			RegistryKey<LootTable> lootTable = null;
 			if (random.nextFloat() < lootTableChance) {
 				lootTable = this.lootTable;
 			}

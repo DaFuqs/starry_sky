@@ -1,9 +1,9 @@
 {
-	"type": "starry_skies:center_pond",
-	"type_data": {
-		"beach_block": "minecraft:sand",
-		"fluid_block": "minecraft:water",
-		"loot_table": "minecraft:chests/shipwreck_treasure.json",
-		"loot_table_chance": 0.5
-	}
+  "type": "starry_skies:center_pond",
+  "type_data": {
+    "beach_block": "minecraft:sand",
+    "fluid_block": "minecraft:water",
+    "loot_table": "minecraft:chests/shipwreck_treasure.json",
+    "loot_table_chance": 0.5
+  }
 }

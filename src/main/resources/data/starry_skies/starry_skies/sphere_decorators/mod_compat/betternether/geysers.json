@@ -1,15 +1,15 @@
 {
-	"type": "starry_skies:hanging_block",
-	"type_data": {
-		"block": "betternether:geyser",
-		"chance": 0.08
-	},
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"betternether"
-			]
-		}
-	]
+  "type": "starry_skies:hanging_block",
+  "type_data": {
+    "block": "betternether:geyser",
+    "chance": 0.08
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "betternether"
+      ]
+    }
+  ]
 }

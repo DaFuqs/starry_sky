@@ -1,29 +1,29 @@
 {
-	"generation_group": "starry_skies:overworld/decorative",
-	"generation_weight": 2.0,
-	"min_size": 5,
-	"max_size": 20,
-	"type": "starry_skies:cave",
-	"type_data": {
-		"min_shell_size": 2,
-		"max_shell_size": 3,
-		"shell_block": {
-			"minecraft:stone": 1000,
-			"minecraft:deepslate": 250,
-			"minecraft:granite": 100,
-			"minecraft:diorite": 100,
-			"minecraft:andesite": 100,
-			"minecraft:cobblestone": 10,
-			"minecraft:mossy_cobblestone": 1
-		},
-		"treasure_chest": {
-			"loot_table": "minecraft:chests/abandoned_mineshaft_chest",
-			"chance": 0.5
-		}
-	},
-	"decorators": {
-		"starry_skies:red_mushrooms": 0.3,
-		"starry_skies:brown_mushrooms": 0.3
-	},
-	"spawns": []
+  "generation_group": "starry_skies:overworld/decorative",
+  "generation_weight": 2.0,
+  "min_size": 5,
+  "max_size": 20,
+  "type": "starry_skies:cave",
+  "type_data": {
+    "min_shell_size": 2,
+    "max_shell_size": 3,
+    "shell_block": {
+      "minecraft:stone": 1000,
+      "minecraft:deepslate": 250,
+      "minecraft:granite": 100,
+      "minecraft:diorite": 100,
+      "minecraft:andesite": 100,
+      "minecraft:cobblestone": 10,
+      "minecraft:mossy_cobblestone": 1
+    },
+    "treasure_chest": {
+      "loot_table": "minecraft:chests/abandoned_mineshaft_chest",
+      "chance": 0.5
+    }
+  },
+  "decorators": {
+    "starry_skies:red_mushrooms": 0.3,
+    "starry_skies:brown_mushrooms": 0.3
+  },
+  "spawns": []
 }

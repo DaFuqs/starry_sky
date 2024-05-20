@@ -1,18 +1,18 @@
 {
-	"type": "starry_skies:huge_hanging_plant",
-	"type_data": {
-		"block": "betternether:blooming_vine[bottom=false]",
-		"last_block": "betternether:blooming_vine[bottom=true]",
-		"min_height": 1,
-		"max_height": 6,
-		"chance": 0.2
-	},
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"betternether"
-			]
-		}
-	]
+  "type": "starry_skies:huge_hanging_plant",
+  "type_data": {
+    "block": "betternether:blooming_vine[bottom=false]",
+    "last_block": "betternether:blooming_vine[bottom=true]",
+    "min_height": 1,
+    "max_height": 6,
+    "chance": 0.2
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "betternether"
+      ]
+    }
+  ]
 }

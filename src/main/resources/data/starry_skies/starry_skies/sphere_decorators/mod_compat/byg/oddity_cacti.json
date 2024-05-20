@@ -1,17 +1,17 @@
 {
-	"type": "starry_skies:stacked_block",
-	"type_data": {
-		"block": "byg:nightshade_sprouts",
-		"chance": 0.2,
-		"min_height": 1,
-		"max_height": 3
-	},
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"byg"
-			]
-		}
-	]
+  "type": "starry_skies:stacked_block",
+  "type_data": {
+    "block": "byg:nightshade_sprouts",
+    "chance": 0.2,
+    "min_height": 1,
+    "max_height": 3
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "byg"
+      ]
+    }
+  ]
 }

@@ -1,6 +1,6 @@
 {
-	"type": "starry_skies:dripleaf",
-	"type_data": {
-		"tries": 8
-	}
+  "type": "starry_skies:dripleaf",
+  "type_data": {
+    "tries": 8
+  }
 }

@@ -1,12 +1,12 @@
 {
-	"generation_group": "starry_skies:overworld/essential",
-	"generation_weight": 8.0,
-	"min_size": 5,
-	"max_size": 10,
-	"type": "starry_skies:simple",
-	"type_data": {
-		"block": "minecraft:glowstone"
-	},
-	"decorators": {},
-	"spawns": []
+  "generation_group": "starry_skies:overworld/essential",
+  "generation_weight": 8.0,
+  "min_size": 5,
+  "max_size": 10,
+  "type": "starry_skies:simple",
+  "type_data": {
+    "block": "minecraft:glowstone"
+  },
+  "decorators": {},
+  "spawns": []
 }

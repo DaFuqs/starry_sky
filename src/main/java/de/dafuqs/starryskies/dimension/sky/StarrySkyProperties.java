@@ -1,11 +1,10 @@
 package de.dafuqs.starryskies.dimension.sky;
 
-import de.dafuqs.starryskies.StarrySkies;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.render.DimensionEffects;
-import net.minecraft.util.math.Vec3d;
-import org.jetbrains.annotations.NotNull;
+import de.dafuqs.starryskies.*;
+import net.fabricmc.api.*;
+import net.minecraft.client.render.*;
+import net.minecraft.util.math.*;
+import org.jetbrains.annotations.*;
 
 @Environment(EnvType.CLIENT)
 public class StarrySkyProperties extends DimensionEffects {

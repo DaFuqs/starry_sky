@@ -1,47 +1,29 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import de.dafuqs.starryskies.StarrySkies;
-import de.dafuqs.starryskies.Support;
-import de.dafuqs.starryskies.data_loaders.SpheroidDecoratorLoader;
-import de.dafuqs.starryskies.spheroids.SpheroidDecorator;
-import de.dafuqs.starryskies.spheroids.SpheroidEntitySpawnDefinition;
+import com.google.gson.*;
+import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.data_loaders.*;
+import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.*;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.block.entity.LootableContainerBlockEntity;
-import net.minecraft.block.entity.MobSpawnerBlockEntity;
+import net.minecraft.block.entity.*;
 import net.minecraft.command.argument.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.Pair;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.random.ChunkRandom;
+import net.minecraft.entity.*;
+import net.minecraft.entity.mob.*;
+import net.minecraft.loot.*;
+import net.minecraft.registry.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.chunk.Chunk;
-import org.apache.logging.log4j.Level;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.chunk.*;
+import org.jetbrains.annotations.*;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 
-import static org.apache.logging.log4j.Level.WARN;
+import static org.apache.logging.log4j.Level.*;
 
 public abstract class Spheroid implements Serializable {
 	
@@ -94,7 +76,7 @@ public abstract class Spheroid implements Serializable {
 	}
 	
 	public void decorate(StructureWorldAccess world, BlockPos origin, Random random) {
-		if (this.decorators.size() > 0) {
+		if (!this.decorators.isEmpty()) {
 			for (SpheroidDecorator decorator : this.decorators) {
 				StarrySkies.log(Level.DEBUG, "Decorator: " + decorator.getClass());
 				try {
@@ -132,16 +114,16 @@ public abstract class Spheroid implements Serializable {
 	
 	protected void setBlockResult(Chunk chunk, BlockPos pos, BlockArgumentParser.BlockResult block) {
 		chunk.setBlockState(pos, block.blockState(), false);
-		if(block.blockState().getBlock() instanceof BlockEntityProvider blockEntityProvider) {
+		if (block.blockState().getBlock() instanceof BlockEntityProvider blockEntityProvider) {
 			BlockEntity blockEntity = blockEntityProvider.createBlockEntity(pos, block.blockState());
 			if (blockEntity != null) {
 				chunk.setBlockEntity(blockEntity);
-				blockEntity.readNbt(block.nbt());
+				blockEntity.read(block.nbt(), world.getRegistryManager());
 			}
 		}
 	}
 	
-	protected void placeCenterChestWithLootTable(Chunk chunk, BlockPos blockPos, Identifier lootTable, Random random, boolean waterLogged) {
+	protected void placeCenterChestWithLootTable(Chunk chunk, BlockPos blockPos, RegistryKey<LootTable> lootTable, Random random, boolean waterLogged) {
 		BlockState chestBlockState;
 		if (waterLogged) {
 			chestBlockState = Blocks.CHEST.getDefaultState().with(ChestBlock.WATERLOGGED, true);
@@ -149,8 +131,10 @@ public abstract class Spheroid implements Serializable {
 			chestBlockState = Blocks.CHEST.getDefaultState();
 		}
 		chunk.setBlockState(blockPos, chestBlockState, false);
+		
+		LootableContainerBlockEntity blockEntity = new ChestBlockEntity(blockPos, chestBlockState);
 		chunk.setBlockEntity(new ChestBlockEntity(blockPos, chestBlockState));
-		LootableContainerBlockEntity.setLootTable(chunk, random, blockPos, lootTable);
+		blockEntity.setLootTable(lootTable, random.nextLong());
 	}
 	
 	public void populateEntities(ChunkPos chunkPos, ChunkRegion chunkRegion, ChunkRandom chunkRandom) {
@@ -182,7 +166,7 @@ public abstract class Spheroid implements Serializable {
 								entity.refreshPositionAndAngles(xPos, height, zLength, chunkRandom.nextFloat() * 360.0F, 0.0F);
 								if (entity instanceof MobEntity mobentity) {
 									if (mobentity.canSpawn(chunkRegion, SpawnReason.CHUNK_GENERATION) && mobentity.canSpawn(chunkRegion)) {
-										mobentity.initialize(chunkRegion, chunkRegion.getLocalDifficulty(mobentity.getBlockPos()), SpawnReason.CHUNK_GENERATION, null, null);
+										mobentity.initialize(chunkRegion, chunkRegion.getLocalDifficulty(mobentity.getBlockPos()), SpawnReason.CHUNK_GENERATION, null);
 										boolean success = chunkRegion.spawnEntity(mobentity);
 										if (!success) {
 											return;
@@ -214,34 +198,27 @@ public abstract class Spheroid implements Serializable {
 	
 	public static abstract class Template {
 		
-		protected final Identifier id;
 		protected final int minSize;
 		protected final int maxSize;
 		protected Map<SpheroidDecorator, Float> decorators;
 		protected List<SpheroidEntitySpawnDefinition> spawns;
 		
-		public Template(Identifier identifier, JsonObject jsonObject) throws CommandSyntaxException {
-			this(identifier,
-					JsonHelper.getInt(jsonObject, "min_size"),
-					JsonHelper.getInt(jsonObject, "max_size"),
-					readDecorators(JsonHelper.getObject(jsonObject, "decorators"), identifier),
-					readSpawns(JsonHelper.getArray(jsonObject, "spawns"))
-			);
-		}
-		
-		public Identifier getID() {
-			return id;
+		public Template(int minSize, int maxSize, Map<SpheroidDecorator, Float> decorators, List<SpheroidEntitySpawnDefinition> spawns) {
+			this.minSize = minSize;
+			this.maxSize = maxSize;
+			this.decorators = decorators;
+			this.spawns = spawns;
 		}
 		
 		protected static float randomBetween(Random random, int min, int max) {
 			return min + random.nextFloat() * (max - min);
 		}
 		
-		private static Map<SpheroidDecorator, Float> readDecorators(JsonObject jsonObject, Identifier identifier) {
-			Map<SpheroidDecorator, Float> d = new LinkedHashMap<>();
+		private static Map<SpheroidDecoratorType, Float> readDecorators(JsonObject jsonObject, Identifier identifier) {
+			Map<SpheroidDecoratorType, Float> d = new LinkedHashMap<>();
 			
 			for (Map.Entry<String, JsonElement> e : jsonObject.entrySet()) {
-				SpheroidDecorator decorator = SpheroidDecoratorLoader.getDecorator(Identifier.tryParse(e.getKey()));
+				SpheroidDecoratorType decorator = SpheroidDecoratorLoader.getDecorator(Identifier.tryParse(e.getKey()));
 				if (decorator == null) {
 					if (StarrySkies.CONFIG.packCreatorMode) {
 						StarrySkies.log(Level.WARN, "Spheroid " + identifier + " specifies non-existing decorator " + e.getKey() + ". Will be ignored.");
@@ -289,14 +266,6 @@ public abstract class Spheroid implements Serializable {
 				}
 			}
 			return spawns;
-		}
-		
-		public Template(Identifier id, int minSize, int maxSize, Map<SpheroidDecorator, Float> decorators, List<SpheroidEntitySpawnDefinition> spawns) {
-			this.id = id;
-			this.minSize = minSize;
-			this.maxSize = maxSize;
-			this.decorators = decorators;
-			this.spawns = spawns;
 		}
 		
 		public abstract Spheroid generate(ChunkRandom systemRandom);

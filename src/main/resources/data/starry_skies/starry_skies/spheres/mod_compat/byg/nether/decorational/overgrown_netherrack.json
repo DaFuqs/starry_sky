@@ -1,27 +1,27 @@
 {
-	"generation_group": "starry_skies:nether/decorative",
-	"generation_weight": 0.4,
-	"min_size": 7,
-	"max_size": 14,
-	"type": "starry_skies:modular",
-	"type_data": {
-		"main_block": "minecraft:netherrack",
-		"top": "byg:overgrown_netherrack"
-	},
-	"decorators": {
-		"starry_skies:mod_compat/byg/wailing_grass": 0.9,
-		"starry_skies:nether_sprouts": 0.7,
-		"starry_skies:mod_compat/byg/scorched_bushes": 0.5,
-		"starry_skies:mod_compat/byg/scorched_grass": 0.9,
-		"starry_skies:mod_compat/byg/lament_vines": 0.15
-	},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"byg"
-			]
-		}
-	]
+  "generation_group": "starry_skies:nether/decorative",
+  "generation_weight": 0.4,
+  "min_size": 7,
+  "max_size": 14,
+  "type": "starry_skies:modular",
+  "type_data": {
+    "main_block": "minecraft:netherrack",
+    "top": "byg:overgrown_netherrack"
+  },
+  "decorators": {
+    "starry_skies:mod_compat/byg/wailing_grass": 0.9,
+    "starry_skies:nether_sprouts": 0.7,
+    "starry_skies:mod_compat/byg/scorched_bushes": 0.5,
+    "starry_skies:mod_compat/byg/scorched_grass": 0.9,
+    "starry_skies:mod_compat/byg/lament_vines": 0.15
+  },
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "byg"
+      ]
+    }
+  ]
 }

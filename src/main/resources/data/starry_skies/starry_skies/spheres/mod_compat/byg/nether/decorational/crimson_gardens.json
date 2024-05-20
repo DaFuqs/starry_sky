@@ -1,27 +1,27 @@
 {
-	"generation_group": "starry_skies:nether/decorative",
-	"generation_weight": 0.5,
-	"min_size": 7,
-	"max_size": 12,
-	"type": "starry_skies:modular",
-	"type_data": {
-		"main_block": "minecraft:blackstone",
-		"top_block": "byg:overgrown_crimson_blackstone"
-	},
-	"decorators": {
-		"starry_skies:crimson_roots": 0.5,
-		"starry_skies:weeping_vines": 0.5,
-		"starry_skies:red_mushrooms": 0.5,
-		"starry_skies:brown_mushrooms": 0.5,
-		"starry_skies:mod_compat/byg/tall_embur_roots": 0.5
-	},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"byg"
-			]
-		}
-	]
+  "generation_group": "starry_skies:nether/decorative",
+  "generation_weight": 0.5,
+  "min_size": 7,
+  "max_size": 12,
+  "type": "starry_skies:modular",
+  "type_data": {
+    "main_block": "minecraft:blackstone",
+    "top_block": "byg:overgrown_crimson_blackstone"
+  },
+  "decorators": {
+    "starry_skies:crimson_roots": 0.5,
+    "starry_skies:weeping_vines": 0.5,
+    "starry_skies:red_mushrooms": 0.5,
+    "starry_skies:brown_mushrooms": 0.5,
+    "starry_skies:mod_compat/byg/tall_embur_roots": 0.5
+  },
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "byg"
+      ]
+    }
+  ]
 }

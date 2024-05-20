@@ -1,7 +1,7 @@
 {
-	"type": "starry_skies:hanging_block",
-	"type_data": {
-		"block": "minecraft:hanging_roots",
-		"chance": 0.2
-	}
+  "type": "starry_skies:hanging_block",
+  "type_data": {
+    "block": "minecraft:hanging_roots",
+    "chance": 0.2
+  }
 }

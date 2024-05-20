@@ -1,19 +1,19 @@
 {
-	"generation_group": "starry_skies:overworld/ores",
-	"generation_weight": 0.03,
-	"min_size": 5,
-	"max_size": 6,
-	"type": "starry_skies:core",
-	"type_data": {
-		"core_block": "minecraft:deepslate_emerald_ore",
-		"min_core_size": 1,
-		"max_core_size": 3,
-		"main_block": {
-			"minecraft:infested_deepslate": 10,
-			"minecraft:deepslate": 5,
-			"minecraft:cobbled_deepslate": 2
-		}
-	},
-	"decorators": {},
-	"spawns": []
+  "generation_group": "starry_skies:overworld/ores",
+  "generation_weight": 0.03,
+  "min_size": 5,
+  "max_size": 6,
+  "type": "starry_skies:core",
+  "type_data": {
+    "core_block": "minecraft:deepslate_emerald_ore",
+    "min_core_size": 1,
+    "max_core_size": 3,
+    "main_block": {
+      "minecraft:infested_deepslate": 10,
+      "minecraft:deepslate": 5,
+      "minecraft:cobbled_deepslate": 2
+    }
+  },
+  "decorators": {},
+  "spawns": []
 }

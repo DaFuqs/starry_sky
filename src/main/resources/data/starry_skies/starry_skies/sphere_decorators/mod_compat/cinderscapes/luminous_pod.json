@@ -1,15 +1,15 @@
 {
-	"type": "starry_skies:double_block",
-	"type_data": {
-		"block": "cinderscapes:luminous_pod",
-		"chance": 0.1
-	},
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"cinderscapes"
-			]
-		}
-	]
+  "type": "starry_skies:double_block",
+  "type_data": {
+    "block": "cinderscapes:luminous_pod",
+    "chance": 0.1
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "cinderscapes"
+      ]
+    }
+  ]
 }

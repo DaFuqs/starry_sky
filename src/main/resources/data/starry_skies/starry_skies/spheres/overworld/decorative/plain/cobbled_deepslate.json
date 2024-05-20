@@ -1,12 +1,12 @@
 {
-	"generation_group": "starry_skies:overworld/decorative",
-	"generation_weight": 0.2,
-	"min_size": 4,
-	"max_size": 10,
-	"type": "starry_skies:simple",
-	"type_data": {
-		"block": "minecraft:cobbled_deepslate"
-	},
-	"decorators": {},
-	"spawns": []
+  "generation_group": "starry_skies:overworld/decorative",
+  "generation_weight": 0.2,
+  "min_size": 4,
+  "max_size": 10,
+  "type": "starry_skies:simple",
+  "type_data": {
+    "block": "minecraft:cobbled_deepslate"
+  },
+  "decorators": {},
+  "spawns": []
 }

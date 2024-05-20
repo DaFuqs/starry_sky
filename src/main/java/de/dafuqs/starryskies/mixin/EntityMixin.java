@@ -1,16 +1,13 @@
 package de.dafuqs.starryskies.mixin;
 
-import de.dafuqs.starryskies.StarrySkyDimensionTravelHandler;
-import net.minecraft.entity.Entity;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.TeleportTarget;
-import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import de.dafuqs.starryskies.*;
+import net.minecraft.entity.*;
+import net.minecraft.registry.*;
+import net.minecraft.server.world.*;
+import net.minecraft.world.*;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.*;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin {

@@ -1,7 +1,7 @@
 {
-	"type": "starry_skies:single_block",
-	"type_data": {
-		"block": "minecraft:soul_fire",
-		"chance": 0.1
-	}
+  "type": "starry_skies:single_block",
+  "type_data": {
+    "block": "minecraft:soul_fire",
+    "chance": 0.1
+  }
 }

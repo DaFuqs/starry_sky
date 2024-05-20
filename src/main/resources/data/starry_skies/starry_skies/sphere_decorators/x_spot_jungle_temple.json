@@ -1,7 +1,7 @@
 {
-	"type": "starry_skies:x_spot",
-	"type_data": {
-		"loot_table": "minecraft:chests/jungle_temple",
-		"marking_block": "minecraft:mossy_cobblestone"
-	}
+  "type": "starry_skies:x_spot",
+  "type_data": {
+    "loot_table": "minecraft:chests/jungle_temple",
+    "marking_block": "minecraft:mossy_cobblestone"
+  }
 }

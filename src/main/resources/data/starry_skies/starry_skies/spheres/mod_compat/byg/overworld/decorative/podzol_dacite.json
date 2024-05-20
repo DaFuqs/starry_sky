@@ -1,25 +1,25 @@
 {
-	"generation_group": "starry_skies:overworld/decorative",
-	"generation_weight": 0.5,
-	"min_size": 8,
-	"max_size": 14,
-	"type": "starry_skies:modular",
-	"type_data": {
-		"main_block": "byg:dacite",
-		"top_block": "byg:podzol_dacite"
-	},
-	"decorators": {
-		"starry_skies:mod_compat/byg/winter_succulents": 0.75,
-		"starry_skies:ferns": 0.75,
-		"starry_skies:large_ferns": 0.75
-	},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"byg"
-			]
-		}
-	]
+  "generation_group": "starry_skies:overworld/decorative",
+  "generation_weight": 0.5,
+  "min_size": 8,
+  "max_size": 14,
+  "type": "starry_skies:modular",
+  "type_data": {
+    "main_block": "byg:dacite",
+    "top_block": "byg:podzol_dacite"
+  },
+  "decorators": {
+    "starry_skies:mod_compat/byg/winter_succulents": 0.75,
+    "starry_skies:ferns": 0.75,
+    "starry_skies:large_ferns": 0.75
+  },
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "byg"
+      ]
+    }
+  ]
 }

@@ -1,25 +1,25 @@
 {
-	"generation_group": "starry_skies:end/decorative",
-	"generation_weight": 0.4,
-	"min_size": 6,
-	"max_size": 14,
-	"type": "starry_skies:cave",
-	"type_data": {
-		"shell_block": "minecraft:end_stone",
-		"cave_floor_block": "betterend:cave_moss",
-		"min_shell_size": 2,
-		"max_shell_size": 4
-	},
-	"decorators": {
-		"starry_skies:mod_compat/betterend/crystal_grass": 0.9
-	},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"betterend"
-			]
-		}
-	]
+  "generation_group": "starry_skies:end/decorative",
+  "generation_weight": 0.4,
+  "min_size": 6,
+  "max_size": 14,
+  "type": "starry_skies:cave",
+  "type_data": {
+    "shell_block": "minecraft:end_stone",
+    "cave_floor_block": "betterend:cave_moss",
+    "min_shell_size": 2,
+    "max_shell_size": 4
+  },
+  "decorators": {
+    "starry_skies:mod_compat/betterend/crystal_grass": 0.9
+  },
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "betterend"
+      ]
+    }
+  ]
 }

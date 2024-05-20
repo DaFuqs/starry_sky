@@ -1,26 +1,26 @@
 {
-	"generation_group": "starry_skies:nether/wood",
-	"generation_weight": 0.2,
-	"min_size": 5,
-	"max_size": 12,
-	"type": "starry_skies:shell_core",
-	"type_data": {
-		"main_block": "cinderscapes:umbral_stem",
-		"core_block": "cinderscapes:umbral_flesh_block",
-		"min_core_size": 2,
-		"max_core_size": 4,
-		"shell_block": "cinderscapes:umbral_wart_block",
-		"min_shell_size": 2,
-		"max_shell_size": 4
-	},
-	"decorators": {},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"cinderscapes"
-			]
-		}
-	]
+  "generation_group": "starry_skies:nether/wood",
+  "generation_weight": 0.2,
+  "min_size": 5,
+  "max_size": 12,
+  "type": "starry_skies:shell_core",
+  "type_data": {
+    "main_block": "cinderscapes:umbral_stem",
+    "core_block": "cinderscapes:umbral_flesh_block",
+    "min_core_size": 2,
+    "max_core_size": 4,
+    "shell_block": "cinderscapes:umbral_wart_block",
+    "min_shell_size": 2,
+    "max_shell_size": 4
+  },
+  "decorators": {},
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "cinderscapes"
+      ]
+    }
+  ]
 }

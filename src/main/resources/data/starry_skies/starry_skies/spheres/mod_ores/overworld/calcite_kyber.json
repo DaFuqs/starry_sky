@@ -1,23 +1,23 @@
 {
-	"generation_group": "starry_skies:overworld/ores",
-	"generation_weight": 0.4,
-	"min_size": 8,
-	"max_size": 11,
-	"type": "starry_skies:core",
-	"type_data": {
-		"core_block": "%starry_skies:calcite_kyber_ore",
-		"min_core_size": 4,
-		"max_core_size": 7,
-		"main_block": "minecraft:calcite"
-	},
-	"decorators": {},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "starry_skies:unique_block_group_exist",
-			"values": [
-				"starry_skies:calcite_kyber_ore"
-			]
-		}
-	]
+  "generation_group": "starry_skies:overworld/ores",
+  "generation_weight": 0.4,
+  "min_size": 8,
+  "max_size": 11,
+  "type": "starry_skies:core",
+  "type_data": {
+    "core_block": "%starry_skies:calcite_kyber_ore",
+    "min_core_size": 4,
+    "max_core_size": 7,
+    "main_block": "minecraft:calcite"
+  },
+  "decorators": {},
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "starry_skies:unique_block_group_exist",
+      "values": [
+        "starry_skies:calcite_kyber_ore"
+      ]
+    }
+  ]
 }

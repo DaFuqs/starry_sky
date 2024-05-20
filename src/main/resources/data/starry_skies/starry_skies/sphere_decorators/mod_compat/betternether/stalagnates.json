@@ -1,17 +1,17 @@
 {
-	"type": "starry_skies:bamboo",
-	"type_data": {
-		"bamboo_block": "betternether:stalagnate_stem",
-		"sapling_block": "betternether:stalagnate_seed",
-		"chance": 0.075,
-		"sapling_chance": 0.15
-	},
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"betternether"
-			]
-		}
-	]
+  "type": "starry_skies:bamboo",
+  "type_data": {
+    "bamboo_block": "betternether:stalagnate_stem",
+    "sapling_block": "betternether:stalagnate_seed",
+    "chance": 0.075,
+    "sapling_chance": 0.15
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "betternether"
+      ]
+    }
+  ]
 }

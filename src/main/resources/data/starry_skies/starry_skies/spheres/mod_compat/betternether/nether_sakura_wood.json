@@ -1,23 +1,23 @@
 {
-	"generation_group": "starry_skies:nether/wood",
-	"generation_weight": 1.0,
-	"min_size": 7,
-	"max_size": 12,
-	"type": "starry_skies:shell",
-	"type_data": {
-		"main_block": "betternether:nether_sakura_log",
-		"shell_block": "betternether:nether_sakura_leaves",
-		"min_shell_size": 2,
-		"max_shell_size": 3
-	},
-	"decorators": {},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"betternether"
-			]
-		}
-	]
+  "generation_group": "starry_skies:nether/wood",
+  "generation_weight": 1.0,
+  "min_size": 7,
+  "max_size": 12,
+  "type": "starry_skies:shell",
+  "type_data": {
+    "main_block": "betternether:nether_sakura_log",
+    "shell_block": "betternether:nether_sakura_leaves",
+    "min_shell_size": 2,
+    "max_shell_size": 3
+  },
+  "decorators": {},
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "betternether"
+      ]
+    }
+  ]
 }

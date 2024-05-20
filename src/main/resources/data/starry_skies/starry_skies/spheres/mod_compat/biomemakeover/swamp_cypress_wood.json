@@ -1,23 +1,23 @@
 {
-	"generation_group": "starry_skies:overworld/wood",
-	"generation_weight": 0.7,
-	"min_size": 4,
-	"max_size": 7,
-	"type": "starry_skies:shell",
-	"type_data": {
-		"min_shell_size": 1,
-		"max_shell_size": 2,
-		"main_block": "biomemakeover:swamp_cypress_log",
-		"shell_block": "biomemakeover:swamp_cypress_leaves[distance=1]"
-	},
-	"decorators": {},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"biomemakeover"
-			]
-		}
-	]
+  "generation_group": "starry_skies:overworld/wood",
+  "generation_weight": 0.7,
+  "min_size": 4,
+  "max_size": 7,
+  "type": "starry_skies:shell",
+  "type_data": {
+    "min_shell_size": 1,
+    "max_shell_size": 2,
+    "main_block": "biomemakeover:swamp_cypress_log",
+    "shell_block": "biomemakeover:swamp_cypress_leaves[distance=1]"
+  },
+  "decorators": {},
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "biomemakeover"
+      ]
+    }
+  ]
 }

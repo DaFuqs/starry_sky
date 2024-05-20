@@ -1,27 +1,27 @@
 {
-	"generation_group": "starry_skies:end/wood",
-	"generation_weight": 0.1,
-	"min_size": 8,
-	"max_size": 14,
-	"type": "starry_skies:shell",
-	"type_data": {
-		"main_block": "betterend:umbrella_tree_membrane",
-		"shell_block": "betterend:umbrella_tree_bark",
-		"min_shell_size": 3,
-		"max_shell_size": 4,
-		"shell_speckles": {
-			"block": "betterend:umbrella_tree_cluster",
-			"chance": 0.1
-		}
-	},
-	"decorators": {},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"betterend"
-			]
-		}
-	]
+  "generation_group": "starry_skies:end/wood",
+  "generation_weight": 0.1,
+  "min_size": 8,
+  "max_size": 14,
+  "type": "starry_skies:shell",
+  "type_data": {
+    "main_block": "betterend:umbrella_tree_membrane",
+    "shell_block": "betterend:umbrella_tree_bark",
+    "min_shell_size": 3,
+    "max_shell_size": 4,
+    "shell_speckles": {
+      "block": "betterend:umbrella_tree_cluster",
+      "chance": 0.1
+    }
+  },
+  "decorators": {},
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "betterend"
+      ]
+    }
+  ]
 }

@@ -1,19 +1,19 @@
 {
-	"generation_group": "starry_skies:nether/ores",
-	"generation_weight": 0.5,
-	"min_size": 5,
-	"max_size": 8,
-	"type": "starry_skies:core",
-	"type_data": {
-		"core_block": "minecraft:ancient_debris",
-		"min_core_size": 1,
-		"max_core_size": 2,
-		"main_block": "$starry_skies:nether_stones"
-	},
-	"decorators": {
-		"starry_skies:mod_compat/betternether/geysers": 0.05,
-		"starry_skies:mod_compat/betternether/glowstone_stalactites": 0.1,
-		"starry_skies:mod_compat/betternether/netherrack_stalactites": 0.1
-	},
-	"spawns": []
+  "generation_group": "starry_skies:nether/ores",
+  "generation_weight": 0.5,
+  "min_size": 5,
+  "max_size": 8,
+  "type": "starry_skies:core",
+  "type_data": {
+    "core_block": "minecraft:ancient_debris",
+    "min_core_size": 1,
+    "max_core_size": 2,
+    "main_block": "$starry_skies:nether_stones"
+  },
+  "decorators": {
+    "starry_skies:mod_compat/betternether/geysers": 0.05,
+    "starry_skies:mod_compat/betternether/glowstone_stalactites": 0.1,
+    "starry_skies:mod_compat/betternether/netherrack_stalactites": 0.1
+  },
+  "spawns": []
 }

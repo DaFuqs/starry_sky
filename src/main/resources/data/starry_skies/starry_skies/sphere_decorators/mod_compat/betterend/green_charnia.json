@@ -1,15 +1,15 @@
 {
-	"type": "starry_skies:cave_bottom_block",
-	"type_data": {
-		"block": "betterend:charnia_green",
-		"chance": 0.1
-	},
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"betterend"
-			]
-		}
-	]
+  "type": "starry_skies:cave_bottom_block",
+  "type_data": {
+    "block": "betterend:charnia_green",
+    "chance": 0.1
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "betterend"
+      ]
+    }
+  ]
 }

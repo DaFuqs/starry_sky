@@ -1,15 +1,15 @@
 {
-	"generation_group": "starry_skies:nether/essential",
-	"generation_weight": 3.0,
-	"min_size": 6,
-	"max_size": 10,
-	"type": "starry_skies:simple",
-	"type_data": {
-		"block": "minecraft:soul_soil"
-	},
-	"decorators": {
-		"starry_skies:soul_fire": 0.25,
-		"starry_skies:nether_wart": 0.1
-	},
-	"spawns": []
+  "generation_group": "starry_skies:nether/essential",
+  "generation_weight": 3.0,
+  "min_size": 6,
+  "max_size": 10,
+  "type": "starry_skies:simple",
+  "type_data": {
+    "block": "minecraft:soul_soil"
+  },
+  "decorators": {
+    "starry_skies:soul_fire": 0.25,
+    "starry_skies:nether_wart": 0.1
+  },
+  "spawns": []
 }

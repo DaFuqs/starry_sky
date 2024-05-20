@@ -1,12 +1,12 @@
 {
-	"generation_group": "starry_skies:overworld/decorative",
-	"generation_weight": 0.1,
-	"min_size": 5,
-	"max_size": 6,
-	"type": "starry_skies:simple",
-	"type_data": {
-		"block": "minecraft:mossy_cobblestone"
-	},
-	"decorators": {},
-	"spawns": []
+  "generation_group": "starry_skies:overworld/decorative",
+  "generation_weight": 0.1,
+  "min_size": 5,
+  "max_size": 6,
+  "type": "starry_skies:simple",
+  "type_data": {
+    "block": "minecraft:mossy_cobblestone"
+  },
+  "decorators": {},
+  "spawns": []
 }

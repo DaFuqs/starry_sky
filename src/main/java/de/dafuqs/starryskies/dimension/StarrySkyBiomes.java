@@ -1,10 +1,9 @@
 package de.dafuqs.starryskies.dimension;
 
-import de.dafuqs.starryskies.StarrySkies;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.biome.Biome;
+import de.dafuqs.starryskies.*;
+import net.minecraft.registry.*;
+import net.minecraft.util.*;
+import net.minecraft.world.biome.*;
 
 public class StarrySkyBiomes {
 	

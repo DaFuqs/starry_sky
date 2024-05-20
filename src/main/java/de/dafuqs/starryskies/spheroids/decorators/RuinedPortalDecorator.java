@@ -1,19 +1,17 @@
 package de.dafuqs.starryskies.spheroids.decorators;
 
-import com.google.gson.JsonObject;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import de.dafuqs.starryskies.Support;
-import de.dafuqs.starryskies.spheroids.SpheroidDecorator;
-import de.dafuqs.starryskies.spheroids.spheroids.Spheroid;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.StructureWorldAccess;
+import com.google.gson.*;
+import com.mojang.brigadier.exceptions.*;
+import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.spheroids.*;
+import net.minecraft.block.*;
+import net.minecraft.loot.*;
+import net.minecraft.registry.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.math.random.*;
+import net.minecraft.world.*;
 
 
 public class RuinedPortalDecorator extends SpheroidDecorator {
@@ -24,11 +22,11 @@ public class RuinedPortalDecorator extends SpheroidDecorator {
 	private static final BlockState OBSIDIAN = Blocks.OBSIDIAN.getDefaultState();
 	private static final float OBSIDIAN_CHANCE = 0.9F;
 	
-	private final Identifier lootTable;
+	private final RegistryKey<LootTable> lootTable;
 	
 	public RuinedPortalDecorator(JsonObject data) throws CommandSyntaxException {
 		super(data);
-		this.lootTable = Identifier.tryParse(JsonHelper.getString(data, "loot_table"));
+		this.lootTable = lootTableKey(Identifier.tryParse(JsonHelper.getString(data, "loot_table")));
 	}
 	
 	@Override

@@ -1,12 +1,12 @@
 {
-	"min_size": 34,
-	"max_size": 34,
-	"type": "starry_skies:simple",
-	"type_data": {
-		"block": "minecraft:end_stone"
-	},
-	"decorators": {
-		"starry_skies:end_portal": 1.0
-	},
-	"spawns": []
+  "min_size": 34,
+  "max_size": 34,
+  "type": "starry_skies:simple",
+  "type_data": {
+    "block": "minecraft:end_stone"
+  },
+  "decorators": {
+    "starry_skies:end_portal": 1.0
+  },
+  "spawns": []
 }

@@ -1,14 +1,14 @@
 {
-	"generation_group": "starry_skies:overworld/decorative",
-	"generation_weight": 1.0,
-	"min_size": 5,
-	"max_size": 11,
-	"type": "starry_skies:simple",
-	"type_data": {
-		"block": "minecraft:deepslate"
-	},
-	"decorators": {
-		"starry_skies:center_pond_lava": 0.2
-	},
-	"spawns": []
+  "generation_group": "starry_skies:overworld/decorative",
+  "generation_weight": 1.0,
+  "min_size": 5,
+  "max_size": 11,
+  "type": "starry_skies:simple",
+  "type_data": {
+    "block": "minecraft:deepslate"
+  },
+  "decorators": {
+    "starry_skies:center_pond_lava": 0.2
+  },
+  "spawns": []
 }

@@ -1,27 +1,27 @@
 {
-	"generation_group": "starry_skies:overworld/decorative",
-	"generation_weight": 2.0,
-	"min_size": 5,
-	"max_size": 13,
-	"type": "starry_skies:simple",
-	"type_data": {
-		"block": "minecraft:stone"
-	},
-	"decorators": {
-		"starry_skies:center_pond_lava": 0.1
-	},
-	"spawns": [
-		{
-			"type": "minecraft:llama",
-			"chance": 0.08,
-			"min_count": 1,
-			"max_count": 2
-		},
-		{
-			"type": "minecraft:goat",
-			"chance": 0.1,
-			"min_count": 1,
-			"max_count": 3
-		}
-	]
+  "generation_group": "starry_skies:overworld/decorative",
+  "generation_weight": 2.0,
+  "min_size": 5,
+  "max_size": 13,
+  "type": "starry_skies:simple",
+  "type_data": {
+    "block": "minecraft:stone"
+  },
+  "decorators": {
+    "starry_skies:center_pond_lava": 0.1
+  },
+  "spawns": [
+    {
+      "type": "minecraft:llama",
+      "chance": 0.08,
+      "min_count": 1,
+      "max_count": 2
+    },
+    {
+      "type": "minecraft:goat",
+      "chance": 0.1,
+      "min_count": 1,
+      "max_count": 3
+    }
+  ]
 }

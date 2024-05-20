@@ -1,16 +1,16 @@
 {
-	"generation_group": "starry_skies:overworld/treasure",
-	"generation_weight": 1.0,
-	"min_size": 6,
-	"max_size": 10,
-	"type": "starry_skies:geode",
-	"type_data": {
-		"inner_block": "minecraft:amethyst_block",
-		"inner_speckles_block": "minecraft:budding_amethyst",
-		"inner_speckles_block_chance": 0.08,
-		"middle_block": "minecraft:calcite",
-		"outer_block": "minecraft:basalt"
-	},
-	"decorators": {},
-	"spawns": []
+  "generation_group": "starry_skies:overworld/treasure",
+  "generation_weight": 1.0,
+  "min_size": 6,
+  "max_size": 10,
+  "type": "starry_skies:geode",
+  "type_data": {
+    "inner_block": "minecraft:amethyst_block",
+    "inner_speckles_block": "minecraft:budding_amethyst",
+    "inner_speckles_block_chance": 0.08,
+    "middle_block": "minecraft:calcite",
+    "outer_block": "minecraft:basalt"
+  },
+  "decorators": {},
+  "spawns": []
 }

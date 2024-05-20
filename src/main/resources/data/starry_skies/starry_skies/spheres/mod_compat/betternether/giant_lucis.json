@@ -1,20 +1,20 @@
 {
-	"generation_group": "starry_skies:nether/decorative",
-	"generation_weight": 1.0,
-	"min_size": 4,
-	"max_size": 7,
-	"type": "starry_skies:simple",
-	"type_data": {
-		"block": "betternether:giant_lucis"
-	},
-	"decorators": {},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"betternether"
-			]
-		}
-	]
+  "generation_group": "starry_skies:nether/decorative",
+  "generation_weight": 1.0,
+  "min_size": 4,
+  "max_size": 7,
+  "type": "starry_skies:simple",
+  "type_data": {
+    "block": "betternether:giant_lucis"
+  },
+  "decorators": {},
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "betternether"
+      ]
+    }
+  ]
 }

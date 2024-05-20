@@ -1,26 +1,26 @@
 {
-	"generation_group": "starry_skies:overworld/treasure",
-	"generation_weight": 0.3,
-	"min_size": 3,
-	"max_size": 7,
-	"type": "starry_skies:shell",
-	"type_data": {
-		"main_block": "minecraft:sandstone",
-		"shell_block": "minecraft:sandstone",
-		"min_shell_size": 1,
-		"max_shell_size": 3,
-		"shell_speckles": {
-			"block": "minecraft:suspicious_sand{LootTable:\"minecraft:archaeology/trail_ruins_rare\"}",
-			"chance": 0.05
-		}
-	},
-	"decorators": {},
-	"spawns": [
-		{
-			"type": "minecraft:camel",
-			"chance": 0.75,
-			"min_count": 1,
-			"max_count": 2
-		}
-	]
+  "generation_group": "starry_skies:overworld/treasure",
+  "generation_weight": 0.3,
+  "min_size": 3,
+  "max_size": 7,
+  "type": "starry_skies:shell",
+  "type_data": {
+    "main_block": "minecraft:sandstone",
+    "shell_block": "minecraft:sandstone",
+    "min_shell_size": 1,
+    "max_shell_size": 3,
+    "shell_speckles": {
+      "block": "minecraft:suspicious_sand{LootTable:\"minecraft:archaeology/trail_ruins_rare\"}",
+      "chance": 0.05
+    }
+  },
+  "decorators": {},
+  "spawns": [
+    {
+      "type": "minecraft:camel",
+      "chance": 0.75,
+      "min_count": 1,
+      "max_count": 2
+    }
+  ]
 }

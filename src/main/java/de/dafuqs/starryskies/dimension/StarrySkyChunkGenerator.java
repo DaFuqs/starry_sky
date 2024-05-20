@@ -1,39 +1,25 @@
 package de.dafuqs.starryskies.dimension;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import de.dafuqs.starryskies.StarrySkies;
-import de.dafuqs.starryskies.spheroids.spheroids.Spheroid;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.random.CheckedRandom;
-import net.minecraft.util.math.random.ChunkRandom;
-import net.minecraft.util.math.random.RandomSeed;
-import net.minecraft.world.ChunkRegion;
-import net.minecraft.world.HeightLimitView;
-import net.minecraft.world.Heightmap;
-import net.minecraft.world.SpawnHelper;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.source.BiomeAccess;
-import net.minecraft.world.biome.source.BiomeSource;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.StructureAccessor;
-import net.minecraft.world.gen.chunk.Blender;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.chunk.VerticalBlockSample;
-import net.minecraft.world.gen.noise.NoiseConfig;
-import org.apache.logging.log4j.Level;
-import org.jetbrains.annotations.NotNull;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
+import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.spheroids.*;
+import net.minecraft.block.*;
+import net.minecraft.registry.entry.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.math.random.*;
+import net.minecraft.world.*;
+import net.minecraft.world.biome.*;
+import net.minecraft.world.biome.source.*;
+import net.minecraft.world.chunk.*;
+import net.minecraft.world.gen.*;
+import net.minecraft.world.gen.chunk.*;
+import net.minecraft.world.gen.noise.*;
+import org.jetbrains.annotations.*;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
+import java.util.*;
+import java.util.concurrent.*;
 
 public class StarrySkyChunkGenerator extends ChunkGenerator {
 	
@@ -45,15 +31,17 @@ public class StarrySkyChunkGenerator extends ChunkGenerator {
 	private final BlockState floorBlockState;
 	private final BlockState bottomBlockState;
 	
-	public static final Codec<StarrySkyChunkGenerator> CODEC = RecordCodecBuilder.create(
-			(instance) -> instance.group(BiomeSource.CODEC.fieldOf("biome_source")
-					.forGetter((generator) -> generator.biomeSource), Codecs.NONNEGATIVE_INT.fieldOf("settings")
-					.forGetter((generator) -> generator.spheroidDimensionType.ordinal())
-			).apply(instance, instance.stable(StarrySkyChunkGenerator::new)));
+	public static final MapCodec<StarrySkyChunkGenerator> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
+		return instance.group(BiomeSource.CODEC.fieldOf("biome_source").forGetter((generator) -> {
+			return generator.biomeSource;
+		}), SpheroidDimensionType.REGISTRY_CODEC.fieldOf("settings").forGetter((generator) -> {
+			return generator.settings;
+		})).apply(instance, instance.stable(StarrySkyChunkGenerator::new));
+	});
 	
-	public StarrySkyChunkGenerator(BiomeSource biomeSource, int spheroidDimensionTypeOrdinal) {
+	public StarrySkyChunkGenerator(BiomeSource biomeSource, SpheroidDimensionType spheroidDimensionType) {
 		super(biomeSource);
-		this.spheroidDimensionType = SpheroidDimensionType.values()[spheroidDimensionTypeOrdinal];
+		this.spheroidDimensionType = SpheroidDimensionType.of(s);
 		this.systemGenerator = new SystemGenerator(spheroidDimensionType);
 		this.floorBlockState = spheroidDimensionType.getFloorBlockState();
 		this.bottomBlockState = spheroidDimensionType.getBottomBlockState();
@@ -61,7 +49,7 @@ public class StarrySkyChunkGenerator extends ChunkGenerator {
 	}
 	
 	@Override
-	protected Codec<? extends ChunkGenerator> getCodec() {
+	protected MapCodec<? extends ChunkGenerator> getCodec() {
 		return CODEC;
 	}
 	

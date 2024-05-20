@@ -1,23 +1,23 @@
 {
-	"generation_group": "starry_skies:overworld/ores",
-	"generation_weight": 2.5,
-	"min_size": 7,
-	"max_size": 10,
-	"type": "starry_skies:core",
-	"type_data": {
-		"core_block": "%starry_skies:galena_ore",
-		"min_core_size": 4,
-		"max_core_size": 7,
-		"main_block": "$starry_skies:stones"
-	},
-	"decorators": {},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "starry_skies:unique_block_group_exist",
-			"values": [
-				"starry_skies:galena_ore"
-			]
-		}
-	]
+  "generation_group": "starry_skies:overworld/ores",
+  "generation_weight": 2.5,
+  "min_size": 7,
+  "max_size": 10,
+  "type": "starry_skies:core",
+  "type_data": {
+    "core_block": "%starry_skies:galena_ore",
+    "min_core_size": 4,
+    "max_core_size": 7,
+    "main_block": "$starry_skies:stones"
+  },
+  "decorators": {},
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "starry_skies:unique_block_group_exist",
+      "values": [
+        "starry_skies:galena_ore"
+      ]
+    }
+  ]
 }

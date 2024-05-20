@@ -1,19 +1,19 @@
 {
-	"type": "starry_skies:huge_hanging_plant",
-	"type_data": {
-		"block": "betterend:tenanea_flowers[shape=middle]",
-		"first_block": "betterend:tenanea_flowers[shape=top]",
-		"last_block": "betterend:tenanea_flowers[shape=bottom]",
-		"min_height": 1,
-		"max_height": 6,
-		"chance": 0.1
-	},
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"betterend"
-			]
-		}
-	]
+  "type": "starry_skies:huge_hanging_plant",
+  "type_data": {
+    "block": "betterend:tenanea_flowers[shape=middle]",
+    "first_block": "betterend:tenanea_flowers[shape=top]",
+    "last_block": "betterend:tenanea_flowers[shape=bottom]",
+    "min_height": 1,
+    "max_height": 6,
+    "chance": 0.1
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "betterend"
+      ]
+    }
+  ]
 }

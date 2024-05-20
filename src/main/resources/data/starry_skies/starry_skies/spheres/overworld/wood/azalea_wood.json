@@ -1,19 +1,19 @@
 {
-	"generation_group": "starry_skies:overworld/wood",
-	"generation_weight": 1.0,
-	"min_size": 5,
-	"max_size": 12,
-	"type": "starry_skies:shell",
-	"type_data": {
-		"min_shell_size": 2,
-		"max_shell_size": 3,
-		"main_block": "minecraft:oak_log",
-		"shell_block": "minecraft:azalea_leaves[distance=1]",
-		"shell_speckles": {
-			"block": "minecraft:flowering_azalea_leaves[distance=1]",
-			"chance": 0.15
-		}
-	},
-	"decorators": {},
-	"spawns": []
+  "generation_group": "starry_skies:overworld/wood",
+  "generation_weight": 1.0,
+  "min_size": 5,
+  "max_size": 12,
+  "type": "starry_skies:shell",
+  "type_data": {
+    "min_shell_size": 2,
+    "max_shell_size": 3,
+    "main_block": "minecraft:oak_log",
+    "shell_block": "minecraft:azalea_leaves[distance=1]",
+    "shell_speckles": {
+      "block": "minecraft:flowering_azalea_leaves[distance=1]",
+      "chance": 0.15
+    }
+  },
+  "decorators": {},
+  "spawns": []
 }

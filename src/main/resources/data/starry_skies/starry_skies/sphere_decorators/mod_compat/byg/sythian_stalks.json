@@ -1,17 +1,17 @@
 {
-	"type": "starry_skies:bamboo",
-	"type_data": {
-		"bamboo_block": "byg:sythian_stalk_block",
-		"sapling_block": "byg:sythian_stalk_block",
-		"chance": 0.075,
-		"sapling_chance": 0.15
-	},
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"byg"
-			]
-		}
-	]
+  "type": "starry_skies:bamboo",
+  "type_data": {
+    "bamboo_block": "byg:sythian_stalk_block",
+    "sapling_block": "byg:sythian_stalk_block",
+    "chance": 0.075,
+    "sapling_chance": 0.15
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "byg"
+      ]
+    }
+  ]
 }

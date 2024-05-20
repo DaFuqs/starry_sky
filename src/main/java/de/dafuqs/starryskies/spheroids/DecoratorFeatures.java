@@ -1,12 +1,10 @@
 package de.dafuqs.starryskies.spheroids;
 
-import de.dafuqs.starryskies.StarrySkies;
-import de.dafuqs.starryskies.dimension.SpheroidDecoratorFeature;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
+import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.dimension.*;
+import net.minecraft.registry.*;
+import net.minecraft.util.*;
+import net.minecraft.world.gen.feature.*;
 
 public class DecoratorFeatures {
 	

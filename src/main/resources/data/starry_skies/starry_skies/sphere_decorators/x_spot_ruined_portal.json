@@ -1,7 +1,7 @@
 {
-	"type": "starry_skies:x_spot",
-	"type_data": {
-		"loot_table": "minecraft:chests/ruined_portal",
-		"marking_block": "minecraft:obsidian"
-	}
+  "type": "starry_skies:x_spot",
+  "type_data": {
+    "loot_table": "minecraft:chests/ruined_portal",
+    "marking_block": "minecraft:obsidian"
+  }
 }

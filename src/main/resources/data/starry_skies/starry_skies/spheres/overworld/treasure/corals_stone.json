@@ -1,25 +1,25 @@
 {
-	"generation_group": "starry_skies:overworld/treasure",
-	"generation_weight": 1.0,
-	"min_size": 10,
-	"max_size": 20,
-	"type": "starry_skies:corals",
-	"type_data": {
-		"hole_in_bottom_chance": 0.25,
-		"min_shell_size": 1,
-		"max_shell_size": 2,
-		"shell_block": {
-			"minecraft:stone": 5,
-			"minecraft:deepslate": 2,
-			"minecraft:granite": 1,
-			"minecraft:diorite": 1,
-			"minecraft:andesite": 1
-		},
-		"treasure_chest": {
-			"loot_table": "minecraft:chests/buried_treasure",
-			"chance": 0.5
-		}
-	},
-	"decorators": {},
-	"spawns": []
+  "generation_group": "starry_skies:overworld/treasure",
+  "generation_weight": 1.0,
+  "min_size": 10,
+  "max_size": 20,
+  "type": "starry_skies:corals",
+  "type_data": {
+    "hole_in_bottom_chance": 0.25,
+    "min_shell_size": 1,
+    "max_shell_size": 2,
+    "shell_block": {
+      "minecraft:stone": 5,
+      "minecraft:deepslate": 2,
+      "minecraft:granite": 1,
+      "minecraft:diorite": 1,
+      "minecraft:andesite": 1
+    },
+    "treasure_chest": {
+      "loot_table": "minecraft:chests/buried_treasure",
+      "chance": 0.5
+    }
+  },
+  "decorators": {},
+  "spawns": []
 }

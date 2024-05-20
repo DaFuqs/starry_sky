@@ -1,9 +1,9 @@
 {
-	"type": "starry_skies:stacked_block",
-	"type_data": {
-		"block": "minecraft:cactus",
-		"chance": 0.15,
-		"min_height": 1,
-		"max_height": 3
-	}
+  "type": "starry_skies:stacked_block",
+  "type_data": {
+    "block": "minecraft:cactus",
+    "chance": 0.15,
+    "min_height": 1,
+    "max_height": 3
+  }
 }

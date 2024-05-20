@@ -35,6 +35,6 @@
     "fabric": "*",
     "cloth-config": "*"
   },
-  "suggests": { },
-  "accessWidener" : "starry_skies.accesswidener"
+  "suggests": {},
+  "accessWidener": "starry_skies.accesswidener"
 }

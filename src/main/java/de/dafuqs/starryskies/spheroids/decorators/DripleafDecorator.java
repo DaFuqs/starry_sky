@@ -1,26 +1,19 @@
 package de.dafuqs.starryskies.spheroids.decorators;
 
-import com.google.gson.JsonObject;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import de.dafuqs.starryskies.spheroids.SpheroidDecorator;
-import de.dafuqs.starryskies.spheroids.spheroids.Spheroid;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.HorizontalFacingBlock;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.Direction;
+import com.google.gson.*;
+import com.mojang.brigadier.exceptions.*;
+import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.spheroids.*;
+import net.minecraft.block.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.StructureWorldAccess;
+import net.minecraft.world.*;
 
-import java.util.Iterator;
-
+import java.util.*;
 
 public class DripleafDecorator extends SpheroidDecorator {
 	
-	private static final Block DRIPLEAF_BLOCK = Blocks.BIG_DRIPLEAF;
 	private static final BlockState DRIPLEAF_BLOCK_STATE = Blocks.BIG_DRIPLEAF.getDefaultState();
 	private static final BlockState DRIPLEAF_STEM_BLOCK_STATE = Blocks.BIG_DRIPLEAF_STEM.getDefaultState();
 	private static final BlockState WATER_BLOCK_STATE = Blocks.WATER.getDefaultState();
@@ -57,7 +50,8 @@ public class DripleafDecorator extends SpheroidDecorator {
 				Direction randomDirection = Direction.Type.HORIZONTAL.random(random);
 				int dripLeafHeight = random.nextInt(3) + 1;
 				for (int i = 0; i <= dripLeafHeight; i++) {
-					if (DRIPLEAF_BLOCK.canPlaceAt(DRIPLEAF_BLOCK_STATE.with(HorizontalFacingBlock.FACING, randomDirection), world, bp.up(i))) {
+					BlockState dripleafState = DRIPLEAF_BLOCK_STATE.with(HorizontalFacingBlock.FACING, randomDirection);
+					if (dripleafState.canPlaceAt(world, bp.up(i))) {
 						if (i == dripLeafHeight) {
 							world.setBlockState(bp.up(i), DRIPLEAF_BLOCK_STATE.with(HorizontalFacingBlock.FACING, randomDirection), 3);
 						} else {

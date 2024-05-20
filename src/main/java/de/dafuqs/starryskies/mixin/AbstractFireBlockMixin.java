@@ -1,13 +1,12 @@
 package de.dafuqs.starryskies.mixin;
 
-import de.dafuqs.starryskies.StarrySkies;
-import de.dafuqs.starryskies.dimension.StarrySkyDimension;
-import net.minecraft.block.AbstractFireBlock;
-import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.dimension.*;
+import net.minecraft.block.*;
+import net.minecraft.world.*;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.*;
 
 
 @Mixin(AbstractFireBlock.class)

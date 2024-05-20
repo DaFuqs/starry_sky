@@ -1,22 +1,22 @@
 {
-	"generation_group": "starry_skies:nether/decorative",
-	"generation_weight": 0.5,
-	"min_size": 10,
-	"max_size": 16,
-	"type": "starry_skies:simple",
-	"type_data": {
-		"block": "byg:frost_magma"
-	},
-	"decorators": {
-		"starry_skies:soul_fire": 0.9
-	},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"byg"
-			]
-		}
-	]
+  "generation_group": "starry_skies:nether/decorative",
+  "generation_weight": 0.5,
+  "min_size": 10,
+  "max_size": 16,
+  "type": "starry_skies:simple",
+  "type_data": {
+    "block": "byg:frost_magma"
+  },
+  "decorators": {
+    "starry_skies:soul_fire": 0.9
+  },
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "byg"
+      ]
+    }
+  ]
 }

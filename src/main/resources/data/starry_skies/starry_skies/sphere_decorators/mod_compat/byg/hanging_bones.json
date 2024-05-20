@@ -1,17 +1,17 @@
 {
-	"type": "starry_skies:huge_hanging_plant",
-	"type_data": {
-		"block": "byg:hanging_bones",
-		"min_height": 2,
-		"max_height": 5,
-		"chance": 0.05
-	},
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"byg"
-			]
-		}
-	]
+  "type": "starry_skies:huge_hanging_plant",
+  "type_data": {
+    "block": "byg:hanging_bones",
+    "min_height": 2,
+    "max_height": 5,
+    "chance": 0.05
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "byg"
+      ]
+    }
+  ]
 }

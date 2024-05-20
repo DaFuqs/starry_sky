@@ -1,23 +1,18 @@
 package de.dafuqs.starryskies.mixin;
 
-import de.dafuqs.starryskies.StarrySkies;
-import de.dafuqs.starryskies.Support;
-import de.dafuqs.starryskies.dimension.StarrySkyChunkGenerator;
-import net.minecraft.registry.tag.StructureTags;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.structure.Structure;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.dimension.*;
+import net.minecraft.registry.tag.*;
+import net.minecraft.server.world.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.gen.chunk.*;
+import net.minecraft.world.gen.structure.*;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldMixin {
@@ -41,7 +36,6 @@ public abstract class ServerWorldMixin {
 			}
 		}
 	}
-	
 	
 	
 }

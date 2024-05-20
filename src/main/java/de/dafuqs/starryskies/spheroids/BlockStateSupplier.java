@@ -1,21 +1,15 @@
 package de.dafuqs.starryskies.spheroids;
 
 import com.google.gson.*;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import de.dafuqs.starryskies.StarrySkies;
-import de.dafuqs.starryskies.Support;
-import de.dafuqs.starryskies.data_loaders.UniqueBlockGroupsLoader;
-import de.dafuqs.starryskies.data_loaders.WeightedBlockGroupsLoader;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.Identifier;
+import com.mojang.brigadier.exceptions.*;
+import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.data_loaders.*;
+import net.minecraft.block.*;
+import net.minecraft.util.*;
 import net.minecraft.util.math.random.Random;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class BlockStateSupplier {
 	
@@ -98,7 +92,7 @@ public abstract class BlockStateSupplier {
 		}
 		
 		public BlockState get(Random random) {
-			return WeightedBlockGroupsLoader.getRandomStateInGroup(identifier, random);
+			return WeightedBlockGroupsLoader.WeightedBlockGroup.getRandomState(identifier, random);
 		}
 		
 	}
@@ -114,7 +108,7 @@ public abstract class BlockStateSupplier {
 		}
 		
 		public BlockState get(Random random) {
-			return UniqueBlockGroupsLoader.getFirstStateInGroup(identifier);
+			return UniqueBlockGroupsLoader.UniqueBlockGroup.getFirstState(identifier);
 		}
 		
 	}

@@ -1,29 +1,29 @@
 {
-	"generation_group": "starry_skies:overworld/treasure",
-	"generation_weight": 1.0,
-	"min_size": 5,
-	"max_size": 16,
-	"type": "starry_skies:rainbow",
-	"type_data": {
-		"blocks": [
-			"white_terracotta",
-			"light_gray_terracotta",
-			"gray_terracotta",
-			"black_terracotta",
-			"brown_terracotta",
-			"red_terracotta",
-			"orange_terracotta",
-			"yellow_terracotta",
-			"lime_terracotta",
-			"green_terracotta",
-			"cyan_terracotta",
-			"light_blue_terracotta",
-			"blue_terracotta",
-			"purple_terracotta",
-			"magenta_terracotta",
-			"pink_terracotta"
-		]
-	},
-	"decorators": {},
-	"spawns": []
+  "generation_group": "starry_skies:overworld/treasure",
+  "generation_weight": 1.0,
+  "min_size": 5,
+  "max_size": 16,
+  "type": "starry_skies:rainbow",
+  "type_data": {
+    "blocks": [
+      "white_terracotta",
+      "light_gray_terracotta",
+      "gray_terracotta",
+      "black_terracotta",
+      "brown_terracotta",
+      "red_terracotta",
+      "orange_terracotta",
+      "yellow_terracotta",
+      "lime_terracotta",
+      "green_terracotta",
+      "cyan_terracotta",
+      "light_blue_terracotta",
+      "blue_terracotta",
+      "purple_terracotta",
+      "magenta_terracotta",
+      "pink_terracotta"
+    ]
+  },
+  "decorators": {},
+  "spawns": []
 }

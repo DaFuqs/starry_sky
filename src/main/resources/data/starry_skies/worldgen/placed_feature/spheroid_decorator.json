@@ -1,8 +1,8 @@
 {
-	"feature": "starry_skies:spheroid_decorator",
-	"placement": [
-		{
-			"type": "minecraft:biome"
-		}
-	]
+  "feature": "starry_skies:spheroid_decorator",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
 }

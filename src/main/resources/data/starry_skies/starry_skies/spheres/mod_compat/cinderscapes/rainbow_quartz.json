@@ -1,25 +1,25 @@
 {
-	"generation_group": "starry_skies:nether/treasure",
-	"generation_weight": 0.2,
-	"min_size": 4,
-	"max_size": 8,
-	"type": "starry_skies:rainbow",
-	"type_data": {
-		"blocks": [
-			"cinderscapes:crystalline_quartz",
-			"cinderscapes:crystalline_sulfur_quartz",
-			"cinderscapes:crystalline_rose_quartz",
-			"cinderscapes:crystalline_smoky_quartz"
-		]
-	},
-	"decorators": {},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"cinderscapes"
-			]
-		}
-	]
+  "generation_group": "starry_skies:nether/treasure",
+  "generation_weight": 0.2,
+  "min_size": 4,
+  "max_size": 8,
+  "type": "starry_skies:rainbow",
+  "type_data": {
+    "blocks": [
+      "cinderscapes:crystalline_quartz",
+      "cinderscapes:crystalline_sulfur_quartz",
+      "cinderscapes:crystalline_rose_quartz",
+      "cinderscapes:crystalline_smoky_quartz"
+    ]
+  },
+  "decorators": {},
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "cinderscapes"
+      ]
+    }
+  ]
 }

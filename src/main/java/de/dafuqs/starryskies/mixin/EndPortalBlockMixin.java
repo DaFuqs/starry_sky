@@ -1,16 +1,13 @@
 package de.dafuqs.starryskies.mixin;
 
-import de.dafuqs.starryskies.StarrySkies;
-import de.dafuqs.starryskies.StarrySkyDimensionTravelHandler;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.EndPortalBlock;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import de.dafuqs.starryskies.*;
+import net.minecraft.block.*;
+import net.minecraft.entity.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.*;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.*;
 
 
 @Mixin(EndPortalBlock.class)

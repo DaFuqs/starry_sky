@@ -1,22 +1,22 @@
 {
-	"generation_group": "starry_skies:overworld/treasure",
-	"generation_weight": 1.0,
-	"min_size": 4,
-	"max_size": 8,
-	"type": "starry_skies:mushroom",
-	"type_data": {
-		"mushroom_block": "minecraft:brown_mushroom_block",
-		"stem_block": "minecraft:mushroom_stem",
-		"min_shell_size": 2,
-		"max_shell_size": 3
-	},
-	"decorators": {},
-	"spawns": [
-		{
-			"type": "minecraft:mooshroom",
-			"chance": 0.25,
-			"min_count": 1,
-			"max_count": 3
-		}
-	]
+  "generation_group": "starry_skies:overworld/treasure",
+  "generation_weight": 1.0,
+  "min_size": 4,
+  "max_size": 8,
+  "type": "starry_skies:mushroom",
+  "type_data": {
+    "mushroom_block": "minecraft:brown_mushroom_block",
+    "stem_block": "minecraft:mushroom_stem",
+    "min_shell_size": 2,
+    "max_shell_size": 3
+  },
+  "decorators": {},
+  "spawns": [
+    {
+      "type": "minecraft:mooshroom",
+      "chance": 0.25,
+      "min_count": 1,
+      "max_count": 3
+    }
+  ]
 }

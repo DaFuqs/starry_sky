@@ -1,35 +1,25 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.google.gson.JsonObject;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import de.dafuqs.starryskies.Support;
-import de.dafuqs.starryskies.spheroids.SpheroidDecorator;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.EndRodBlock;
-import net.minecraft.block.WallSkullBlock;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BrewingStandBlockEntity;
-import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.loot.LootTables;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.Pair;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.ChunkRandom;
+import com.google.gson.*;
+import com.mojang.brigadier.exceptions.*;
+import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.registries.*;
+import net.minecraft.block.*;
+import net.minecraft.block.entity.*;
+import net.minecraft.component.*;
+import net.minecraft.component.type.*;
+import net.minecraft.entity.*;
+import net.minecraft.item.*;
+import net.minecraft.loot.*;
+import net.minecraft.potion.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.chunk.Chunk;
+import net.minecraft.util.math.random.*;
+import net.minecraft.world.*;
+import net.minecraft.world.chunk.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class EndCitySpheroid extends Spheroid {
 	
@@ -40,14 +30,12 @@ public class EndCitySpheroid extends Spheroid {
 	private final BlockState END_STONE_BRICKS = Blocks.END_STONE_BRICKS.getDefaultState();
 	private final BlockState DRAGON_WALL_HEAD = Blocks.DRAGON_WALL_HEAD.getDefaultState();
 	
-	private final Identifier END_CITY_TREASURE_CHEST = LootTables.END_CITY_TREASURE_CHEST;
-	
 	private final int shellRadius;
 	private final ArrayList<BlockPos> interiorDecoratorPositions = new ArrayList<>();
 	
 	
 	public EndCitySpheroid(Spheroid.Template template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
-	                       int shellRadius) {
+						   int shellRadius) {
 		
 		super(template, radius, decorators, spawns, random);
 		this.shellRadius = shellRadius;
@@ -213,17 +201,13 @@ public class EndCitySpheroid extends Spheroid {
 		worldAccess.setBlockState(blockPos, PURPUR_PILLAR, 3);
 		worldAccess.setBlockState(blockPos.up(), Blocks.BREWING_STAND.getDefaultState(), 3);
 		
-		BlockEntity blockEntity = worldAccess.getBlockEntity(blockPos.up());
-		
 		ItemStack healingPotionStack = new ItemStack(Items.POTION, 1);
-		NbtCompound potionTag = new NbtCompound();
-		potionTag.putString("Potion", new Identifier("strong_healing").toString());
-		healingPotionStack.setNbt(potionTag);
+		healingPotionStack.set(DataComponentTypes.POTION_CONTENTS, new PotionContentsComponent(Potions.STRONG_HEALING));
 		
-		if (blockEntity instanceof BrewingStandBlockEntity) {
-			((BrewingStandBlockEntity) blockEntity).setStack(0, healingPotionStack.copy());
-			((BrewingStandBlockEntity) blockEntity).setStack(1, healingPotionStack.copy());
-			((BrewingStandBlockEntity) blockEntity).setStack(2, healingPotionStack.copy());
+		if (worldAccess.getBlockEntity(blockPos.up()) instanceof BrewingStandBlockEntity brewingStand) {
+			brewingStand.setStack(0, healingPotionStack.copy());
+			brewingStand.setStack(1, healingPotionStack.copy());
+			brewingStand.setStack(2, healingPotionStack.copy());
 		}
 	}
 	
@@ -242,7 +226,7 @@ public class EndCitySpheroid extends Spheroid {
 		worldAccess.setBlockState(randomPos, enderChestBlockState, 3);
 		
 		// may override the ender chest in very rare circumstances
-		placeCenterChestWithLootTable(worldAccess.getChunk(blockPos), blockPos, END_CITY_TREASURE_CHEST, random, false);
+		placeCenterChestWithLootTable(worldAccess.getChunk(blockPos), blockPos, LootTables.END_CITY_TREASURE_CHEST, random, false);
 	}
 	
 	private void placeElytra(WorldAccess worldAccess, BlockPos blockPos) {

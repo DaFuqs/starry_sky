@@ -1,15 +1,15 @@
 {
-	"generation_group": "starry_skies:nether/essential",
-	"generation_weight": 2.0,
-	"min_size": 8,
-	"max_size": 20,
-	"type": "starry_skies:simple",
-	"type_data": {
-		"block": "minecraft:blackstone"
-	},
-	"decorators": {
-		"starry_skies:center_pond_lava": 0.08,
-		"starry_skies:mod_compat/betternether/blackstone_stalactites": 0.2
-	},
-	"spawns": []
+  "generation_group": "starry_skies:nether/essential",
+  "generation_weight": 2.0,
+  "min_size": 8,
+  "max_size": 20,
+  "type": "starry_skies:simple",
+  "type_data": {
+    "block": "minecraft:blackstone"
+  },
+  "decorators": {
+    "starry_skies:center_pond_lava": 0.08,
+    "starry_skies:mod_compat/betternether/blackstone_stalactites": 0.2
+  },
+  "spawns": []
 }

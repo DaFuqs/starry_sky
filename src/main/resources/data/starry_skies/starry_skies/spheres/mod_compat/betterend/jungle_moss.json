@@ -1,26 +1,26 @@
 {
-	"generation_group": "starry_skies:end/decorative",
-	"generation_weight": 0.3,
-	"min_size": 6,
-	"max_size": 15,
-	"type": "starry_skies:modular",
-	"type_data": {
-		"main_block": "minecraft:end_stone",
-		"top_block": "betterend:jungle_moss"
-	},
-	"decorators": {
-		"starry_skies:mod_compat/betterend/jungle_grass": 0.9,
-		"starry_skies:mod_compat/betterend/small_jellyshrooms": 0.5,
-		"starry_skies:mod_compat/betterend/twisted_umbrella_moss": 0.5,
-		"starry_skies:mod_compat/betterend/tall_twisted_umbrella_moss": 0.5
-	},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"betterend"
-			]
-		}
-	]
+  "generation_group": "starry_skies:end/decorative",
+  "generation_weight": 0.3,
+  "min_size": 6,
+  "max_size": 15,
+  "type": "starry_skies:modular",
+  "type_data": {
+    "main_block": "minecraft:end_stone",
+    "top_block": "betterend:jungle_moss"
+  },
+  "decorators": {
+    "starry_skies:mod_compat/betterend/jungle_grass": 0.9,
+    "starry_skies:mod_compat/betterend/small_jellyshrooms": 0.5,
+    "starry_skies:mod_compat/betterend/twisted_umbrella_moss": 0.5,
+    "starry_skies:mod_compat/betterend/tall_twisted_umbrella_moss": 0.5
+  },
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "betterend"
+      ]
+    }
+  ]
 }

@@ -1,12 +1,12 @@
 {
-	"generation_group": "starry_skies:overworld/decorative",
-	"generation_weight": 1.0,
-	"min_size": 6,
-	"max_size": 11,
-	"type": "starry_skies:simple",
-	"type_data": {
-		"block": "minecraft:diorite"
-	},
-	"decorators": {},
-	"spawns": []
+  "generation_group": "starry_skies:overworld/decorative",
+  "generation_weight": 1.0,
+  "min_size": 6,
+  "max_size": 11,
+  "type": "starry_skies:simple",
+  "type_data": {
+    "block": "minecraft:diorite"
+  },
+  "decorators": {},
+  "spawns": []
 }

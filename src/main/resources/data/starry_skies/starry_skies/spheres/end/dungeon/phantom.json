@@ -1,15 +1,15 @@
 {
-	"generation_group": "starry_skies:end/dungeon",
-	"generation_weight": 1,
-	"min_size": 6,
-	"max_size": 11,
-	"type": "starry_skies:dungeon",
-	"type_data": {
-		"entity_type": "minecraft:phantom",
-		"min_shell_size": 2,
-		"max_shell_size": 3,
-		"shell_block": "$starry_skies:end_dungeon_stones"
-	},
-	"decorators": {},
-	"spawns": []
+  "generation_group": "starry_skies:end/dungeon",
+  "generation_weight": 1,
+  "min_size": 6,
+  "max_size": 11,
+  "type": "starry_skies:dungeon",
+  "type_data": {
+    "entity_type": "minecraft:phantom",
+    "min_shell_size": 2,
+    "max_shell_size": 3,
+    "shell_block": "$starry_skies:end_dungeon_stones"
+  },
+  "decorators": {},
+  "spawns": []
 }

@@ -1,22 +1,22 @@
 {
-	"generation_group": "starry_skies:nether/decorative",
-	"generation_weight": 0.5,
-	"min_size": 5,
-	"max_size": 8,
-	"type": "starry_skies:simple",
-	"type_data": {
-		"block": "cinderscapes:twilight_vine_block"
-	},
-	"decorators": {
-		"starry_skies:mod_compat/cinderscapes/ghastly_ectoplasm": 0.9
-	},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"cinderscapes"
-			]
-		}
-	]
+  "generation_group": "starry_skies:nether/decorative",
+  "generation_weight": 0.5,
+  "min_size": 5,
+  "max_size": 8,
+  "type": "starry_skies:simple",
+  "type_data": {
+    "block": "cinderscapes:twilight_vine_block"
+  },
+  "decorators": {
+    "starry_skies:mod_compat/cinderscapes/ghastly_ectoplasm": 0.9
+  },
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "cinderscapes"
+      ]
+    }
+  ]
 }

@@ -1,29 +1,29 @@
 {
-	"generation_group": "starry_skies:overworld/treasure",
-	"generation_weight": 0.25,
-	"min_size": 9,
-	"max_size": 14,
-	"type": "starry_skies:rainbow",
-	"type_data": {
-		"blocks": [
-			"byg:black_sand",
-			"byg:white_sand",
-			"byg:blue_sand",
-			"byg:purple_sand",
-			"byg:pink_sand"
-		],
-		"bottom_blocks": [
-			"minecraft:sandstone"
-		]
-	},
-	"decorators": {},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"byg"
-			]
-		}
-	]
+  "generation_group": "starry_skies:overworld/treasure",
+  "generation_weight": 0.25,
+  "min_size": 9,
+  "max_size": 14,
+  "type": "starry_skies:rainbow",
+  "type_data": {
+    "blocks": [
+      "byg:black_sand",
+      "byg:white_sand",
+      "byg:blue_sand",
+      "byg:purple_sand",
+      "byg:pink_sand"
+    ],
+    "bottom_blocks": [
+      "minecraft:sandstone"
+    ]
+  },
+  "decorators": {},
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "byg"
+      ]
+    }
+  ]
 }

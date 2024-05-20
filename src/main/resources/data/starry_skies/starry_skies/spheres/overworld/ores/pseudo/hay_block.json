@@ -1,15 +1,15 @@
 {
-	"generation_group": "starry_skies:overworld/ores",
-	"generation_weight": 0.05,
-	"min_size": 4,
-	"max_size": 8,
-	"type": "starry_skies:core",
-	"type_data": {
-		"min_core_size": 2,
-		"max_core_size": 4,
-		"core_block": "minecraft:hay_block",
-		"main_block": "$starry_skies:stones"
-	},
-	"decorators": {},
-	"spawns": []
+  "generation_group": "starry_skies:overworld/ores",
+  "generation_weight": 0.05,
+  "min_size": 4,
+  "max_size": 8,
+  "type": "starry_skies:core",
+  "type_data": {
+    "min_core_size": 2,
+    "max_core_size": 4,
+    "core_block": "minecraft:hay_block",
+    "main_block": "$starry_skies:stones"
+  },
+  "decorators": {},
+  "spawns": []
 }

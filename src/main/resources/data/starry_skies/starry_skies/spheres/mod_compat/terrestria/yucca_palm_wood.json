@@ -1,23 +1,23 @@
 {
-	"generation_group": "starry_skies:overworld/wood",
-	"generation_weight": 1.0,
-	"min_size": 5,
-	"max_size": 8,
-	"type": "starry_skies:shell",
-	"type_data": {
-		"min_shell_size": 1,
-		"max_shell_size": 2,
-		"main_block": "terrestria:yucca_palm_log[down=true,east=true,has_leaves=false,north=true,south=true,up=true,waterlogged=false,west=true]",
-		"shell_block": "terrestria:yucca_palm_leaves[distance=1]"
-	},
-	"decorators": {},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"terrestria"
-			]
-		}
-	]
+  "generation_group": "starry_skies:overworld/wood",
+  "generation_weight": 1.0,
+  "min_size": 5,
+  "max_size": 8,
+  "type": "starry_skies:shell",
+  "type_data": {
+    "min_shell_size": 1,
+    "max_shell_size": 2,
+    "main_block": "terrestria:yucca_palm_log[down=true,east=true,has_leaves=false,north=true,south=true,up=true,waterlogged=false,west=true]",
+    "shell_block": "terrestria:yucca_palm_leaves[distance=1]"
+  },
+  "decorators": {},
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "terrestria"
+      ]
+    }
+  ]
 }

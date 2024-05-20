@@ -1,37 +1,37 @@
 {
-	"generation_group": "starry_skies:overworld/treasure",
-	"generation_weight": 1.0,
-	"min_size": 5,
-	"max_size": 16,
-	"type": "starry_skies:rainbow",
-	"type_data": {
-		"blocks": [
-			"blockus:white_asphalt",
-			"blockus:light_gray_asphalt",
-			"blockus:gray_asphalt",
-			"blockus:asphalt",
-			"blockus:brown_asphalt",
-			"blockus:red_asphalt",
-			"blockus:orange_asphalt",
-			"blockus:yellow_asphalt",
-			"blockus:lime_asphalt",
-			"blockus:green_asphalt",
-			"blockus:cyan_asphalt",
-			"blockus:light_blue_asphalt",
-			"blockus:blue_asphalt",
-			"blockus:purple_asphalt",
-			"blockus:magenta_asphalt",
-			"blockus:pink_asphalt"
-		]
-	},
-	"decorators": {},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"blockus"
-			]
-		}
-	]
+  "generation_group": "starry_skies:overworld/treasure",
+  "generation_weight": 1.0,
+  "min_size": 5,
+  "max_size": 16,
+  "type": "starry_skies:rainbow",
+  "type_data": {
+    "blocks": [
+      "blockus:white_asphalt",
+      "blockus:light_gray_asphalt",
+      "blockus:gray_asphalt",
+      "blockus:asphalt",
+      "blockus:brown_asphalt",
+      "blockus:red_asphalt",
+      "blockus:orange_asphalt",
+      "blockus:yellow_asphalt",
+      "blockus:lime_asphalt",
+      "blockus:green_asphalt",
+      "blockus:cyan_asphalt",
+      "blockus:light_blue_asphalt",
+      "blockus:blue_asphalt",
+      "blockus:purple_asphalt",
+      "blockus:magenta_asphalt",
+      "blockus:pink_asphalt"
+    ]
+  },
+  "decorators": {},
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "blockus"
+      ]
+    }
+  ]
 }

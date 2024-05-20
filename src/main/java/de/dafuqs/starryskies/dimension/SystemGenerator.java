@@ -1,23 +1,21 @@
 package de.dafuqs.starryskies.dimension;
 
-import de.dafuqs.starryskies.StarrySkies;
-import de.dafuqs.starryskies.Support;
-import de.dafuqs.starryskies.data_loaders.SpheroidTemplateLoader;
-import de.dafuqs.starryskies.spheroids.spheroids.Spheroid;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.CheckedRandom;
-import net.minecraft.util.math.random.ChunkRandom;
-import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
+import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.data_loaders.*;
+import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.spheroids.*;
+import net.minecraft.registry.*;
+import net.minecraft.server.world.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.math.random.*;
+import net.minecraft.world.*;
+import org.jetbrains.annotations.*;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.*;
 
-import static org.apache.logging.log4j.Level.DEBUG;
+import static org.apache.logging.log4j.Level.*;
 
 public class SystemGenerator {
 	
@@ -167,8 +165,8 @@ public class SystemGenerator {
 				}
 				break;
 			case END:
-				if (       (systemPointX == 0 && systemPointZ == 0)
-					    || (systemPointX == -1 && systemPointZ == 0)
+				if ((systemPointX == 0 && systemPointZ == 0)
+						|| (systemPointX == -1 && systemPointZ == 0)
 						|| (systemPointX == 0 && systemPointZ == -1)
 						|| (systemPointX == -1 && systemPointZ == -1)) {
 					spheroid = SpheroidTemplateLoader.STARTER_END.generate(random);

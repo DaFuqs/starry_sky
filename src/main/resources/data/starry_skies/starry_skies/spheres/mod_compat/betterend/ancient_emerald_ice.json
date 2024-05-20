@@ -1,26 +1,26 @@
 {
-	"generation_group": "starry_skies:end/decorative",
-	"generation_weight": 0.1,
-	"min_size": 6,
-	"max_size": 10,
-	"type": "starry_skies:shell_core",
-	"type_data": {
-		"main_block": "betterend:dense_emerald_ice",
-		"core_block": "betterend:ancient_emerald_ice",
-		"min_core_size": 1,
-		"max_core_size": 3,
-		"shell_block": "betterend:emerald_ice",
-		"min_shell_size": 2,
-		"max_shell_size": 4
-	},
-	"decorators": {},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"betterend"
-			]
-		}
-	]
+  "generation_group": "starry_skies:end/decorative",
+  "generation_weight": 0.1,
+  "min_size": 6,
+  "max_size": 10,
+  "type": "starry_skies:shell_core",
+  "type_data": {
+    "main_block": "betterend:dense_emerald_ice",
+    "core_block": "betterend:ancient_emerald_ice",
+    "min_core_size": 1,
+    "max_core_size": 3,
+    "shell_block": "betterend:emerald_ice",
+    "min_shell_size": 2,
+    "max_shell_size": 4
+  },
+  "decorators": {},
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "betterend"
+      ]
+    }
+  ]
 }

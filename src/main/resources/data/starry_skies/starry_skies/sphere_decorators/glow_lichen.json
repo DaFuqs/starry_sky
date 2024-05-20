@@ -1,17 +1,17 @@
 {
-	"type": "starry_skies:multiface_growth",
-	"type_data": {
-		"block": "minecraft:glow_lichen",
-		"placeable_on_blocks": [
-			"minecraft:stone",
-			"minecraft:andesite",
-			"minecraft:diorite",
-			"minecraft:granite",
-			"minecraft:dripstone_block",
-			"minecraft:calcite",
-			"minecraft:tuff",
-			"minecraft:deepslate"
-		],
-		"chance": 0.1
-	}
+  "type": "starry_skies:multiface_growth",
+  "type_data": {
+    "block": "minecraft:glow_lichen",
+    "placeable_on_blocks": [
+      "minecraft:stone",
+      "minecraft:andesite",
+      "minecraft:diorite",
+      "minecraft:granite",
+      "minecraft:dripstone_block",
+      "minecraft:calcite",
+      "minecraft:tuff",
+      "minecraft:deepslate"
+    ],
+    "chance": 0.1
+  }
 }

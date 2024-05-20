@@ -1,12 +1,12 @@
 {
-	"generation_group": "starry_skies:end/decorative",
-	"generation_weight": 5.0,
-	"min_size": 5,
-	"max_size": 9,
-	"type": "starry_skies:simple",
-	"type_data": {
-		"block": "minecraft:magenta_stained_glass"
-	},
-	"decorators": {},
-	"spawns": []
+  "generation_group": "starry_skies:end/decorative",
+  "generation_weight": 5.0,
+  "min_size": 5,
+  "max_size": 9,
+  "type": "starry_skies:simple",
+  "type_data": {
+    "block": "minecraft:magenta_stained_glass"
+  },
+  "decorators": {},
+  "spawns": []
 }

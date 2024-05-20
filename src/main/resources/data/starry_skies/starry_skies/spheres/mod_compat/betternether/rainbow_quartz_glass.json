@@ -1,37 +1,37 @@
 {
-	"generation_group": "starry_skies:nether/decorative",
-	"generation_weight": 0.01,
-	"min_size": 6,
-	"max_size": 10,
-	"type": "starry_skies:rainbow",
-	"type_data": {
-		"blocks": [
-			"betternether:quartz_glass_white",
-			"betternether:quartz_glass_light_gray",
-			"betternether:quartz_glass_gray",
-			"betternether:quartz_glass_black",
-			"betternether:quartz_glass_brown",
-			"betternether:quartz_glass_red",
-			"betternether:quartz_glass_orange",
-			"betternether:quartz_glass_yellow",
-			"betternether:quartz_glass_lime",
-			"betternether:quartz_glass_green",
-			"betternether:quartz_glass_cyan",
-			"betternether:quartz_glass_light_blue",
-			"betternether:quartz_glass_blue",
-			"betternether:quartz_glass_purple",
-			"betternether:quartz_glass_magenta",
-			"betternether:quartz_glass_pink"
-		]
-	},
-	"decorators": {},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"betternether"
-			]
-		}
-	]
+  "generation_group": "starry_skies:nether/decorative",
+  "generation_weight": 0.01,
+  "min_size": 6,
+  "max_size": 10,
+  "type": "starry_skies:rainbow",
+  "type_data": {
+    "blocks": [
+      "betternether:quartz_glass_white",
+      "betternether:quartz_glass_light_gray",
+      "betternether:quartz_glass_gray",
+      "betternether:quartz_glass_black",
+      "betternether:quartz_glass_brown",
+      "betternether:quartz_glass_red",
+      "betternether:quartz_glass_orange",
+      "betternether:quartz_glass_yellow",
+      "betternether:quartz_glass_lime",
+      "betternether:quartz_glass_green",
+      "betternether:quartz_glass_cyan",
+      "betternether:quartz_glass_light_blue",
+      "betternether:quartz_glass_blue",
+      "betternether:quartz_glass_purple",
+      "betternether:quartz_glass_magenta",
+      "betternether:quartz_glass_pink"
+    ]
+  },
+  "decorators": {},
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "betternether"
+      ]
+    }
+  ]
 }

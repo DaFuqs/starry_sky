@@ -1,37 +1,37 @@
 {
-	"generation_group": "starry_skies:overworld/treasure",
-	"generation_weight": 1.0,
-	"min_size": 5,
-	"max_size": 16,
-	"type": "starry_skies:rainbow",
-	"type_data": {
-		"blocks": [
-			"blockus:white_beveled_glass",
-			"blockus:light_gray_beveled_glass",
-			"blockus:gray_beveled_glass",
-			"blockus:black_beveled_glass",
-			"blockus:brown_beveled_glass",
-			"blockus:red_beveled_glass",
-			"blockus:orange_beveled_glass",
-			"blockus:yellow_beveled_glass",
-			"blockus:lime_beveled_glass",
-			"blockus:green_beveled_glass",
-			"blockus:cyan_beveled_glass",
-			"blockus:light_blue_beveled_glass",
-			"blockus:blue_beveled_glass",
-			"blockus:purple_beveled_glass",
-			"blockus:magenta_beveled_glass",
-			"blockus:pink_beveled_glass"
-		]
-	},
-	"decorators": {},
-	"spawns": [],
-	"fabric:load_conditions": [
-		{
-			"condition": "fabric:all_mods_loaded",
-			"values": [
-				"blockus"
-			]
-		}
-	]
+  "generation_group": "starry_skies:overworld/treasure",
+  "generation_weight": 1.0,
+  "min_size": 5,
+  "max_size": 16,
+  "type": "starry_skies:rainbow",
+  "type_data": {
+    "blocks": [
+      "blockus:white_beveled_glass",
+      "blockus:light_gray_beveled_glass",
+      "blockus:gray_beveled_glass",
+      "blockus:black_beveled_glass",
+      "blockus:brown_beveled_glass",
+      "blockus:red_beveled_glass",
+      "blockus:orange_beveled_glass",
+      "blockus:yellow_beveled_glass",
+      "blockus:lime_beveled_glass",
+      "blockus:green_beveled_glass",
+      "blockus:cyan_beveled_glass",
+      "blockus:light_blue_beveled_glass",
+      "blockus:blue_beveled_glass",
+      "blockus:purple_beveled_glass",
+      "blockus:magenta_beveled_glass",
+      "blockus:pink_beveled_glass"
+    ]
+  },
+  "decorators": {},
+  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "blockus"
+      ]
+    }
+  ]
 }

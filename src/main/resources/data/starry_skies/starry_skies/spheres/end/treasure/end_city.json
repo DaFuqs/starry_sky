@@ -1,13 +1,13 @@
 {
-	"generation_group": "starry_skies:end/treasure",
-	"generation_weight": 3.0,
-	"min_size": 20,
-	"max_size": 40,
-	"type": "starry_skies:end_city",
-	"type_data": {
-		"min_shell_size": 3,
-		"max_shell_size": 5
-	},
-	"decorators": {},
-	"spawns": []
+  "generation_group": "starry_skies:end/treasure",
+  "generation_weight": 3.0,
+  "min_size": 20,
+  "max_size": 40,
+  "type": "starry_skies:end_city",
+  "type_data": {
+    "min_shell_size": 3,
+    "max_shell_size": 5
+  },
+  "decorators": {},
+  "spawns": []
 }
