@@ -1,69 +1,31 @@
 package de.dafuqs.starryskies.advancements;
 
-import com.google.gson.*;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.advancement.criterion.*;
 import net.minecraft.predicate.entity.*;
 import net.minecraft.server.network.*;
 import net.minecraft.util.*;
-import org.jetbrains.annotations.*;
 
 import java.util.*;
 
 public class SpheroidDiscoveredCriterion extends AbstractCriterion<SpheroidDiscoveredCriterion.Conditions> {
 	
-	private static Identifier[] deserializeAll(JsonElement json) {
-		JsonArray array = json.getAsJsonArray();
-		Identifier[] ids = new Identifier[array.size()];
-		for (int i = 0; i < array.size(); i++) {
-			ids[i] = Identifier.tryParse(array.get(i).getAsString());
-		}
-		return ids;
-	}
-	
-	private static JsonElement serializeAll(Identifier[] identifiers) {
-		JsonArray array = new JsonArray();
-		for (Identifier id : identifiers) {
-			array.add(id.toString());
-		}
-		return array;
-	}
-	
-	public void trigger(ServerPlayerEntity player, Spheroid spheroid) {
-		this.trigger(player, (conditions) -> conditions.matches(spheroid.getTemplate().getID()));
-	}
-	
-	@Override
-	protected Conditions conditionsFromJson(JsonObject json, Optional<LootContextPredicate> predicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
-		Identifier[] identifiers;
-		if (json.has("ids")) {
-			identifiers = deserializeAll(json.get("ids"));
-		} else {
-			identifiers = new Identifier[0];
-		}
-		return new SpheroidDiscoveredCriterion.Conditions(predicate, identifiers);
-	}
-	
-	public static class Conditions extends AbstractCriterionConditions {
+	public record Conditions(Optional<LootContextPredicate> player, List<Identifier> identifiers) implements AbstractCriterion.Conditions {
 		
-		private final Identifier[] identifiers;
-		
-		public Conditions(Optional<LootContextPredicate> playerPredicate, @Nullable Identifier[] identifiers) {
-			super(playerPredicate);
-			this.identifiers = identifiers;
-		}
-		
-		public JsonObject toJson() {
-			JsonObject jsonObject = super.toJson();
-			jsonObject.add("ids", serializeAll(identifiers));
-			return jsonObject;
-		}
+		public static final Codec<Conditions> CODEC = RecordCodecBuilder.create(
+				(instance) -> instance.group(
+						EntityPredicate.LOOT_CONTEXT_PREDICATE_CODEC.optionalFieldOf("player").forGetter(Conditions::player),
+						Identifier.CODEC.listOf().optionalFieldOf("ids", List.of()).forGetter(Conditions::identifiers)
+				).apply(instance, Conditions::new)
+		);
 		
 		public boolean matches(Identifier spheroidIdentifier) {
-			if (this.identifiers.length == 0) {
+			if (spheroidIdentifier == null) {
 				return true;
 			}
-			if (spheroidIdentifier == null) {
+			if (this.identifiers.isEmpty()) {
 				return true;
 			}
 			for (Identifier id : identifiers) {
@@ -73,6 +35,16 @@ public class SpheroidDiscoveredCriterion extends AbstractCriterion<SpheroidDisco
 			}
 			return false;
 		}
+		
+	}
+	
+	@Override
+	public Codec<Conditions> getConditionsCodec() {
+		return Conditions.CODEC;
+	}
+	
+	public void trigger(ServerPlayerEntity player, Spheroid spheroid) {
+		this.trigger(player, (conditions) -> conditions.matches(spheroid.getTemplate().getID()));
 	}
 	
 }
