@@ -30,7 +30,7 @@
     "starry_skies.mixins.json"
   ],
   "depends": {
-    "minecraft": ">=1.20.2",
+    "minecraft": ">=1.20.6",
     "fabricloader": "*",
     "fabric": "*",
     "cloth-config": "*"
