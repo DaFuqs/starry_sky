@@ -3,6 +3,7 @@ package de.dafuqs.starryskies.data_loaders;
 import com.google.gson.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
+import it.unimi.dsi.fastutil.objects.Object2FloatArrayMap;
 import net.fabricmc.fabric.api.resource.*;
 import net.minecraft.registry.*;
 import net.minecraft.resource.*;
@@ -18,9 +19,7 @@ public class SpheroidDistributionLoader extends JsonDataLoader implements Identi
 	public static final String ID = "starry_skies/distribution_type";
 	public static final SpheroidDistributionLoader INSTANCE = new SpheroidDistributionLoader();
 	
-	public record SpheroidDistributionType(SpheroidDimensionType dimensionType, Map<Identifier, Float> distribution) {
-	
-	}
+	public record SpheroidDistributionType(SpheroidDimensionType type, Map<Identifier, Float> distribution) {}
 	
 	protected SpheroidDistributionLoader() {
 		super(new Gson(), ID);
@@ -29,21 +28,19 @@ public class SpheroidDistributionLoader extends JsonDataLoader implements Identi
 	@Override
 	protected void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		prepared.forEach((identifier, jsonElement) -> {
-			JsonObject jsonObject = jsonElement.getAsJsonObject();
-			
-			SpheroidDimensionType dimensionType = SpheroidDimensionType.of(JsonHelper.getString(jsonObject, "dimension"));
+			final JsonObject jsonObject = jsonElement.getAsJsonObject();
+
+			final Identifier dimensionTypeId = new Identifier(JsonHelper.getString(jsonObject, "dimension"));
+			final SpheroidDimensionType dimensionType = StarryRegistries.STARRY_DIMENSION_TYPE.get(dimensionTypeId);
 			float weight = JsonHelper.getFloat(jsonObject, "weight");
-			
-			register(dimensionType, identifier, weight);
-			
-			SpheroidDistributionType distributionType = new SpheroidDistributionType();
-			
-			Registry.register(StarryRegistries.SPHEROID_DISTRIBUTION_TYPE, identifier, distributionType);
+
+			SpheroidDistributionType distributionType = StarryRegistries.SPHEROID_DISTRIBUTION_TYPE.get(dimensionTypeId);
+			if (distributionType == null) {
+				distributionType = new SpheroidDistributionType(dimensionType, new Object2FloatArrayMap<>(1));
+				Registry.register(StarryRegistries.SPHEROID_DISTRIBUTION_TYPE, dimensionTypeId, distributionType);
+			}
+			distributionType.distribution.put(identifier, weight);
 		});
-	}
-	
-	public void register(@NotNull SpheroidDimensionType dimensionType, Identifier identifier, float weight) {
-		DISTRIBUTION_TYPES.get(dimensionType).put(identifier, weight);
 	}
 	
 	@Override
@@ -52,15 +49,18 @@ public class SpheroidDistributionLoader extends JsonDataLoader implements Identi
 	}
 	
 	public static Identifier getWeightedRandomDistributionType(SpheroidDimensionType dimensionType, ChunkRandom systemRandom) {
-		Map<Identifier, Float> entry = DISTRIBUTION_TYPES.get(dimensionType);
-		return Support.getWeightedRandom(entry, systemRandom);
+		final var entry = Objects.requireNonNull(StarryRegistries.SPHEROID_DISTRIBUTION_TYPE.get(dimensionType.id()));
+		final var map = entry.distribution;
+		return Support.getWeightedRandom(map, systemRandom);
 	}
 	
 	public static List<Identifier> getAll() {
 		List<Identifier> ids = new ArrayList<>();
-		for (Map<Identifier, Float> entry : DISTRIBUTION_TYPES.values()) {
-			ids.addAll(entry.keySet());
-		}
+		var iterator = StarryRegistries.SPHEROID_DISTRIBUTION_TYPE.iterator();
+        for (Iterator<SpheroidDistributionType> it = iterator; it.hasNext(); ) {
+            Map<Identifier, Float> entry = it.next().distribution;
+            ids.addAll(entry.keySet());
+        }
 		return ids;
 	}
 	

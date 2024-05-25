@@ -4,6 +4,7 @@ import com.mojang.serialization.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.spheroids.decorators.*;
 import net.minecraft.registry.*;
+import net.minecraft.util.Identifier;
 
 public class SpheroidDecoratorType<P extends SpheroidDecorator> {
 	

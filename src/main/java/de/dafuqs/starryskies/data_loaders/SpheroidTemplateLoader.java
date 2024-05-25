@@ -6,6 +6,7 @@ import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.fabricmc.fabric.api.resource.*;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryOps;
 import net.minecraft.resource.*;
 import net.minecraft.util.*;
@@ -52,8 +53,9 @@ public class SpheroidTemplateLoader extends JsonDataLoader implements Identifiab
 				spheroidType = Identifier.tryParse(JsonHelper.getString(jsonObject, "type"));
 				
 				try {
-					SpheroidTemplateType<?> templateClass = StarryRegistries.SPHEROID_TEMPLATE.get(spheroidType);
+					SpheroidTemplateType<?> templateClass = StarryRegistries.SPHEROID_TEMPLATE_TYPE.get(spheroidType);
 					template = templateClass.getCodec().codec().parse(ops, jsonObject).getOrThrow();
+					Registry.register(StarryRegistries.SPHEROID_TEMPLATE, identifier, template);
 				} catch (NullPointerException e) {
 					if (StarrySkies.CONFIG.packCreatorMode) {
                         StarrySkies.LOGGER.warn("Error reading sphere json definition {}: Spheroid Type {} is not known.", identifier, spheroidType);

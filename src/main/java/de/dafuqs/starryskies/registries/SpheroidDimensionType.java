@@ -7,13 +7,37 @@ import net.minecraft.registry.*;
 import net.minecraft.registry.entry.*;
 import net.minecraft.util.*;
 import net.minecraft.world.biome.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
+// TOOD: Note to Daf: Make this dynamic, anyhow.
+// I [the writer of this note] do not envision any way you would make this dynamic, so I leave this task to you.
+
 public enum SpheroidDimensionType {
-	OVERWORLD,
-	NETHER,
-	END;
+	OVERWORLD(StarrySkies.locate("overworld")),
+	NETHER(StarrySkies.locate("nether")),
+	END(StarrySkies.locate("nether"));
+
+	private final @NotNull Identifier id;
+
+	SpheroidDimensionType(@NotNull Identifier id) {
+		this.id = id;
+	}
+
+	private static void register(SpheroidDimensionType type) {
+		Registry.register(StarryRegistries.STARRY_DIMENSION_TYPE, type.id, type);
+	}
+
+	public static void initialize() {
+		register(OVERWORLD);
+		register(NETHER);
+		register(END);
+	}
+
+	public @NotNull Identifier id() {
+		return this.id;
+	}
 	
 	public static SpheroidDimensionType of(String s) {
 		try {

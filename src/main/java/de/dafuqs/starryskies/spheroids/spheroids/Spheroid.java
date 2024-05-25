@@ -203,7 +203,7 @@ public abstract class Spheroid implements Serializable {
 					instance -> instance.group(
 						Codec.INT.fieldOf("min_size").forGetter(SharedConfig::minSize),
 						Codec.INT.fieldOf("max_size").forGetter(SharedConfig::maxSize),
-						Codec.unboundedMap(SpheroidDecorator.TYPE_CODEC, Codec.FLOAT).fieldOf("decorators").forGetter(SharedConfig::decorators),
+						Codec.unboundedMap(SpheroidDecorator.CODEC, Codec.FLOAT).fieldOf("decorators").forGetter(SharedConfig::decorators),
 						SpheroidEntitySpawnDefinition.CODEC.listOf().fieldOf("spawns").forGetter(SharedConfig::spawns)
 					).apply(instance, SharedConfig::new)
 			);
@@ -224,7 +224,7 @@ public abstract class Spheroid implements Serializable {
 		public abstract SpheroidTemplateType<? extends Template<C>> getType();
 
 		public Identifier getID() {
-			return this.getType().id();
+			return StarryRegistries.SPHEROID_TEMPLATE.getId(this);
 		}
 
 		public SharedConfig sharedConfig() {

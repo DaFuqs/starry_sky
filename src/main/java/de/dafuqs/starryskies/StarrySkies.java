@@ -39,10 +39,6 @@ public class StarrySkies implements ModInitializer {
 	public static ServerWorld starryWorldNether;
 	public static ServerWorld starryWorldEnd;
 	public static DynamicRegistryManager registryManager;
-
-	public static void log() {
-
-	}
 	
 	@Override
 	public void onInitialize() {
@@ -65,6 +61,7 @@ public class StarrySkies implements ModInitializer {
 		StarryAdvancementCriteria.register();
 
 		SpheroidDecoratorType.initialize();
+		SpheroidDimensionType.initialize();
 		
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
 			ClosestSpheroidCommand.register(dispatcher);
@@ -130,10 +127,6 @@ public class StarrySkies implements ModInitializer {
 			StarrySkies.LOGGER.error("Encountered invalid block result: {}", element);
 			return null;
 		}
-	}
-	
-	public static Block getBlockFromString(String s) {
-		return Registries.BLOCK.get(Identifier.tryParse(s));
 	}
 	
 	public static boolean inStarryWorld(ServerPlayerEntity serverPlayerEntity) {

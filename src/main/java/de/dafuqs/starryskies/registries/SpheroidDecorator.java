@@ -15,8 +15,8 @@ import org.jetbrains.annotations.*;
 import java.util.*;
 
 public abstract class SpheroidDecorator {
-	
-	public static final Codec<SpheroidDecorator> TYPE_CODEC = StarryRegistries.SPHEROID_DECORATOR_TYPE.getCodec().dispatch(SpheroidDecorator::getType, SpheroidDecoratorType::getCodec);
+
+	public static final Codec<SpheroidDecorator> CODEC = StarryRegistries.SPHEROID_DECORATOR.getCodec();
 	
 	public SpheroidDecorator() {
 	}
