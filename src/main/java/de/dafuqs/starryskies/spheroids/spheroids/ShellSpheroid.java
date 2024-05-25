@@ -43,7 +43,7 @@ public class ShellSpheroid extends Spheroid {
 			public record SpeckleEntry(BlockArgumentParser.BlockResult result, Float chance) {
 				public SpeckleEntry(Map.Entry<BlockArgumentParser. BlockResult, Float> e) {
 					this(e.getKey(), e.getValue());
-				};
+				}
 				public static final MapCodec<SpeckleEntry> CODEC = RecordCodecBuilder.mapCodec(
 						instance -> instance.group(
 								BLOCK_RESULT_CODEC.fieldOf("block").forGetter(SpeckleEntry::result),
@@ -60,7 +60,7 @@ public class ShellSpheroid extends Spheroid {
 							SpeckleEntry.CODEC.codec().lenientOptionalFieldOf("shell_speckles").forGetter(Config::speckleEntry)
 					).apply(instance, Config::new)
 			);
-		};
+		}
 
 		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
 		

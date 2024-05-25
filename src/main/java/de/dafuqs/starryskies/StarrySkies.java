@@ -62,9 +62,7 @@ public class StarrySkies implements ModInitializer {
 		SpheroidTemplateType.initialize();
 		SpheroidDimensionType.initialize();
 		
-		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-			ClosestSpheroidCommand.register(dispatcher);
-		});
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> ClosestSpheroidCommand.register(dispatcher));
 		
 		// triggers everytime a world is loaded
 		// so for overworld, nether, ... (they all share the same seed)

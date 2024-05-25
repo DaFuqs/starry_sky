@@ -10,7 +10,6 @@ import net.minecraft.resource.*;
 import net.minecraft.util.*;
 import net.minecraft.util.profiler.*;
 
-import java.lang.reflect.*;
 import java.util.*;
 
 public class SpheroidDecoratorLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {

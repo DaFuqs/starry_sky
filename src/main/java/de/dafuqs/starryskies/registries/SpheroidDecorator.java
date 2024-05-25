@@ -43,18 +43,10 @@ public abstract class SpheroidDecorator {
 		int r = random.nextInt(4);
 		Direction randomDirection;
 		switch (r) {
-			case 0 -> {
-				randomDirection = Direction.NORTH;
-			}
-			case 1 -> {
-				randomDirection = Direction.SOUTH;
-			}
-			case 2 -> {
-				randomDirection = Direction.EAST;
-			}
-			default -> {
-				randomDirection = Direction.WEST;
-			}
+			case 0 -> randomDirection = Direction.NORTH;
+			case 1 -> randomDirection = Direction.SOUTH;
+			case 2 -> randomDirection = Direction.EAST;
+			default -> randomDirection = Direction.WEST;
 		}
 		
 		// set the chest and add loot table

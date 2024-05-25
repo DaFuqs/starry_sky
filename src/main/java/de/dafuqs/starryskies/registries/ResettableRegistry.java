@@ -20,5 +20,5 @@ public class ResettableRegistry<T> extends SimpleRegistry<T> {
         this.keyToEntryInfo.clear();
         this.tagToEntryList.clear();
         this.frozen = false;
-    };
+    }
 }
