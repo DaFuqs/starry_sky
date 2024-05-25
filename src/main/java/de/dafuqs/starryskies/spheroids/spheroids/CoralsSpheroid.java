@@ -1,7 +1,8 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.google.gson.*;
-import com.mojang.brigadier.exceptions.*;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.*;
@@ -50,7 +51,7 @@ public class CoralsSpheroid extends Spheroid {
 		add(Blocks.SEA_PICKLE.getDefaultState().with(SeaPickleBlock.WATERLOGGED, true).with(SeaPickleBlock.PICKLES, 4));
 	}};
 	
-	public CoralsSpheroid(Spheroid.Template template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+	public CoralsSpheroid(Spheroid.Template<?> template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 						  BlockState shellBlock, float shellRadius, RegistryKey<LootTable> centerChestLootTable) {
 		
 		super(template, radius, decorators, spawns, random);
@@ -59,29 +60,62 @@ public class CoralsSpheroid extends Spheroid {
 		this.centerChestLootTable = centerChestLootTable;
 	}
 	
-	public static class Template extends Spheroid.Template {
+	public static class Template extends Spheroid.Template<Template.Config> {
+
+		public record Config(int minShellRadius, int maxShellRadius, BlockStateSupplier validShellBlocks,
+							 Chest chest) {
+			public record Chest(RegistryKey<LootTable> lootTable, float lootTableChance) {
+				public static final Codec<Chest> CODEC = RecordCodecBuilder.create(
+						instance -> instance.group(
+								RegistryKey.createCodec(RegistryKeys.LOOT_TABLE).fieldOf("loot_table").forGetter(Chest::lootTable),
+								Codec.FLOAT.fieldOf("chance").forGetter(Chest::lootTableChance)
+						).apply(instance, Chest::new)
+				);
+			}
+			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
+					instance -> instance.group(
+							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
+							BlockStateSupplier.CODEC.fieldOf("shell_block").forGetter(Config::validShellBlocks),
+							Chest.CODEC.lenientOptionalFieldOf("treasure_chest", null).forGetter(Config::chest)
+					).apply(instance, Config::new)
+			);
+		}
+
+		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
 		
 		private final BlockStateSupplier validShellBlocks;
 		private final int minShellRadius;
 		private final int maxShellRadius;
-		private RegistryKey<LootTable> lootTable;
-		float lootTableChance;
-		
-		public Template(Identifier identifier, JsonObject data) throws CommandSyntaxException {
-			super(identifier, data);
-			
-			JsonObject typeData = JsonHelper.getObject(data, "type_data");
-			this.minShellRadius = JsonHelper.getInt(typeData, "min_shell_size");
-			this.maxShellRadius = JsonHelper.getInt(typeData, "max_shell_size");
-			this.validShellBlocks = BlockStateSupplier.of(typeData.get("shell_block"));
-			
-			if (JsonHelper.hasJsonObject(typeData, "treasure_chest")) {
-				JsonObject treasureChestObject = JsonHelper.getObject(typeData, "treasure_chest");
-				this.lootTable = RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.tryParse(JsonHelper.getString(treasureChestObject, "loot_table")));
-				this.lootTableChance = JsonHelper.getFloat(treasureChestObject, "chance");
+		private final RegistryKey<LootTable> lootTable;
+		private final float lootTableChance;
+
+		public Template(SharedConfig shared, Config config) {
+			super(shared);
+			this.validShellBlocks = config.validShellBlocks;
+			this.minShellRadius = config.minShellRadius;
+			this.maxShellRadius = config.maxShellRadius;
+			var chest = config.chest;
+			if (chest != null) {
+				this.lootTable = chest.lootTable;
+				this.lootTableChance = chest.lootTableChance;
+			} else {
+				this.lootTable = null;
+				this.lootTableChance = 0;
 			}
 		}
-		
+
+		@Override
+		public SpheroidTemplateType<Template> getType() {
+			return SpheroidTemplateType.CORALS;
+		}
+
+		@Override
+		public Config config() {
+			return new Config(minShellRadius, maxShellRadius, validShellBlocks,
+					new Config.Chest(lootTable, lootTableChance));
+		}
+
 		@Override
 		public CoralsSpheroid generate(ChunkRandom random) {
 			int shellRadius = Support.getRandomBetween(random, this.minShellRadius, this.maxShellRadius);

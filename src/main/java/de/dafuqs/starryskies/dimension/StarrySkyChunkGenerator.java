@@ -7,6 +7,7 @@ import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
 import net.minecraft.registry.entry.*;
+import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
@@ -30,18 +31,16 @@ public class StarrySkyChunkGenerator extends ChunkGenerator {
 	private final int floorHeight;
 	private final BlockState floorBlockState;
 	private final BlockState bottomBlockState;
+
+	public static final MapCodec<StarrySkyChunkGenerator> CODEC = RecordCodecBuilder.mapCodec(
+			(instance) -> instance.group(BiomeSource.CODEC.fieldOf("biome_source")
+					.forGetter((generator) -> generator.biomeSource), Codecs.NONNEGATIVE_INT.fieldOf("settings")
+					.forGetter((generator) -> generator.spheroidDimensionType.ordinal())
+			).apply(instance, StarrySkyChunkGenerator::new));
 	
-	public static final MapCodec<StarrySkyChunkGenerator> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-		return instance.group(BiomeSource.CODEC.fieldOf("biome_source").forGetter((generator) -> {
-			return generator.biomeSource;
-		}), SpheroidDimensionType.REGISTRY_CODEC.fieldOf("settings").forGetter((generator) -> {
-			return generator.settings;
-		})).apply(instance, instance.stable(StarrySkyChunkGenerator::new));
-	});
-	
-	public StarrySkyChunkGenerator(BiomeSource biomeSource, SpheroidDimensionType spheroidDimensionType) {
+	public StarrySkyChunkGenerator(BiomeSource biomeSource, int spheroidDimensionTypeOrdinal) {
 		super(biomeSource);
-		this.spheroidDimensionType = SpheroidDimensionType.of(s);
+		this.spheroidDimensionType = SpheroidDimensionType.values()[spheroidDimensionTypeOrdinal];
 		this.systemGenerator = new SystemGenerator(spheroidDimensionType);
 		this.floorBlockState = spheroidDimensionType.getFloorBlockState();
 		this.bottomBlockState = spheroidDimensionType.getBottomBlockState();
@@ -144,9 +143,9 @@ public class StarrySkyChunkGenerator extends ChunkGenerator {
 		List<Spheroid> localSystem = systemGenerator.getSystemAtChunkPos(chunk.getPos().x, chunk.getPos().z);
 		for (Spheroid spheroid : localSystem) {
 			if (spheroid.isInChunk(chunk.getPos())) {
-				StarrySkies.log(Level.DEBUG, "Generating spheroid in chunk x:" + chunk.getPos().x + " z:" + chunk.getPos().z + " (StartX:" + chunk.getPos().getStartX() + " StartZ:" + chunk.getPos().getStartZ() + ") " + spheroid.getDescription());
+                StarrySkies.LOGGER.debug("Generating spheroid in chunk x:{} z:{} (StartX:{} StartZ:{}) {}", chunk.getPos().x, chunk.getPos().z, chunk.getPos().getStartX(), chunk.getPos().getStartZ(), spheroid.getDescription());
 				spheroid.generate(chunk);
-				StarrySkies.log(Level.DEBUG, "Generation Finished.");
+				StarrySkies.LOGGER.debug("Generation Finished.");
 			}
 		}
 	}

@@ -4,9 +4,13 @@ import com.mojang.serialization.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.registry.*;
+import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.NotNull;
 
-public class SpheroidTemplateType<P extends Spheroid.Template> {
-	
+public class SpheroidTemplateType<P extends Spheroid.Template<?>> {
+
+	public static MapCodec<Spheroid.Template<?>> CODEC = StarryRegistries.SPHEROID_TEMPLATE.getCodec().dispatchMap(Spheroid.Template::getType, SpheroidTemplateType::getCodec);
+
 	public static final SpheroidTemplateType<SimpleSpheroid.Template> SIMPLE = register("simple", SimpleSpheroid.Template.CODEC);
 	public static final SpheroidTemplateType<DungeonSpheroid.Template> DUNGEON = register("dungeon", DungeonSpheroid.Template.CODEC);
 	public static final SpheroidTemplateType<CaveSpheroid.Template> CAVE = register("cave", CaveSpheroid.Template.CODEC);
@@ -29,17 +33,24 @@ public class SpheroidTemplateType<P extends Spheroid.Template> {
 	public static final SpheroidTemplateType<ModularRainbowSpheroid.Template> MODULAR_RAINBOW = register("modular_rainbow", ModularRainbowSpheroid.Template.CODEC);
 	
 	private final MapCodec<P> codec;
+	private final Identifier id;
 	
-	public SpheroidTemplateType(MapCodec<P> codec) {
+	public SpheroidTemplateType(MapCodec<P> codec, Identifier id) {
 		this.codec = codec;
+		this.id = id;
 	}
 	
-	public MapCodec<P> getCodec() {
+	public @NotNull MapCodec<P> getCodec() {
 		return this.codec;
 	}
+
+	public @NotNull Identifier id() {
+		return this.id;
+	}
 	
-	private static <P extends Spheroid.Template> SpheroidTemplateType<P> register(String id, MapCodec<P> codec) {
-		return Registry.register(StarryRegistries.SPHEROID_TEMPLATE, StarrySkies.locate(id), new SpheroidTemplateType<P>(codec));
+	private static <P extends Spheroid.Template<?>> SpheroidTemplateType<P> register(String id, MapCodec<P> codec) {
+		var realId = StarrySkies.locate(id);
+		return Registry.register(StarryRegistries.SPHEROID_TEMPLATE, realId, new SpheroidTemplateType<>(codec, realId));
 	}
 	
 }

@@ -1,8 +1,9 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.google.gson.*;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import de.dafuqs.starryskies.*;
-import de.dafuqs.starryskies.data_loaders.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.*;
 import net.minecraft.block.*;
@@ -22,12 +23,11 @@ import org.jetbrains.annotations.*;
 
 import java.io.*;
 import java.util.*;
-
-import static org.apache.logging.log4j.Level.*;
+import java.util.function.BiFunction;
 
 public abstract class Spheroid implements Serializable {
 	
-	protected Spheroid.Template template;
+	protected Spheroid.Template<?> template;
 	protected float radius;
 	protected List<SpheroidDecorator> decorators;
 	protected List<Pair<EntityType<?>, Integer>> spawns;
@@ -35,7 +35,7 @@ public abstract class Spheroid implements Serializable {
 	protected BlockPos position;
 	protected ChunkRandom random;
 	
-	public Spheroid(Spheroid.Template template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random) {
+	public Spheroid(Spheroid.Template<?> template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random) {
 		this.template = template;
 		this.radius = radius;
 		this.decorators = decorators;
@@ -78,13 +78,13 @@ public abstract class Spheroid implements Serializable {
 	public void decorate(StructureWorldAccess world, BlockPos origin, Random random) {
 		if (!this.decorators.isEmpty()) {
 			for (SpheroidDecorator decorator : this.decorators) {
-				StarrySkies.log(Level.DEBUG, "Decorator: " + decorator.getClass());
+                StarrySkies.LOGGER.debug("Decorator: {}", decorator.getClass());
 				try {
 					decorator.decorate(world, new ChunkPos(origin), this, random);
 				} catch (RuntimeException e) {
 					// Are we asking a region for a chunk out of bounds? ಠ_ಠ
 				}
-				StarrySkies.log(Level.DEBUG, "Decorator finished");
+				StarrySkies.LOGGER.debug("Decorator finished");
 			}
 		}
 	}
@@ -118,7 +118,7 @@ public abstract class Spheroid implements Serializable {
 			BlockEntity blockEntity = blockEntityProvider.createBlockEntity(pos, block.blockState());
 			if (blockEntity != null) {
 				chunk.setBlockEntity(blockEntity);
-				blockEntity.read(block.nbt(), world.getRegistryManager());
+				blockEntity.read(block.nbt(), StarrySkies.registryManager);
 			}
 		}
 	}
@@ -139,7 +139,7 @@ public abstract class Spheroid implements Serializable {
 	
 	public void populateEntities(ChunkPos chunkPos, ChunkRegion chunkRegion, ChunkRandom chunkRandom) {
 		if (isCenterInChunk(chunkPos)) {
-			StarrySkies.log(Level.DEBUG, "Populating entities for spheroid in chunk x:" + chunkPos.x + " z:" + chunkPos.z + " (StartX:" + chunkPos.getStartX() + " StartZ:" + chunkPos.getStartZ() + ") " + this.getDescription());
+            StarrySkies.LOGGER.debug("Populating entities for spheroid in chunk x:{} z:{} (StartX:{} StartZ:{}) {}", chunkPos.x, chunkPos.z, chunkPos.getStartX(), chunkPos.getStartZ(), this.getDescription());
 			for (Pair<EntityType<?>, Integer> spawnEntry : spawns) {
 				
 				int xCord = chunkPos.getStartX();
@@ -174,13 +174,13 @@ public abstract class Spheroid implements Serializable {
 									}
 								}
 							} catch (Exception exception) {
-								StarrySkies.log(WARN, "Failed to spawn mob on sphere" + this.getDescription() + "\nException: " + exception);
+                                StarrySkies.LOGGER.warn("Failed to spawn mob on sphere{}\nException: {}", this.getDescription(), exception);
 							}
 						}
 					}
 				}
 			}
-			StarrySkies.log(Level.DEBUG, "Finished populating");
+			StarrySkies.LOGGER.debug("Finished populating");
 		}
 	}
 	
@@ -192,59 +192,56 @@ public abstract class Spheroid implements Serializable {
 		}
 	}
 	
-	public Spheroid.Template getTemplate() {
+	public Spheroid.Template<?> getTemplate() {
 		return this.template;
 	}
 	
-	public static abstract class Template {
-		
+	public static abstract class Template<C> {
+
+		public record SharedConfig(int minSize, int maxSize, Map<SpheroidDecorator, Float> decorators, List<SpheroidEntitySpawnDefinition> spawns) {
+			public static final MapCodec<SharedConfig> CODEC = RecordCodecBuilder.mapCodec(
+					instance -> instance.group(
+						Codec.INT.fieldOf("min_size").forGetter(SharedConfig::minSize),
+						Codec.INT.fieldOf("max_size").forGetter(SharedConfig::maxSize),
+						Codec.unboundedMap(SpheroidDecorator.TYPE_CODEC, Codec.FLOAT).fieldOf("decorators").forGetter(SharedConfig::decorators),
+						SpheroidEntitySpawnDefinition.CODEC.listOf().fieldOf("spawns").forGetter(SharedConfig::spawns)
+					).apply(instance, SharedConfig::new)
+			);
+		}
+
 		protected final int minSize;
 		protected final int maxSize;
-		protected Map<SpheroidDecorator, Float> decorators;
-		protected List<SpheroidEntitySpawnDefinition> spawns;
-		
-		public Template(int minSize, int maxSize, Map<SpheroidDecorator, Float> decorators, List<SpheroidEntitySpawnDefinition> spawns) {
-			this.minSize = minSize;
-			this.maxSize = maxSize;
-			this.decorators = decorators;
-			this.spawns = spawns;
+		protected final Map<SpheroidDecorator, Float> decorators;
+		protected final List<SpheroidEntitySpawnDefinition> spawns;
+
+		public Template(SharedConfig sharedConfig) {
+			this.minSize = sharedConfig.minSize;
+			this.maxSize = sharedConfig.maxSize;
+			this.decorators = sharedConfig.decorators;
+			this.spawns = sharedConfig.spawns;
+		}
+
+		public abstract SpheroidTemplateType<? extends Template<C>> getType();
+
+		public Identifier getID() {
+			return this.getType().id();
+		}
+
+		public SharedConfig sharedConfig() {
+			return new SharedConfig(minSize, maxSize, decorators, spawns);
+		}
+
+		public abstract C config();
+
+		protected static <C, P extends Spheroid.Template<C>> MapCodec<P> createCodec(MapCodec<C> configCodec, BiFunction<SharedConfig, C, P> constructor) {
+			return RecordCodecBuilder.mapCodec(instance -> instance.group(
+					Spheroid.Template.SharedConfig.CODEC.forGetter(Spheroid.Template::sharedConfig),
+					configCodec.fieldOf("type_data").forGetter(Spheroid.Template::config)
+			).apply(instance, constructor));
 		}
 		
 		protected static float randomBetween(Random random, int min, int max) {
 			return min + random.nextFloat() * (max - min);
-		}
-		
-		private static Map<SpheroidDecoratorType, Float> readDecorators(JsonObject jsonObject, Identifier identifier) {
-			Map<SpheroidDecoratorType, Float> d = new LinkedHashMap<>();
-			
-			for (Map.Entry<String, JsonElement> e : jsonObject.entrySet()) {
-				SpheroidDecoratorType decorator = SpheroidDecoratorLoader.getDecorator(Identifier.tryParse(e.getKey()));
-				if (decorator == null) {
-					if (StarrySkies.CONFIG.packCreatorMode) {
-						StarrySkies.log(Level.WARN, "Spheroid " + identifier + " specifies non-existing decorator " + e.getKey() + ". Will be ignored.");
-					}
-				} else {
-					float chance = e.getValue().getAsFloat();
-					d.put(decorator, chance);
-				}
-			}
-			
-			return d;
-		}
-		
-		private static List<SpheroidEntitySpawnDefinition> readSpawns(JsonArray jsonArray) {
-			List<SpheroidEntitySpawnDefinition> spawns = new ArrayList<>();
-			
-			for (JsonElement e : jsonArray) {
-				JsonObject o = e.getAsJsonObject();
-				EntityType<?> entityType = Registries.ENTITY_TYPE.get(Identifier.tryParse(JsonHelper.getString(o, "type")));
-				int minCount = JsonHelper.getInt(o, "min_count");
-				int maxCount = JsonHelper.getInt(o, "max_count");
-				float chance = JsonHelper.getFloat(o, "chance");
-				spawns.add(new SpheroidEntitySpawnDefinition(entityType, minCount, maxCount, chance));
-			}
-			
-			return spawns;
 		}
 		
 		protected List<SpheroidDecorator> selectDecorators(Random random) {

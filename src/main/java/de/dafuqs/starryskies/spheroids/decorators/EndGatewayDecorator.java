@@ -1,8 +1,9 @@
 package de.dafuqs.starryskies.spheroids.decorators;
 
-import com.google.gson.*;
-import com.mojang.brigadier.exceptions.*;
+import com.mojang.serialization.MapCodec;
 import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.registries.SpheroidDecorator;
+import de.dafuqs.starryskies.registries.SpheroidDecoratorType;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
@@ -10,12 +11,19 @@ import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
 
-public class EndGatewayDecorator extends SeaGreensDecorator {
+public class EndGatewayDecorator extends SpheroidDecorator {
+
+	public static final MapCodec<EndGatewayDecorator> CODEC = MapCodec.unit(EndGatewayDecorator::new);
 	
-	public EndGatewayDecorator(JsonObject data) throws CommandSyntaxException {
-		super(data);
+	public EndGatewayDecorator() {
+		super();
 	}
-	
+
+	@Override
+	protected SpheroidDecoratorType<EndGatewayDecorator> getType() {
+		return SpheroidDecoratorType.END_GATEWAY;
+	}
+
 	@Override
 	public void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random) {
 		if (!spheroid.isCenterInChunk(origin)) {

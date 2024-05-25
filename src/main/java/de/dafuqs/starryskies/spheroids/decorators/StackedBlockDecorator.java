@@ -1,32 +1,46 @@
 package de.dafuqs.starryskies.spheroids.decorators;
 
-import com.google.gson.*;
-import com.mojang.brigadier.exceptions.*;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
-import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
 
+import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
 
 public class StackedBlockDecorator extends SpheroidDecorator {
-	
+
+	public static final MapCodec<StackedBlockDecorator> CODEC = RecordCodecBuilder.mapCodec(
+			instance -> instance.group(
+					BLOCKSTATE_STRING_CODEC.fieldOf("block").forGetter(decorator -> decorator.block),
+					Codec.FLOAT.fieldOf("chance").forGetter(decorator -> decorator.chance),
+					Codec.INT.fieldOf("minHeight").forGetter(decorator -> decorator.minHeight),
+					Codec.INT.fieldOf("maxHeight").forGetter(decorator -> decorator.maxHeight)
+			).apply(instance, StackedBlockDecorator::new)
+	);
+
 	private final BlockState block;
 	private final float chance;
 	private final int minHeight;
 	private final int maxHeight;
-	
-	public StackedBlockDecorator(JsonObject data) throws CommandSyntaxException {
-		super(data);
-		block = StarrySkies.getStateFromString(JsonHelper.getString(data, "block"));
-		chance = JsonHelper.getFloat(data, "chance");
-		minHeight = JsonHelper.getInt(data, "min_height");
-		maxHeight = JsonHelper.getInt(data, "max_height");
+
+	public StackedBlockDecorator(BlockState block, float chance, int minHeight, int maxHeight) {
+		this.block = block;
+		this.chance = chance;
+		this.minHeight = minHeight;
+		this.maxHeight = maxHeight;
 	}
-	
+
+	@Override
+	protected SpheroidDecoratorType<StackedBlockDecorator> getType() {
+		return SpheroidDecoratorType.STACKED_BLOCK;
+	}
+
 	@Override
 	public void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random) {
 		for (BlockPos bp : getTopBlocks(world, origin, spheroid)) {

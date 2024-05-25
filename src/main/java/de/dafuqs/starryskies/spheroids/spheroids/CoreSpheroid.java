@@ -2,10 +2,14 @@ package de.dafuqs.starryskies.spheroids.spheroids;
 
 import com.google.gson.*;
 import com.mojang.brigadier.exceptions.*;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.*;
 import net.minecraft.block.*;
+import net.minecraft.command.argument.BlockArgumentParser;
 import net.minecraft.entity.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
@@ -14,13 +18,16 @@ import net.minecraft.world.chunk.*;
 
 import java.util.*;
 
+import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
+import static de.dafuqs.starryskies.Support.BLOCK_RESULT_CODEC;
+
 public class CoreSpheroid extends Spheroid {
 	
 	private final BlockState coreBlock;
 	private final BlockState shellBlock;
 	private float coreRadius;
 	
-	public CoreSpheroid(Spheroid.Template template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+	public CoreSpheroid(Spheroid.Template<?> template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 						BlockState coreBlock, BlockState shellBlock, float coreRadius) {
 		
 		super(template, radius, decorators, spawns, random);
@@ -33,23 +40,44 @@ public class CoreSpheroid extends Spheroid {
 		}
 	}
 	
-	public static class Template extends Spheroid.Template {
+	public static class Template extends Spheroid.Template<Template.Config> {
+
+		public record Config(BlockStateSupplier coreBlock, BlockStateSupplier shellBlock, int minCoreRadius, int maxCoreRadius) {
+			public static final MapCodec<Template.Config> CODEC = RecordCodecBuilder.mapCodec(
+					instance -> instance.group(
+							BlockStateSupplier.CODEC.fieldOf("core_block").forGetter(Config::coreBlock),
+							BlockStateSupplier.CODEC.fieldOf("main_block").forGetter(Config::shellBlock),
+							Codec.INT.fieldOf("min_core_size").forGetter(Config::minCoreRadius),
+							Codec.INT.fieldOf("max_core_size").forGetter(Config::maxCoreRadius)
+					).apply(instance, Config::new)
+			);
+		};
+
+		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
 		
 		private final BlockStateSupplier coreBlock;
 		private final BlockStateSupplier shellBlock;
 		private final int minCoreRadius;
 		private final int maxCoreRadius;
-		
-		public Template(Identifier identifier, JsonObject data) throws CommandSyntaxException {
-			super(identifier, data);
-			
-			JsonObject typeData = JsonHelper.getObject(data, "type_data");
-			this.coreBlock = BlockStateSupplier.of(typeData.get("core_block"));
-			this.shellBlock = BlockStateSupplier.of(typeData.get("main_block"));
-			this.minCoreRadius = JsonHelper.getInt(typeData, "min_core_size");
-			this.maxCoreRadius = JsonHelper.getInt(typeData, "max_core_size");
+
+		public Template(SharedConfig shared, Config config) {
+			super(shared);
+			this.coreBlock = config.coreBlock;
+			this.shellBlock = config.shellBlock;
+			this.minCoreRadius = config.minCoreRadius;
+			this.maxCoreRadius = config.maxCoreRadius;
 		}
-		
+
+		@Override
+		public SpheroidTemplateType<Template> getType() {
+			return SpheroidTemplateType.CORE;
+		}
+
+		@Override
+		public Config config() {
+			return new Config(coreBlock, shellBlock, minCoreRadius, maxCoreRadius);
+		}
+
 		@Override
 		public CoreSpheroid generate(ChunkRandom random) {
 			float radius = randomBetween(random, minSize, maxSize);

@@ -1,23 +1,30 @@
 package de.dafuqs.starryskies.spheroids.decorators;
 
-import com.google.gson.*;
-import com.mojang.brigadier.exceptions.*;
-import de.dafuqs.starryskies.*;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
 import net.minecraft.loot.*;
 import net.minecraft.registry.*;
-import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
+
+import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
 
 /**
  * Creates a small X on one side of the spheroid
  * Puts a loot chest in the absolute center (could be fun on lava spheroids!)
  */
 public class XMarksTheSpotDecorator extends SpheroidDecorator {
+
+	public static final MapCodec<XMarksTheSpotDecorator> CODEC = RecordCodecBuilder.mapCodec(
+			instance -> instance.group(
+					RegistryKey.createCodec(RegistryKeys.LOOT_TABLE).fieldOf("loot_table").forGetter(decorator -> decorator.lootTable),
+					BLOCKSTATE_STRING_CODEC.fieldOf("marking_block").forGetter(decorator -> decorator.markingBlock)
+			).apply(instance, XMarksTheSpotDecorator::new)
+	);
 	
 	private final RegistryKey<LootTable> lootTable;
 	private final BlockState markingBlock;
@@ -28,13 +35,17 @@ public class XMarksTheSpotDecorator extends SpheroidDecorator {
 			false, true, false, true, false,
 			true, false, false, false, true
 	};
-	
-	public XMarksTheSpotDecorator(JsonObject data) throws CommandSyntaxException {
-		super(data);
-		this.lootTable = lootTableKey(Identifier.tryParse(JsonHelper.getString(data, "loot_table")));
-		this.markingBlock = StarrySkies.getStateFromString(JsonHelper.getString(data, "marking_block"));
+
+	public XMarksTheSpotDecorator(RegistryKey<LootTable> lootTable, BlockState markingBlock) {
+		this.lootTable = lootTable;
+		this.markingBlock = markingBlock;
 	}
-	
+
+	@Override
+	protected SpheroidDecoratorType<XMarksTheSpotDecorator> getType() {
+		return SpheroidDecoratorType.X_SPOT;
+	}
+
 	@Override
 	public void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random) {
 		if (!spheroid.isCenterInChunk(origin)) {

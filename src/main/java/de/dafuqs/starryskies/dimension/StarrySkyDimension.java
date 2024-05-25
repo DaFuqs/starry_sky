@@ -24,7 +24,7 @@ public class StarrySkyDimension {
 	}
 	
 	public static void setupPortals() {
-		StarrySkies.log(INFO, "Setting up portals...");
+		StarrySkies.LOGGER.info("Setting up portals...");
 		
 		Identifier portalFrameBlockIdentifier = new Identifier(StarrySkies.CONFIG.starrySkyPortalFrameBlock.toLowerCase());
 		Block portalFrameBlock = Registries.BLOCK.get(portalFrameBlockIdentifier);

@@ -1,7 +1,8 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.google.gson.*;
-import com.mojang.brigadier.exceptions.*;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.*;
@@ -23,7 +24,7 @@ public class DungeonSpheroid extends Spheroid {
 	private final BlockState shellBlock;
 	private final float shellRadius;
 	
-	public DungeonSpheroid(Spheroid.Template template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+	public DungeonSpheroid(Spheroid.Template<?> template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 						   EntityType<?> entityType, BlockState shellBlock, float shellRadius) {
 		
 		super(template, radius, decorators, spawns, random);
@@ -33,23 +34,44 @@ public class DungeonSpheroid extends Spheroid {
 		this.shellRadius = shellRadius;
 	}
 	
-	public static class Template extends Spheroid.Template {
+	public static class Template extends Spheroid.Template<Template.Config> {
+
+		public record Config(EntityType<?> entityType, BlockStateSupplier shellBlock, int minShellRadius, int maxShellRadius) {
+			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
+					instance -> instance.group(
+							Registries.ENTITY_TYPE.getCodec().fieldOf("entity_type").forGetter(Config::entityType),
+							BlockStateSupplier.CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
+							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius)
+					).apply(instance, Config::new)
+			);
+		}
+
+		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
 		
 		private final EntityType<?> entityType;
 		private final BlockStateSupplier shellBlock;
 		private final int minShellRadius;
 		private final int maxShellRadius;
-		
-		public Template(Identifier identifier, JsonObject data) throws CommandSyntaxException {
-			super(identifier, data);
-			
-			JsonObject typeData = JsonHelper.getObject(data, "type_data");
-			this.entityType = Registries.ENTITY_TYPE.get(Identifier.tryParse(JsonHelper.getString(typeData, "entity_type")));
-			this.minShellRadius = JsonHelper.getInt(typeData, "min_shell_size");
-			this.maxShellRadius = JsonHelper.getInt(typeData, "max_shell_size");
-			this.shellBlock = BlockStateSupplier.of(typeData.get("shell_block"));
+
+		public Template(SharedConfig shared, Config config) {
+			super(shared);
+			this.entityType = config.entityType;
+			this.shellBlock = config.shellBlock;
+			this.minShellRadius = config.minShellRadius;
+			this.maxShellRadius = config.maxShellRadius;
 		}
-		
+
+		@Override
+		public SpheroidTemplateType<Template> getType() {
+			return SpheroidTemplateType.DUNGEON;
+		}
+
+		@Override
+		public Config config() {
+			return new Config(entityType, shellBlock, minShellRadius, maxShellRadius);
+		}
+
 		@Override
 		public DungeonSpheroid generate(ChunkRandom random) {
 			int shellRadius = Support.getRandomBetween(random, this.minShellRadius, this.maxShellRadius);

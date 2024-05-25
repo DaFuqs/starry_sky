@@ -2,6 +2,9 @@ package de.dafuqs.starryskies.spheroids.spheroids;
 
 import com.google.gson.*;
 import com.mojang.brigadier.exceptions.*;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.*;
@@ -49,7 +52,28 @@ public class FluidCoreSpheroid extends Spheroid {
 		}
 	}
 	
-	public static class Template extends Spheroid.Template {
+	public static class Template extends Spheroid.Template<Template.Config> {
+
+		public record Config(Fluid fluid, float minFillAmount, float maxFillAmount, float holeInBottomChance,
+							 BlockStateSupplier shellBlock, int minShellRadius, int maxShellRadius,
+							 BlockStateSupplier coreBlock, int minCoreRadius, int maxCoreRadius) {
+			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
+					instance -> instance.group(
+							Registries.FLUID.getCodec().fieldOf("fluid").forGetter(Config::fluid),
+							Codec.FLOAT.fieldOf("min_fill_amount").forGetter(Config::minFillAmount),
+							Codec.FLOAT.fieldOf("max_fill_amount").forGetter(Config::maxFillAmount),
+							Codec.FLOAT.fieldOf("hole_in_bottom_chance").forGetter(Config::holeInBottomChance),
+							BlockStateSupplier.CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
+							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
+							BlockStateSupplier.CODEC.fieldOf("core_block").forGetter(Config::coreBlock),
+							Codec.INT.fieldOf("min_core_size").forGetter(Config::minCoreRadius),
+							Codec.INT.fieldOf("max_core_size").forGetter(Config::maxCoreRadius)
+					).apply(instance, Config::new)
+			);
+		}
+
+		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
 		
 		private final Fluid fluid;
 		private final float minFillAmount;
@@ -64,22 +88,32 @@ public class FluidCoreSpheroid extends Spheroid {
 		private final int minCoreRadius;
 		private final int maxCoreRadius;
 		
-		public Template(Identifier identifier, JsonObject data) throws CommandSyntaxException {
-			super(identifier, data);
-			
-			JsonObject typeData = JsonHelper.getObject(data, "type_data");
-			this.fluid = Registries.FLUID.get(Identifier.tryParse(JsonHelper.getString(typeData, "fluid")));
-			this.minShellRadius = JsonHelper.getInt(typeData, "min_shell_size");
-			this.maxShellRadius = JsonHelper.getInt(typeData, "max_shell_size");
-			this.minFillAmount = JsonHelper.getFloat(typeData, "min_fill_amount");
-			this.maxFillAmount = JsonHelper.getFloat(typeData, "max_fill_amount");
-			this.holeInBottomChance = JsonHelper.getFloat(typeData, "hole_in_bottom_chance");
-			this.shellBlock = BlockStateSupplier.of(typeData.get("shell_block"));
-			this.coreBlock = BlockStateSupplier.of(typeData.get("core_block"));
-			this.minCoreRadius = JsonHelper.getInt(typeData, "min_core_size");
-			this.maxCoreRadius = JsonHelper.getInt(typeData, "max_core_size");
+		public Template(SharedConfig shared, Config config) {
+			super(shared);
+			this.fluid = config.fluid;
+			this.minFillAmount = config.minFillAmount;
+			this.maxFillAmount = config.maxFillAmount;
+			this.holeInBottomChance = config.holeInBottomChance;
+			this.shellBlock = config.shellBlock;
+			this.minShellRadius = config.minShellRadius;
+			this.maxShellRadius = config.maxShellRadius;
+			this.coreBlock = config.coreBlock;
+			this.minCoreRadius = config.minCoreRadius;
+			this.maxCoreRadius = config.maxCoreRadius;
 		}
-		
+
+		@Override
+		public SpheroidTemplateType<Template> getType() {
+			return SpheroidTemplateType.CORE_FLUID;
+		}
+
+		@Override
+		public Config config() {
+			return new Config(fluid, minFillAmount, maxFillAmount, holeInBottomChance,
+					shellBlock, minShellRadius, maxShellRadius,
+					coreBlock, minCoreRadius, maxCoreRadius);
+		}
+
 		@Override
 		public FluidCoreSpheroid generate(ChunkRandom random) {
 			int shellRadius = Support.getRandomBetween(random, this.minShellRadius, this.maxShellRadius);

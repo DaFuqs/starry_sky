@@ -18,8 +18,6 @@ import org.jetbrains.annotations.*;
 
 import java.util.*;
 
-import static org.apache.logging.log4j.Level.*;
-
 public class StarrySkyDimensionTravelHandler {
 	
 	public static final BlockPos END_SPAWN_BLOCK_POS = new BlockPos(10, 64, 0);
@@ -120,7 +118,7 @@ public class StarrySkyDimensionTravelHandler {
 					Direction.Axis axis = thisEntity.getWorld().getBlockState(((EntityAccessor) thisEntity).getLastNetherPortalPosition()).getOrEmpty(NetherPortalBlock.AXIS).orElse(Direction.Axis.X);
 					Optional<BlockLocating.Rectangle> optional2 = destination.getPortalForcer().createPortal(blockPos3, axis);
 					if (optional2.isEmpty()) {
-						StarrySkies.log(ERROR, "Unable to create a portal, likely target out of world border");
+						StarrySkies.LOGGER.error("Unable to create a portal, likely target out of world border");
 					} else {
 						BlockPos targetPos = optional2.get().lowerLeft;
 						return new TeleportTarget(new Vec3d(targetPos.getX() + 0.5D, targetPos.getY(), targetPos.getZ() + 0.5D), thisEntity.getVelocity(), thisEntity.getYaw(), thisEntity.getPitch());

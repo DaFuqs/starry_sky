@@ -1,7 +1,10 @@
 package de.dafuqs.starryskies;
 
+import com.mojang.serialization.Codec;
 import de.dafuqs.starryskies.dimension.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
+import net.minecraft.block.BlockState;
+import net.minecraft.command.argument.BlockArgumentParser;
 import net.minecraft.entity.player.*;
 import net.minecraft.server.world.*;
 import net.minecraft.util.*;
@@ -13,8 +16,19 @@ import org.jetbrains.annotations.*;
 import java.awt.*;
 import java.util.List;
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static net.minecraft.state.State.PROPERTY_MAP_PRINTER;
 
 public class Support {
+
+	public static Codec<BlockState> BLOCKSTATE_STRING_CODEC = Codec.STRING.xmap(StarrySkies::getNullableStateFromString, BlockArgumentParser::stringifyBlockState);
+	public static Codec<BlockArgumentParser.BlockResult> BLOCK_RESULT_CODEC = Codec.STRING.xmap(StarrySkies::getNullableBlockResult, Support::blockResultToParseableString);
+
+	public static String blockResultToParseableString(BlockArgumentParser.BlockResult result) {
+		var stringifiedBlockState = BlockArgumentParser.stringifyBlockState(result.blockState());
+		return result.nbt() == null ? stringifiedBlockState : stringifiedBlockState.concat(result.nbt().toString());
+	}
 	
 	public static class SpheroidDistance {
 		public Spheroid spheroid;
@@ -185,5 +199,4 @@ public class Support {
 		}
 		return -1;
 	}
-	
 }

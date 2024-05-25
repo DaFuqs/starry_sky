@@ -40,7 +40,9 @@ public class SpheroidDecoratorType<P extends SpheroidDecorator> {
 	}
 	
 	private static <P extends SpheroidDecorator> SpheroidDecoratorType<P> register(String id, MapCodec<P> codec) {
-		return Registry.register(StarryRegistries.SPHEROID_DECORATOR_TYPE, StarrySkies.locate(id), new SpheroidDecoratorType<P>(codec));
+		return Registry.register(StarryRegistries.SPHEROID_DECORATOR_TYPE, StarrySkies.locate(id), new SpheroidDecoratorType<>(codec));
 	}
+
+	public static void initialize() {}
 	
 }

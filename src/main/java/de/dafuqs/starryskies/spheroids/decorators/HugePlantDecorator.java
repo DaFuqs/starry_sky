@@ -1,17 +1,30 @@
 package de.dafuqs.starryskies.spheroids.decorators;
 
-import com.google.gson.*;
-import com.mojang.brigadier.exceptions.*;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
-import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
 
+import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
+
 public class HugePlantDecorator extends SpheroidDecorator {
+
+	public static final MapCodec<HugePlantDecorator> CODEC = RecordCodecBuilder.mapCodec(
+			instance -> instance.group(
+					BLOCKSTATE_STRING_CODEC.fieldOf("block").forGetter(decorator -> decorator.block),
+					BLOCKSTATE_STRING_CODEC.fieldOf("first_block").forGetter(decorator -> decorator.firstBlock),
+					BLOCKSTATE_STRING_CODEC.fieldOf("last_block").forGetter(decorator -> decorator.lastBlock),
+					Codec.FLOAT.fieldOf("chance").forGetter(decorator -> decorator.chance),
+					Codec.INT.fieldOf("minHeight").forGetter(decorator -> decorator.minHeight),
+					Codec.INT.fieldOf("maxHeight").forGetter(decorator -> decorator.maxHeight)
+			).apply(instance, HugePlantDecorator::new)
+	);
 	
 	protected final BlockState block;
 	protected final BlockState firstBlock;
@@ -19,28 +32,22 @@ public class HugePlantDecorator extends SpheroidDecorator {
 	protected final float chance;
 	protected final int minHeight;
 	protected final int maxHeight;
-	
-	/**
-	 * A chance of 0 = 0%, 100 = 100%
-	 */
-	public HugePlantDecorator(JsonObject data) throws CommandSyntaxException {
-		super(data);
-		block = StarrySkies.getStateFromString(JsonHelper.getString(data, "block"));
-		chance = JsonHelper.getFloat(data, "chance");
-		if (JsonHelper.hasString(data, "first_block")) {
-			firstBlock = StarrySkies.getStateFromString(JsonHelper.getString(data, "first_block"));
-		} else {
-			firstBlock = null;
-		}
-		if (JsonHelper.hasString(data, "last_block")) {
-			lastBlock = StarrySkies.getStateFromString(JsonHelper.getString(data, "last_block"));
-		} else {
-			lastBlock = null;
-		}
-		minHeight = JsonHelper.getInt(data, "min_height");
-		maxHeight = JsonHelper.getInt(data, "max_height");
+
+	public HugePlantDecorator(BlockState block, BlockState firstBlock, BlockState lastBlock,
+							  float chance, int minHeight, int maxHeight) {
+		this.block = block;
+		this.firstBlock = firstBlock;
+		this.lastBlock = lastBlock;
+		this.chance = chance;
+		this.minHeight = minHeight;
+		this.maxHeight = maxHeight;
 	}
-	
+
+	@Override
+	protected SpheroidDecoratorType<? extends HugePlantDecorator> getType() {
+		return SpheroidDecoratorType.HUGE_PLANT;
+	}
+
 	@Override
 	public void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random) {
 		for (BlockPos bp : getTopBlocks(world, origin, spheroid)) {

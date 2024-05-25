@@ -19,7 +19,7 @@ public enum SpheroidDimensionType {
 		try {
 			return valueOf(s.toUpperCase(Locale.ROOT));
 		} catch (Throwable t) {
-			StarrySkies.log(Level.WARN, "Dimension type of `" + s + "` was requested, but it does not exist. Falling back to OVERWORLD");
+            StarrySkies.LOGGER.warn("Dimension type of `{}` was requested, but it does not exist. Falling back to OVERWORLD", s);
 			return SpheroidDimensionType.OVERWORLD;
 		}
 	}
