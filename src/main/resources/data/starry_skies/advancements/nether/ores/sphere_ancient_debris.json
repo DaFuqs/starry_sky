@@ -1,7 +1,7 @@
 ﻿{
   "display": {
     "icon": {
-      "item": "minecraft:ancient_debris"
+      "id": "minecraft:ancient_debris"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_ancient_debris.title"

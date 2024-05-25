@@ -25,7 +25,7 @@ public class SpheroidDecoratorLoader extends JsonDataLoader implements Identifia
 	@Override
 	protected void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		final RegistryOps<JsonElement> ops = StarrySkies.registryManager.getOps(JsonOps.INSTANCE);
-
+		StarryRegistries.SPHEROID_DECORATOR.reset();
 		prepared.forEach((identifier, jsonElement) -> {
 			JsonObject jsonObject = jsonElement.getAsJsonObject();
 			
@@ -36,7 +36,7 @@ public class SpheroidDecoratorLoader extends JsonDataLoader implements Identifia
 				
 				try {
 					SpheroidDecoratorType<?> templateClass = StarryRegistries.SPHEROID_DECORATOR_TYPE.get(decoratorTypeID);
-					JsonObject typeData = JsonHelper.getObject(jsonObject, "type_data", null);
+					JsonObject typeData = JsonHelper.getObject(jsonObject, "type_data", new JsonObject());
 					decorator = templateClass.getCodec().codec().parse(ops, typeData).getOrThrow();
 					Registry.register(StarryRegistries.SPHEROID_DECORATOR, identifier, decorator);
 				} catch (NullPointerException e) {

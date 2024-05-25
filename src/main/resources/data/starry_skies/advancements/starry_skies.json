@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:filled_map"
+      "id": "minecraft:filled_map"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.starry_skies.title"

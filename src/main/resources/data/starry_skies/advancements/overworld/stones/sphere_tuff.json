@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:tuff"
+      "id": "minecraft:tuff"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_tuff.title"

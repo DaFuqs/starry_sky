@@ -203,7 +203,7 @@ public abstract class Spheroid implements Serializable {
 					instance -> instance.group(
 						Codec.INT.fieldOf("min_size").forGetter(SharedConfig::minSize),
 						Codec.INT.fieldOf("max_size").forGetter(SharedConfig::maxSize),
-						Codec.unboundedMap(SpheroidDecorator.CODEC, Codec.FLOAT).fieldOf("decorators").forGetter(SharedConfig::decorators),
+						new Support.FailSoftMapCodec<>(SpheroidDecorator.CODEC, Codec.FLOAT).fieldOf("decorators").forGetter(SharedConfig::decorators),
 						SpheroidEntitySpawnDefinition.CODEC.listOf().fieldOf("spawns").forGetter(SharedConfig::spawns)
 					).apply(instance, SharedConfig::new)
 			);

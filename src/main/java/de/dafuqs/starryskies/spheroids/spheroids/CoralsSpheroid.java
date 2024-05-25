@@ -63,7 +63,7 @@ public class CoralsSpheroid extends Spheroid {
 	public static class Template extends Spheroid.Template<Template.Config> {
 
 		public record Config(int minShellRadius, int maxShellRadius, BlockStateSupplier validShellBlocks,
-							 Chest chest) {
+							 Optional<Chest> chest) {
 			public record Chest(RegistryKey<LootTable> lootTable, float lootTableChance) {
 				public static final Codec<Chest> CODEC = RecordCodecBuilder.create(
 						instance -> instance.group(
@@ -77,7 +77,7 @@ public class CoralsSpheroid extends Spheroid {
 							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
 							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
 							BlockStateSupplier.CODEC.fieldOf("shell_block").forGetter(Config::validShellBlocks),
-							Chest.CODEC.lenientOptionalFieldOf("treasure_chest", null).forGetter(Config::chest)
+							Chest.CODEC.lenientOptionalFieldOf("treasure_chest").forGetter(Config::chest)
 					).apply(instance, Config::new)
 			);
 		}
@@ -95,7 +95,7 @@ public class CoralsSpheroid extends Spheroid {
 			this.validShellBlocks = config.validShellBlocks;
 			this.minShellRadius = config.minShellRadius;
 			this.maxShellRadius = config.maxShellRadius;
-			var chest = config.chest;
+			var chest = config.chest.orElse(null);
 			if (chest != null) {
 				this.lootTable = chest.lootTable;
 				this.lootTableChance = chest.lootTableChance;
@@ -113,7 +113,7 @@ public class CoralsSpheroid extends Spheroid {
 		@Override
 		public Config config() {
 			return new Config(minShellRadius, maxShellRadius, validShellBlocks,
-					new Config.Chest(lootTable, lootTableChance));
+					Optional.of(new Config.Chest(lootTable, lootTableChance)));
 		}
 
 		@Override

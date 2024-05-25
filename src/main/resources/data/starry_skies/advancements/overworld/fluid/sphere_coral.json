@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:tube_coral"
+      "id": "minecraft:tube_coral"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_coral.title"

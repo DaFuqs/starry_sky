@@ -32,12 +32,12 @@ public class ModularSpheroid extends Spheroid {
 	
 	public static class Template extends Spheroid.Template<Template.Config> {
 
-		public record Config(BlockState mainBlock, BlockState topBlock, BlockState bottomBlock) {
+		public record Config(BlockState mainBlock, Optional<BlockState> topBlock, Optional<BlockState> bottomBlock) {
 			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
 							BLOCKSTATE_STRING_CODEC.fieldOf("main_block").forGetter(Config::mainBlock),
-							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("top_block", null).forGetter(Config::topBlock),
-							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("bottom_block", null).forGetter(Config::bottomBlock)
+							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("top_block").forGetter(Config::topBlock),
+							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("bottom_block").forGetter(Config::bottomBlock)
 					).apply(instance, Config::new)
 			);
 		}
@@ -51,8 +51,8 @@ public class ModularSpheroid extends Spheroid {
 		public Template(SharedConfig shared, Config config) {
 			super(shared);
 			this.mainBlock = config.mainBlock;
-			this.topBlock = config.topBlock;
-			this.bottomBlock = config.bottomBlock;
+			this.topBlock = config.topBlock.orElse(null);
+			this.bottomBlock = config.bottomBlock.orElse(null);
 		}
 
 		@Override
@@ -62,7 +62,7 @@ public class ModularSpheroid extends Spheroid {
 
 		@Override
 		public Config config() {
-			return new Config(mainBlock, topBlock, bottomBlock);
+			return new Config(mainBlock, Optional.ofNullable(topBlock),  Optional.ofNullable(bottomBlock));
 		}
 
 		@Override

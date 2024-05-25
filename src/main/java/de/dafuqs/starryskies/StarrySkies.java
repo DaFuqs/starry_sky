@@ -1,6 +1,5 @@
 package de.dafuqs.starryskies;
 
-import com.google.gson.*;
 import com.mojang.brigadier.exceptions.*;
 import de.dafuqs.starryskies.advancements.*;
 import de.dafuqs.starryskies.commands.*;
@@ -19,7 +18,6 @@ import net.minecraft.block.*;
 import net.minecraft.command.argument.*;
 import net.minecraft.registry.*;
 import net.minecraft.resource.*;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.*;
 import net.minecraft.server.world.*;
 import net.minecraft.util.*;
@@ -38,7 +36,7 @@ public class StarrySkies implements ModInitializer {
 	public static ServerWorld starryWorld;
 	public static ServerWorld starryWorldNether;
 	public static ServerWorld starryWorldEnd;
-	public static DynamicRegistryManager registryManager;
+	public static DynamicRegistryManager registryManager = DynamicRegistryManager.of(Registries.REGISTRIES);
 	
 	@Override
 	public void onInitialize() {
@@ -61,6 +59,7 @@ public class StarrySkies implements ModInitializer {
 		StarryAdvancementCriteria.register();
 
 		SpheroidDecoratorType.initialize();
+		SpheroidTemplateType.initialize();
 		SpheroidDimensionType.initialize();
 		
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
@@ -111,16 +110,8 @@ public class StarrySkies implements ModInitializer {
 			return null;
 		}
 	}
-	
-	public static BlockArgumentParser.BlockResult getBlockResult(JsonObject json, String element) throws CommandSyntaxException {
-		return BlockArgumentParser.block(Registries.BLOCK.getReadOnlyWrapper(), JsonHelper.getString(json, element), true);
-	}
-	
-	public static BlockArgumentParser.BlockResult getBlockResult(String element) throws CommandSyntaxException {
-		return BlockArgumentParser.block(Registries.BLOCK.getReadOnlyWrapper(), element, true);
-	}
 
-	public static @Nullable BlockArgumentParser.BlockResult getNullableBlockResult(String element) {
+	public static @Nullable BlockArgumentParser.BlockResult getBlockResult(String element) {
 		try {
 			return BlockArgumentParser.block(Registries.BLOCK.getReadOnlyWrapper(), element, true);
 		} catch (Exception ignored) {

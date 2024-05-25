@@ -19,8 +19,8 @@ public class StackedBlockDecorator extends SpheroidDecorator {
 			instance -> instance.group(
 					BLOCKSTATE_STRING_CODEC.fieldOf("block").forGetter(decorator -> decorator.block),
 					Codec.FLOAT.fieldOf("chance").forGetter(decorator -> decorator.chance),
-					Codec.INT.fieldOf("minHeight").forGetter(decorator -> decorator.minHeight),
-					Codec.INT.fieldOf("maxHeight").forGetter(decorator -> decorator.maxHeight)
+					Codec.INT.fieldOf("min_height").forGetter(decorator -> decorator.minHeight),
+					Codec.INT.fieldOf("max_height").forGetter(decorator -> decorator.maxHeight)
 			).apply(instance, StackedBlockDecorator::new)
 	);
 

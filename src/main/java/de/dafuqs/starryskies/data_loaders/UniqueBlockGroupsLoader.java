@@ -42,6 +42,7 @@ public class UniqueBlockGroupsLoader extends JsonDataLoader implements Identifia
 	
 	@Override
 	protected void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
+		StarryRegistries.UNIQUE_BLOCK_GROUP.reset();
 		prepared.forEach((identifier, jsonElement) -> {
 			List<BlockState> states = new ArrayList<>();
 			for (JsonElement e : jsonElement.getAsJsonArray()) {

@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:ice"
+      "id": "minecraft:ice"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_ice.title"

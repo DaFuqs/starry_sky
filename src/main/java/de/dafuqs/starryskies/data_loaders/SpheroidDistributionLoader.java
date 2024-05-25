@@ -27,6 +27,7 @@ public class SpheroidDistributionLoader extends JsonDataLoader implements Identi
 	
 	@Override
 	protected void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
+		StarryRegistries.SPHEROID_DISTRIBUTION_TYPE.reset();
 		prepared.forEach((identifier, jsonElement) -> {
 			final JsonObject jsonObject = jsonElement.getAsJsonObject();
 
@@ -56,11 +57,7 @@ public class SpheroidDistributionLoader extends JsonDataLoader implements Identi
 	
 	public static List<Identifier> getAll() {
 		List<Identifier> ids = new ArrayList<>();
-		var iterator = StarryRegistries.SPHEROID_DISTRIBUTION_TYPE.iterator();
-        for (Iterator<SpheroidDistributionType> it = iterator; it.hasNext(); ) {
-            Map<Identifier, Float> entry = it.next().distribution;
-            ids.addAll(entry.keySet());
-        }
+		StarryRegistries.SPHEROID_DISTRIBUTION_TYPE.stream().forEach(e -> ids.addAll(e.distribution.keySet()));
 		return ids;
 	}
 	

@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:cobweb"
+      "id": "minecraft:cobweb"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_cave.title"

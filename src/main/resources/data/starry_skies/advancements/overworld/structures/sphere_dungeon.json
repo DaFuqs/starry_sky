@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:spawner"
+      "id": "minecraft:spawner"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_dungeon.title"

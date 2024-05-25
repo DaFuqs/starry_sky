@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:diamond_ore"
+      "id": "minecraft:diamond_ore"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_diamond.title"

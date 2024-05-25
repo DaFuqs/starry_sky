@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:purple_stained_glass"
+      "id": "minecraft:purple_stained_glass"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_end_glass.title"

@@ -42,5 +42,7 @@ public class SpheroidTemplateType<P extends Spheroid.Template<?>> {
 	private static <P extends Spheroid.Template<?>> SpheroidTemplateType<P> register(String id, MapCodec<P> codec) {
 		return Registry.register(StarryRegistries.SPHEROID_TEMPLATE_TYPE, StarrySkies.locate(id), new SpheroidTemplateType<>(codec));
 	}
+
+	public static void initialize() {}
 	
 }

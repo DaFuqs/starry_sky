@@ -1,7 +1,7 @@
 ﻿{
   "display": {
     "icon": {
-      "item": "minecraft:basalt"
+      "id": "minecraft:basalt"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_basalt.title"

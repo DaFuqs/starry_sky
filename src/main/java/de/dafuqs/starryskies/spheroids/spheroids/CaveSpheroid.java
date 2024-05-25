@@ -47,8 +47,8 @@ public class CaveSpheroid extends Spheroid {
 	public static class Template extends Spheroid.Template<Template.Config> {
 
 		public record Config(BlockStateSupplier shellBlock, int minShellRadius, int maxShellRadius,
-							 BlockState caveFloorBlock, BlockState topBlock, BlockState bottomBlock,
-							 Chest chest) {
+							 Optional<BlockState> caveFloorBlock, Optional<BlockState> topBlock, Optional<BlockState> bottomBlock,
+							 Optional<Chest> chest) {
 			public record Chest(RegistryKey<LootTable> lootTable, float lootTableChance) {
 				public static final Codec<Chest> CODEC = RecordCodecBuilder.create(
 						instance -> instance.group(
@@ -62,10 +62,10 @@ public class CaveSpheroid extends Spheroid {
 							BlockStateSupplier.CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
 							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
 							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
-							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("cave_floor_block", null).forGetter(Config::caveFloorBlock),
-							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("top_block", null).forGetter(Config::topBlock),
-							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("bottom_block", null).forGetter(Config::bottomBlock),
-							Chest.CODEC.lenientOptionalFieldOf("treasure_chest", null).forGetter(Config::chest)
+							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("cave_floor_block").forGetter(Config::caveFloorBlock),
+							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("top_block").forGetter(Config::topBlock),
+							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("bottom_block").forGetter(Config::bottomBlock),
+							Chest.CODEC.lenientOptionalFieldOf("treasure_chest").forGetter(Config::chest)
 					).apply(instance, Config::new)
 			);
 		}
@@ -86,10 +86,10 @@ public class CaveSpheroid extends Spheroid {
 			this.shellBlock = config.shellBlock;
 			this.minShellRadius = config.minShellRadius;
 			this.maxShellRadius = config.maxShellRadius;
-			this.caveFloorBlock = config.caveFloorBlock;
-			this.topBlock = config.topBlock;
-			this.bottomBlock = config.bottomBlock;
-			var chest = config.chest;
+			this.caveFloorBlock = config.caveFloorBlock.orElse(null);
+			this.topBlock = config.topBlock.orElse(null);
+			this.bottomBlock = config.bottomBlock.orElse(null);
+			var chest = config.chest.orElse(null);
 			if (chest != null) {
 				this.lootTable = chest.lootTable;
 				this.lootTableChance = chest.lootTableChance;
@@ -106,8 +106,9 @@ public class CaveSpheroid extends Spheroid {
 
 		@Override
 		public Config config() {
-			return new Config(shellBlock, minShellRadius, maxShellRadius, caveFloorBlock, topBlock, bottomBlock,
-					new Config.Chest(lootTable, lootTableChance));
+			return new Config(shellBlock, minShellRadius, maxShellRadius, Optional.ofNullable(caveFloorBlock),
+					Optional.ofNullable(topBlock), Optional.ofNullable(bottomBlock),
+					Optional.of(new Config.Chest(lootTable, lootTableChance)));
 		}
 
 		@Override

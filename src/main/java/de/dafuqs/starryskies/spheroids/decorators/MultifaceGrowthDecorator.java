@@ -6,6 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryCodecs;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.*;
@@ -20,7 +21,7 @@ public class MultifaceGrowthDecorator extends SpheroidDecorator {
 
 	public static final MapCodec<MultifaceGrowthDecorator> CODEC = RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
-					Block.CODEC.fieldOf("block").forGetter(decorator -> decorator.featureConfig.lichen),
+					Registries.BLOCK.getCodec().fieldOf("block").forGetter(decorator -> decorator.featureConfig.lichen),
 					RegistryCodecs.entryList(RegistryKeys.BLOCK, true).fieldOf("placeable_on_blocks").forGetter(decorator -> decorator.featureConfig.canPlaceOn),
 					Codec.FLOAT.fieldOf("chance").forGetter(decorator -> decorator.chance)
 			).apply(instance, MultifaceGrowthDecorator::new)

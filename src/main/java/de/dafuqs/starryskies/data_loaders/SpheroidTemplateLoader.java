@@ -43,7 +43,7 @@ public class SpheroidTemplateLoader extends JsonDataLoader implements Identifiab
 		}
 
 		final RegistryOps<JsonElement> ops = StarrySkies.registryManager.getOps(JsonOps.INSTANCE);
-		
+		StarryRegistries.SPHEROID_TEMPLATE.reset();
 		prepared.forEach((identifier, jsonElement) -> {
 			JsonObject jsonObject = jsonElement.getAsJsonObject();
 			
@@ -54,7 +54,7 @@ public class SpheroidTemplateLoader extends JsonDataLoader implements Identifiab
 				
 				try {
 					SpheroidTemplateType<?> templateClass = StarryRegistries.SPHEROID_TEMPLATE_TYPE.get(spheroidType);
-					template = templateClass.getCodec().codec().parse(ops, jsonObject).getOrThrow();
+                    template = templateClass.getCodec().codec().parse(ops, jsonObject).getOrThrow();
 					Registry.register(StarryRegistries.SPHEROID_TEMPLATE, identifier, template);
 				} catch (NullPointerException e) {
 					if (StarrySkies.CONFIG.packCreatorMode) {

@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:orange_wool"
+      "id": "minecraft:orange_wool"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.group_rainbow.title"

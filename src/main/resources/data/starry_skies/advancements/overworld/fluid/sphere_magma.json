@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:magma_block"
+      "id": "minecraft:magma_block"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_magma.title"

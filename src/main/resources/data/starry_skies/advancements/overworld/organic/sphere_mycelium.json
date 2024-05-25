@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:mycelium"
+      "id": "minecraft:mycelium"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_mycelium.title"

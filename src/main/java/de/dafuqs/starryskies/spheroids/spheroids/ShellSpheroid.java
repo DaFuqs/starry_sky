@@ -38,15 +38,26 @@ public class ShellSpheroid extends Spheroid {
 	}
 	
 	public static class Template extends Spheroid.Template<Template.Config> {
-
-		public record Config(BlockState innerBlock, BlockStateSupplier shellBlock, int minShellRadius, int maxShellRadius, Map<BlockArgumentParser.BlockResult, Float> shellSpeckleBlockStates) {
+		// NOTE: Special-casing singular speckle entry (de)serialization.
+		public record Config(BlockState innerBlock, BlockStateSupplier shellBlock, int minShellRadius, int maxShellRadius, Optional<SpeckleEntry> speckleEntry) {
+			public record SpeckleEntry(BlockArgumentParser.BlockResult result, Float chance) {
+				public SpeckleEntry(Map.Entry<BlockArgumentParser. BlockResult, Float> e) {
+					this(e.getKey(), e.getValue());
+				};
+				public static final MapCodec<SpeckleEntry> CODEC = RecordCodecBuilder.mapCodec(
+						instance -> instance.group(
+								BLOCK_RESULT_CODEC.fieldOf("block").forGetter(SpeckleEntry::result),
+								Codec.FLOAT.fieldOf("chance").forGetter(SpeckleEntry::chance)
+						).apply(instance, SpeckleEntry::new)
+				);
+			}
 			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
 							BLOCKSTATE_STRING_CODEC.fieldOf("main_block").forGetter(Config::innerBlock),
 							BlockStateSupplier.CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
 							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
 							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
-							Codec.unboundedMap(BLOCK_RESULT_CODEC, Codec.FLOAT).fieldOf("shell_speckles").forGetter(Config::shellSpeckleBlockStates)
+							SpeckleEntry.CODEC.codec().lenientOptionalFieldOf("shell_speckles").forGetter(Config::speckleEntry)
 					).apply(instance, Config::new)
 			);
 		};
@@ -65,8 +76,8 @@ public class ShellSpheroid extends Spheroid {
 			this.shellBlock = config.shellBlock;
 			this.minShellRadius = config.minShellRadius;
 			this.maxShellRadius = config.maxShellRadius;
-			this.shellSpeckleBlockStates.putAll(config.shellSpeckleBlockStates);
-		}
+            config.speckleEntry.ifPresent(speckleEntry -> this.shellSpeckleBlockStates.put(speckleEntry.result, speckleEntry.chance));
+        }
 
 		@Override
 		public SpheroidTemplateType<Template> getType() {
@@ -75,7 +86,9 @@ public class ShellSpheroid extends Spheroid {
 
 		@Override
 		public Config config() {
-			return new Config(innerBlock, shellBlock, minShellRadius, maxShellRadius, shellSpeckleBlockStates);
+			return new Config(innerBlock, shellBlock, minShellRadius, maxShellRadius,
+                    !shellSpeckleBlockStates.isEmpty() ? Optional.of(new Config.SpeckleEntry(shellSpeckleBlockStates.firstEntry()))
+													   : Optional.empty());
 		}
 
 		@Override

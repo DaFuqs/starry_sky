@@ -44,6 +44,7 @@ public class WeightedBlockGroupsLoader extends JsonDataLoader implements Identif
 	
 	@Override
 	protected void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
+		StarryRegistries.WEIGHTED_BLOCK_GROUP.reset();
 		prepared.forEach((identifier, jsonElement) -> {
 			Map<BlockState, Float> weights = new Object2FloatArrayMap<>();
 			for (Map.Entry<String, JsonElement> weight : jsonElement.getAsJsonObject().entrySet()) {

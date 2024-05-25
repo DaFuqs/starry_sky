@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:spruce_wood"
+      "id": "minecraft:spruce_wood"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_spruce_wood.title"

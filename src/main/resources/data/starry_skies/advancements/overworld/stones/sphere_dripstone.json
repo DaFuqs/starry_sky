@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:dripstone_block"
+      "id": "minecraft:dripstone_block"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_dripstone.title"

@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:rooted_dirt"
+      "id": "minecraft:rooted_dirt"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_rooted_dirt.title"
