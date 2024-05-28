@@ -6,7 +6,6 @@
       "type": "minecraft:fixed",
       "biome": "starry_skies:nether"
     },
-    "seed": 0,
-    "settings": 1
+    "system_generator": "starry_skies:nether"
   }
 }

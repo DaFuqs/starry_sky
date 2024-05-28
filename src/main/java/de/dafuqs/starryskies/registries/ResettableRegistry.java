@@ -5,7 +5,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.SimpleRegistry;
 
-// daf, please reconsider registrification
+// TODO: daf, please reconsider registrification
 public class ResettableRegistry<T> extends SimpleRegistry<T> {
     public ResettableRegistry(RegistryKey<? extends Registry<T>> key, Lifecycle lifecycle) {
         super(key, lifecycle);

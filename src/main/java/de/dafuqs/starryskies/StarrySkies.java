@@ -22,9 +22,12 @@ import net.minecraft.server.network.*;
 import net.minecraft.server.world.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
+import net.minecraft.world.gen.chunk.*;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.*;
 
 public class StarrySkies implements ModInitializer {
 	
@@ -33,9 +36,6 @@ public class StarrySkies implements ModInitializer {
 	public static StarrySkyConfig CONFIG;
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	
-	public static ServerWorld starryWorld;
-	public static ServerWorld starryWorldNether;
-	public static ServerWorld starryWorldEnd;
 	public static DynamicRegistryManager registryManager = DynamicRegistryManager.of(Registries.REGISTRIES);
 	
 	@Override
@@ -60,7 +60,6 @@ public class StarrySkies implements ModInitializer {
 
 		SpheroidDecoratorType.initialize();
 		SpheroidTemplateType.initialize();
-		SpheroidDimensionType.initialize();
 		
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> ClosestSpheroidCommand.register(dispatcher));
 		
@@ -68,13 +67,6 @@ public class StarrySkies implements ModInitializer {
 		// so for overworld, nether, ... (they all share the same seed)
 		ServerWorldEvents.LOAD.register((server, world) -> {
 			registryManager = server.getRegistryManager();
-			if (world.getRegistryKey().equals(StarrySkyDimension.OVERWORLD_KEY)) {
-				StarrySkies.starryWorld = world;
-			} else if (world.getRegistryKey().equals(StarrySkyDimension.NETHER_KEY)) {
-				StarrySkies.starryWorldNether = world;
-			} else if (world.getRegistryKey().equals(StarrySkyDimension.END_KEY)) {
-				StarrySkies.starryWorldEnd = world;
-			}
 		});
 		
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(UniqueBlockGroupsLoader.INSTANCE);
@@ -119,33 +111,8 @@ public class StarrySkies implements ModInitializer {
 	}
 	
 	public static boolean inStarryWorld(ServerPlayerEntity serverPlayerEntity) {
-		RegistryKey<World> worldRegistryKey = serverPlayerEntity.getEntityWorld().getRegistryKey();
-		return isStarryWorld(worldRegistryKey);
-	}
-	
-	public static ServerWorld getStarryWorld(SpheroidDimensionType dimensionType) {
-		switch (dimensionType) {
-			case OVERWORLD -> {
-				return starryWorld;
-			}
-			case NETHER -> {
-				return starryWorldNether;
-			}
-			default -> {
-				return starryWorldEnd;
-			}
-		}
-	}
-	
-	public static boolean isStarryWorld(RegistryKey<World> worldRegistryKey) {
-		if (StarrySkies.starryWorld == null || StarrySkies.starryWorldNether == null || StarrySkies.starryWorldEnd == null) {
-			LOGGER.error("The Starry Dimensions could not be loaded. If this is your first launch this is probably related to a known vanilla bug where custom dimensions are not loaded when first generating the world. Restarting / quitting and reloading will fix this issue.");
-			return false;
-		} else {
-			return worldRegistryKey.equals(StarrySkies.starryWorld.getRegistryKey())
-					|| worldRegistryKey.equals(starryWorldNether.getRegistryKey())
-					|| worldRegistryKey.equals(starryWorldEnd.getRegistryKey());
-		}
+		ChunkGenerator chunkGenerator = serverPlayerEntity.getServerWorld().getChunkManager().getChunkGenerator();
+		return chunkGenerator instanceof StarrySkyChunkGenerator;
 	}
 	
 }

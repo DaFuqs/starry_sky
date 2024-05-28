@@ -3,11 +3,11 @@ package de.dafuqs.starryskies.data_loaders;
 import com.google.gson.*;
 import com.mojang.serialization.JsonOps;
 import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.dimension.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.fabricmc.fabric.api.resource.*;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryOps;
+import net.minecraft.registry.*;
 import net.minecraft.resource.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.random.*;
@@ -98,8 +98,8 @@ public class SpheroidTemplateLoader extends JsonDataLoader implements Identifiab
 		return StarrySkies.locate(ID);
 	}
 	
-	public static Spheroid.Template<?> getWeightedRandomSpheroid(SpheroidDimensionType dimensionType, ChunkRandom systemRandom) {
-		Identifier distributionType = SpheroidDistributionLoader.getWeightedRandomDistributionType(dimensionType, systemRandom);
+	public static Spheroid.Template<?> getWeightedRandomSpheroid(RegistryKey<SpheroidDistributionLoader.SpheroidDistributionType> systemGenerator, ChunkRandom systemRandom) {
+		Identifier distributionType = SpheroidDistributionLoader.getWeightedRandomDistributionType(systemGenerator, systemRandom);
 		return Support.getWeightedRandom(WEIGHTED_SPHEROID_TYPES.get(distributionType), systemRandom);
 	}
 	

@@ -25,9 +25,9 @@ public class StarrySkyDimensionTravelHandler {
 	
 	public static RegistryKey<World> modifyNetherPortalDestination(@NotNull Entity thisEntity, RegistryKey<World> serverWorld) {
 		if (thisEntity.getEntityWorld().getRegistryKey().equals(StarrySkyDimension.OVERWORLD_KEY)) {
-			return StarrySkies.starryWorldNether.getRegistryKey();
+			return StarrySkyDimension.NETHER_KEY;
 		} else if (thisEntity.getEntityWorld().getRegistryKey().equals(StarrySkyDimension.NETHER_KEY)) {
-			return StarrySkies.starryWorld.getRegistryKey();
+			return StarrySkyDimension.OVERWORLD_KEY;
 		}
 		return serverWorld;
 	}

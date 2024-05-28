@@ -6,7 +6,6 @@
       "type": "minecraft:fixed",
       "biome": "starry_skies:end"
     },
-    "seed": 0,
-    "settings": 2
+    "system_generator": "starry_skies:end"
   }
 }
