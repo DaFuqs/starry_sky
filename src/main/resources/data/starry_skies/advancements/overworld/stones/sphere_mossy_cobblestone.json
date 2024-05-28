@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:mossy_cobblestone"
+      "id": "minecraft:mossy_cobblestone"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_mossy_cobblestone.title"

@@ -1,7 +1,8 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.google.gson.*;
-import com.mojang.brigadier.exceptions.*;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.*;
@@ -15,6 +16,9 @@ import net.minecraft.world.chunk.*;
 
 import java.util.*;
 
+import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
+import static de.dafuqs.starryskies.Support.BLOCK_RESULT_CODEC;
+
 public class ShellSpheroid extends Spheroid {
 	
 	protected BlockState innerBlock;
@@ -22,7 +26,7 @@ public class ShellSpheroid extends Spheroid {
 	protected float shellRadius;
 	private final LinkedHashMap<BlockArgumentParser.BlockResult, Float> shellSpeckleBlockStates;
 	
-	public ShellSpheroid(Spheroid.Template template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+	public ShellSpheroid(Spheroid.Template<?> template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 						 BlockState innerBlock, BlockState shellBlock, float shellRadius, LinkedHashMap<BlockArgumentParser.BlockResult, Float> shellSpeckleBlockStates) {
 		
 		super(template, radius, decorators, spawns, random);
@@ -33,29 +37,60 @@ public class ShellSpheroid extends Spheroid {
 		this.shellSpeckleBlockStates = shellSpeckleBlockStates;
 	}
 	
-	public static class Template extends Spheroid.Template {
+	public static class Template extends Spheroid.Template<Template.Config> {
+		// NOTE: Special-casing singular speckle entry (de)serialization.
+		public record Config(BlockState innerBlock, BlockStateSupplier shellBlock, int minShellRadius, int maxShellRadius, Optional<SpeckleEntry> speckleEntry) {
+			public record SpeckleEntry(BlockArgumentParser.BlockResult result, Float chance) {
+				public SpeckleEntry(Map.Entry<BlockArgumentParser. BlockResult, Float> e) {
+					this(e.getKey(), e.getValue());
+				}
+				public static final MapCodec<SpeckleEntry> CODEC = RecordCodecBuilder.mapCodec(
+						instance -> instance.group(
+								BLOCK_RESULT_CODEC.fieldOf("block").forGetter(SpeckleEntry::result),
+								Codec.FLOAT.fieldOf("chance").forGetter(SpeckleEntry::chance)
+						).apply(instance, SpeckleEntry::new)
+				);
+			}
+			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
+					instance -> instance.group(
+							BLOCKSTATE_STRING_CODEC.fieldOf("main_block").forGetter(Config::innerBlock),
+							BlockStateSupplier.CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
+							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
+							SpeckleEntry.CODEC.codec().lenientOptionalFieldOf("shell_speckles").forGetter(Config::speckleEntry)
+					).apply(instance, Config::new)
+			);
+		}
+
+		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
 		
 		private final BlockState innerBlock;
 		private final BlockStateSupplier shellBlock;
 		private final int minShellRadius;
 		private final int maxShellRadius;
 		private final LinkedHashMap<BlockArgumentParser.BlockResult, Float> shellSpeckleBlockStates = new LinkedHashMap<>();
-		
-		public Template(Identifier identifier, JsonObject data) throws CommandSyntaxException {
-			super(identifier, data);
-			
-			JsonObject typeData = JsonHelper.getObject(data, "type_data");
-			this.minShellRadius = JsonHelper.getInt(typeData, "min_shell_size");
-			this.maxShellRadius = JsonHelper.getInt(typeData, "max_shell_size");
-			this.innerBlock = StarrySkies.getStateFromString(JsonHelper.getString(typeData, "main_block"));
-			this.shellBlock = BlockStateSupplier.of(typeData.get("shell_block"));
-			
-			if (JsonHelper.hasJsonObject(typeData, "shell_speckles")) {
-				JsonObject speckleObject = JsonHelper.getObject(typeData, "shell_speckles");
-				shellSpeckleBlockStates.put(StarrySkies.getBlockResult(JsonHelper.getString(speckleObject, "block")), JsonHelper.getFloat(speckleObject, "chance"));
-			}
+
+		public Template(SharedConfig shared, Config config) {
+			super(shared);
+			this.innerBlock = config.innerBlock;
+			this.shellBlock = config.shellBlock;
+			this.minShellRadius = config.minShellRadius;
+			this.maxShellRadius = config.maxShellRadius;
+            config.speckleEntry.ifPresent(speckleEntry -> this.shellSpeckleBlockStates.put(speckleEntry.result, speckleEntry.chance));
+        }
+
+		@Override
+		public SpheroidTemplateType<Template> getType() {
+			return SpheroidTemplateType.SHELL;
 		}
-		
+
+		@Override
+		public Config config() {
+			return new Config(innerBlock, shellBlock, minShellRadius, maxShellRadius,
+                    !shellSpeckleBlockStates.isEmpty() ? Optional.of(new Config.SpeckleEntry(shellSpeckleBlockStates.firstEntry()))
+													   : Optional.empty());
+		}
+
 		@Override
 		public ShellSpheroid generate(ChunkRandom random) {
 			return new ShellSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, innerBlock, shellBlock.get(random), randomBetween(random, minShellRadius, maxShellRadius), shellSpeckleBlockStates);

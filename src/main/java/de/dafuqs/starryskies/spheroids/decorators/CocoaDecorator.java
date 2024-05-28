@@ -1,7 +1,6 @@
 package de.dafuqs.starryskies.spheroids.decorators;
 
-import com.google.gson.*;
-import com.mojang.brigadier.exceptions.*;
+import com.mojang.serialization.MapCodec;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
@@ -10,15 +9,22 @@ import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
 
 public class CocoaDecorator extends SpheroidDecorator {
+
+	public static final MapCodec<CocoaDecorator> CODEC = MapCodec.unit(CocoaDecorator::new);
 	
 	private final BlockState AIR = Blocks.CAVE_AIR.getDefaultState();
 	private final BlockState COCOA;
 	
-	public CocoaDecorator(JsonObject data) throws CommandSyntaxException {
-		super(data);
+	public CocoaDecorator() {
+		super();
 		this.COCOA = Blocks.COCOA.getDefaultState().with(CocoaBlock.AGE, 2); // 2 = fully grown
 	}
-	
+
+	@Override
+	protected SpheroidDecoratorType<CocoaDecorator> getType() {
+		return SpheroidDecoratorType.COCOA;
+	}
+
 	@Override
 	public void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random) {
 		if (!spheroid.isCenterInChunk(origin)) {

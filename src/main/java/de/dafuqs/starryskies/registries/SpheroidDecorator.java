@@ -7,7 +7,6 @@ import net.minecraft.block.entity.*;
 import net.minecraft.fluid.*;
 import net.minecraft.loot.*;
 import net.minecraft.registry.*;
-import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
@@ -16,8 +15,8 @@ import org.jetbrains.annotations.*;
 import java.util.*;
 
 public abstract class SpheroidDecorator {
-	
-	public static final Codec TYPE_CODEC = StarryRegistries.SPHEROID_DECORATOR_TYPE.getCodec().dispatch(SpheroidDecorator::getType, SpheroidDecoratorType::getCodec);
+
+	public static final Codec<SpheroidDecorator> CODEC = StarryRegistries.SPHEROID_DECORATOR.getCodec();
 	
 	public SpheroidDecorator() {
 	}
@@ -32,10 +31,6 @@ public abstract class SpheroidDecorator {
 	 */
 	public abstract void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random);
 	
-	public RegistryKey<LootTable> lootTableKey(Identifier identifier) {
-		return RegistryKey.of(RegistryKeys.LOOT_TABLE, identifier);
-	}
-	
 	protected void placeLootChest(@NotNull StructureWorldAccess world, BlockPos blockPos, RegistryKey<LootTable> lootTable, Random random) {
 		BlockState chestBlockState = Blocks.CHEST.getDefaultState();
 		
@@ -48,18 +43,10 @@ public abstract class SpheroidDecorator {
 		int r = random.nextInt(4);
 		Direction randomDirection;
 		switch (r) {
-			case 0 -> {
-				randomDirection = Direction.NORTH;
-			}
-			case 1 -> {
-				randomDirection = Direction.SOUTH;
-			}
-			case 2 -> {
-				randomDirection = Direction.EAST;
-			}
-			default -> {
-				randomDirection = Direction.WEST;
-			}
+			case 0 -> randomDirection = Direction.NORTH;
+			case 1 -> randomDirection = Direction.SOUTH;
+			case 2 -> randomDirection = Direction.EAST;
+			default -> randomDirection = Direction.WEST;
 		}
 		
 		// set the chest and add loot table
@@ -147,35 +134,6 @@ public abstract class SpheroidDecorator {
 			int x2 = minX + random.nextInt(maxX - minX + 1);
 			int z2 = minZ + random.nextInt(maxZ - minZ + 1);
 			for (int y2 = y + rad; y2 > y; y2--) {
-				mutable.set(x2, y2, z2);
-				if (!world.getBlockState(mutable).isAir()) {
-					list.add(mutable.toImmutable());
-					break;
-				}
-			}
-		}
-		
-		return list;
-	}
-	
-	protected List<BlockPos> getBottomBlocks(StructureWorldAccess world, ChunkPos chunkPos, Spheroid spheroid, Random random, int amount) {
-		List<BlockPos> list = new ArrayList<>();
-		
-		int x = spheroid.getPosition().getX();
-		int y = spheroid.getPosition().getY();
-		int z = spheroid.getPosition().getZ();
-		
-		int rad = spheroid.getRadius();
-		int minX = Math.max(chunkPos.getStartX(), x - rad);
-		int minZ = Math.max(chunkPos.getStartZ(), z - rad);
-		int maxX = Math.min(chunkPos.getEndX(), x + rad);
-		int maxZ = Math.min(chunkPos.getEndZ(), z + rad);
-		BlockPos.Mutable mutable = new BlockPos.Mutable();
-		
-		for (int i = 0; i < amount; i++) {
-			int x2 = minX + random.nextInt(maxX - minX + 1);
-			int z2 = minZ + random.nextInt(maxZ - minZ + 1);
-			for (int y2 = y - rad; y2 < y; y2++) {
 				mutable.set(x2, y2, z2);
 				if (!world.getBlockState(mutable).isAir()) {
 					list.add(mutable.toImmutable());

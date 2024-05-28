@@ -1,7 +1,8 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.google.gson.*;
-import com.mojang.brigadier.exceptions.*;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import net.minecraft.block.*;
@@ -13,48 +14,73 @@ import net.minecraft.world.chunk.*;
 
 import java.util.*;
 
+import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
+
 public class GeodeSpheroid extends Spheroid {
 	
 	private final BlockState innerBlockState;
 	private final BlockState innerSpecklesBlockState;
 	private final float speckleChance;
-	private final BlockState middleBlockSate;
+	private final BlockState middleBlockState;
 	private final BlockState outerBlockState;
 	
-	public GeodeSpheroid(Spheroid.Template template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
-						 BlockState innerBlockState, BlockState innerSpecklesBlockState, float speckleChance, BlockState middleBlockSate, BlockState outerBlockState) {
+	public GeodeSpheroid(Spheroid.Template<?> template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+						 BlockState innerBlockState, BlockState innerSpecklesBlockState, float speckleChance, BlockState middleBlockState, BlockState outerBlockState) {
 		
 		super(template, radius, decorators, spawns, random);
 		
 		this.innerBlockState = innerBlockState;
 		this.innerSpecklesBlockState = innerSpecklesBlockState;
 		this.speckleChance = speckleChance;
-		this.middleBlockSate = middleBlockSate;
+		this.middleBlockState = middleBlockState;
 		this.outerBlockState = outerBlockState;
 	}
 	
-	public static class Template extends Spheroid.Template {
+	public static class Template extends Spheroid.Template<Template.Config> {
+
+		public record Config(BlockState innerBlockState, BlockState innerSpecklesBlockState, float speckleChance,
+							 BlockState middleBlockState, BlockState outerBlockState) {
+			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
+					instance -> instance.group(
+							BLOCKSTATE_STRING_CODEC.fieldOf("inner_block").forGetter(Config::innerBlockState),
+							BLOCKSTATE_STRING_CODEC.fieldOf("inner_speckles_block").forGetter(Config::innerSpecklesBlockState),
+							Codec.FLOAT.fieldOf("inner_speckles_block_chance").forGetter(Config::speckleChance),
+							BLOCKSTATE_STRING_CODEC.fieldOf("middle_block").forGetter(Config::middleBlockState),
+							BLOCKSTATE_STRING_CODEC.fieldOf("outer_block").forGetter(Config::outerBlockState)
+					).apply(instance, Config::new)
+			);
+		}
+
+		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
 		
 		private final BlockState innerBlockState;
 		private final BlockState innerSpecklesBlockState;
 		private final float speckleChance;
-		private final BlockState middleBlockSate;
+		private final BlockState middleBlockState;
 		private final BlockState outerBlockState;
 		
-		public Template(Identifier identifier, JsonObject data) throws CommandSyntaxException {
-			super(identifier, data);
-			
-			JsonObject typeData = JsonHelper.getObject(data, "type_data");
-			this.innerBlockState = StarrySkies.getStateFromString(JsonHelper.getString(typeData, "inner_block"));
-			this.innerSpecklesBlockState = StarrySkies.getStateFromString(JsonHelper.getString(typeData, "inner_speckles_block"));
-			this.speckleChance = JsonHelper.getFloat(typeData, "inner_speckles_block_chance");
-			this.middleBlockSate = StarrySkies.getStateFromString(JsonHelper.getString(typeData, "middle_block"));
-			this.outerBlockState = StarrySkies.getStateFromString(JsonHelper.getString(typeData, "outer_block"));
+		public Template(SharedConfig shared, Config config) {
+			super(shared);
+			this.innerBlockState = config.innerBlockState;
+			this.innerSpecklesBlockState = config.innerSpecklesBlockState;
+			this.speckleChance = config.speckleChance;
+			this.middleBlockState = config.middleBlockState;
+			this.outerBlockState = config.outerBlockState;
 		}
-		
+
+		@Override
+		public SpheroidTemplateType<Template> getType() {
+			return SpheroidTemplateType.GEODE;
+		}
+
+		@Override
+		public Config config() {
+			return new Config(innerBlockState, innerSpecklesBlockState, speckleChance, middleBlockState, outerBlockState);
+		}
+
 		@Override
 		public GeodeSpheroid generate(ChunkRandom random) {
-			return new GeodeSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, innerBlockState, innerSpecklesBlockState, speckleChance, middleBlockSate, outerBlockState);
+			return new GeodeSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, innerBlockState, innerSpecklesBlockState, speckleChance, middleBlockState, outerBlockState);
 		}
 		
 	}
@@ -68,7 +94,7 @@ public class GeodeSpheroid extends Spheroid {
 				"\nInnerBlock: " + this.innerBlockState +
 				"\nInnerSpecklesBlock: " + this.innerSpecklesBlockState +
 				"\nSpeckleChance: " + this.speckleChance +
-				"\nMiddleBlock: " + this.middleBlockSate +
+				"\nMiddleBlock: " + this.middleBlockState +
 				"\nOuterBlock: " + this.outerBlockState;
 	}
 	
@@ -104,7 +130,7 @@ public class GeodeSpheroid extends Spheroid {
 							chunk.setBlockState(currBlockPos, innerBlockState, false);
 						}
 					} else if (d < this.radius - 2) {
-						chunk.setBlockState(currBlockPos, middleBlockSate, false);
+						chunk.setBlockState(currBlockPos, middleBlockState, false);
 					} else if (d < this.radius - 1) {
 						chunk.setBlockState(currBlockPos, outerBlockState, false);
 					}

@@ -1,34 +1,49 @@
 package de.dafuqs.starryskies.spheroids.decorators;
 
-import com.google.gson.*;
-import com.mojang.brigadier.exceptions.*;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
 import net.minecraft.loot.*;
 import net.minecraft.registry.*;
-import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
 
+import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
+
 public class CenterPondDecorator extends SpheroidDecorator {
+
+	public static final MapCodec<CenterPondDecorator> CODEC = RecordCodecBuilder.mapCodec(
+			instance -> instance.group(
+					BLOCKSTATE_STRING_CODEC.fieldOf("beach_block").forGetter(decorator -> decorator.beachBlock),
+					BLOCKSTATE_STRING_CODEC.fieldOf("fluid_block").forGetter(decorator -> decorator.fluidBlock),
+					RegistryKey.createCodec(RegistryKeys.LOOT_TABLE).fieldOf("loot_table").forGetter(decorator -> decorator.lootTable),
+					Codec.FLOAT.fieldOf("loot_table_chance").forGetter(decorator -> decorator.lootTableChance)
+			).apply(instance, CenterPondDecorator::new)
+	);
 	
 	private final RegistryKey<LootTable> lootTable;
 	private final float lootTableChance;
 	private final BlockState beachBlock;
 	private final BlockState fluidBlock;
-	
-	public CenterPondDecorator(JsonObject data) throws CommandSyntaxException {
-		super(data);
-		this.beachBlock = StarrySkies.getStateFromString(JsonHelper.getString(data, "beach_block"));
-		this.fluidBlock = StarrySkies.getStateFromString(JsonHelper.getString(data, "fluid_block"));
-		this.lootTable = lootTableKey(Identifier.tryParse(JsonHelper.getString(data, "loot_table")));
-		this.lootTableChance = JsonHelper.getFloat(data, "loot_table_chance");
+
+	public CenterPondDecorator(BlockState beachBlock, BlockState fluidBlock,
+							   RegistryKey<LootTable> lootTable, float lootTableChance) {
+		this.beachBlock = beachBlock;
+		this.fluidBlock = fluidBlock;
+		this.lootTable = lootTable;
+		this.lootTableChance = lootTableChance;
 	}
-	
-	
+
+	@Override
+	protected SpheroidDecoratorType<CenterPondDecorator> getType() {
+		return SpheroidDecoratorType.CENTER_POND;
+	}
+
 	@Override
 	public void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random) {
 		if (!spheroid.isCenterInChunk(origin)) {

@@ -1,21 +1,43 @@
 package de.dafuqs.starryskies.spheroids.decorators;
 
-import com.google.gson.*;
-import com.mojang.brigadier.exceptions.*;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.registries.SpheroidDecoratorType;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
 
+import java.util.Optional;
+
+import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
 
 public class HugeHangingPlantDecorator extends HugePlantDecorator {
-	
-	public HugeHangingPlantDecorator(JsonObject data) throws CommandSyntaxException {
-		super(data);
+
+	public static final MapCodec<HugeHangingPlantDecorator> CODEC = RecordCodecBuilder.mapCodec(
+			instance -> instance.group(
+					BLOCKSTATE_STRING_CODEC.fieldOf("block").forGetter(decorator -> decorator.block),
+					BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("first_block").forGetter(decorator -> Optional.ofNullable(decorator.firstBlock)),
+					BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("last_block").forGetter(decorator -> Optional.ofNullable(decorator.lastBlock)),
+					Codec.FLOAT.fieldOf("chance").forGetter(decorator -> decorator.chance),
+					Codec.INT.fieldOf("min_height").forGetter(decorator -> decorator.minHeight),
+					Codec.INT.fieldOf("max_height").forGetter(decorator -> decorator.maxHeight)
+			).apply(instance, HugeHangingPlantDecorator::new)
+	);
+
+	@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+	public HugeHangingPlantDecorator(BlockState block, Optional<BlockState> firstBlock, Optional<BlockState> lastBlock, float chance, int minHeight, int maxHeight) {
+		super(block, firstBlock, lastBlock, chance, minHeight, maxHeight);
 	}
-	
+
+	@Override
+	protected SpheroidDecoratorType<HugeHangingPlantDecorator> getType() {
+		return SpheroidDecoratorType.HUGE_HANGING_PLANT;
+	}
+
 	@Override
 	public void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random) {
 		for (BlockPos bp : getBottomBlocks(world, origin, spheroid)) {

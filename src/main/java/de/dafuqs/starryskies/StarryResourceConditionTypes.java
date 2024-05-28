@@ -3,6 +3,7 @@ package de.dafuqs.starryskies;
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.data_loaders.*;
+import de.dafuqs.starryskies.registries.StarryRegistries;
 import net.fabricmc.fabric.api.resource.conditions.v1.*;
 import net.minecraft.registry.*;
 import net.minecraft.util.*;
@@ -38,7 +39,7 @@ public class StarryResourceConditionTypes {
 		@Override
 		public boolean test(@Nullable RegistryWrapper.WrapperLookup registryLookup) {
 			for (Identifier id : blockGroupId) {
-				return UniqueBlockGroupsLoader.existsGroup(id);
+				return StarryRegistries.UNIQUE_BLOCK_GROUP.containsId(id);
 			}
 			return false;
 		}
@@ -59,7 +60,7 @@ public class StarryResourceConditionTypes {
 		@Override
 		public boolean test(@Nullable RegistryWrapper.WrapperLookup registryLookup) {
 			for (Identifier id : blockGroupId) {
-				return WeightedBlockGroupsLoader.existsGroup(id);
+				return StarryRegistries.WEIGHTED_BLOCK_GROUP.containsId(id);
 			}
 			return false;
 		}

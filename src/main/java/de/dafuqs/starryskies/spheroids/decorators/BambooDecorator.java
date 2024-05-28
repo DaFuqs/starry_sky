@@ -1,32 +1,46 @@
 package de.dafuqs.starryskies.spheroids.decorators;
 
-import com.google.gson.*;
-import com.mojang.brigadier.exceptions.*;
-import de.dafuqs.starryskies.*;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.*;
-import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
 
+import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
+
 public class BambooDecorator extends SpheroidDecorator {
+
+	public static final MapCodec<BambooDecorator> CODEC = RecordCodecBuilder.mapCodec(
+			instance -> instance.group(
+					Codec.FLOAT.fieldOf("chance").forGetter(decorator -> decorator.chance),
+					Codec.FLOAT.fieldOf("sapling_chance").forGetter(decorator -> decorator.saplingChance),
+					BLOCKSTATE_STRING_CODEC.fieldOf("bamboo_block").forGetter(decorator -> decorator.bambooBlockState),
+					BLOCKSTATE_STRING_CODEC.fieldOf("sapling_block").forGetter(decorator -> decorator.bambooSaplingBlockState)
+			).apply(instance, BambooDecorator::new)
+	);
 	
 	private final float chance;
 	private final float saplingChance;
 	private final BlockState bambooBlockState;
 	private final BlockState bambooSaplingBlockState;
-	
-	public BambooDecorator(JsonObject data) throws CommandSyntaxException {
-		super(data);
-		this.chance = JsonHelper.getFloat(data, "chance");
-		this.saplingChance = JsonHelper.getFloat(data, "sapling_chance");
-		this.bambooBlockState = StarrySkies.getStateFromString(JsonHelper.getString(data, "bamboo_block"));
-		this.bambooSaplingBlockState = StarrySkies.getStateFromString(JsonHelper.getString(data, "sapling_block"));
+
+	public BambooDecorator(float chance, float saplingChance, BlockState bambooBlockState, BlockState bambooSaplingBlockState) {
+		this.chance = chance;
+		this.saplingChance = saplingChance;
+		this.bambooBlockState = bambooBlockState;
+		this.bambooSaplingBlockState = bambooSaplingBlockState;
 	}
-	
+
+	@Override
+	protected SpheroidDecoratorType<BambooDecorator> getType() {
+		return SpheroidDecoratorType.BAMBOO;
+	}
+
 	@Override
 	public void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random) {
 		for (BlockPos bp : getTopBlocks(world, origin, spheroid)) {

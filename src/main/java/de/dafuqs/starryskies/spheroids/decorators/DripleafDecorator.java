@@ -1,11 +1,10 @@
 package de.dafuqs.starryskies.spheroids.decorators;
 
-import com.google.gson.*;
-import com.mojang.brigadier.exceptions.*;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
-import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
@@ -13,6 +12,8 @@ import net.minecraft.world.*;
 import java.util.*;
 
 public class DripleafDecorator extends SpheroidDecorator {
+
+	public static final MapCodec<DripleafDecorator> CODEC = Codec.INT.fieldOf("tries").xmap(DripleafDecorator::new, d -> d.tries);
 	
 	private static final BlockState DRIPLEAF_BLOCK_STATE = Blocks.BIG_DRIPLEAF.getDefaultState();
 	private static final BlockState DRIPLEAF_STEM_BLOCK_STATE = Blocks.BIG_DRIPLEAF_STEM.getDefaultState();
@@ -20,12 +21,17 @@ public class DripleafDecorator extends SpheroidDecorator {
 	private static final BlockState CLAY_BLOCK_STATE = Blocks.CLAY.getDefaultState();
 	
 	private final int tries;
-	
-	public DripleafDecorator(JsonObject data) throws CommandSyntaxException {
-		super(data);
-		this.tries = JsonHelper.getInt(data, "tries");
+
+	public DripleafDecorator(int tries) {
+		super();
+		this.tries = tries;
 	}
-	
+
+	@Override
+	protected SpheroidDecoratorType<DripleafDecorator> getType() {
+		return SpheroidDecoratorType.DRIPLEAF;
+	}
+
 	@Override
 	public void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random) {
 		for (BlockPos bp : getCaveBottomBlocks(world, origin, spheroid, random, tries)) {

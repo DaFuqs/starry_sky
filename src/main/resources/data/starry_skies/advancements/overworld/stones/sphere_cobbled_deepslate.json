@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:cobbled_deepslate"
+      "id": "minecraft:cobbled_deepslate"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_cobbled_deepslate.title"

@@ -1,7 +1,6 @@
 package de.dafuqs.starryskies.spheroids.decorators;
 
-import com.google.gson.*;
-import com.mojang.brigadier.exceptions.*;
+import com.mojang.serialization.MapCodec;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
@@ -12,11 +11,18 @@ import net.minecraft.world.*;
 import java.util.*;
 
 public class EndPortalDecorator extends SpheroidDecorator {
+
+	public static final MapCodec<EndPortalDecorator> CODEC = MapCodec.unit(EndPortalDecorator::new);
 	
-	public EndPortalDecorator(JsonObject data) throws CommandSyntaxException {
-		super(data);
+	public EndPortalDecorator() {
+		super();
 	}
-	
+
+	@Override
+	protected SpheroidDecoratorType<EndPortalDecorator> getType() {
+		return SpheroidDecoratorType.END_PORTAL;
+	}
+
 	@Override
 	public void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random) {
 		if (!spheroid.isCenterInChunk(origin)) {

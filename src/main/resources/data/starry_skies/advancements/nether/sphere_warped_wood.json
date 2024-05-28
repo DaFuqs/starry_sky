@@ -1,7 +1,7 @@
 ﻿{
   "display": {
     "icon": {
-      "item": "minecraft:warped_hyphae"
+      "id": "minecraft:warped_hyphae"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_warped_wood.title"

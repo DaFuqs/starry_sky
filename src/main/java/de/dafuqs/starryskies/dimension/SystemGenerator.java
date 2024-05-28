@@ -99,7 +99,7 @@ public class SystemGenerator {
 		int firstChunkPosZ = systemPoint.y * SYSTEM_SIZE_CHUNKS;
 		ChunkRandom systemRandom = new ChunkRandom(new CheckedRandom(StarrySkies.starryWorld.getSeed()));
 		systemRandom.setCarverSeed(StarrySkies.starryWorld.getSeed(), firstChunkPosX, firstChunkPosZ); // and the seed from the first chunk+
-		StarrySkies.log(DEBUG, "Generated seed for system at " + systemPoint.x + "," + systemPoint.y + "(first chunk: " + firstChunkPosX + "," + firstChunkPosZ);
+        StarrySkies.LOGGER.debug("Generated seed for system at {},{}(first chunk: {},{}", systemPoint.x, systemPoint.y, firstChunkPosX, firstChunkPosZ);
 		return systemRandom;
 	}
 	
@@ -147,8 +147,8 @@ public class SystemGenerator {
 				spheroids.add(currentSpheroid);
 			}
 		}
-		
-		StarrySkies.log(DEBUG, "Created a new system with " + spheroids.size() + " spheroids at system position " + systemPointX + "," + systemPointZ);
+
+        StarrySkies.LOGGER.debug("Created a new system with {} spheroids at system position {},{}", spheroids.size(), systemPointX, systemPointZ);
 		
 		return spheroids;
 	}
@@ -189,8 +189,8 @@ public class SystemGenerator {
 		do {
 			template = SpheroidTemplateLoader.getWeightedRandomSpheroid(spheroidDimensionType, systemRandom);
 		} while (template == null);
-		
-		StarrySkies.log(DEBUG, "Created a new sphere of type " + template + " Next random: " + systemRandom.nextInt());
+
+        StarrySkies.LOGGER.debug("Created a new sphere of type {} Next random: {}", template, systemRandom.nextInt());
 		return template.generate(systemRandom);
 	}
 	

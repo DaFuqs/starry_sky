@@ -9,12 +9,14 @@ import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
 
+import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
+
 public class SingleBlockDecorator extends SpheroidDecorator {
 	
 	public static final MapCodec<SingleBlockDecorator> CODEC = RecordCodecBuilder.mapCodec((instance) ->
 			instance.group(
-					BlockState.CODEC.fieldOf("block").forGetter((treeDecorator) -> treeDecorator.state),
-					Codec.floatRange(0.0F, 1.0F).fieldOf("chance").forGetter((treeDecorator) -> treeDecorator.chance)
+					BLOCKSTATE_STRING_CODEC.fieldOf("block").forGetter(decorator -> decorator.state),
+					Codec.floatRange(0.0F, 1.0F).fieldOf("chance").forGetter(decorator -> decorator.chance)
 			).apply(instance, SingleBlockDecorator::new));
 	
 	private final BlockState state;

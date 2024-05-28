@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:flowering_azalea_leaves"
+      "id": "minecraft:flowering_azalea_leaves"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_azalea_wood.title"

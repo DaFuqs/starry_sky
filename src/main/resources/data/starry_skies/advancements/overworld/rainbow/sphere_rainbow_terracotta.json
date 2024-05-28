@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:green_terracotta"
+      "id": "minecraft:green_terracotta"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_rainbow_terracotta.title"

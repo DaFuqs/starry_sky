@@ -1,7 +1,6 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
-
-import com.google.gson.*;
-import com.mojang.brigadier.exceptions.*;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import net.minecraft.block.*;
@@ -13,11 +12,13 @@ import net.minecraft.world.chunk.*;
 
 import java.util.*;
 
+import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
+
 public class RainbowSpheroid extends Spheroid {
 	
 	private final List<BlockState> rainbowBlocks;
 	
-	public RainbowSpheroid(Spheroid.Template template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+	public RainbowSpheroid(Spheroid.Template<?> template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 						   List<BlockState> rainbowBlocks) {
 		
 		super(template, radius, decorators, spawns, random);
@@ -25,20 +26,27 @@ public class RainbowSpheroid extends Spheroid {
 		this.rainbowBlocks = rainbowBlocks;
 	}
 	
-	public static class Template extends Spheroid.Template {
+	public static class Template extends Spheroid.Template<List<BlockState>> {
+
+		public static final MapCodec<Template> CODEC = createCodec(BLOCKSTATE_STRING_CODEC.listOf().fieldOf("blocks"), Template::new);
 		
 		private final List<BlockState> rainbowBlocks = new ArrayList<>();
-		
-		public Template(Identifier identifier, JsonObject data) throws CommandSyntaxException {
-			super(identifier, data);
-			
-			JsonObject typeData = JsonHelper.getObject(data, "type_data");
-			for (JsonElement e : JsonHelper.getArray(typeData, "blocks")) {
-				BlockState state = StarrySkies.getStateFromString(e.getAsString());
-				rainbowBlocks.add(state);
-			}
+
+		public Template(SharedConfig shared, List<BlockState> blocks) {
+			super(shared);
+			this.rainbowBlocks.addAll(blocks);
 		}
-		
+
+		@Override
+		public SpheroidTemplateType<Template> getType() {
+			return SpheroidTemplateType.RAINBOW;
+		}
+
+		@Override
+		public List<BlockState> config() {
+			return rainbowBlocks;
+		}
+
 		@Override
 		public RainbowSpheroid generate(ChunkRandom random) {
 			return new RainbowSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, rainbowBlocks);

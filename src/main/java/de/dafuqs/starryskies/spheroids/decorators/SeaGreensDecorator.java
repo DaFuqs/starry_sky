@@ -1,7 +1,5 @@
 package de.dafuqs.starryskies.spheroids.decorators;
-
-import com.google.gson.*;
-import com.mojang.brigadier.exceptions.*;
+import com.mojang.serialization.MapCodec;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
@@ -12,6 +10,8 @@ import net.minecraft.world.*;
 
 
 public class SeaGreensDecorator extends SpheroidDecorator {
+
+	public static final MapCodec<SeaGreensDecorator> CODEC = MapCodec.unit(SeaGreensDecorator::new);
 	
 	// those are all always "waterlogged"
 	private static final BlockState KELP = Blocks.KELP.getDefaultState(); // the top
@@ -20,10 +20,15 @@ public class SeaGreensDecorator extends SpheroidDecorator {
 	private static final BlockState TALL_SEAGRASS_UPPER = Blocks.TALL_SEAGRASS.getDefaultState().with(TallSeagrassBlock.HALF, DoubleBlockHalf.UPPER);
 	private static final BlockState TALL_SEAGRASS_LOWER = Blocks.TALL_SEAGRASS.getDefaultState().with(TallSeagrassBlock.HALF, DoubleBlockHalf.LOWER);
 	
-	public SeaGreensDecorator(JsonObject data) throws CommandSyntaxException {
-		super(data);
+	public SeaGreensDecorator() {
+		super();
 	}
-	
+
+	@Override
+	protected SpheroidDecoratorType<SeaGreensDecorator> getType() {
+		return SpheroidDecoratorType.SEA_GREENS;
+	}
+
 	@Override
 	public void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random) {
 		for (BlockPos bp : getCaveBottomBlocks(world, origin, spheroid)) {

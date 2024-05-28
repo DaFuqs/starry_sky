@@ -1,7 +1,7 @@
 ﻿{
   "display": {
     "icon": {
-      "item": "minecraft:end_portal_frame"
+      "id": "minecraft:end_portal_frame"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_end_gateway.title"

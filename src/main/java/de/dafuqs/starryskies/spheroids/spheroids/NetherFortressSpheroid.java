@@ -2,6 +2,9 @@ package de.dafuqs.starryskies.spheroids.spheroids;
 
 import com.google.gson.*;
 import com.mojang.brigadier.exceptions.*;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import net.minecraft.block.*;
@@ -29,26 +32,45 @@ public class NetherFortressSpheroid extends Spheroid {
 	private final BlockState LAVA = Blocks.LAVA.getDefaultState();
 	
 	
-	public NetherFortressSpheroid(Spheroid.Template template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+	public NetherFortressSpheroid(Spheroid.Template<?> template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 								  int shellRadius) {
 		
 		super(template, radius, decorators, spawns, random);
 		this.shellRadius = shellRadius;
 	}
 	
-	public static class Template extends Spheroid.Template {
-		
-		int minShellRadius;
-		int maxShellRadius;
-		
-		public Template(Identifier identifier, JsonObject data) throws CommandSyntaxException {
-			super(identifier, data);
-			
-			JsonObject typeData = JsonHelper.getObject(data, "type_data");
-			this.minShellRadius = JsonHelper.getInt(typeData, "min_shell_size");
-			this.maxShellRadius = JsonHelper.getInt(typeData, "max_shell_size");
+	public static class Template extends Spheroid.Template<Template.Config> {
+
+		public record Config(int minShellRadius, int maxShellRadius) {
+			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
+					instance -> instance.group(
+							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius)
+					).apply(instance, Config::new)
+			);
+		};
+
+		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+
+		final int minShellRadius;
+		final int maxShellRadius;
+
+		public Template(SharedConfig shared, Config config) {
+			super(shared);
+			this.minShellRadius = config.minShellRadius;
+			this.maxShellRadius = config.maxShellRadius;
 		}
-		
+
+		@Override
+		public SpheroidTemplateType<Template> getType() {
+			return SpheroidTemplateType.NETHER_FORTRESS;
+		}
+
+		@Override
+		public Config config() {
+			return new Config(minShellRadius, maxShellRadius);
+		}
+
 		@Override
 		public NetherFortressSpheroid generate(ChunkRandom random) {
 			int shellRadius = Support.getRandomBetween(random, minShellRadius, maxShellRadius);

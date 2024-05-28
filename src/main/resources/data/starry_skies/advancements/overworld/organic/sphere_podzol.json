@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:podzol"
+      "id": "minecraft:podzol"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_podzol.title"

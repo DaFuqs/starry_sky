@@ -1,7 +1,7 @@
 ﻿{
   "display": {
     "icon": {
-      "item": "minecraft:purpur_block"
+      "id": "minecraft:purpur_block"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_end_dungeon.title"

@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:redstone_ore"
+      "id": "minecraft:redstone_ore"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_redstone.title"

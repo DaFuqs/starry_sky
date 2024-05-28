@@ -4,9 +4,10 @@ import com.mojang.serialization.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.registry.*;
+import org.jetbrains.annotations.NotNull;
 
-public class SpheroidTemplateType<P extends Spheroid.Template> {
-	
+public class SpheroidTemplateType<P extends Spheroid.Template<?>> {
+
 	public static final SpheroidTemplateType<SimpleSpheroid.Template> SIMPLE = register("simple", SimpleSpheroid.Template.CODEC);
 	public static final SpheroidTemplateType<DungeonSpheroid.Template> DUNGEON = register("dungeon", DungeonSpheroid.Template.CODEC);
 	public static final SpheroidTemplateType<CaveSpheroid.Template> CAVE = register("cave", CaveSpheroid.Template.CODEC);
@@ -34,12 +35,14 @@ public class SpheroidTemplateType<P extends Spheroid.Template> {
 		this.codec = codec;
 	}
 	
-	public MapCodec<P> getCodec() {
+	public @NotNull MapCodec<P> getCodec() {
 		return this.codec;
 	}
 	
-	private static <P extends Spheroid.Template> SpheroidTemplateType<P> register(String id, MapCodec<P> codec) {
-		return Registry.register(StarryRegistries.SPHEROID_TEMPLATE, StarrySkies.locate(id), new SpheroidTemplateType<P>(codec));
+	private static <P extends Spheroid.Template<?>> SpheroidTemplateType<P> register(String id, MapCodec<P> codec) {
+		return Registry.register(StarryRegistries.SPHEROID_TEMPLATE_TYPE, StarrySkies.locate(id), new SpheroidTemplateType<>(codec));
 	}
+
+	public static void initialize() {}
 	
 }

@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:glowstone"
+      "id": "minecraft:glowstone"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_glowstone.title"

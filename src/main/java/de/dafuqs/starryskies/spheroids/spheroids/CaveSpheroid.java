@@ -1,7 +1,8 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.google.gson.*;
-import com.mojang.brigadier.exceptions.*;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.*;
@@ -16,6 +17,8 @@ import net.minecraft.world.chunk.*;
 
 import java.util.*;
 
+import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
+
 public class CaveSpheroid extends Spheroid {
 	
 	private final BlockState coreBlock = Blocks.CAVE_AIR.getDefaultState();
@@ -26,7 +29,7 @@ public class CaveSpheroid extends Spheroid {
 	private final float shellRadius;
 	RegistryKey<LootTable> chestLootTable;
 	
-	public CaveSpheroid(Spheroid.Template template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+	public CaveSpheroid(Spheroid.Template<?> template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 						BlockState caveFloorBlock, BlockState shellBlock, float shellRadius, BlockState topBlock, BlockState bottomBlock, RegistryKey<LootTable> chestLootTable) {
 		
 		super(template, radius, decorators, spawns, random);
@@ -39,40 +42,73 @@ public class CaveSpheroid extends Spheroid {
 		this.chestLootTable = chestLootTable;
 	}
 	
-	public static class Template extends Spheroid.Template {
+	public static class Template extends Spheroid.Template<Template.Config> {
+
+		public record Config(BlockStateSupplier shellBlock, int minShellRadius, int maxShellRadius,
+							 Optional<BlockState> caveFloorBlock, Optional<BlockState> topBlock, Optional<BlockState> bottomBlock,
+							 Optional<Chest> chest) {
+			public record Chest(RegistryKey<LootTable> lootTable, float lootTableChance) {
+				public static final Codec<Chest> CODEC = RecordCodecBuilder.create(
+						instance -> instance.group(
+								RegistryKey.createCodec(RegistryKeys.LOOT_TABLE).fieldOf("loot_table").forGetter(Chest::lootTable),
+								Codec.FLOAT.fieldOf("chance").forGetter(Chest::lootTableChance)
+						).apply(instance, Chest::new)
+				);
+			}
+			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
+					instance -> instance.group(
+							BlockStateSupplier.CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
+							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
+							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("cave_floor_block").forGetter(Config::caveFloorBlock),
+							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("top_block").forGetter(Config::topBlock),
+							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("bottom_block").forGetter(Config::bottomBlock),
+							Chest.CODEC.lenientOptionalFieldOf("treasure_chest").forGetter(Config::chest)
+					).apply(instance, Config::new)
+			);
+		}
+
+		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
 		
 		private final BlockStateSupplier shellBlock;
 		private final int minShellRadius;
 		private final int maxShellRadius;
-		private BlockState caveFloorBlock = null;
-		private BlockState topBlock = null;
-		private BlockState bottomBlock = null;
-		private RegistryKey<LootTable> lootTable = null;
-		private float lootTableChance = 0;
-		
-		public Template(Identifier identifier, JsonObject data) throws CommandSyntaxException {
-			super(identifier, data);
-			
-			JsonObject typeData = JsonHelper.getObject(data, "type_data");
-			this.minShellRadius = JsonHelper.getInt(typeData, "min_shell_size");
-			this.maxShellRadius = JsonHelper.getInt(typeData, "max_shell_size");
-			this.shellBlock = BlockStateSupplier.of(typeData.get("shell_block"));
-			if (JsonHelper.hasString(typeData, "top_block")) {
-				this.topBlock = StarrySkies.getStateFromString(JsonHelper.getString(typeData, "top_block"));
-			}
-			if (JsonHelper.hasString(typeData, "bottom_block")) {
-				this.bottomBlock = StarrySkies.getStateFromString(JsonHelper.getString(typeData, "bottom_block"));
-			}
-			if (JsonHelper.hasString(typeData, "cave_floor_block")) {
-				this.caveFloorBlock = StarrySkies.getStateFromString(JsonHelper.getString(typeData, "cave_floor_block"));
-			}
-			if (JsonHelper.hasJsonObject(typeData, "treasure_chest")) {
-				JsonObject treasureChestObject = JsonHelper.getObject(typeData, "treasure_chest");
-				this.lootTable = RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.tryParse(JsonHelper.getString(treasureChestObject, "loot_table")));
-				this.lootTableChance = JsonHelper.getFloat(treasureChestObject, "chance");
+		private final BlockState caveFloorBlock;
+		private final BlockState topBlock;
+		private final BlockState bottomBlock;
+		private final RegistryKey<LootTable> lootTable;
+		private final float lootTableChance;
+
+		public Template(SharedConfig shared, Config config) {
+			super(shared);
+			this.shellBlock = config.shellBlock;
+			this.minShellRadius = config.minShellRadius;
+			this.maxShellRadius = config.maxShellRadius;
+			this.caveFloorBlock = config.caveFloorBlock.orElse(null);
+			this.topBlock = config.topBlock.orElse(null);
+			this.bottomBlock = config.bottomBlock.orElse(null);
+			var chest = config.chest.orElse(null);
+			if (chest != null) {
+				this.lootTable = chest.lootTable;
+				this.lootTableChance = chest.lootTableChance;
+			} else {
+				this.lootTable = null;
+				this.lootTableChance = 0;
 			}
 		}
-		
+
+		@Override
+		public SpheroidTemplateType<Template> getType() {
+			return SpheroidTemplateType.CAVE;
+		}
+
+		@Override
+		public Config config() {
+			return new Config(shellBlock, minShellRadius, maxShellRadius, Optional.ofNullable(caveFloorBlock),
+					Optional.ofNullable(topBlock), Optional.ofNullable(bottomBlock),
+					Optional.of(new Config.Chest(lootTable, lootTableChance)));
+		}
+
 		@Override
 		public CaveSpheroid generate(ChunkRandom random) {
 			int shellRadius = Support.getRandomBetween(random, this.minShellRadius, this.maxShellRadius);

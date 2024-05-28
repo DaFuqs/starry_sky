@@ -1,6 +1,5 @@
 package de.dafuqs.starryskies;
 
-import com.google.gson.*;
 import com.mojang.brigadier.exceptions.*;
 import de.dafuqs.starryskies.advancements.*;
 import de.dafuqs.starryskies.commands.*;
@@ -23,25 +22,27 @@ import net.minecraft.server.network.*;
 import net.minecraft.server.world.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
-
-import static org.apache.logging.log4j.Level.*;
+import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class StarrySkies implements ModInitializer {
 	
 	public static final String MOD_ID = "starry_skies";
 	
 	public static StarrySkyConfig CONFIG;
-	private static final Logger LOGGER = LogManager.getLogger();
+	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	
 	public static ServerWorld starryWorld;
 	public static ServerWorld starryWorldNether;
 	public static ServerWorld starryWorldEnd;
+	public static DynamicRegistryManager registryManager = DynamicRegistryManager.of(Registries.REGISTRIES);
 	
 	@Override
 	public void onInitialize() {
 		
 		//Set up config
-		log(INFO, "Starting up...");
+		LOGGER.info("Starting up...");
 		AutoConfig.register(StarrySkyConfig.class, JanksonConfigSerializer::new);
 		CONFIG = AutoConfig.getConfigHolder(StarrySkyConfig.class).getConfig();
 		
@@ -56,17 +57,17 @@ public class StarrySkies implements ModInitializer {
 		}
 		DecoratorFeatures.initialize();
 		StarryAdvancementCriteria.register();
-		
-		SpheroidTypes.initialize();
+
 		SpheroidDecoratorType.initialize();
+		SpheroidTemplateType.initialize();
+		SpheroidDimensionType.initialize();
 		
-		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-			ClosestSpheroidCommand.register(dispatcher);
-		});
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> ClosestSpheroidCommand.register(dispatcher));
 		
 		// triggers everytime a world is loaded
 		// so for overworld, nether, ... (they all share the same seed)
 		ServerWorldEvents.LOAD.register((server, world) -> {
+			registryManager = server.getRegistryManager();
 			if (world.getRegistryKey().equals(StarrySkyDimension.OVERWORLD_KEY)) {
 				StarrySkies.starryWorld = world;
 			} else if (world.getRegistryKey().equals(StarrySkyDimension.NETHER_KEY)) {
@@ -83,8 +84,8 @@ public class StarrySkies implements ModInitializer {
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(SpheroidTemplateLoader.INSTANCE);
 		
 		ServerTickEvents.END_SERVER_TICK.register(new ProximityAdvancementCheckEvent());
-		
-		log(INFO, "Finished loading.");
+
+		LOGGER.info("Finished loading.");
 	}
 	
 	public static Identifier locate(String name) {
@@ -95,24 +96,26 @@ public class StarrySkies implements ModInitializer {
 		return locate(name).toString();
 	}
 	
-	public static void log(Level logLevel, String message) {
-		LOGGER.log(logLevel, "[StarrySkies] " + message);
-	}
-	
 	public static BlockState getStateFromString(String s) throws CommandSyntaxException {
 		return BlockArgumentParser.block(Registries.BLOCK.getReadOnlyWrapper(), s, false).blockState();
 	}
-	
-	public static BlockArgumentParser.BlockResult getBlockResult(JsonObject json, String element) throws CommandSyntaxException {
-		return BlockArgumentParser.block(Registries.BLOCK.getReadOnlyWrapper(), JsonHelper.getString(json, element), true);
+
+	public static @Nullable BlockState getNullableStateFromString(String s) {
+		try {
+			return BlockArgumentParser.block(Registries.BLOCK.getReadOnlyWrapper(), s, false).blockState();
+		} catch (Exception ignored) {
+			StarrySkies.LOGGER.error("Encountered invalid blockstate: {}", s);
+			return null;
+		}
 	}
-	
-	public static BlockArgumentParser.BlockResult getBlockResult(String element) throws CommandSyntaxException {
-		return BlockArgumentParser.block(Registries.BLOCK.getReadOnlyWrapper(), element, true);
-	}
-	
-	public static Block getBlockFromString(String s) {
-		return Registries.BLOCK.get(Identifier.tryParse(s));
+
+	public static @Nullable BlockArgumentParser.BlockResult getBlockResult(String element) {
+		try {
+			return BlockArgumentParser.block(Registries.BLOCK.getReadOnlyWrapper(), element, true);
+		} catch (Exception ignored) {
+			StarrySkies.LOGGER.error("Encountered invalid block result: {}", element);
+			return null;
+		}
 	}
 	
 	public static boolean inStarryWorld(ServerPlayerEntity serverPlayerEntity) {
@@ -136,7 +139,7 @@ public class StarrySkies implements ModInitializer {
 	
 	public static boolean isStarryWorld(RegistryKey<World> worldRegistryKey) {
 		if (StarrySkies.starryWorld == null || StarrySkies.starryWorldNether == null || StarrySkies.starryWorldEnd == null) {
-			log(Level.ERROR, "The Starry Dimensions could not be loaded. If this is your first launch this is probably related to a known vanilla bug where custom dimensions are not loaded when first generating the world. Restarting / quitting and reloading will fix this issue.");
+			LOGGER.error("The Starry Dimensions could not be loaded. If this is your first launch this is probably related to a known vanilla bug where custom dimensions are not loaded when first generating the world. Restarting / quitting and reloading will fix this issue.");
 			return false;
 		} else {
 			return worldRegistryKey.equals(StarrySkies.starryWorld.getRegistryKey())

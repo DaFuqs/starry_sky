@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:acacia_wood"
+      "id": "minecraft:acacia_wood"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_acacia_wood.title"

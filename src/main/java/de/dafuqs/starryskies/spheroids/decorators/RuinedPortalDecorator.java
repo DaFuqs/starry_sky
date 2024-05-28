@@ -1,20 +1,19 @@
 package de.dafuqs.starryskies.spheroids.decorators;
-
-import com.google.gson.*;
-import com.mojang.brigadier.exceptions.*;
+import com.mojang.serialization.MapCodec;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
 import net.minecraft.loot.*;
 import net.minecraft.registry.*;
-import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
 
 
 public class RuinedPortalDecorator extends SpheroidDecorator {
+
+	public static final MapCodec<RuinedPortalDecorator> CODEC = RegistryKey.createCodec(RegistryKeys.LOOT_TABLE).fieldOf("loot_table").xmap(RuinedPortalDecorator::new, d -> d.lootTable);
 	
 	private static final BlockState NETHERRACK = Blocks.NETHERRACK.getDefaultState();
 	private static final BlockState MAGMA_BLOCK = Blocks.MAGMA_BLOCK.getDefaultState();
@@ -24,11 +23,16 @@ public class RuinedPortalDecorator extends SpheroidDecorator {
 	
 	private final RegistryKey<LootTable> lootTable;
 	
-	public RuinedPortalDecorator(JsonObject data) throws CommandSyntaxException {
-		super(data);
-		this.lootTable = lootTableKey(Identifier.tryParse(JsonHelper.getString(data, "loot_table")));
+	public RuinedPortalDecorator(RegistryKey<LootTable> lootTable) {
+		super();
+		this.lootTable = lootTable;
 	}
-	
+
+	@Override
+	protected SpheroidDecoratorType<RuinedPortalDecorator> getType() {
+		return SpheroidDecoratorType.RUINED_PORTAL;
+	}
+
 	@Override
 	public void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random) {
 		if (!spheroid.isCenterInChunk(origin)) {

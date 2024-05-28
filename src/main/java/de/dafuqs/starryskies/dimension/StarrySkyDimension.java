@@ -8,8 +8,6 @@ import net.minecraft.registry.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 
-import static org.apache.logging.log4j.Level.*;
-
 public class StarrySkyDimension {
 	
 	public static final Identifier STARRY_SKIES_DIMENSION_ID = new Identifier(StarrySkies.MOD_ID, "overworld");
@@ -24,7 +22,7 @@ public class StarrySkyDimension {
 	}
 	
 	public static void setupPortals() {
-		StarrySkies.log(INFO, "Setting up portals...");
+		StarrySkies.LOGGER.info("Setting up portals...");
 		
 		Identifier portalFrameBlockIdentifier = new Identifier(StarrySkies.CONFIG.starrySkyPortalFrameBlock.toLowerCase());
 		Block portalFrameBlock = Registries.BLOCK.get(portalFrameBlockIdentifier);

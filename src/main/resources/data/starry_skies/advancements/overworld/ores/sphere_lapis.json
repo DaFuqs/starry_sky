@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:lapis_ore"
+      "id": "minecraft:lapis_ore"
     },
     "title": {
       "translate": "advancements.dafuqs.starry_skies.sphere_lapis.title"

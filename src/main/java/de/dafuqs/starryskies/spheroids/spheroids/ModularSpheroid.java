@@ -1,7 +1,7 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.google.gson.*;
-import com.mojang.brigadier.exceptions.*;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import net.minecraft.block.*;
@@ -13,13 +13,15 @@ import net.minecraft.world.chunk.*;
 
 import java.util.*;
 
+import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
+
 public class ModularSpheroid extends Spheroid {
 	
 	private final BlockState mainBlock;
 	private final BlockState topBlock;
 	private final BlockState bottomBlock;
 	
-	public ModularSpheroid(Spheroid.Template template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+	public ModularSpheroid(Spheroid.Template<?> template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 						   BlockState mainBlock, BlockState topBlock, BlockState bottomBlock) {
 		
 		super(template, radius, decorators, spawns, random);
@@ -28,25 +30,41 @@ public class ModularSpheroid extends Spheroid {
 		this.bottomBlock = bottomBlock;
 	}
 	
-	public static class Template extends Spheroid.Template {
+	public static class Template extends Spheroid.Template<Template.Config> {
+
+		public record Config(BlockState mainBlock, Optional<BlockState> topBlock, Optional<BlockState> bottomBlock) {
+			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
+					instance -> instance.group(
+							BLOCKSTATE_STRING_CODEC.fieldOf("main_block").forGetter(Config::mainBlock),
+							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("top_block").forGetter(Config::topBlock),
+							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("bottom_block").forGetter(Config::bottomBlock)
+					).apply(instance, Config::new)
+			);
+		}
+
+		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
 		
 		private final BlockState mainBlock;
-		private BlockState topBlock;
-		private BlockState bottomBlock;
-		
-		public Template(Identifier identifier, JsonObject data) throws CommandSyntaxException {
-			super(identifier, data);
-			
-			JsonObject typeData = JsonHelper.getObject(data, "type_data");
-			this.mainBlock = StarrySkies.getStateFromString(JsonHelper.getString(typeData, "main_block"));
-			if (JsonHelper.hasString(typeData, "top_block")) {
-				this.topBlock = StarrySkies.getStateFromString(JsonHelper.getString(typeData, "top_block"));
-			}
-			if (JsonHelper.hasString(typeData, "bottom_block")) {
-				this.bottomBlock = StarrySkies.getStateFromString(JsonHelper.getString(typeData, "bottom_block"));
-			}
+		private final BlockState topBlock;
+		private final BlockState bottomBlock;
+
+		public Template(SharedConfig shared, Config config) {
+			super(shared);
+			this.mainBlock = config.mainBlock;
+			this.topBlock = config.topBlock.orElse(null);
+			this.bottomBlock = config.bottomBlock.orElse(null);
 		}
-		
+
+		@Override
+		public SpheroidTemplateType<Template> getType() {
+			return SpheroidTemplateType.MODULAR;
+		}
+
+		@Override
+		public Config config() {
+			return new Config(mainBlock, Optional.ofNullable(topBlock),  Optional.ofNullable(bottomBlock));
+		}
+
 		@Override
 		public ModularSpheroid generate(ChunkRandom random) {
 			return new ModularSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, mainBlock, topBlock, bottomBlock);

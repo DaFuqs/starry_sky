@@ -25,7 +25,7 @@ public class UniqueBlockGroupsLoader extends JsonDataLoader implements Identifia
 		public static BlockState getFirstState(Identifier groupId) {
 			UniqueBlockGroup group = StarryRegistries.UNIQUE_BLOCK_GROUP.get(groupId);
 			if (group == null || group.states.isEmpty()) {
-				StarrySkies.log(Level.WARN, "Referencing empty/non-existing UniqueBlockGroup: " + groupId + ". Using AIR instead.");
+                StarrySkies.LOGGER.warn("Referencing empty/non-existing UniqueBlockGroup: {}. Using AIR instead.", groupId);
 				return Blocks.AIR.getDefaultState();
 			}
 			return group.states.getFirst();
@@ -42,6 +42,7 @@ public class UniqueBlockGroupsLoader extends JsonDataLoader implements Identifia
 	
 	@Override
 	protected void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
+		StarryRegistries.UNIQUE_BLOCK_GROUP.reset();
 		prepared.forEach((identifier, jsonElement) -> {
 			List<BlockState> states = new ArrayList<>();
 			for (JsonElement e : jsonElement.getAsJsonArray()) {
@@ -50,7 +51,7 @@ public class UniqueBlockGroupsLoader extends JsonDataLoader implements Identifia
 					states.add(state);
 				} catch (CommandSyntaxException ex) {
 					if (StarrySkies.CONFIG.packCreatorMode) {
-						StarrySkies.log(Level.WARN, "Unique Block group " + identifier + " tries to load a non-existing block: " + e + ". Will be ignored.");
+                        StarrySkies.LOGGER.warn("Unique Block group {} tries to load a non-existing block: {}. Will be ignored.", identifier, e);
 					}
 				}
 			}
