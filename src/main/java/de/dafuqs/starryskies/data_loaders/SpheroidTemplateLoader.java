@@ -3,7 +3,6 @@ package de.dafuqs.starryskies.data_loaders;
 import com.google.gson.*;
 import com.mojang.serialization.JsonOps;
 import de.dafuqs.starryskies.*;
-import de.dafuqs.starryskies.dimension.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.fabricmc.fabric.api.resource.*;
@@ -23,13 +22,6 @@ public class SpheroidTemplateLoader extends JsonDataLoader implements Identifiab
 	
 	private static LinkedHashMap<Identifier, LinkedHashMap<Spheroid.Template<?>, Float>> WEIGHTED_SPHEROID_TYPES;
 	
-	public static Identifier STARTER_OVERWORLD_ID = StarrySkies.locate("spawn/overworld");
-	public static Identifier STARTER_NETHER_ID = StarrySkies.locate("spawn/nether");
-	public static Identifier STARTER_END_ID = StarrySkies.locate("spawn/end");
-	public static Spheroid.Template<?> STARTER_OVERWORLD;
-	public static Spheroid.Template<?> STARTER_NETHER;
-	public static Spheroid.Template<?> STARTER_END;
-	
 	protected SpheroidTemplateLoader() {
 		super(GSON, ID);
 	}
@@ -37,10 +29,12 @@ public class SpheroidTemplateLoader extends JsonDataLoader implements Identifiab
 	@Override
 	protected void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		// initialize list with empty LinkedHashMaps
-		WEIGHTED_SPHEROID_TYPES = new LinkedHashMap<>();
-		for (Identifier spheroidDistributionType : SpheroidDistributionLoader.getAll()) {
-			WEIGHTED_SPHEROID_TYPES.put(spheroidDistributionType, new LinkedHashMap<>());
-		}
+		StarryRegistries.SYSTEM_GENERATOR.stream().forEach(systemGenerator -> {
+			WEIGHTED_SPHEROID_TYPES = new LinkedHashMap<>();
+			for (Identifier spheroidDistributionType : systemGenerator.getGenerationGroups()) {
+				WEIGHTED_SPHEROID_TYPES.put(spheroidDistributionType, new LinkedHashMap<>());
+			}
+		});
 
 		final RegistryOps<JsonElement> ops = StarrySkies.registryManager.getOps(JsonOps.INSTANCE);
 		StarryRegistries.SPHEROID_TEMPLATE.reset();
@@ -70,13 +64,7 @@ public class SpheroidTemplateLoader extends JsonDataLoader implements Identifiab
 					generationWeight = JsonHelper.getFloat(jsonObject, "generation_weight", 0);
 				}
 				
-				if (identifier.equals(STARTER_OVERWORLD_ID)) {
-					STARTER_OVERWORLD = template;
-				} else if (identifier.equals(STARTER_NETHER_ID)) {
-					STARTER_NETHER = template;
-				} else if (identifier.equals(STARTER_END_ID)) {
-					STARTER_END = template;
-				} else if (generationGroup != null && generationWeight > 0) {
+				if (generationGroup != null && generationWeight > 0) {
 					LinkedHashMap<Spheroid.Template<?>, Float> weightedMap = WEIGHTED_SPHEROID_TYPES.get(generationGroup);
 					if (weightedMap == null) {
                         StarrySkies.LOGGER.warn("Spheroid {}specifies non-existing generation_group {}. Will be ignored.", identifier, generationGroup);
@@ -98,9 +86,8 @@ public class SpheroidTemplateLoader extends JsonDataLoader implements Identifiab
 		return StarrySkies.locate(ID);
 	}
 	
-	public static Spheroid.Template<?> getWeightedRandomSpheroid(RegistryKey<SpheroidDistributionLoader.SpheroidDistributionType> systemGenerator, ChunkRandom systemRandom) {
-		Identifier distributionType = SpheroidDistributionLoader.getWeightedRandomDistributionType(systemGenerator, systemRandom);
-		return Support.getWeightedRandom(WEIGHTED_SPHEROID_TYPES.get(distributionType), systemRandom);
+	public static Spheroid.Template<?> getWeightedRandomSpheroid(Identifier distributionTypeID, ChunkRandom systemRandom) {
+		return Support.getWeightedRandom(WEIGHTED_SPHEROID_TYPES.get(distributionTypeID), systemRandom);
 	}
 	
 }

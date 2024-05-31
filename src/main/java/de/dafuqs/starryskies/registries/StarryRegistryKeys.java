@@ -8,7 +8,7 @@ import net.minecraft.registry.*;
 
 public class StarryRegistryKeys {
 	public static final RegistryKey<Registry<SystemGenerator>> SYSTEM_GENERATOR = of("starry_skies/system_generator");
-	public static final RegistryKey<Registry<SpheroidDistributionLoader.SpheroidDistributionType>> SPHEROID_DISTRIBUTION_TYPE = of("starry_skies/distribution_type");
+	//public static final RegistryKey<Registry<SpheroidDistributionTypeLoader.SpheroidDistributionType>> SPHEROID_DISTRIBUTION_TYPE = of("starry_skies/distribution_type");
 	public static final RegistryKey<Registry<SpheroidDecoratorType<?>>> SPHEROID_DECORATOR_TYPE = of("starry_skies/sphere_decorator_types");
 	public static final RegistryKey<Registry<SpheroidDecorator>> SPHEROID_DECORATOR = of("starry_skies/sphere_decorators");
 	public static final RegistryKey<Registry<SpheroidTemplateType<?>>> SPHEROID_TEMPLATE_TYPE = of("starry_skies/sphere_types");

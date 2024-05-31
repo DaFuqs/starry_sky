@@ -6,9 +6,9 @@ import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.data_loaders.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
+import it.unimi.dsi.fastutil.objects.*;
 import net.minecraft.block.*;
 import net.minecraft.registry.*;
-import net.minecraft.server.world.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
@@ -40,8 +40,6 @@ public class SystemGenerator {
 	// spawning probabilities
 	private final HashMap<Point, List<Spheroid>> sphereCache = new HashMap<>();
 	
-	//private final RegistryKey<SystemGenerator> id;
-	//private RegistryKey<World> worldKey;
 	private final int systemSizeChunks;
 	private final int spheresPerSystem;
 	private final int minDistanceBetweenSpheres;
@@ -49,6 +47,7 @@ public class SystemGenerator {
 	private final BlockState floorState;
 	private final BlockState bottomState;
 	private final List<DefaultSpheroidType> defaultSpheres;
+	private final Map<Identifier, Float> generationGroups = new Object2FloatArrayMap<>();
 	
 	public record DefaultSpheroidType(int systemX, int systemZ, int x, int y, int z, Identifier templateID) {
 		public static final Codec<DefaultSpheroidType> CODEC = RecordCodecBuilder.create(
@@ -64,10 +63,6 @@ public class SystemGenerator {
 	}
 	
 	public SystemGenerator(int systemSizeChunks, int spheresPerSystem, int minDistanceBetweenSpheres, int floorHeight, BlockState floorState, BlockState bottomState, List<DefaultSpheroidType> defaultSpheres) {
-		//this.worldKey = world.getRegistryKey();
-		//systemGeneratorMap.put(this.worldKey, this);
-		
-		//this.id = id;
 		this.systemSizeChunks = systemSizeChunks;
 		this.spheresPerSystem = spheresPerSystem;
 		this.minDistanceBetweenSpheres = minDistanceBetweenSpheres;
@@ -79,6 +74,14 @@ public class SystemGenerator {
 	
 	public static SystemGenerator get(RegistryKey<World> registryKey) {
 		return systemGeneratorMap.get(registryKey);
+	}
+	
+	public void addGenerationGroup(Identifier id, float weight) {
+		this.generationGroups.put(id, weight);
+	}
+	
+	public Iterable<Identifier> getGenerationGroups() {
+		return this.generationGroups.keySet();
 	}
 	
 	public int getFloorHeight() {
@@ -107,15 +110,16 @@ public class SystemGenerator {
 	}
 	
 	public List<Spheroid> getSystemAtPoint(StructureWorldAccess worldAccess, Point systemPos) {
-		List<Spheroid> curSystem = sphereCache.get(systemPos);
+		List<Spheroid> system = sphereCache.get(systemPos);
 		
-		if (curSystem == null) {
-			//doesn't exist. Generate new system and cache it
-			curSystem = generateSpheroidsAtSystemPoint(worldAccess, systemPos);
-			sphereCache.put(systemPos, curSystem);
+		if (system == null) {
+			// System at that pos is not generated yet
+			// Generate new system and cache it
+			system = generateSpheroidsAtSystemPoint(worldAccess, systemPos);
+			sphereCache.put(systemPos, system);
 		}
 		
-		return curSystem;
+		return system;
 	}
 	
 	private @NotNull ChunkRandom getSystemRandom(StructureWorldAccess worldAccess, @NotNull Point systemPoint) {
@@ -197,15 +201,12 @@ public class SystemGenerator {
 	private Spheroid getRandomSpheroid(ChunkRandom systemRandom) {
 		Spheroid.Template<?> template;
 		do {
-			template = SpheroidTemplateLoader.getWeightedRandomSpheroid(this.getID(), systemRandom);
+			Identifier distributionTypeID = Support.getWeightedRandom(generationGroups, systemRandom);
+			template = SpheroidTemplateLoader.getWeightedRandomSpheroid(distributionTypeID, systemRandom);
 		} while (template == null);
 		
 		StarrySkies.LOGGER.debug("Created a new sphere of type {} Next random: {}", template, systemRandom.nextInt());
 		return template.generate(systemRandom);
 	}
-	
-	/*private RegistryKey<SystemGenerator> getID() {
-		return this.id;
-	}*/
 	
 }

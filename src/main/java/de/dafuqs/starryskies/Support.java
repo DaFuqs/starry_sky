@@ -81,18 +81,6 @@ public class Support {
 		}
 	}
 	
-	private static final List<Point> aroundPoints = new ArrayList<>() {{
-		add(new Point(0, 0));
-		add(new Point(1, -1));
-		add(new Point(1, 0));
-		add(new Point(1, 1));
-		add(new Point(0, -1));
-		add(new Point(0, 1));
-		add(new Point(-1, -1));
-		add(new Point(-1, 0));
-		add(new Point(-1, 1));
-	}};
-	
 	@Contract("_ -> new")
 	public static Optional<SpheroidDistance> getClosestSpheroidToPlayer(@NotNull PlayerEntity serverPlayerEntity) {
 		Vec3d playerPos = serverPlayerEntity.getPos();
@@ -118,12 +106,24 @@ public class Support {
 		}
 	}
 	
+	private static final List<Point> AROUND_POINTS = new ArrayList<>() {{
+		add(new Point(0, 0));
+		add(new Point(1, -1));
+		add(new Point(1, 0));
+		add(new Point(1, 1));
+		add(new Point(0, -1));
+		add(new Point(0, 1));
+		add(new Point(-1, -1));
+		add(new Point(-1, 0));
+		add(new Point(-1, 1));
+	}};
+	
 	public static @Nullable SpheroidDistance getClosestSpheroid3x3(@NotNull ServerWorld serverWorld, BlockPos position, Identifier spheroidIdentifier) {
 		SystemGenerator spheroidGenerator = SystemGenerator.get(serverWorld.getRegistryKey());
 		
 		Spheroid closestSpheroid = null;
 		double currentMinDistance = Double.MAX_VALUE;
-		for (Point currentPoint : aroundPoints) {
+		for (Point currentPoint : AROUND_POINTS) {
 			Point systemPos = getSystemCoordinateFromChunkCoordinate(position.getX() / 16, position.getZ() / 16);
 			
 			List<Spheroid> currentSystem = spheroidGenerator.getSystemAtPoint(serverWorld, new Point(systemPos.x + currentPoint.x, systemPos.y + currentPoint.y));

@@ -19,15 +19,11 @@ import net.minecraft.command.argument.*;
 import net.minecraft.registry.*;
 import net.minecraft.resource.*;
 import net.minecraft.server.network.*;
-import net.minecraft.server.world.*;
 import net.minecraft.util.*;
-import net.minecraft.world.*;
 import net.minecraft.world.gen.chunk.*;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.*;
 
 public class StarrySkies implements ModInitializer {
 	
@@ -72,7 +68,7 @@ public class StarrySkies implements ModInitializer {
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(UniqueBlockGroupsLoader.INSTANCE);
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(WeightedBlockGroupsLoader.INSTANCE);
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(SpheroidDecoratorLoader.INSTANCE);
-		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(SpheroidDistributionLoader.INSTANCE);
+		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(GenerationGroupLoader.INSTANCE);
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(SpheroidTemplateLoader.INSTANCE);
 		
 		ServerTickEvents.END_SERVER_TICK.register(new ProximityAdvancementCheckEvent());

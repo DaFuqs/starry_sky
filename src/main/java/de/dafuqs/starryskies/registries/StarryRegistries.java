@@ -9,7 +9,7 @@ import net.minecraft.registry.*;
 
 public class StarryRegistries {
 	public static final Registry<SystemGenerator> SYSTEM_GENERATOR = create(StarryRegistryKeys.SYSTEM_GENERATOR);
-	public static final ResettableRegistry<SpheroidDistributionLoader.SpheroidDistributionType> SPHEROID_DISTRIBUTION_TYPE = createReloadable(StarryRegistryKeys.SPHEROID_DISTRIBUTION_TYPE);
+	//public static final ResettableRegistry<SpheroidDistributionTypeLoader.SpheroidDistributionType> SPHEROID_DISTRIBUTION_TYPE = createReloadable(StarryRegistryKeys.SPHEROID_DISTRIBUTION_TYPE);
 
 	public static final Registry<SpheroidDecoratorType<?>> SPHEROID_DECORATOR_TYPE = create(StarryRegistryKeys.SPHEROID_DECORATOR_TYPE);
 	public static final ResettableRegistry<SpheroidDecorator> SPHEROID_DECORATOR = createReloadable(StarryRegistryKeys.SPHEROID_DECORATOR);
