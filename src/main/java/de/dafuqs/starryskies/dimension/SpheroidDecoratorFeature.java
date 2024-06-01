@@ -8,8 +8,6 @@ import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.util.*;
 import org.jetbrains.annotations.*;
 
-import java.util.*;
-
 public class SpheroidDecoratorFeature extends Feature<DefaultFeatureConfig> {
 	
 	public SpheroidDecoratorFeature(Codec<DefaultFeatureConfig> configCodec) {
@@ -20,8 +18,8 @@ public class SpheroidDecoratorFeature extends Feature<DefaultFeatureConfig> {
 	public boolean generate(@NotNull FeatureContext featureContext) {
 		if (featureContext.getGenerator() instanceof StarrySkyChunkGenerator starrySkyChunkGenerator) {
 			SystemGenerator systemGenerator = starrySkyChunkGenerator.getSystemGenerator();
-			SystemGenerator.System localSystem = systemGenerator.getSystemAtChunkPos(featureContext.getWorld(), featureContext.getOrigin().getX() / 16, featureContext.getOrigin().getZ() / 16);
-			for (Spheroid spheroid : localSystem) {
+			
+			for (Spheroid spheroid : systemGenerator.getSystem(featureContext.getWorld(), featureContext.getOrigin())) {
 				if (spheroid.isInChunk(new ChunkPos(featureContext.getOrigin()))) {
 
                     StarrySkies.LOGGER.debug("Decorating spheroid at x:{} z:{}{}", featureContext.getOrigin().getX(), featureContext.getOrigin().getZ(), spheroid.getDescription());

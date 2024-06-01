@@ -91,8 +91,7 @@ public class Support {
 			Spheroid closestSpheroid = null;
 			double currentMinDistance = Double.MAX_VALUE;
 			
-			SystemGenerator.System localSystem = systemGenerator.getSystemAtChunkPos((ServerWorld) serverPlayerEntity.getWorld(), playerPosBlock.getX() / 16, playerPosBlock.getZ() / 16);
-			for (Spheroid p : localSystem) {
+			for (Spheroid p : systemGenerator.getSystem((ServerWorld) serverPlayerEntity.getWorld(), playerPosBlock)) {
 				double currDist = playerPosBlock.getSquaredDistance(p.getPosition());
 				if (currDist < currentMinDistance) {
 					currentMinDistance = currDist;
@@ -126,8 +125,7 @@ public class Support {
 		for (Point currentPoint : AROUND_POINTS) {
 			Point systemPos = getSystemCoordinateFromChunkCoordinate(position.getX() / 16, position.getZ() / 16);
 			
-			SystemGenerator.System currentSystem = spheroidGenerator.getSystemAtPoint(serverWorld, new Point(systemPos.x + currentPoint.x, systemPos.y + currentPoint.y));
-			for (Spheroid p : currentSystem) {
+			for (Spheroid p : spheroidGenerator.getSystem(serverWorld, new Point(systemPos.x + currentPoint.x, systemPos.y + currentPoint.y))) {
 				if (p.getTemplate().getID().equals(spheroidIdentifier)) {
 					double currDist = position.getSquaredDistance(p.getPosition());
 					if (currDist < currentMinDistance) {

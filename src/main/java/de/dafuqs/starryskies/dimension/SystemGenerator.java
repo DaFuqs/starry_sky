@@ -13,6 +13,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
+import net.minecraft.world.chunk.*;
 import org.jetbrains.annotations.*;
 
 import java.awt.*;
@@ -104,18 +105,51 @@ public class SystemGenerator {
 	 * @param chunkZ chunk chunkZ location
 	 * @return List of planetoids representing the system this chunk is in
 	 */
-	public System getSystemAtChunkPos(StructureWorldAccess structureAccessor, int chunkX, int chunkZ) {
+	public System getSystem(WorldAccess worldAccess, long seed, int chunkX, int chunkZ) {
 		Point systemPos = Support.getSystemCoordinateFromChunkCoordinate(chunkX, chunkZ);
-		return getSystemAtPoint(structureAccessor, systemPos);
+		return getSystem(worldAccess, seed, systemPos);
 	}
 	
-	public System getSystemAtPoint(StructureWorldAccess worldAccess, Point systemPos) {
+	public System getSystem(StructureWorldAccess world, BlockPos pos) {
+		ChunkPos chunkPos = new ChunkPos(pos);
+		Point systemPos = Support.getSystemCoordinateFromChunkCoordinate(chunkPos.x, chunkPos.z);
+		return getSystem(world, world.getSeed(), systemPos);
+	}
+	
+	public System getSystem(StructureWorldAccess world, Point systemPos) {
 		System system = systemCache.get(systemPos);
 		
 		if (system == null) {
 			// System at that pos is not generated yet
 			// Generate new system and cache it
-			system = System.generateSystem(this, worldAccess, systemPos);
+			system = System.generateSystem(this, world.getBottomY(), world.getHeight(), world.getSeed(), systemPos);
+			systemCache.put(systemPos, system);
+		}
+		
+		return system;
+	}
+	
+	public System getSystem(WorldAccess worldAccess, long seed, Point systemPos) {
+		System system = systemCache.get(systemPos);
+		
+		if (system == null) {
+			// System at that pos is not generated yet
+			// Generate new system and cache it
+			system = System.generateSystem(this, worldAccess.getBottomY(), worldAccess.getHeight(), seed, systemPos);
+			systemCache.put(systemPos, system);
+		}
+		
+		return system;
+	}
+	
+	public Iterable<? extends Spheroid> getSystem(Chunk chunk, long seed) {
+		Point systemPos = Support.getSystemCoordinateFromChunkCoordinate(chunk.getPos().x, chunk.getPos().z);
+		System system = systemCache.get(systemPos);
+		
+		if (system == null) {
+			// System at that pos is not generated yet
+			// Generate new system and cache it
+			system = System.generateSystem(this, chunk.getBottomY(), chunk.getHeight(), seed, systemPos);
 			systemCache.put(systemPos, system);
 		}
 		
@@ -124,19 +158,18 @@ public class SystemGenerator {
 	
 	public record System(List<Spheroid> spheroids) implements Iterable<Spheroid> {
 		
-		private static @NotNull System generateSystem(SystemGenerator systemGenerator, StructureWorldAccess worldAccess, @NotNull Point systemPoint) {
+		private static System generateSystem(SystemGenerator systemGenerator, int bottomY, int worldHeight, long seed, @NotNull Point systemPoint) {
 			
 			int systemPointX = systemPoint.x;
 			int systemPointZ = systemPoint.y;
 			
-			ChunkRandom systemRandom = getSystemRandom(systemPoint, worldAccess.getSeed());
+			ChunkRandom systemRandom = getSystemRandom(systemPoint, seed);
 			
 			// Places a log/leaf planet at 16, 16 in the overworld etc.
 			ArrayList<Spheroid> defaultSpheroids = getDefaultSpheroids(systemGenerator, systemPointX, systemPointZ, systemRandom);
 			ArrayList<Spheroid> spheres = new ArrayList<>(defaultSpheroids);
 			
 			// try to create DENSITY planets in system
-			int worldHeight = worldAccess.getHeight();
 			for (int currentDensity = 0; currentDensity < systemGenerator.spheresPerSystem; currentDensity++) {
 				
 				// create new planets
@@ -147,7 +180,7 @@ public class SystemGenerator {
 				xPos += systemGenerator.systemSizeChunks * 16 * systemPointX;
 				int zPos = Support.getRandomBetween(systemRandom, currentSpheres.getRadius(), (systemGenerator.systemSizeChunks * 16 - currentSpheres.getRadius()));
 				zPos += systemGenerator.systemSizeChunks * 16 * systemPointZ;
-				int yPos = worldAccess.getBottomY() + systemGenerator.floorHeight + currentSpheres.getRadius() + systemRandom.nextInt(((worldHeight - currentSpheres.getRadius() * 2 - systemGenerator.floorHeight)));
+				int yPos = bottomY + systemGenerator.floorHeight + currentSpheres.getRadius() + systemRandom.nextInt(((worldHeight - currentSpheres.getRadius() * 2 - systemGenerator.floorHeight)));
 				BlockPos spherePos = new BlockPos(xPos, yPos, zPos);
 				
 				// check for collisions with existing spheroids

@@ -6,7 +6,6 @@ import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
 import net.minecraft.registry.entry.*;
-import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
@@ -63,6 +62,14 @@ public class StarrySkyChunkGenerator extends ChunkGenerator {
 	@Override
 	public void carve(ChunkRegion chunkRegion, long seed, NoiseConfig noiseConfig, BiomeAccess world, StructureAccessor structureAccessor, Chunk chunk, GenerationStep.Carver carverStep) {
 		// no carver
+		// generate spheres
+		for (Spheroid spheroid : systemGenerator.getSystem(chunk, seed)) {
+			if (spheroid.isInChunk(chunk.getPos())) {
+				StarrySkies.LOGGER.debug("Generating spheroid in chunk x:{} z:{} (StartX:{} StartZ:{}) {}", chunk.getPos().x, chunk.getPos().z, chunk.getPos().getStartX(), chunk.getPos().getStartZ(), spheroid.getDescription());
+				spheroid.generate(chunk);
+				StarrySkies.LOGGER.debug("Generation Finished.");
+			}
+		}
 	}
 	
 	@Override
@@ -72,15 +79,6 @@ public class StarrySkyChunkGenerator extends ChunkGenerator {
 	
 	@Override
 	public CompletableFuture<Chunk> populateNoise(Executor executor, Blender blender, NoiseConfig noiseConfig, StructureAccessor structureAccessor, Chunk chunk) {
-		// generate spheres
-		for (Spheroid spheroid : systemGenerator.getSystemAtChunkPos(structureAccessor, chunk.getPos().x, chunk.getPos().z)) {
-			if (spheroid.isInChunk(chunk.getPos())) {
-				StarrySkies.LOGGER.debug("Generating spheroid in chunk x:{} z:{} (StartX:{} StartZ:{}) {}", chunk.getPos().x, chunk.getPos().z, chunk.getPos().getStartX(), chunk.getPos().getStartZ(), spheroid.getDescription());
-				spheroid.generate(chunk);
-				StarrySkies.LOGGER.debug("Generation Finished.");
-			}
-		}
-		
 		return CompletableFuture.completedFuture(chunk);
 	}
 	
@@ -92,7 +90,7 @@ public class StarrySkyChunkGenerator extends ChunkGenerator {
 		chunkRandom.setPopulationSeed(chunkRegion.getSeed(), chunkPos.getStartX(), chunkPos.getStartZ());
 		SpawnHelper.populateEntities(chunkRegion, biome, chunkPos, chunkRandom);
 		
-		for (Spheroid spheroid : systemGenerator.getSystemAtChunkPos(chunkRegion, chunkPos.x, chunkPos.z)) {
+		for (Spheroid spheroid : systemGenerator.getSystem(chunkRegion.toServerWorld(), chunkRegion.getSeed(), chunkPos.x, chunkPos.z)) {
 			spheroid.populateEntities(chunkPos, chunkRegion, chunkRandom);
 		}
 	}
