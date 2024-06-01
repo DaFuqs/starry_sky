@@ -20,7 +20,7 @@ public class SpheroidDecoratorFeature extends Feature<DefaultFeatureConfig> {
 	public boolean generate(@NotNull FeatureContext featureContext) {
 		if (featureContext.getGenerator() instanceof StarrySkyChunkGenerator starrySkyChunkGenerator) {
 			SystemGenerator systemGenerator = starrySkyChunkGenerator.getSystemGenerator();
-			List<Spheroid> localSystem = systemGenerator.getSystemAtChunkPos(featureContext.getWorld(), featureContext.getOrigin().getX() / 16, featureContext.getOrigin().getZ() / 16);
+			SystemGenerator.System localSystem = systemGenerator.getSystemAtChunkPos(featureContext.getWorld(), featureContext.getOrigin().getX() / 16, featureContext.getOrigin().getZ() / 16);
 			for (Spheroid spheroid : localSystem) {
 				if (spheroid.isInChunk(new ChunkPos(featureContext.getOrigin()))) {
 

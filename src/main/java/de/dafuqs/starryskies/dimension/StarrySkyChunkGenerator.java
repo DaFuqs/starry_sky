@@ -72,7 +72,15 @@ public class StarrySkyChunkGenerator extends ChunkGenerator {
 	
 	@Override
 	public CompletableFuture<Chunk> populateNoise(Executor executor, Blender blender, NoiseConfig noiseConfig, StructureAccessor structureAccessor, Chunk chunk) {
-		placeSpheroids(chunk); // generate spheres
+		// generate spheres
+		for (Spheroid spheroid : systemGenerator.getSystemAtChunkPos(structureAccessor, chunk.getPos().x, chunk.getPos().z)) {
+			if (spheroid.isInChunk(chunk.getPos())) {
+				StarrySkies.LOGGER.debug("Generating spheroid in chunk x:{} z:{} (StartX:{} StartZ:{}) {}", chunk.getPos().x, chunk.getPos().z, chunk.getPos().getStartX(), chunk.getPos().getStartZ(), spheroid.getDescription());
+				spheroid.generate(chunk);
+				StarrySkies.LOGGER.debug("Generation Finished.");
+			}
+		}
+		
 		return CompletableFuture.completedFuture(chunk);
 	}
 	
@@ -84,8 +92,7 @@ public class StarrySkyChunkGenerator extends ChunkGenerator {
 		chunkRandom.setPopulationSeed(chunkRegion.getSeed(), chunkPos.getStartX(), chunkPos.getStartZ());
 		SpawnHelper.populateEntities(chunkRegion, biome, chunkPos, chunkRandom);
 		
-		List<Spheroid> localSystem = systemGenerator.getSystemAtChunkPos(chunkRegion, chunkPos.x, chunkPos.z);
-		for (Spheroid spheroid : localSystem) {
+		for (Spheroid spheroid : systemGenerator.getSystemAtChunkPos(chunkRegion, chunkPos.x, chunkPos.z)) {
 			spheroid.populateEntities(chunkPos, chunkRegion, chunkRandom);
 		}
 	}
@@ -115,20 +122,6 @@ public class StarrySkyChunkGenerator extends ChunkGenerator {
 		BlockState[] states = new BlockState[world.getHeight()];
 		Arrays.fill(states, Blocks.AIR.getDefaultState());
 		return new VerticalBlockSample(world.getBottomY(), states);
-	}
-	
-	public void placeSpheroids(StructureWorldAccess worldAccess, @NotNull Chunk chunk) {
-		ChunkRandom chunkRandom = new ChunkRandom(new CheckedRandom(worldAccess.getSeed()));
-		chunkRandom.setCarverSeed(worldAccess.getSeed(), chunk.getPos().getRegionX(), chunk.getPos().getRegionZ());
-		
-		List<Spheroid> localSystem = systemGenerator.getSystemAtChunkPos(worldAccess, chunk.getPos().x, chunk.getPos().z);
-		for (Spheroid spheroid : localSystem) {
-			if (spheroid.isInChunk(chunk.getPos())) {
-                StarrySkies.LOGGER.debug("Generating spheroid in chunk x:{} z:{} (StartX:{} StartZ:{}) {}", chunk.getPos().x, chunk.getPos().z, chunk.getPos().getStartX(), chunk.getPos().getStartZ(), spheroid.getDescription());
-				spheroid.generate(chunk);
-				StarrySkies.LOGGER.debug("Generation Finished.");
-			}
-		}
 	}
 	
 	public SystemGenerator getSystemGenerator() {

@@ -38,7 +38,7 @@ public class SystemGenerator {
 	public static Map<RegistryKey<World>, SystemGenerator> systemGeneratorMap = new HashMap<>();
 	
 	// spawning probabilities
-	private final HashMap<Point, List<Spheroid>> sphereCache = new HashMap<>();
+	private final HashMap<Point, System> systemCache = new HashMap<>();
 	
 	private final int systemSizeChunks;
 	private final int spheresPerSystem;
@@ -104,109 +104,116 @@ public class SystemGenerator {
 	 * @param chunkZ chunk chunkZ location
 	 * @return List of planetoids representing the system this chunk is in
 	 */
-	public List<Spheroid> getSystemAtChunkPos(StructureWorldAccess worldAccess, int chunkX, int chunkZ) {
+	public System getSystemAtChunkPos(StructureWorldAccess structureAccessor, int chunkX, int chunkZ) {
 		Point systemPos = Support.getSystemCoordinateFromChunkCoordinate(chunkX, chunkZ);
-		return getSystemAtPoint(worldAccess, systemPos);
+		return getSystemAtPoint(structureAccessor, systemPos);
 	}
 	
-	public List<Spheroid> getSystemAtPoint(StructureWorldAccess worldAccess, Point systemPos) {
-		List<Spheroid> system = sphereCache.get(systemPos);
+	public System getSystemAtPoint(StructureWorldAccess worldAccess, Point systemPos) {
+		System system = systemCache.get(systemPos);
 		
 		if (system == null) {
 			// System at that pos is not generated yet
 			// Generate new system and cache it
-			system = generateSpheroidsAtSystemPoint(worldAccess, systemPos);
-			sphereCache.put(systemPos, system);
+			system = System.generateSystem(this, worldAccess, systemPos);
+			systemCache.put(systemPos, system);
 		}
 		
 		return system;
 	}
 	
-	private @NotNull ChunkRandom getSystemRandom(StructureWorldAccess worldAccess, @NotNull Point systemPoint) {
-		int firstChunkPosX = systemPoint.x * systemSizeChunks;
-		int firstChunkPosZ = systemPoint.y * systemSizeChunks;
-		ChunkRandom systemRandom = new ChunkRandom(new CheckedRandom(worldAccess.getSeed()));
-		systemRandom.setCarverSeed(worldAccess.getSeed(), firstChunkPosX, firstChunkPosZ); // and the seed from the first chunk+
-		StarrySkies.LOGGER.debug("Generated seed for system at {},{}(first chunk: {},{}", systemPoint.x, systemPoint.y, firstChunkPosX, firstChunkPosZ);
-		return systemRandom;
-	}
-	
-	private @NotNull List<Spheroid> generateSpheroidsAtSystemPoint(StructureWorldAccess worldAccess, @NotNull Point systemPoint) {
-		int systemPointX = systemPoint.x;
-		int systemPointZ = systemPoint.y;
+	public record System(List<Spheroid> spheroids) implements Iterable<Spheroid> {
 		
-		ChunkRandom systemRandom = getSystemRandom(worldAccess, systemPoint);
-		
-		// Places a log/leaf planet at 16, 16 in the overworld etc.
-		ArrayList<Spheroid> defaultSpheroids = getDefaultSpheroids(systemPointX, systemPointZ, systemRandom);
-		ArrayList<Spheroid> spheroids = new ArrayList<>(defaultSpheroids);
-		
-		// try to create DENSITY planets in system
-		int worldHeight = worldAccess.getHeight();
-		for (int currentDensity = 0; currentDensity < spheresPerSystem; currentDensity++) {
+		private static @NotNull System generateSystem(SystemGenerator systemGenerator, StructureWorldAccess worldAccess, @NotNull Point systemPoint) {
 			
-			// create new planets
-			Spheroid currentSpheroid = getRandomSpheroid(systemRandom);
+			int systemPointX = systemPoint.x;
+			int systemPointZ = systemPoint.y;
 			
-			// set position, check bounds with system edges on x and z
-			int xPos = Support.getRandomBetween(systemRandom, currentSpheroid.getRadius(), (systemSizeChunks * 16 - currentSpheroid.getRadius()));
-			xPos += systemSizeChunks * 16 * systemPointX;
-			int zPos = Support.getRandomBetween(systemRandom, currentSpheroid.getRadius(), (systemSizeChunks * 16 - currentSpheroid.getRadius()));
-			zPos += systemSizeChunks * 16 * systemPointZ;
-			int yPos = worldAccess.getBottomY() + floorHeight + currentSpheroid.getRadius() + systemRandom.nextInt(((worldHeight - currentSpheroid.getRadius() * 2 - floorHeight)));
-			BlockPos spherePos = new BlockPos(xPos, yPos, zPos);
+			ChunkRandom systemRandom = getSystemRandom(systemPoint, worldAccess.getSeed());
 			
-			// check for collisions with existing spheroids
-			// if any collision, discard it
-			boolean discard = false;
-			for (Spheroid spheroid : spheroids) {
-				//each spheroid has to be at least pl1.radius + pl2.radius + min distance apart
-				int distMin = (spheroid.getRadius() + currentSpheroid.getRadius() + minDistanceBetweenSpheres);
-				double distSquared = spherePos.getSquaredDistance(spheroid.getPosition());
-				if (distSquared < distMin * distMin) {
-					discard = true;
-					break;
+			// Places a log/leaf planet at 16, 16 in the overworld etc.
+			ArrayList<Spheroid> defaultSpheroids = getDefaultSpheroids(systemGenerator, systemPointX, systemPointZ, systemRandom);
+			ArrayList<Spheroid> spheres = new ArrayList<>(defaultSpheroids);
+			
+			// try to create DENSITY planets in system
+			int worldHeight = worldAccess.getHeight();
+			for (int currentDensity = 0; currentDensity < systemGenerator.spheresPerSystem; currentDensity++) {
+				
+				// create new planets
+				Spheroid currentSpheres = getRandomSpheroid(systemGenerator, systemRandom);
+				
+				// set position, check bounds with system edges on x and z
+				int xPos = Support.getRandomBetween(systemRandom, currentSpheres.getRadius(), (systemGenerator.systemSizeChunks * 16 - currentSpheres.getRadius()));
+				xPos += systemGenerator.systemSizeChunks * 16 * systemPointX;
+				int zPos = Support.getRandomBetween(systemRandom, currentSpheres.getRadius(), (systemGenerator.systemSizeChunks * 16 - currentSpheres.getRadius()));
+				zPos += systemGenerator.systemSizeChunks * 16 * systemPointZ;
+				int yPos = worldAccess.getBottomY() + systemGenerator.floorHeight + currentSpheres.getRadius() + systemRandom.nextInt(((worldHeight - currentSpheres.getRadius() * 2 - systemGenerator.floorHeight)));
+				BlockPos spherePos = new BlockPos(xPos, yPos, zPos);
+				
+				// check for collisions with existing spheroids
+				// if any collision, discard it
+				boolean discard = false;
+				for (Spheroid spheroid : spheres) {
+					//each spheroid has to be at least pl1.radius + pl2.radius + min distance apart
+					int distMin = (spheroid.getRadius() + currentSpheres.getRadius() + systemGenerator.minDistanceBetweenSpheres);
+					double distSquared = spherePos.getSquaredDistance(spheroid.getPosition());
+					if (distSquared < distMin * distMin) {
+						discard = true;
+						break;
+					}
+				}
+				
+				if (!discard) {
+					// no intersections with other spheres => add it to the list
+					currentSpheres.setPosition(spherePos);
+					spheres.add(currentSpheres);
 				}
 			}
 			
-			if (!discard) {
-				// no intersections with other spheres => add it to the list
-				currentSpheroid.setPosition(spherePos);
-				spheroids.add(currentSpheroid);
-			}
+			StarrySkies.LOGGER.debug("Created a new system with {} spheroids at system position {},{}", spheres.size(), systemPointX, systemPointZ);
+			
+			return new System(spheres);
 		}
 		
-		StarrySkies.LOGGER.debug("Created a new system with {} spheroids at system position {},{}", spheroids.size(), systemPointX, systemPointZ);
+		private static @NotNull ChunkRandom getSystemRandom(@NotNull Point systemPoint, long seed) {
+			ChunkRandom systemRandom = new ChunkRandom(new CheckedRandom(seed));
+			systemRandom.setCarverSeed(seed, systemPoint.x, systemPoint.y);
+			return systemRandom;
+		}
 		
-		return spheroids;
-	}
-	
-	private ArrayList<Spheroid> getDefaultSpheroids(int systemPointX, int systemPointZ, ChunkRandom systemRandom) {
-		ArrayList<Spheroid> defaultSpheroids = new ArrayList<>();
-		
-		for (DefaultSpheroidType defaultSphere : this.defaultSpheres) {
-			if (systemPointX == defaultSphere.systemX && systemPointZ == defaultSphere.systemZ) {
-				Spheroid.Template<?> template = StarryRegistries.SPHEROID_TEMPLATE.get(defaultSphere.templateID);
-				if(template != null) {
-					Spheroid spheroid = template.generate(systemRandom);
-					spheroid.setPosition(new BlockPos(defaultSphere.x, defaultSphere.y, defaultSphere.z));
-					defaultSpheroids.add(spheroid);
+		private static ArrayList<Spheroid> getDefaultSpheroids(SystemGenerator systemGenerator, int systemPointX, int systemPointZ, ChunkRandom systemRandom) {
+			ArrayList<Spheroid> defaultSpheroids = new ArrayList<>();
+			
+			for (DefaultSpheroidType defaultSphere : systemGenerator.defaultSpheres) {
+				if (systemPointX == defaultSphere.systemX && systemPointZ == defaultSphere.systemZ) {
+					Spheroid.Template<?> template = StarryRegistries.SPHEROID_TEMPLATE.get(defaultSphere.templateID);
+					if(template != null) {
+						Spheroid spheroid = template.generate(systemRandom);
+						spheroid.setPosition(new BlockPos(defaultSphere.x, defaultSphere.y, defaultSphere.z));
+						defaultSpheroids.add(spheroid);
+					}
 				}
 			}
+			
+			return defaultSpheroids;
 		}
 		
-		return defaultSpheroids;
-	}
-	
-	private Spheroid getRandomSpheroid(ChunkRandom systemRandom) {
-		Spheroid.Template<?> template;
-		do {
-			Identifier distributionTypeID = Support.getWeightedRandom(generationGroups, systemRandom);
-			template = SpheroidTemplateLoader.getWeightedRandomSpheroid(distributionTypeID, systemRandom);
-		} while (template == null);
+		private static Spheroid getRandomSpheroid(SystemGenerator systemGenerator, ChunkRandom systemRandom) {
+			Spheroid.Template<?> template;
+			do {
+				Identifier distributionTypeID = Support.getWeightedRandom(systemGenerator.generationGroups, systemRandom);
+				template = SpheroidTemplateLoader.getWeightedRandomSpheroid(distributionTypeID, systemRandom);
+			} while (template == null);
+			
+			StarrySkies.LOGGER.debug("Created a new sphere of type {} Next random: {}", template, systemRandom.nextInt());
+			return template.generate(systemRandom);
+		}
 		
-		StarrySkies.LOGGER.debug("Created a new sphere of type {} Next random: {}", template, systemRandom.nextInt());
-		return template.generate(systemRandom);
+		@NotNull
+		@Override
+		public Iterator<Spheroid> iterator() {
+			return this.spheroids.iterator();
+		}
 	}
 	
 }
