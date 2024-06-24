@@ -1,12 +1,1 @@
 accessWidener v1 named
-
-accessible method net/minecraft/registry/Registries create (Lnet/minecraft/registry/RegistryKey;Lnet/minecraft/registry/Registries$Initializer;)Lnet/minecraft/registry/Registry;
-accessible class net/minecraft/registry/Registries$Initializer
-accessible field net/minecraft/registry/SimpleRegistry rawIdToEntry Lit/unimi/dsi/fastutil/objects/ObjectList;
-accessible field net/minecraft/registry/SimpleRegistry entryToRawId Lit/unimi/dsi/fastutil/objects/Reference2IntMap;
-accessible field net/minecraft/registry/SimpleRegistry idToEntry Ljava/util/Map;
-accessible field net/minecraft/registry/SimpleRegistry keyToEntry Ljava/util/Map;
-accessible field net/minecraft/registry/SimpleRegistry valueToEntry Ljava/util/Map;
-accessible field net/minecraft/registry/SimpleRegistry keyToEntryInfo Ljava/util/Map;
-accessible field net/minecraft/registry/SimpleRegistry tagToEntryList Ljava/util/Map;
-accessible field net/minecraft/registry/SimpleRegistry frozen Z
