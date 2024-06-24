@@ -7,6 +7,7 @@ import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
+import net.minecraft.registry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
@@ -32,10 +33,10 @@ public class ModularSpheroid extends Spheroid {
 	}
 	
 	@Override
-	public String getDescription() {
+	public String getDescription(DynamicRegistryManager registryManager) {
 		String s = "+++ ModularSpheroid +++" +
 				"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
-				"\nTemplateID: " + this.template.getID() +
+				"\nTemplateID: " + this.getID(registryManager) +
 				"\nRadius: " + this.radius +
 				"\nMaterial: " + this.mainBlock.toString();
 		
@@ -49,7 +50,7 @@ public class ModularSpheroid extends Spheroid {
 	}
 	
 	@Override
-	public void generate(Chunk chunk) {
+	public void generate(Chunk chunk, DynamicRegistryManager registryManager) {
 		int chunkX = chunk.getPos().x;
 		int chunkZ = chunk.getPos().z;
 		
@@ -108,7 +109,7 @@ public class ModularSpheroid extends Spheroid {
 		}
 		
 		@Override
-		public ModularSpheroid generate(ChunkRandom random) {
+		public ModularSpheroid generate(ChunkRandom random, DynamicRegistryManager registryManager) {
 			return new ModularSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, mainBlock, topBlock, bottomBlock);
 		}
 		

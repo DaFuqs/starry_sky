@@ -9,6 +9,7 @@ import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
 import net.minecraft.command.argument.*;
 import net.minecraft.entity.player.*;
+import net.minecraft.registry.*;
 import net.minecraft.server.world.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
@@ -65,7 +66,7 @@ public class Support {
 		}
 	}
 	
-	public static @Nullable SpheroidDistance getClosestSpheroid3x3(@NotNull ServerWorld serverWorld, BlockPos position, Identifier spheroidIdentifier) {
+	public static @Nullable SpheroidDistance getClosestSpheroid3x3(@NotNull ServerWorld serverWorld, BlockPos position, Identifier spheroidIdentifier, DynamicRegistryManager registryManager) {
 		SystemGenerator spheroidGenerator = SystemGenerator.get(serverWorld.getRegistryKey());
 		
 		Spheroid closestSpheroid = null;
@@ -74,7 +75,7 @@ public class Support {
 			Point systemPos = getSystemCoordinateFromChunkCoordinate(position.getX() / 16, position.getZ() / 16);
 			
 			for (Spheroid p : spheroidGenerator.getSystem(serverWorld, new Point(systemPos.x + currentPoint.x, systemPos.y + currentPoint.y))) {
-				if (p.getTemplate().getID().equals(spheroidIdentifier)) {
+				if (p.getID(registryManager).equals(spheroidIdentifier)) {
 					double currDist = position.getSquaredDistance(p.getPosition());
 					if (currDist < currentMinDistance) {
 						currentMinDistance = currDist;

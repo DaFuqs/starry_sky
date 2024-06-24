@@ -3,6 +3,7 @@ package de.dafuqs.starryskies.advancements;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.fabricmc.fabric.api.event.lifecycle.v1.*;
+import net.minecraft.registry.*;
 import net.minecraft.server.*;
 import net.minecraft.server.network.*;
 
@@ -26,7 +27,6 @@ public class ProximityAdvancementCheckEvent implements ServerTickEvents.EndTick 
 					Optional<Support.SpheroidDistance> spheroidDistance = Support.getClosestSpheroidToPlayer(serverPlayerEntity);
 					if (spheroidDistance.isPresent() && (Math.sqrt(spheroidDistance.get().squaredDistance)) < spheroidDistance.get().spheroid.getRadius() + 2) {
 						Spheroid spheroid = spheroidDistance.get().spheroid;
-						StarrySkies.LOGGER.debug("On spheroid with template id: {}", spheroid.getTemplate().getID());
 						StarryAdvancementCriteria.SPHEROID_DISCOVERED.trigger(serverPlayerEntity, spheroid);
 					}
 				}

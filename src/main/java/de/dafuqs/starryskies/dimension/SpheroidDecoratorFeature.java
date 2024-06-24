@@ -21,10 +21,7 @@ public class SpheroidDecoratorFeature extends Feature<DefaultFeatureConfig> {
 			
 			for (Spheroid spheroid : systemGenerator.getSystem(featureContext.getWorld(), featureContext.getOrigin())) {
 				if (spheroid.isInChunk(new ChunkPos(featureContext.getOrigin()))) {
-					
-					StarrySkies.LOGGER.debug("Decorating spheroid at x:{} z:{}{}", featureContext.getOrigin().getX(), featureContext.getOrigin().getZ(), spheroid.getDescription());
 					spheroid.decorate(featureContext.getWorld(), featureContext.getOrigin(), featureContext.getRandom());
-					StarrySkies.LOGGER.debug("Finished decorating.");
 				}
 			}
 		}

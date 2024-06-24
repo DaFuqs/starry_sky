@@ -4,7 +4,6 @@ import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
-import de.dafuqs.starryskies.spheroids.*;
 import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
@@ -14,6 +13,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.chunk.*;
+import net.minecraft.world.gen.stateprovider.*;
 
 import java.util.*;
 
@@ -25,12 +25,12 @@ public class CaveSpheroid extends Spheroid {
 	private final BlockState caveFloorBlock;
 	private final BlockState topBlock;
 	private final BlockState bottomBlock;
-	private final BlockState shellBlock;
+	private final BlockStateProvider shellBlock;
 	private final float shellRadius;
 	RegistryKey<LootTable> chestLootTable;
 	
 	public CaveSpheroid(Spheroid.Template<?> template, float radius, List<ConfiguredSpheroidFeature<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
-						BlockState caveFloorBlock, BlockState shellBlock, float shellRadius, BlockState topBlock, BlockState bottomBlock, RegistryKey<LootTable> chestLootTable) {
+						BlockState caveFloorBlock, BlockStateProvider shellBlock, float shellRadius, BlockState topBlock, BlockState bottomBlock, RegistryKey<LootTable> chestLootTable) {
 		
 		super(template, radius, decorators, spawns, random);
 		
@@ -43,10 +43,10 @@ public class CaveSpheroid extends Spheroid {
 	}
 	
 	@Override
-	public String getDescription() {
+	public String getDescription(DynamicRegistryManager registryManager) {
 		String s = "+++ CaveSpheroid +++" +
 				"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
-				"\nTemplateID: " + this.template.getID() +
+				"\nTemplateID: " + this.getID(registryManager) +
 				"\nRadius: " + this.radius +
 				"\nShellBlock: " + this.shellBlock +
 				"\nShellRadius: " + this.shellRadius +
@@ -62,7 +62,7 @@ public class CaveSpheroid extends Spheroid {
 	}
 	
 	@Override
-	public void generate(Chunk chunk) {
+	public void generate(Chunk chunk, DynamicRegistryManager registryManager) {
 		int chunkX = chunk.getPos().x;
 		int chunkZ = chunk.getPos().z;
 		
@@ -91,11 +91,11 @@ public class CaveSpheroid extends Spheroid {
 						} else if (topBlock != null && isTopBlock(d, x2, y2, z2)) {
 							chunk.setBlockState(currBlockPos, this.topBlock, false);
 						} else {
-							chunk.setBlockState(currBlockPos, this.shellBlock, false);
+							chunk.setBlockState(currBlockPos, this.shellBlock.get(random, currBlockPos), false);
 						}
 					} else if (isAboveCaveFloorBlock(d, x2, y2, z2, shellRadius)) {
 						if (this.caveFloorBlock == null) {
-							chunk.setBlockState(currBlockPos.down(), this.shellBlock, false);
+							chunk.setBlockState(currBlockPos.down(), this.shellBlock.get(random, currBlockPos), false);
 						} else {
 							chunk.setBlockState(currBlockPos.down(), this.caveFloorBlock, false);
 						}
@@ -105,7 +105,7 @@ public class CaveSpheroid extends Spheroid {
 					} else if (d <= this.radius - this.shellRadius) {
 						chunk.setBlockState(currBlockPos, this.coreBlock, false); // always CAVE_AIR
 					} else if (d < this.radius) {
-						chunk.setBlockState(currBlockPos, this.shellBlock, false);
+						chunk.setBlockState(currBlockPos, this.shellBlock.get(random, currBlockPos), false);
 					}
 				}
 			}
@@ -115,7 +115,7 @@ public class CaveSpheroid extends Spheroid {
 	public static class Template extends Spheroid.Template<Template.Config> {
 		
 		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
-		private final BlockStateSupplier shellBlock;
+		private final BlockStateProvider shellBlock;
 		private final int minShellRadius;
 		private final int maxShellRadius;
 		private final BlockState caveFloorBlock;
@@ -155,23 +155,23 @@ public class CaveSpheroid extends Spheroid {
 		}
 		
 		@Override
-		public CaveSpheroid generate(ChunkRandom random) {
+		public CaveSpheroid generate(ChunkRandom random, DynamicRegistryManager registryManager) {
 			int shellRadius = Support.getRandomBetween(random, this.minShellRadius, this.maxShellRadius);
 			
 			RegistryKey<LootTable> lootTable = null;
 			if (random.nextFloat() < lootTableChance) {
 				lootTable = this.lootTable;
 			}
-			return new CaveSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, caveFloorBlock, shellBlock.get(random), shellRadius, topBlock, bottomBlock, lootTable);
+			return new CaveSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, caveFloorBlock, shellBlock, shellRadius, topBlock, bottomBlock, lootTable);
 		}
 		
-		public record Config(BlockStateSupplier shellBlock, int minShellRadius, int maxShellRadius,
+		public record Config(BlockStateProvider shellBlock, int minShellRadius, int maxShellRadius,
 							 Optional<BlockState> caveFloorBlock, Optional<BlockState> topBlock,
 							 Optional<BlockState> bottomBlock,
 							 Optional<Chest> chest) {
 			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
-							BlockStateSupplier.CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
+							BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
 							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
 							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
 							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("cave_floor_block").forGetter(Config::caveFloorBlock),

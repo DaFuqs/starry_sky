@@ -13,6 +13,7 @@ import net.minecraft.entity.*;
 import net.minecraft.item.*;
 import net.minecraft.loot.*;
 import net.minecraft.potion.*;
+import net.minecraft.registry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
@@ -41,16 +42,16 @@ public class EndCitySpheroid extends Spheroid {
 	}
 	
 	@Override
-	public String getDescription() {
+	public String getDescription(DynamicRegistryManager registryManager) {
 		return "+++ EndCitySpheroid +++" +
 				"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
-				"\nTemplateID: " + this.template.getID() +
+				"\nTemplateID: " + this.getID(registryManager) +
 				"\nRadius: " + this.radius +
 				"\nShellRadius: " + this.shellRadius;
 	}
 	
 	@Override
-	public void generate(Chunk chunk) {
+	public void generate(Chunk chunk, DynamicRegistryManager registryManager) {
 		int chunkX = chunk.getPos().x;
 		int chunkZ = chunk.getPos().z;
 		
@@ -290,7 +291,7 @@ public class EndCitySpheroid extends Spheroid {
 		}
 		
 		@Override
-		public EndCitySpheroid generate(ChunkRandom random) {
+		public EndCitySpheroid generate(ChunkRandom random, DynamicRegistryManager registryManager) {
 			int shellRadius = Support.getRandomBetween(random, minShellRadius, maxShellRadius);
 			return new EndCitySpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, shellRadius);
 		}

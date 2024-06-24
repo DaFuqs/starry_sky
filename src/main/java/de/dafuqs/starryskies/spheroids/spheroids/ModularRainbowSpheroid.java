@@ -7,6 +7,7 @@ import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
+import net.minecraft.registry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
@@ -32,10 +33,10 @@ public class ModularRainbowSpheroid extends Spheroid {
 	}
 	
 	@Override
-	public String getDescription() {
+	public String getDescription(DynamicRegistryManager registryManager) {
 		return "+++ ModularRainbowSpheroid +++" +
 				"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
-				"\nTemplateID: " + this.template.getID() +
+				"\nTemplateID: " + this.getID(registryManager) +
 				"\nRadius: " + this.radius +
 				"\nRainbow Blocks ( + " + this.rainbowBlocks.size() + "): " + this.rainbowBlocks +
 				"\nBottom Blocks ( + " + this.bottomBlocks.size() + "): " + this.rainbowBlocks +
@@ -43,7 +44,7 @@ public class ModularRainbowSpheroid extends Spheroid {
 	}
 	
 	@Override
-	public void generate(Chunk chunk) {
+	public void generate(Chunk chunk, DynamicRegistryManager registryManager) {
 		int chunkX = chunk.getPos().x;
 		int chunkZ = chunk.getPos().z;
 		
@@ -113,7 +114,7 @@ public class ModularRainbowSpheroid extends Spheroid {
 		}
 		
 		@Override
-		public ModularRainbowSpheroid generate(ChunkRandom random) {
+		public ModularRainbowSpheroid generate(ChunkRandom random, DynamicRegistryManager registryManager) {
 			return new ModularRainbowSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, rainbowBlocks, topBlocks, bottomBlocks);
 		}
 		

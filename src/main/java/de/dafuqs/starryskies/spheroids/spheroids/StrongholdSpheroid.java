@@ -8,6 +8,7 @@ import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.loot.*;
+import net.minecraft.registry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
@@ -41,16 +42,16 @@ public class StrongholdSpheroid extends Spheroid {
 	}
 	
 	@Override
-	public String getDescription() {
+	public String getDescription(DynamicRegistryManager registryManager) {
 		return "+++ StrongholdSpheroid +++" +
 				"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
-				"\nTemplateID: " + this.template.getID() +
+				"\nTemplateID: " + this.getID(registryManager) +
 				"\nRadius: " + this.radius +
 				"\nShellRadius: " + this.shellRadius;
 	}
 	
 	@Override
-	public void generate(Chunk chunk) {
+	public void generate(Chunk chunk, DynamicRegistryManager registryManager) {
 		int chunkX = chunk.getPos().x;
 		int chunkZ = chunk.getPos().z;
 		
@@ -293,7 +294,7 @@ public class StrongholdSpheroid extends Spheroid {
 		}
 		
 		@Override
-		public StrongholdSpheroid generate(ChunkRandom random) {
+		public StrongholdSpheroid generate(ChunkRandom random, DynamicRegistryManager registryManager) {
 			int shellRadius = Support.getRandomBetween(random, minShellRadius, maxShellRadius);
 			return new StrongholdSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, shellRadius);
 		}

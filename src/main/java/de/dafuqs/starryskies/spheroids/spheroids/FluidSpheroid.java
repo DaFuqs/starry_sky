@@ -14,6 +14,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.chunk.*;
+import net.minecraft.world.gen.stateprovider.*;
 
 import java.util.*;
 
@@ -21,13 +22,13 @@ public class FluidSpheroid extends Spheroid {
 	
 	private final BlockState CAVE_AIR = Blocks.CAVE_AIR.getDefaultState();
 	private final BlockState fluidBlock;
-	private final BlockState shellBlock;
+	private final BlockStateProvider shellBlock;
 	private final float shellRadius;
 	private final float fillAmount;
 	private final boolean holeInBottom;
 	
 	public FluidSpheroid(Spheroid.Template<?> template, float radius, List<ConfiguredSpheroidFeature<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
-						 BlockState fluidBlock, BlockState shellBlock, float shellRadius, float fillAmount, boolean holeInBottom) {
+						 BlockState fluidBlock, BlockStateProvider shellBlock, float shellRadius, float fillAmount, boolean holeInBottom) {
 		
 		super(template, radius, decorators, spawns, random);
 		this.fluidBlock = fluidBlock;
@@ -38,10 +39,10 @@ public class FluidSpheroid extends Spheroid {
 	}
 	
 	@Override
-	public String getDescription() {
+	public String getDescription(DynamicRegistryManager registryManager) {
 		return "+++ FluidSpheroid +++" +
 				"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
-				"\nTemplateID: " + this.template.getID() +
+				"\nTemplateID: " + this.getID(registryManager) +
 				"\nRadius: " + this.radius +
 				"\nShell: " + this.shellBlock.toString() + "(Radius: " + this.shellRadius + ")" +
 				"\nLiquid: " + this.fluidBlock.toString() +
@@ -50,7 +51,7 @@ public class FluidSpheroid extends Spheroid {
 	}
 	
 	@Override
-	public void generate(Chunk chunk) {
+	public void generate(Chunk chunk, DynamicRegistryManager registryManager) {
 		int chunkX = chunk.getPos().x;
 		int chunkZ = chunk.getPos().z;
 		
@@ -85,7 +86,7 @@ public class FluidSpheroid extends Spheroid {
 							chunk.setBlockState(currBlockPos, CAVE_AIR, false);
 						}
 					} else {
-						chunk.setBlockState(currBlockPos, this.shellBlock, false);
+						chunk.setBlockState(currBlockPos, this.shellBlock.get(random, currBlockPos), false);
 					}
 				}
 			}
@@ -96,7 +97,7 @@ public class FluidSpheroid extends Spheroid {
 		
 		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
 		private final Fluid fluid;
-		private final BlockStateSupplier shellBlock;
+		private final BlockStateProvider shellBlock;
 		private final int minShellRadius;
 		private final int maxShellRadius;
 		private final float minFillAmount;
@@ -126,20 +127,20 @@ public class FluidSpheroid extends Spheroid {
 		}
 		
 		@Override
-		public FluidSpheroid generate(ChunkRandom random) {
+		public FluidSpheroid generate(ChunkRandom random, DynamicRegistryManager registryManager) {
 			int shellRadius = Support.getRandomBetween(random, this.minShellRadius, this.maxShellRadius);
 			float fillAmount = Support.getRandomBetween(random, this.minFillAmount, this.maxFillAmount);
 			boolean holeInBottom = random.nextFloat() < this.holeInBottomChance;
 			BlockState fluidBlockState = this.fluid.getDefaultState().getBlockState();
-			return new FluidSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, fluidBlockState, shellBlock.get(random), shellRadius, fillAmount, holeInBottom);
+			return new FluidSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, fluidBlockState, shellBlock, shellRadius, fillAmount, holeInBottom);
 		}
 		
-		public record Config(Fluid fluid, BlockStateSupplier shellBlock, int minShellRadius, int maxShellRadius,
+		public record Config(Fluid fluid, BlockStateProvider shellBlock, int minShellRadius, int maxShellRadius,
 							 float minFillAmount, float maxFillAmount, float holeInBottomChance) {
 			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
 							Registries.FLUID.getCodec().fieldOf("fluid").forGetter(Config::fluid),
-							BlockStateSupplier.CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
+							BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
 							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
 							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
 							Codec.FLOAT.fieldOf("min_fill_amount").forGetter(Config::minFillAmount),

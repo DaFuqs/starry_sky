@@ -43,7 +43,12 @@ public abstract class Spheroid implements Serializable {
 		this.random = random;
 	}
 	
-	public abstract void generate(Chunk chunk);
+	public Identifier getID(DynamicRegistryManager registryManager) {
+		Registry<Spheroid.Template<?>> registry = registryManager.get(StarryRegistryKeys.SPHEROID_TEMPLATE);
+		return registry.getId(this.template);
+	}
+	
+	public abstract void generate(Chunk chunk, DynamicRegistryManager registryManager);
 	
 	public BlockPos getPosition() {
 		return position;
@@ -57,7 +62,7 @@ public abstract class Spheroid implements Serializable {
 		return Math.round(radius);
 	}
 	
-	public abstract String getDescription();
+	public abstract String getDescription(DynamicRegistryManager registryManager);
 	
 	public boolean isInChunk(@NotNull ChunkPos chunkPos) {
 		int radius = getRadius();
@@ -139,7 +144,7 @@ public abstract class Spheroid implements Serializable {
 	
 	public void populateEntities(ChunkPos chunkPos, ChunkRegion chunkRegion, ChunkRandom chunkRandom) {
 		if (isCenterInChunk(chunkPos)) {
-			StarrySkies.LOGGER.debug("Populating entities for spheroid in chunk x:{} z:{} (StartX:{} StartZ:{}) {}", chunkPos.x, chunkPos.z, chunkPos.getStartX(), chunkPos.getStartZ(), this.getDescription());
+			StarrySkies.LOGGER.debug("Populating entities for spheroid in chunk x:{} z:{} (StartX:{} StartZ:{}) {}", chunkPos.x, chunkPos.z, chunkPos.getStartX(), chunkPos.getStartZ(), this.getDescription(chunkRegion.getRegistryManager()));
 			for (Pair<EntityType<?>, Integer> spawnEntry : spawns) {
 				
 				int xCord = chunkPos.getStartX();
@@ -174,7 +179,7 @@ public abstract class Spheroid implements Serializable {
 									}
 								}
 							} catch (Exception exception) {
-								StarrySkies.LOGGER.warn("Failed to spawn mob on sphere{}\nException: {}", this.getDescription(), exception);
+								StarrySkies.LOGGER.warn("Failed to spawn mob on sphere{}\nException: {}", this.getDescription(chunkRegion.getRegistryManager()), exception);
 							}
 						}
 					}
@@ -223,10 +228,6 @@ public abstract class Spheroid implements Serializable {
 		
 		public abstract SpheroidTemplateType<? extends Template<C>> getType();
 		
-		public Identifier getID() {
-			return StarryRegistries.SPHEROID_TEMPLATE.getId(this);
-		}
-		
 		public SharedConfig sharedConfig() {
 			return new SharedConfig(minSize, maxSize, decorators, spawns);
 		}
@@ -254,7 +255,7 @@ public abstract class Spheroid implements Serializable {
 			return spawns;
 		}
 		
-		public abstract Spheroid generate(ChunkRandom systemRandom);
+		public abstract Spheroid generate(ChunkRandom systemRandom, DynamicRegistryManager registryManager);
 		
 		public record SharedConfig(int minSize, int maxSize, Map<ConfiguredSpheroidFeature<?, ?>, Float> decorators,
 								   List<SpheroidEntitySpawnDefinition> spawns) {

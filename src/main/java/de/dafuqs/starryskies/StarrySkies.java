@@ -77,7 +77,6 @@ public class StarrySkies implements ModInitializer {
 		
 		// Register all the stuff
 		StarryRegistries.register();
-		StarryResourceConditionTypes.register();
 		Registry.register(Registries.CHUNK_GENERATOR, new Identifier(MOD_ID, "starry_skies_chunk_generator"), StarrySkyChunkGenerator.CODEC);
 		StarrySkyBiomes.initialize();
 		if (CONFIG.registerStarryPortal) {

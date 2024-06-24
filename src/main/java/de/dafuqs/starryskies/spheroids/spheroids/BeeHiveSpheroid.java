@@ -10,6 +10,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
 import net.minecraft.block.enums.*;
 import net.minecraft.entity.*;
+import net.minecraft.registry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
@@ -41,10 +42,10 @@ public class BeeHiveSpheroid extends Spheroid {
 	}
 	
 	@Override
-	public String getDescription() {
+	public String getDescription(DynamicRegistryManager registryManager) {
 		return "+++ BeeHiveSpheroid +++" +
 				"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
-				"\nTemplateID: " + this.template.getID() +
+				"\nTemplateID: " + this.getID(registryManager) +
 				"\nRadius: " + this.radius +
 				"\nShellRadius: " + this.shellRadius +
 				"\nFlowerRingRadius: " + this.flowerRingRadius +
@@ -52,7 +53,7 @@ public class BeeHiveSpheroid extends Spheroid {
 	}
 	
 	@Override
-	public void generate(Chunk chunk) {
+	public void generate(Chunk chunk, DynamicRegistryManager registryManager) {
 		int chunkX = chunk.getPos().x;
 		int chunkZ = chunk.getPos().z;
 		
@@ -139,9 +140,9 @@ public class BeeHiveSpheroid extends Spheroid {
 						chunk.setBlockState(currBlockPos, Blocks.GRASS_BLOCK.getDefaultState(), false);
 						int rand = random.nextInt(4);
 						if (rand == 0) {
-							chunk.setBlockState(currBlockPos.up(), getRandomFlower(random), false);
+							chunk.setBlockState(currBlockPos.up(), getRandomFlower(registryManager, random), false);
 						} else if (rand == 1) {
-							BlockState randomTallFlower = getRandomTallFlower(random);
+							BlockState randomTallFlower = getRandomTallFlower(registryManager, random);
 							chunk.setBlockState(currBlockPos.up(), randomTallFlower.with(TallPlantBlock.HALF, DoubleBlockHalf.LOWER), false);
 							chunk.setBlockState(currBlockPos.up(2), randomTallFlower.with(TallPlantBlock.HALF, DoubleBlockHalf.UPPER), false);
 						}
@@ -151,12 +152,12 @@ public class BeeHiveSpheroid extends Spheroid {
 		}
 	}
 	
-	public BlockState getRandomFlower(ChunkRandom random) {
-		return WeightedBlockGroupsLoader.WeightedBlockGroup.getRandomState(FLOWERS_GROUP_ID, random);
+	public BlockState getRandomFlower(DynamicRegistryManager registryManager, ChunkRandom random) {
+		return StarryStateProvider.getRandomState(registryManager, FLOWERS_GROUP_ID, random);
 	}
 	
-	public BlockState getRandomTallFlower(ChunkRandom random) {
-		return WeightedBlockGroupsLoader.WeightedBlockGroup.getRandomState(TALL_FLOWERS_GROUP_ID, random);
+	public BlockState getRandomTallFlower(DynamicRegistryManager registryManager, ChunkRandom random) {
+		return StarryStateProvider.getRandomState(registryManager, TALL_FLOWERS_GROUP_ID, random);
 	}
 	
 	@Override
@@ -183,7 +184,6 @@ public class BeeHiveSpheroid extends Spheroid {
 		
 		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
 		
-		;
 		private final int minShellSize;
 		private final int maxShellSize;
 		private final int minFlowerRingRadius;
@@ -213,7 +213,7 @@ public class BeeHiveSpheroid extends Spheroid {
 		}
 		
 		@Override
-		public BeeHiveSpheroid generate(ChunkRandom random) {
+		public BeeHiveSpheroid generate(ChunkRandom random, DynamicRegistryManager registryManager) {
 			int shellRadius = Support.getRandomBetween(random, minShellSize, maxShellSize);
 			int flowerRingRadius = Support.getRandomBetween(random, minFlowerRingRadius, maxFlowerRingRadius);
 			int flowerRingSpacing = Support.getRandomBetween(random, minFlowerRingSpacing, maxFlowerRingSpacing);

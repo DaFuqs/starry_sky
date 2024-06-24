@@ -28,12 +28,13 @@ public class ClosestSpheroidCommand {
 		if (identifier == null) {
 			spheroidDistance = Support.getClosestSpheroidToPlayer(caller);
 		} else {
-			spheroidDistance = Optional.ofNullable(Support.getClosestSpheroid3x3(source.getWorld(), BlockPos.ofFloored(source.getPosition()), identifier));
+			spheroidDistance = Optional.ofNullable(Support.getClosestSpheroid3x3(source.getWorld(), BlockPos.ofFloored(source.getPosition()), identifier, source.getRegistryManager()));
 		}
 		
 		if (spheroidDistance.isPresent()) {
-			source.sendFeedback(() -> Text.translatable(spheroidDistance.get().spheroid.getDescription()), false);
+			source.sendFeedback(() -> Text.translatable(spheroidDistance.get().spheroid.getDescription(source.getRegistryManager())), false);
 		} else {
+			// TODO: add lang key
 			source.sendFeedback(() -> Text.translatable("Could not determine closest spheroid. :("), false);
 		}
 		

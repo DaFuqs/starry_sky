@@ -28,7 +28,7 @@ public abstract class ServerWorldMixin {
 		ChunkGenerator chunkGenerator = thisWorld.getChunkManager().getChunkGenerator();
 		if (chunkGenerator instanceof StarrySkyChunkGenerator && locatableStarrySpheres.containsKey(structureTag)) {
 			Identifier sphereIdentifier = locatableStarrySpheres.get(structureTag);
-			Support.SpheroidDistance spheroidDistance = Support.getClosestSpheroid3x3(thisWorld, pos, sphereIdentifier);
+			Support.SpheroidDistance spheroidDistance = Support.getClosestSpheroid3x3(thisWorld, pos, sphereIdentifier, thisWorld.getRegistryManager());
 			if (spheroidDistance == null) {
 				cir.setReturnValue(null);
 			} else {

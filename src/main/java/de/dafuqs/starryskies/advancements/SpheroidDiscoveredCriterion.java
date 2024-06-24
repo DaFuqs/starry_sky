@@ -18,7 +18,7 @@ public class SpheroidDiscoveredCriterion extends AbstractCriterion<SpheroidDisco
 	}
 	
 	public void trigger(ServerPlayerEntity player, Spheroid spheroid) {
-		this.trigger(player, (conditions) -> conditions.matches(spheroid.getTemplate().getID()));
+		this.trigger(player, (conditions) -> conditions.matches(spheroid.getID(player.getRegistryManager())));
 	}
 	
 	public record Conditions(Optional<LootContextPredicate> player,

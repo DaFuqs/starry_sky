@@ -16,8 +16,7 @@ public class StarryRegistryKeys {
 	public static final RegistryKey<Registry<ConfiguredSpheroidFeature<?, ?>>> CONFIGURED_SPHEROID_FEATURE = of("starry_skies/sphere_decorators");
 	public static final RegistryKey<Registry<SpheroidTemplateType<?>>> SPHEROID_TEMPLATE_TYPE = of("starry_skies/sphere_types");
 	public static final RegistryKey<Registry<Spheroid.Template<?>>> SPHEROID_TEMPLATE = of("starry_skies/spheres");
-	public static final RegistryKey<Registry<UniqueBlockGroupsLoader.UniqueBlockGroup>> UNIQUE_BLOCK_GROUP = of("starry_skies/unique_block_groups");
-	public static final RegistryKey<Registry<WeightedBlockGroupsLoader.WeightedBlockGroup>> WEIGHTED_BLOCK_GROUP = of("starry_skies/weighted_block_groups");
+	public static final RegistryKey<Registry<StarryStateProvider>> STATE_PROVIDERS = of("starry_skies/state_providers");
 	
 	private static <T> RegistryKey<Registry<T>> of(String id) {
 		return RegistryKey.ofRegistry(StarrySkies.locate(id));

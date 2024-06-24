@@ -4,14 +4,15 @@ import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
-import de.dafuqs.starryskies.spheroids.*;
 import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
+import net.minecraft.registry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.chunk.*;
+import net.minecraft.world.gen.stateprovider.*;
 
 import java.util.*;
 
@@ -21,12 +22,12 @@ public class ShellCoreSpheroid extends Spheroid {
 	
 	private final BlockState coreBlock;
 	private final BlockState mainBlock;
-	private final BlockState shellBlock;
+	private final BlockStateProvider shellBlock;
 	private final float coreRadius;
 	private final float shellRadius;
 	
 	public ShellCoreSpheroid(Spheroid.Template<?> template, float radius, List<ConfiguredSpheroidFeature<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
-							 BlockState coreBlock, BlockState mainBlock, BlockState shellBlock, float coreRadius, float shellRadius) {
+							 BlockState coreBlock, BlockState mainBlock, BlockStateProvider shellBlock, float coreRadius, float shellRadius) {
 		
 		super(template, radius, decorators, spawns, random);
 		this.coreBlock = coreBlock;
@@ -42,10 +43,10 @@ public class ShellCoreSpheroid extends Spheroid {
 	}
 	
 	@Override
-	public String getDescription() {
+	public String getDescription(DynamicRegistryManager registryManager) {
 		return "+++ DoubleCoreSpheroid +++" +
 				"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
-				"\nTemplateID: " + this.template.getID() +
+				"\nTemplateID: " + this.getID(registryManager) +
 				"\nRadius: " + this.radius +
 				"\nMain Block: " + this.mainBlock.toString() +
 				"\nShell BLock: " + this.shellBlock.toString() + " (Radius: " + this.shellRadius + ")" +
@@ -53,7 +54,7 @@ public class ShellCoreSpheroid extends Spheroid {
 	}
 	
 	@Override
-	public void generate(Chunk chunk) {
+	public void generate(Chunk chunk, DynamicRegistryManager registryManager) {
 		int chunkX = chunk.getPos().x;
 		int chunkZ = chunk.getPos().z;
 		
@@ -80,7 +81,7 @@ public class ShellCoreSpheroid extends Spheroid {
 					} else if (d <= this.radius - this.shellRadius) {
 						chunk.setBlockState(currBlockPos, this.mainBlock, false);
 					} else {
-						chunk.setBlockState(currBlockPos, this.shellBlock, false);
+						chunk.setBlockState(currBlockPos, this.shellBlock.get(random, currBlockPos), false);
 					}
 				}
 			}
@@ -92,7 +93,7 @@ public class ShellCoreSpheroid extends Spheroid {
 		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
 		private final BlockState mainBlock;
 		private final BlockState coreBlock;
-		private final BlockStateSupplier shellBlock;
+		private final BlockStateProvider shellBlock;
 		private final int minCoreRadius;
 		private final int maxCoreRadius;
 		private final int minShellRadius;
@@ -120,17 +121,18 @@ public class ShellCoreSpheroid extends Spheroid {
 		}
 		
 		@Override
-		public ShellCoreSpheroid generate(ChunkRandom random) {
-			return new ShellCoreSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, coreBlock, mainBlock, shellBlock.get(random), randomBetween(random, minCoreRadius, maxCoreRadius), randomBetween(random, minShellRadius, maxShellRadius));
+		public ShellCoreSpheroid generate(ChunkRandom random, DynamicRegistryManager registryManager) {
+			return new ShellCoreSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, coreBlock, mainBlock,
+					shellBlock, randomBetween(random, minCoreRadius, maxCoreRadius), randomBetween(random, minShellRadius, maxShellRadius));
 		}
 		
-		public record Config(BlockState mainBlock, BlockState coreBlock, BlockStateSupplier shellBlock,
+		public record Config(BlockState mainBlock, BlockState coreBlock, BlockStateProvider shellBlock,
 							 int minCoreRadius, int maxCoreRadius, int minShellRadius, int maxShellRadius) {
 			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
 							BLOCKSTATE_STRING_CODEC.fieldOf("main_block").forGetter(Config::mainBlock),
 							BLOCKSTATE_STRING_CODEC.fieldOf("core_block").forGetter(Config::coreBlock),
-							BlockStateSupplier.CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
+							BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
 							Codec.INT.fieldOf("min_core_size").forGetter(Config::minCoreRadius),
 							Codec.INT.fieldOf("max_core_size").forGetter(Config::maxCoreRadius),
 							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),

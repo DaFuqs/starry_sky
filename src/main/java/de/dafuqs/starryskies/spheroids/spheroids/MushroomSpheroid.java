@@ -7,6 +7,7 @@ import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
+import net.minecraft.registry.*;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
@@ -34,17 +35,17 @@ public class MushroomSpheroid extends Spheroid {
 	}
 	
 	@Override
-	public String getDescription() {
+	public String getDescription(DynamicRegistryManager registryManager) {
 		return "+++ MushroomSpheroid +++" +
 				"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
-				"\nTemplateID: " + this.template.getID() +
+				"\nTemplateID: " + this.getID(registryManager) +
 				"\nRadius: " + this.radius +
 				"\nShell: " + this.mushroomBlock.toString() + " (Radius: " + this.shellRadius + ")" +
 				"\nCore: " + this.stemBlock.toString();
 	}
 	
 	@Override
-	public void generate(Chunk chunk) {
+	public void generate(Chunk chunk, DynamicRegistryManager registryManager) {
 		int chunkX = chunk.getPos().x;
 		int chunkZ = chunk.getPos().z;
 		
@@ -111,7 +112,7 @@ public class MushroomSpheroid extends Spheroid {
 		}
 		
 		@Override
-		public MushroomSpheroid generate(ChunkRandom random) {
+		public MushroomSpheroid generate(ChunkRandom random, DynamicRegistryManager registryManager) {
 			return new MushroomSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, stemBlock, mushroomBlock, randomBetween(random, minShellRadius, maxShellRadius));
 		}
 		

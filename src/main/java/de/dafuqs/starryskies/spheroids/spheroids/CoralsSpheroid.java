@@ -14,6 +14,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.chunk.*;
+import net.minecraft.world.gen.stateprovider.*;
 
 import java.util.*;
 
@@ -44,13 +45,13 @@ public class CoralsSpheroid extends Spheroid {
 		add(Blocks.SEA_PICKLE.getDefaultState().with(SeaPickleBlock.WATERLOGGED, true).with(SeaPickleBlock.PICKLES, 3));
 		add(Blocks.SEA_PICKLE.getDefaultState().with(SeaPickleBlock.WATERLOGGED, true).with(SeaPickleBlock.PICKLES, 4));
 	}};
-	protected BlockState shellBlock;
+	protected BlockStateProvider shellBlock;
 	protected float shellRadius;
 	protected BlockState WATER = Blocks.WATER.getDefaultState();
 	protected RegistryKey<LootTable> centerChestLootTable;
 	
 	public CoralsSpheroid(Spheroid.Template<?> template, float radius, List<ConfiguredSpheroidFeature<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
-						  BlockState shellBlock, float shellRadius, RegistryKey<LootTable> centerChestLootTable) {
+						  BlockStateProvider shellBlock, float shellRadius, RegistryKey<LootTable> centerChestLootTable) {
 		
 		super(template, radius, decorators, spawns, random);
 		this.shellBlock = shellBlock;
@@ -58,17 +59,17 @@ public class CoralsSpheroid extends Spheroid {
 		this.centerChestLootTable = centerChestLootTable;
 	}
 	
-	public String getDescription() {
+	public String getDescription(DynamicRegistryManager registryManager) {
 		return "+++ CoralSpheroid +++" +
 				"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
-				"\nTemplateID: " + this.template.getID() +
+				"\nTemplateID: " + this.getID(registryManager) +
 				"\nRadius: " + this.radius +
 				"\nShell: " + this.shellBlock.toString() + " (Radius: " + this.shellRadius + ")";
 	}
 	
 	
 	@Override
-	public void generate(Chunk chunk) {
+	public void generate(Chunk chunk, DynamicRegistryManager registryManager) {
 		int chunkX = chunk.getPos().x;
 		int chunkZ = chunk.getPos().z;
 		
@@ -110,7 +111,7 @@ public class CoralsSpheroid extends Spheroid {
 					} else if (d <= (this.radius - this.shellRadius)) {
 						chunk.setBlockState(currBlockPos, WATER, false);
 					} else {
-						chunk.setBlockState(currBlockPos, this.shellBlock, false);
+						chunk.setBlockState(currBlockPos, this.shellBlock.get(random, currBlockPos), false);
 					}
 				}
 			}
@@ -128,7 +129,7 @@ public class CoralsSpheroid extends Spheroid {
 	public static class Template extends Spheroid.Template<Template.Config> {
 		
 		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
-		private final BlockStateSupplier validShellBlocks;
+		private final BlockStateProvider validShellBlocks;
 		private final int minShellRadius;
 		private final int maxShellRadius;
 		private final RegistryKey<LootTable> lootTable;
@@ -161,20 +162,19 @@ public class CoralsSpheroid extends Spheroid {
 		}
 		
 		@Override
-		public CoralsSpheroid generate(ChunkRandom random) {
+		public CoralsSpheroid generate(ChunkRandom random, DynamicRegistryManager registryManager) {
 			int shellRadius = Support.getRandomBetween(random, this.minShellRadius, this.maxShellRadius);
-			BlockState shellBlockState = validShellBlocks.get(random);
 			RegistryKey<LootTable> lootTable = random.nextFloat() < lootTableChance ? this.lootTable : null;
-			return new CoralsSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, shellBlockState, shellRadius, lootTable);
+			return new CoralsSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, validShellBlocks, shellRadius, lootTable);
 		}
 		
-		public record Config(int minShellRadius, int maxShellRadius, BlockStateSupplier validShellBlocks,
+		public record Config(int minShellRadius, int maxShellRadius, BlockStateProvider validShellBlocks,
 							 Optional<Chest> chest) {
 			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
 							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
 							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
-							BlockStateSupplier.CODEC.fieldOf("shell_block").forGetter(Config::validShellBlocks),
+							BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter(Config::validShellBlocks),
 							Chest.CODEC.lenientOptionalFieldOf("treasure_chest").forGetter(Config::chest)
 					).apply(instance, Config::new)
 			);

@@ -14,9 +14,10 @@
   "spawns": [],
   "fabric:load_conditions": [
     {
-      "condition": "starry_skies:unique_block_group_exist",
+      "condition": "fabric:registry_contains",
+      "registry": "starry_skies:state_provider",
       "values": [
-        "starry_skies:end_starrite_ore"
+        "spectrum:end_starrite_ore"
       ]
     }
   ]

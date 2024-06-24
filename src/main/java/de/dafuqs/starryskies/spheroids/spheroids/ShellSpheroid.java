@@ -9,10 +9,12 @@ import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
 import net.minecraft.command.argument.*;
 import net.minecraft.entity.*;
+import net.minecraft.registry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.chunk.*;
+import net.minecraft.world.gen.stateprovider.*;
 
 import java.util.*;
 
@@ -22,11 +24,11 @@ public class ShellSpheroid extends Spheroid {
 	
 	private final LinkedHashMap<BlockArgumentParser.BlockResult, Float> shellSpeckleBlockStates;
 	protected BlockState innerBlock;
-	protected BlockState shellBlock;
+	protected BlockStateProvider shellBlock;
 	protected float shellRadius;
 	
 	public ShellSpheroid(Spheroid.Template<?> template, float radius, List<ConfiguredSpheroidFeature<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
-						 BlockState innerBlock, BlockState shellBlock, float shellRadius, LinkedHashMap<BlockArgumentParser.BlockResult, Float> shellSpeckleBlockStates) {
+						 BlockState innerBlock, BlockStateProvider shellBlock, float shellRadius, LinkedHashMap<BlockArgumentParser.BlockResult, Float> shellSpeckleBlockStates) {
 		
 		super(template, radius, decorators, spawns, random);
 		this.radius = radius;
@@ -37,10 +39,10 @@ public class ShellSpheroid extends Spheroid {
 	}
 	
 	@Override
-	public String getDescription() {
+	public String getDescription(DynamicRegistryManager registryManager) {
 		StringBuilder s = new StringBuilder("+++ ShellSpheroid +++" +
 				"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
-				"\nTemplateID: " + this.template.getID() +
+				"\nTemplateID: " + this.getID(registryManager) +
 				"\nRadius: " + this.radius +
 				"\nShell: " + this.shellBlock.toString() + " (Radius: " + this.shellRadius + ")" +
 				"\nCore: " + this.innerBlock.toString());
@@ -53,7 +55,7 @@ public class ShellSpheroid extends Spheroid {
 	}
 	
 	@Override
-	public void generate(Chunk chunk) {
+	public void generate(Chunk chunk, DynamicRegistryManager registryManager) {
 		int chunkX = chunk.getPos().x;
 		int chunkZ = chunk.getPos().z;
 		
@@ -84,7 +86,6 @@ public class ShellSpheroid extends Spheroid {
 					} else {
 						if (hasSpeckles) {
 							boolean set = false;
-							BlockState finalBlockState = shellBlock;
 							for (Map.Entry<BlockArgumentParser.BlockResult, Float> shellSpeckleBlockState : shellSpeckleBlockStates.entrySet()) {
 								if (random.nextFloat() < shellSpeckleBlockState.getValue()) {
 									setBlockResult(chunk, currBlockPos, shellSpeckleBlockState.getKey());
@@ -93,10 +94,10 @@ public class ShellSpheroid extends Spheroid {
 								}
 							}
 							if (!set) {
-								chunk.setBlockState(currBlockPos, finalBlockState, false);
+								chunk.setBlockState(currBlockPos, shellBlock.get(random, currBlockPos), false);
 							}
 						} else {
-							chunk.setBlockState(currBlockPos, this.shellBlock, false);
+							chunk.setBlockState(currBlockPos, this.shellBlock.get(random, currBlockPos), false);
 						}
 					}
 				}
@@ -111,7 +112,7 @@ public class ShellSpheroid extends Spheroid {
 	public static class Template extends Spheroid.Template<Template.Config> {
 		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
 		private final BlockState innerBlock;
-		private final BlockStateSupplier shellBlock;
+		private final BlockStateProvider shellBlock;
 		private final int minShellRadius;
 		private final int maxShellRadius;
 		private final LinkedHashMap<BlockArgumentParser.BlockResult, Float> shellSpeckleBlockStates = new LinkedHashMap<>();
@@ -136,17 +137,17 @@ public class ShellSpheroid extends Spheroid {
 		}
 		
 		@Override
-		public ShellSpheroid generate(ChunkRandom random) {
-			return new ShellSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, innerBlock, shellBlock.get(random), randomBetween(random, minShellRadius, maxShellRadius), shellSpeckleBlockStates);
+		public ShellSpheroid generate(ChunkRandom random, DynamicRegistryManager registryManager) {
+			return new ShellSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, innerBlock, shellBlock, randomBetween(random, minShellRadius, maxShellRadius), shellSpeckleBlockStates);
 		}
 		
 		// NOTE: Special-casing singular speckle entry (de)serialization.
-		public record Config(BlockState innerBlock, BlockStateSupplier shellBlock, int minShellRadius,
-							 int maxShellRadius, Optional<SpeckleEntry> speckleEntry) {
+		public record Config(BlockState innerBlock, BlockStateProvider shellBlock, int minShellRadius, int maxShellRadius, Optional<SpeckleEntry> speckleEntry) {
+			
 			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
 							BLOCKSTATE_STRING_CODEC.fieldOf("main_block").forGetter(Config::innerBlock),
-							BlockStateSupplier.CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
+							BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
 							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
 							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
 							SpeckleEntry.CODEC.codec().lenientOptionalFieldOf("shell_speckles").forGetter(Config::speckleEntry)

@@ -66,10 +66,10 @@ public class StarrySkyChunkGenerator extends ChunkGenerator {
 	public void carve(ChunkRegion chunkRegion, long seed, NoiseConfig noiseConfig, BiomeAccess world, StructureAccessor structureAccessor, Chunk chunk, GenerationStep.Carver carverStep) {
 		// no carver
 		// generate spheres
-		for (Spheroid spheroid : systemGenerator.getSystem(chunk, seed)) {
+		for (Spheroid spheroid : systemGenerator.getSystem(chunk, seed, structureAccessor.getRegistryManager())) {
 			if (spheroid.isInChunk(chunk.getPos())) {
-				StarrySkies.LOGGER.debug("Generating spheroid in chunk x:{} z:{} (StartX:{} StartZ:{}) {}", chunk.getPos().x, chunk.getPos().z, chunk.getPos().getStartX(), chunk.getPos().getStartZ(), spheroid.getDescription());
-				spheroid.generate(chunk);
+				StarrySkies.LOGGER.debug("Generating spheroid in chunk x:{} z:{} (StartX:{} StartZ:{}) {}", chunk.getPos().x, chunk.getPos().z, chunk.getPos().getStartX(), chunk.getPos().getStartZ(), spheroid.getDescription(structureAccessor.getRegistryManager()));
+				spheroid.generate(chunk, structureAccessor.getRegistryManager());
 				StarrySkies.LOGGER.debug("Generation Finished.");
 			}
 		}

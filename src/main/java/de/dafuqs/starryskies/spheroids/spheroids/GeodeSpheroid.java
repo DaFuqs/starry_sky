@@ -7,6 +7,7 @@ import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
+import net.minecraft.registry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
@@ -37,10 +38,10 @@ public class GeodeSpheroid extends Spheroid {
 	}
 	
 	@Override
-	public String getDescription() {
+	public String getDescription(DynamicRegistryManager registryManager) {
 		return "+++ GeodeSpheroid +++" +
 				"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
-				"\nTemplateID: " + this.template.getID() +
+				"\nTemplateID: " + this.getID(registryManager) +
 				"\nRadius: " + this.radius +
 				"\nInnerBlock: " + this.innerBlockState +
 				"\nInnerSpecklesBlock: " + this.innerSpecklesBlockState +
@@ -50,7 +51,7 @@ public class GeodeSpheroid extends Spheroid {
 	}
 	
 	@Override
-	public void generate(Chunk chunk) {
+	public void generate(Chunk chunk, DynamicRegistryManager registryManager) {
 		int chunkX = chunk.getPos().x;
 		int chunkZ = chunk.getPos().z;
 		
@@ -119,7 +120,7 @@ public class GeodeSpheroid extends Spheroid {
 		}
 		
 		@Override
-		public GeodeSpheroid generate(ChunkRandom random) {
+		public GeodeSpheroid generate(ChunkRandom random, DynamicRegistryManager registryManager) {
 			return new GeodeSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, innerBlockState, innerSpecklesBlockState, speckleChance, middleBlockState, outerBlockState);
 		}
 		

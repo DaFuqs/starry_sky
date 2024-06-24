@@ -8,6 +8,7 @@ import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.mob.*;
+import net.minecraft.registry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
@@ -39,16 +40,16 @@ public class OceanMonumentSpheroid extends Spheroid {
 	}
 	
 	@Override
-	public String getDescription() {
+	public String getDescription(DynamicRegistryManager registryManager) {
 		return "+++ OceanMonumentSpheroid +++" +
 				"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
-				"\nTemplateID: " + this.template.getID() +
+				"\nTemplateID: " + this.getID(registryManager) +
 				"\nRadius: " + this.radius +
 				"\nTreasure: " + this.treasure.toString() + " (Radius: " + this.coreRadius + ")";
 	}
 	
 	@Override
-	public void generate(Chunk chunk) {
+	public void generate(Chunk chunk, DynamicRegistryManager registryManager) {
 		int chunkX = chunk.getPos().x;
 		int chunkZ = chunk.getPos().z;
 		
@@ -135,7 +136,7 @@ public class OceanMonumentSpheroid extends Spheroid {
 							}
 						}
 					} catch (Exception exception) {
-						StarrySkies.LOGGER.warn("Failed to spawn mob on sphere {}\nException: {}", this.getDescription(), exception);
+						StarrySkies.LOGGER.warn("Failed to spawn mob on sphere {}\nException: {}", this.getDescription(chunkRegion.getRegistryManager()), exception);
 					}
 				}
 			}
@@ -169,7 +170,7 @@ public class OceanMonumentSpheroid extends Spheroid {
 		}
 		
 		@Override
-		public OceanMonumentSpheroid generate(ChunkRandom random) {
+		public OceanMonumentSpheroid generate(ChunkRandom random, DynamicRegistryManager registryManager) {
 			int treasureRadius = Support.getRandomBetween(random, this.minCoreRadius, this.maxCoreRadius);
 			int shellRadius = Support.getRandomBetween(random, this.minShellRadius, this.maxShellRadius);
 			return new OceanMonumentSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, treasureRadius, shellRadius);

@@ -8,23 +8,11 @@ import net.minecraft.registry.entry.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 
-public record ConfiguredSpheroidFeature<FC extends SpheroidFeatureConfig, F extends SpheroidFeature<FC>>(F feature,
-																										 FC config) {
+public record ConfiguredSpheroidFeature<FC extends SpheroidFeatureConfig, F extends SpheroidFeature<FC>>(F feature, FC config) {
 	
-	public static final Codec<ConfiguredSpheroidFeature<?, ?>> CODEC;
-	public static final Codec<RegistryEntry<ConfiguredSpheroidFeature<?, ?>>> REGISTRY_CODEC;
-	public static final Codec<RegistryEntryList<ConfiguredSpheroidFeature<?, ?>>> LIST_CODEC;
-	
-	static {
-		CODEC = StarryRegistries.SPHEROID_FEATURE.getCodec().dispatch((f) -> f.feature, SpheroidFeature::getCodec);
-		REGISTRY_CODEC = RegistryElementCodec.of(StarryRegistryKeys.CONFIGURED_SPHEROID_FEATURE, CODEC);
-		LIST_CODEC = RegistryCodecs.entryList(StarryRegistryKeys.CONFIGURED_SPHEROID_FEATURE, CODEC);
-	}
-	
-	public ConfiguredSpheroidFeature(F feature, FC config) {
-		this.feature = feature;
-		this.config = config;
-	}
+	public static final Codec<ConfiguredSpheroidFeature<?, ?>> CODEC = StarryRegistries.SPHEROID_FEATURE.getCodec().dispatch((f) -> f.feature, SpheroidFeature::getCodec);
+	public static final Codec<RegistryEntry<ConfiguredSpheroidFeature<?, ?>>> REGISTRY_CODEC = RegistryElementCodec.of(StarryRegistryKeys.CONFIGURED_SPHEROID_FEATURE, CODEC);
+	public static final Codec<RegistryEntryList<ConfiguredSpheroidFeature<?, ?>>> LIST_CODEC = RegistryCodecs.entryList(StarryRegistryKeys.CONFIGURED_SPHEROID_FEATURE, CODEC);
 	
 	public boolean generate(StructureWorldAccess world, net.minecraft.util.math.random.Random random, BlockPos pos, Spheroid spheroid) {
 		return this.feature.generateIfValid(this.config, world, random, pos, spheroid);

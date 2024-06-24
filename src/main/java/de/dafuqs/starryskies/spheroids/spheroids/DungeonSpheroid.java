@@ -8,6 +8,7 @@ import de.dafuqs.starryskies.spheroids.*;
 import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
+import net.minecraft.data.client.*;
 import net.minecraft.entity.*;
 import net.minecraft.loot.*;
 import net.minecraft.registry.*;
@@ -15,17 +16,18 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.chunk.*;
+import net.minecraft.world.gen.stateprovider.*;
 
 import java.util.*;
 
 public class DungeonSpheroid extends Spheroid {
 	
 	private final EntityType<?> entityType;
-	private final BlockState shellBlock;
+	private final BlockStateProvider shellBlock;
 	private final float shellRadius;
 	
 	public DungeonSpheroid(Spheroid.Template<?> template, float radius, List<ConfiguredSpheroidFeature<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
-						   EntityType<?> entityType, BlockState shellBlock, float shellRadius) {
+						   EntityType<?> entityType, BlockStateProvider shellBlock, float shellRadius) {
 		
 		super(template, radius, decorators, spawns, random);
 		
@@ -35,10 +37,10 @@ public class DungeonSpheroid extends Spheroid {
 	}
 	
 	@Override
-	public String getDescription() {
+	public String getDescription(DynamicRegistryManager registryManager) {
 		return "+++ DungeonSpheroid +++" +
 				"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
-				"\nTemplateID: " + this.template.getID() +
+				"\nTemplateID: " + this.getID(registryManager) +
 				"\nRadius: " + this.radius +
 				"\nShellBlock: " + this.shellBlock +
 				"\nShellRadius: " + this.shellRadius +
@@ -46,7 +48,7 @@ public class DungeonSpheroid extends Spheroid {
 	}
 	
 	@Override
-	public void generate(Chunk chunk) {
+	public void generate(Chunk chunk, DynamicRegistryManager registryManager) {
 		int chunkX = chunk.getPos().x;
 		int chunkZ = chunk.getPos().z;
 		
@@ -89,7 +91,7 @@ public class DungeonSpheroid extends Spheroid {
 					} else if (d <= (this.radius - this.shellRadius)) {
 						chunk.setBlockState(currBlockPos, Blocks.CAVE_AIR.getDefaultState(), false);
 					} else {
-						chunk.setBlockState(currBlockPos, this.shellBlock, false);
+						chunk.setBlockState(currBlockPos, this.shellBlock.get(random, currBlockPos), false);
 					}
 				}
 			}
@@ -100,7 +102,7 @@ public class DungeonSpheroid extends Spheroid {
 		
 		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
 		private final EntityType<?> entityType;
-		private final BlockStateSupplier shellBlock;
+		private final BlockStateProvider shellBlock;
 		private final int minShellRadius;
 		private final int maxShellRadius;
 		
@@ -123,17 +125,17 @@ public class DungeonSpheroid extends Spheroid {
 		}
 		
 		@Override
-		public DungeonSpheroid generate(ChunkRandom random) {
+		public DungeonSpheroid generate(ChunkRandom random, DynamicRegistryManager registryManager) {
 			int shellRadius = Support.getRandomBetween(random, this.minShellRadius, this.maxShellRadius);
-			return new DungeonSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, entityType, shellBlock.get(random), shellRadius);
+			return new DungeonSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, entityType, shellBlock, shellRadius);
 		}
 		
-		public record Config(EntityType<?> entityType, BlockStateSupplier shellBlock, int minShellRadius,
+		public record Config(EntityType<?> entityType, BlockStateProvider shellBlock, int minShellRadius,
 							 int maxShellRadius) {
 			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
 							Registries.ENTITY_TYPE.getCodec().fieldOf("entity_type").forGetter(Config::entityType),
-							BlockStateSupplier.CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
+							BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
 							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
 							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius)
 					).apply(instance, Config::new)
