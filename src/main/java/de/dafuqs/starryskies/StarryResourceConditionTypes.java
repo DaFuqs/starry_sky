@@ -2,8 +2,7 @@ package de.dafuqs.starryskies;
 
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.*;
-import de.dafuqs.starryskies.data_loaders.*;
-import de.dafuqs.starryskies.registries.StarryRegistries;
+import de.dafuqs.starryskies.registries.*;
 import net.fabricmc.fabric.api.resource.conditions.v1.*;
 import net.minecraft.registry.*;
 import net.minecraft.util.*;

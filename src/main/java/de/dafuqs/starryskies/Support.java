@@ -1,13 +1,13 @@
 package de.dafuqs.starryskies;
 
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.*;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.*;
-import com.mojang.serialization.codecs.BaseMapCodec;
+import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.dimension.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
-import net.minecraft.block.BlockState;
-import net.minecraft.command.argument.BlockArgumentParser;
+import net.minecraft.block.*;
+import net.minecraft.command.argument.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.server.world.*;
 import net.minecraft.util.*;
@@ -21,64 +21,24 @@ import java.util.List;
 import java.util.*;
 
 public class Support {
-
+	
+	private static final List<Point> AROUND_POINTS = new ArrayList<>() {{
+		add(new Point(0, 0));
+		add(new Point(1, -1));
+		add(new Point(1, 0));
+		add(new Point(1, 1));
+		add(new Point(0, -1));
+		add(new Point(0, 1));
+		add(new Point(-1, -1));
+		add(new Point(-1, 0));
+		add(new Point(-1, 1));
+	}};
 	public static Codec<BlockState> BLOCKSTATE_STRING_CODEC = Codec.STRING.xmap(StarrySkies::getNullableStateFromString, BlockArgumentParser::stringifyBlockState);
 	public static Codec<BlockArgumentParser.BlockResult> BLOCK_RESULT_CODEC = Codec.STRING.xmap(StarrySkies::getBlockResult, Support::blockResultToParseableString);
-
+	
 	public static String blockResultToParseableString(BlockArgumentParser.BlockResult result) {
 		var stringifiedBlockState = BlockArgumentParser.stringifyBlockState(result.blockState());
 		return result.nbt() == null ? stringifiedBlockState : stringifiedBlockState.concat(result.nbt().toString());
-	}
-	
-	public static class SpheroidDistance {
-		public Spheroid spheroid;
-		public double squaredDistance;
-		
-		public SpheroidDistance(Spheroid spheroid, double squaredDistance) {
-			this.spheroid = spheroid;
-			this.squaredDistance = squaredDistance;
-		}
-	}
-
-	public record FailSoftMapCodec<K, V>(Codec<K> keyCodec, Codec<V> elementCodec) implements BaseMapCodec<K, V>, Codec<Map<K, V>> {
-
-		@Override
-		public <T> DataResult<Pair<Map<K, V>, T>> decode(final DynamicOps<T> ops, final T input) {
-			return ops.getMap(input).setLifecycle(Lifecycle.stable()).flatMap(map -> decode(ops, map)).map(r -> Pair.of(r, input));
-		}
-
-		@Override
-		public <T> DataResult<T> encode(final Map<K, V> input, final DynamicOps<T> ops, final T prefix) {
-			return encode(input, ops, ops.mapBuilder()).build(prefix);
-		}
-
-		@Override
-		public <T> DataResult<Map<K, V>> decode(final DynamicOps<T> ops, final MapLike<T> input) {
-			final ImmutableMap.Builder<K, V> builder = ImmutableMap.builder();
-
-			input.entries().forEach(pair -> {
-				try {
-					final DataResult<K> k = keyCodec().parse(ops, pair.getFirst());
-					final DataResult<V> v = elementCodec().parse(ops, pair.getSecond());
-
-					Optional<K> optionalK = k.result();
-					Optional<V> optionalV = v.result();
-
-					if (optionalK.isPresent() && optionalV.isPresent()) {
-						builder.put(optionalK.get(), optionalV.get());
-					}
-				} catch (Throwable ignored) {}
-			});
-
-			final Map<K, V> elements = builder.build();
-
-			return DataResult.success(elements);
-		}
-
-		@Override
-		public String toString() {
-			return "FailSoftMapCodec[" + keyCodec + " -> " + elementCodec + ']';
-		}
 	}
 	
 	@Contract("_ -> new")
@@ -104,18 +64,6 @@ public class Support {
 			return Optional.empty();
 		}
 	}
-	
-	private static final List<Point> AROUND_POINTS = new ArrayList<>() {{
-		add(new Point(0, 0));
-		add(new Point(1, -1));
-		add(new Point(1, 0));
-		add(new Point(1, 1));
-		add(new Point(0, -1));
-		add(new Point(0, 1));
-		add(new Point(-1, -1));
-		add(new Point(-1, 0));
-		add(new Point(-1, 1));
-	}};
 	
 	public static @Nullable SpheroidDistance getClosestSpheroid3x3(@NotNull ServerWorld serverWorld, BlockPos position, Identifier spheroidIdentifier) {
 		SystemGenerator spheroidGenerator = SystemGenerator.get(serverWorld.getRegistryKey());
@@ -237,5 +185,58 @@ public class Support {
 			blockPos$Mutable.move(Direction.UP);
 		}
 		return -1;
+	}
+	
+	public static class SpheroidDistance {
+		public Spheroid spheroid;
+		public double squaredDistance;
+		
+		public SpheroidDistance(Spheroid spheroid, double squaredDistance) {
+			this.spheroid = spheroid;
+			this.squaredDistance = squaredDistance;
+		}
+	}
+	
+	public record FailSoftMapCodec<K, V>(Codec<K> keyCodec,
+										 Codec<V> elementCodec) implements BaseMapCodec<K, V>, Codec<Map<K, V>> {
+		
+		@Override
+		public <T> DataResult<Pair<Map<K, V>, T>> decode(final DynamicOps<T> ops, final T input) {
+			return ops.getMap(input).setLifecycle(Lifecycle.stable()).flatMap(map -> decode(ops, map)).map(r -> Pair.of(r, input));
+		}
+		
+		@Override
+		public <T> DataResult<T> encode(final Map<K, V> input, final DynamicOps<T> ops, final T prefix) {
+			return encode(input, ops, ops.mapBuilder()).build(prefix);
+		}
+		
+		@Override
+		public <T> DataResult<Map<K, V>> decode(final DynamicOps<T> ops, final MapLike<T> input) {
+			final ImmutableMap.Builder<K, V> builder = ImmutableMap.builder();
+			
+			input.entries().forEach(pair -> {
+				try {
+					final DataResult<K> k = keyCodec().parse(ops, pair.getFirst());
+					final DataResult<V> v = elementCodec().parse(ops, pair.getSecond());
+					
+					Optional<K> optionalK = k.result();
+					Optional<V> optionalV = v.result();
+					
+					if (optionalK.isPresent() && optionalV.isPresent()) {
+						builder.put(optionalK.get(), optionalV.get());
+					}
+				} catch (Throwable ignored) {
+				}
+			});
+			
+			final Map<K, V> elements = builder.build();
+			
+			return DataResult.success(elements);
+		}
+		
+		@Override
+		public String toString() {
+			return "FailSoftMapCodec[" + keyCodec + " -> " + elementCodec + ']';
+		}
 	}
 }

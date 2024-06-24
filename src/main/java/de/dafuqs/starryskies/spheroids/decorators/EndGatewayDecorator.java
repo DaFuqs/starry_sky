@@ -1,33 +1,29 @@
 package de.dafuqs.starryskies.spheroids.decorators;
 
-import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.*;
 import de.dafuqs.starryskies.*;
-import de.dafuqs.starryskies.registries.SpheroidDecorator;
-import de.dafuqs.starryskies.registries.SpheroidDecoratorType;
+import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
 import net.minecraft.util.math.*;
-import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
 
-public class EndGatewayDecorator extends SpheroidDecorator {
-
-	public static final MapCodec<EndGatewayDecorator> CODEC = MapCodec.unit(EndGatewayDecorator::new);
+public class EndGatewayDecorator extends SpheroidFeature<SpheroidFeatureConfig.DefaultSpheroidFeatureConfig> {
 	
-	public EndGatewayDecorator() {
-		super();
+	public EndGatewayDecorator(Codec<SpheroidFeatureConfig.DefaultSpheroidFeatureConfig> codec) {
+		super(codec);
 	}
-
+	
 	@Override
-	protected SpheroidDecoratorType<EndGatewayDecorator> getType() {
-		return SpheroidDecoratorType.END_GATEWAY;
-	}
-
-	@Override
-	public void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random) {
+	public boolean generate(SpheroidFeatureContext<SpheroidFeatureConfig.DefaultSpheroidFeatureConfig> context) {
+		StructureWorldAccess world = context.getWorld();
+		Spheroid spheroid = context.getSpheroid();
+		ChunkPos origin = context.getChunkPos();
+		
 		if (!spheroid.isCenterInChunk(origin)) {
-			return;
+			return false;
 		}
 		
 		BlockPos exitBlockPos = StarrySkyDimensionTravelHandler.END_SPAWN_BLOCK_POS;
@@ -60,6 +56,8 @@ public class EndGatewayDecorator extends SpheroidDecorator {
 				world.setBlockState(blockPos2, Blocks.AIR.getDefaultState(), 3);
 			}
 		}
+		
+		return true;
 	}
 	
 }

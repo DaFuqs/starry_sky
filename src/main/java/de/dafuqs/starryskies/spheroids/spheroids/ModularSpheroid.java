@@ -1,9 +1,10 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.util.*;
@@ -13,7 +14,7 @@ import net.minecraft.world.chunk.*;
 
 import java.util.*;
 
-import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
+import static de.dafuqs.starryskies.Support.*;
 
 public class ModularSpheroid extends Spheroid {
 	
@@ -21,7 +22,7 @@ public class ModularSpheroid extends Spheroid {
 	private final BlockState topBlock;
 	private final BlockState bottomBlock;
 	
-	public ModularSpheroid(Spheroid.Template<?> template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+	public ModularSpheroid(Spheroid.Template<?> template, float radius, List<ConfiguredSpheroidFeature<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 						   BlockState mainBlock, BlockState topBlock, BlockState bottomBlock) {
 		
 		super(template, radius, decorators, spawns, random);
@@ -30,48 +31,7 @@ public class ModularSpheroid extends Spheroid {
 		this.bottomBlock = bottomBlock;
 	}
 	
-	public static class Template extends Spheroid.Template<Template.Config> {
-
-		public record Config(BlockState mainBlock, Optional<BlockState> topBlock, Optional<BlockState> bottomBlock) {
-			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
-					instance -> instance.group(
-							BLOCKSTATE_STRING_CODEC.fieldOf("main_block").forGetter(Config::mainBlock),
-							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("top_block").forGetter(Config::topBlock),
-							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("bottom_block").forGetter(Config::bottomBlock)
-					).apply(instance, Config::new)
-			);
-		}
-
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
-		
-		private final BlockState mainBlock;
-		private final BlockState topBlock;
-		private final BlockState bottomBlock;
-
-		public Template(SharedConfig shared, Config config) {
-			super(shared);
-			this.mainBlock = config.mainBlock;
-			this.topBlock = config.topBlock.orElse(null);
-			this.bottomBlock = config.bottomBlock.orElse(null);
-		}
-
-		@Override
-		public SpheroidTemplateType<Template> getType() {
-			return SpheroidTemplateType.MODULAR;
-		}
-
-		@Override
-		public Config config() {
-			return new Config(mainBlock, Optional.ofNullable(topBlock),  Optional.ofNullable(bottomBlock));
-		}
-
-		@Override
-		public ModularSpheroid generate(ChunkRandom random) {
-			return new ModularSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, mainBlock, topBlock, bottomBlock);
-		}
-		
-	}
-	
+	@Override
 	public String getDescription() {
 		String s = "+++ ModularSpheroid +++" +
 				"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
@@ -88,6 +48,7 @@ public class ModularSpheroid extends Spheroid {
 		return s;
 	}
 	
+	@Override
 	public void generate(Chunk chunk) {
 		int chunkX = chunk.getPos().x;
 		int chunkZ = chunk.getPos().z;
@@ -122,4 +83,46 @@ public class ModularSpheroid extends Spheroid {
 		}
 	}
 	
+	public static class Template extends Spheroid.Template<Template.Config> {
+		
+		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		private final BlockState mainBlock;
+		private final BlockState topBlock;
+		private final BlockState bottomBlock;
+		
+		public Template(SharedConfig shared, Config config) {
+			super(shared);
+			this.mainBlock = config.mainBlock;
+			this.topBlock = config.topBlock.orElse(null);
+			this.bottomBlock = config.bottomBlock.orElse(null);
+		}
+		
+		@Override
+		public SpheroidTemplateType<Template> getType() {
+			return SpheroidTemplateType.MODULAR;
+		}
+		
+		@Override
+		public Config config() {
+			return new Config(mainBlock, Optional.ofNullable(topBlock), Optional.ofNullable(bottomBlock));
+		}
+		
+		@Override
+		public ModularSpheroid generate(ChunkRandom random) {
+			return new ModularSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, mainBlock, topBlock, bottomBlock);
+		}
+		
+		public record Config(BlockState mainBlock, Optional<BlockState> topBlock, Optional<BlockState> bottomBlock) {
+			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
+					instance -> instance.group(
+							BLOCKSTATE_STRING_CODEC.fieldOf("main_block").forGetter(Config::mainBlock),
+							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("top_block").forGetter(Config::topBlock),
+							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("bottom_block").forGetter(Config::bottomBlock)
+					).apply(instance, Config::new)
+			);
+		}
+		
+	}
+	
 }
+	

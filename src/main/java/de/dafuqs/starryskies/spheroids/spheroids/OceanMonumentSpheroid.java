@@ -1,10 +1,10 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.mob.*;
@@ -30,59 +30,12 @@ public class OceanMonumentSpheroid extends Spheroid {
 	
 	private final ArrayList<BlockPos> guardianPositions = new ArrayList<>();
 	
-	public OceanMonumentSpheroid(Spheroid.Template<?> template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+	public OceanMonumentSpheroid(Spheroid.Template<?> template, float radius, List<ConfiguredSpheroidFeature<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 								 int coreRadius, int shellRadius) {
 		
 		super(template, radius, decorators, spawns, random);
 		this.coreRadius = coreRadius;
 		this.shellRadius = shellRadius;
-	}
-	
-	public static class Template extends Spheroid.Template<Template.Config> {
-
-		public record Config(int minShellRadius, int maxShellRadius, int minCoreRadius, int maxCoreRadius) {
-			public static MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
-					instance -> instance.group(
-							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
-							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
-							Codec.INT.fieldOf("min_core_size").forGetter(Config::minCoreRadius),
-							Codec.INT.fieldOf("max_core_size").forGetter(Config::maxCoreRadius)
-					).apply(instance, Config::new)
-			);
-		}
-
-		public static MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
-		
-		private final int minShellRadius;
-		private final int maxShellRadius;
-		private final int minCoreRadius;
-		private final int maxCoreRadius;
-		
-		public Template(SharedConfig shared, Config config) {
-			super(shared);
-			this.minShellRadius = config.minShellRadius;
-			this.maxShellRadius = config.maxShellRadius;
-			this.minCoreRadius = config.minCoreRadius;
-			this.maxCoreRadius = config.maxCoreRadius;
-		}
-
-		@Override
-		public SpheroidTemplateType<Template> getType() {
-			return SpheroidTemplateType.OCEAN_MONUMENT;
-		}
-
-		@Override
-		public Config config() {
-			return new Config(minShellRadius, maxShellRadius, minCoreRadius, maxCoreRadius);
-		}
-
-		@Override
-		public OceanMonumentSpheroid generate(ChunkRandom random) {
-			int treasureRadius = Support.getRandomBetween(random, this.minCoreRadius, this.maxCoreRadius);
-			int shellRadius = Support.getRandomBetween(random, this.minShellRadius, this.maxShellRadius);
-			return new OceanMonumentSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, treasureRadius, shellRadius);
-		}
-		
 	}
 	
 	@Override
@@ -182,11 +135,57 @@ public class OceanMonumentSpheroid extends Spheroid {
 							}
 						}
 					} catch (Exception exception) {
-                        StarrySkies.LOGGER.warn("Failed to spawn mob on sphere {}\nException: {}", this.getDescription(), exception);
+						StarrySkies.LOGGER.warn("Failed to spawn mob on sphere {}\nException: {}", this.getDescription(), exception);
 					}
 				}
 			}
 		}
+	}
+	
+	public static class Template extends Spheroid.Template<Template.Config> {
+		
+		public static MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		private final int minShellRadius;
+		private final int maxShellRadius;
+		private final int minCoreRadius;
+		private final int maxCoreRadius;
+		
+		public Template(SharedConfig shared, Config config) {
+			super(shared);
+			this.minShellRadius = config.minShellRadius;
+			this.maxShellRadius = config.maxShellRadius;
+			this.minCoreRadius = config.minCoreRadius;
+			this.maxCoreRadius = config.maxCoreRadius;
+		}
+		
+		@Override
+		public SpheroidTemplateType<Template> getType() {
+			return SpheroidTemplateType.OCEAN_MONUMENT;
+		}
+		
+		@Override
+		public Config config() {
+			return new Config(minShellRadius, maxShellRadius, minCoreRadius, maxCoreRadius);
+		}
+		
+		@Override
+		public OceanMonumentSpheroid generate(ChunkRandom random) {
+			int treasureRadius = Support.getRandomBetween(random, this.minCoreRadius, this.maxCoreRadius);
+			int shellRadius = Support.getRandomBetween(random, this.minShellRadius, this.maxShellRadius);
+			return new OceanMonumentSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, treasureRadius, shellRadius);
+		}
+		
+		public record Config(int minShellRadius, int maxShellRadius, int minCoreRadius, int maxCoreRadius) {
+			public static MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
+					instance -> instance.group(
+							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
+							Codec.INT.fieldOf("min_core_size").forGetter(Config::minCoreRadius),
+							Codec.INT.fieldOf("max_core_size").forGetter(Config::maxCoreRadius)
+					).apply(instance, Config::new)
+			);
+		}
+		
 	}
 	
 }

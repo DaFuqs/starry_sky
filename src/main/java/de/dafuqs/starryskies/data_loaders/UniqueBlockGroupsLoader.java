@@ -16,33 +16,14 @@ import java.util.*;
 
 public class UniqueBlockGroupsLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
 	
-	public record UniqueBlockGroup(List<BlockState> states) {
-		
-		public static UniqueBlockGroup register(Identifier id, UniqueBlockGroup block) {
-			return Registry.register(StarryRegistries.UNIQUE_BLOCK_GROUP, id, block);
-		}
-		
-		public static BlockState getFirstState(Identifier groupId) {
-			UniqueBlockGroup group = StarryRegistries.UNIQUE_BLOCK_GROUP.get(groupId);
-			if (group == null || group.states.isEmpty()) {
-                StarrySkies.LOGGER.warn("Referencing empty/non-existing UniqueBlockGroup: {}. Using AIR instead.", groupId);
-				return Blocks.AIR.getDefaultState();
-			}
-			return group.states.getFirst();
-		}
-		
-	}
-	
 	public static final String ID = "starry_skies/unique_block_groups";
 	public static final UniqueBlockGroupsLoader INSTANCE = new UniqueBlockGroupsLoader();
-	
 	protected UniqueBlockGroupsLoader() {
 		super(new Gson(), ID);
 	}
 	
 	@Override
 	protected void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
-		StarryRegistries.UNIQUE_BLOCK_GROUP.reset();
 		prepared.forEach((identifier, jsonElement) -> {
 			List<BlockState> states = new ArrayList<>();
 			for (JsonElement e : jsonElement.getAsJsonArray()) {
@@ -51,7 +32,7 @@ public class UniqueBlockGroupsLoader extends JsonDataLoader implements Identifia
 					states.add(state);
 				} catch (CommandSyntaxException ex) {
 					if (StarrySkies.CONFIG.packCreatorMode) {
-                        StarrySkies.LOGGER.warn("Unique Block group {} tries to load a non-existing block: {}. Will be ignored.", identifier, e);
+						StarrySkies.LOGGER.warn("Unique Block group {} tries to load a non-existing block: {}. Will be ignored.", identifier, e);
 					}
 				}
 			}
@@ -72,6 +53,23 @@ public class UniqueBlockGroupsLoader extends JsonDataLoader implements Identifia
 	@Override
 	public Identifier getFabricId() {
 		return StarrySkies.locate(ID);
+	}
+	
+	public record UniqueBlockGroup(List<BlockState> states) {
+		
+		public static UniqueBlockGroup register(Identifier id, UniqueBlockGroup block) {
+			return Registry.register(StarryRegistries.UNIQUE_BLOCK_GROUP, id, block);
+		}
+		
+		public static BlockState getFirstState(Identifier groupId) {
+			UniqueBlockGroup group = StarryRegistries.UNIQUE_BLOCK_GROUP.get(groupId);
+			if (group == null || group.states.isEmpty()) {
+				StarrySkies.LOGGER.warn("Referencing empty/non-existing UniqueBlockGroup: {}. Using AIR instead.", groupId);
+				return Blocks.AIR.getDefaultState();
+			}
+			return group.states.getFirst();
+		}
+		
 	}
 	
 }

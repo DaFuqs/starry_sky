@@ -1,53 +1,31 @@
 package de.dafuqs.starryskies.spheroids.decorators;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mojang.serialization.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
-import net.minecraft.loot.*;
-import net.minecraft.registry.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
 
-import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
-
-public class CenterPondDecorator extends SpheroidDecorator {
-
-	public static final MapCodec<CenterPondDecorator> CODEC = RecordCodecBuilder.mapCodec(
-			instance -> instance.group(
-					BLOCKSTATE_STRING_CODEC.fieldOf("beach_block").forGetter(decorator -> decorator.beachBlock),
-					BLOCKSTATE_STRING_CODEC.fieldOf("fluid_block").forGetter(decorator -> decorator.fluidBlock),
-					RegistryKey.createCodec(RegistryKeys.LOOT_TABLE).fieldOf("loot_table").forGetter(decorator -> decorator.lootTable),
-					Codec.FLOAT.fieldOf("loot_table_chance").forGetter(decorator -> decorator.lootTableChance)
-			).apply(instance, CenterPondDecorator::new)
-	);
+public class CenterPondDecorator extends SpheroidFeature<CenterPondDecoratorConfig> {
 	
-	private final RegistryKey<LootTable> lootTable;
-	private final float lootTableChance;
-	private final BlockState beachBlock;
-	private final BlockState fluidBlock;
-
-	public CenterPondDecorator(BlockState beachBlock, BlockState fluidBlock,
-							   RegistryKey<LootTable> lootTable, float lootTableChance) {
-		this.beachBlock = beachBlock;
-		this.fluidBlock = fluidBlock;
-		this.lootTable = lootTable;
-		this.lootTableChance = lootTableChance;
+	public CenterPondDecorator(Codec<CenterPondDecoratorConfig> codec) {
+		super(codec);
 	}
-
+	
 	@Override
-	protected SpheroidDecoratorType<CenterPondDecorator> getType() {
-		return SpheroidDecoratorType.CENTER_POND;
-	}
-
-	@Override
-	public void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random) {
+	public boolean generate(SpheroidFeatureContext<CenterPondDecoratorConfig> context) {
+		StructureWorldAccess world = context.getWorld();
+		Spheroid spheroid = context.getSpheroid();
+		ChunkPos origin = context.getChunkPos();
+		Random random = context.getRandom();
+		CenterPondDecoratorConfig config = context.getConfig();
+		
 		if (!spheroid.isCenterInChunk(origin)) {
-			return;
+			return false;
 		}
 		
 		// doesn't make sense on small spheroids
@@ -80,10 +58,10 @@ public class CenterPondDecorator extends SpheroidDecorator {
 			// if there is not enough room for water: just cancel
 			// not nice, but eh
 			if (waterLevelY - spheroid.getPosition().getY() < pondRadius * 1.5) {
-				return;
+				return false;
 			}
 			
-			boolean hasLootChest = random.nextFloat() < this.lootTableChance;
+			boolean hasLootChest = random.nextFloat() < config.lootTableChance();
 			BlockPos lootChestPosition = null;
 			
 			int pond15 = (int) Math.round(pondRadius * 1.5);
@@ -102,9 +80,9 @@ public class CenterPondDecorator extends SpheroidDecorator {
 								if (hasLootChest && x == 0 && z == 0 && lootChestPosition == null) {
 									lootChestPosition = currentBlockPos;
 								}
-								blockState = fluidBlock;
+								blockState = config.fluidState();
 							} else if (pondDistance < 1.70) {
-								blockState = beachBlock;
+								blockState = config.beachState();
 							}
 						}
 						
@@ -119,9 +97,11 @@ public class CenterPondDecorator extends SpheroidDecorator {
 			}
 			
 			if (lootChestPosition != null) {
-				placeLootChest(world, lootChestPosition, lootTable, random);
+				placeLootChest(world, lootChestPosition, config.lootTable(), random);
 			}
 		}
+		
+		return true;
 	}
 	
 }

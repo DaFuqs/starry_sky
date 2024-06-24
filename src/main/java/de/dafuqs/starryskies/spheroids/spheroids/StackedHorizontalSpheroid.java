@@ -1,9 +1,9 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.util.*;
@@ -13,45 +13,17 @@ import net.minecraft.world.chunk.*;
 
 import java.util.*;
 
-import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
+import static de.dafuqs.starryskies.Support.*;
 
 public class StackedHorizontalSpheroid extends Spheroid {
 	
 	private final List<BlockState> stripesBlockStates;
 	
-	public StackedHorizontalSpheroid(Spheroid.Template<?> template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+	public StackedHorizontalSpheroid(Spheroid.Template<?> template, float radius, List<ConfiguredSpheroidFeature<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 									 List<BlockState> stripesBlockStates) {
 		
 		super(template, radius, decorators, spawns, random);
 		this.stripesBlockStates = stripesBlockStates;
-	}
-	
-	public static class Template extends Spheroid.Template<List<BlockState>> {
-
-		public static final MapCodec<Template> CODEC = createCodec(BLOCKSTATE_STRING_CODEC.listOf().fieldOf("blocks"), Template::new);
-
-		private final List<BlockState> stripesBlockStates = new ArrayList<>();
-
-		public Template(SharedConfig shared, List<BlockState> blocks) {
-			super(shared);
-			this.stripesBlockStates.addAll(blocks);
-		}
-
-		@Override
-		public SpheroidTemplateType<Template> getType() {
-			return SpheroidTemplateType.STACKED_HORIZONTAL;
-		}
-
-		@Override
-		public List<BlockState> config() {
-			return stripesBlockStates;
-		}
-
-		@Override
-		public StackedHorizontalSpheroid generate(ChunkRandom random) {
-			return new StackedHorizontalSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, stripesBlockStates);
-		}
-		
 	}
 	
 	@Override
@@ -95,6 +67,34 @@ public class StackedHorizontalSpheroid extends Spheroid {
 				}
 			}
 		}
+	}
+	
+	public static class Template extends Spheroid.Template<List<BlockState>> {
+		
+		public static final MapCodec<Template> CODEC = createCodec(BLOCKSTATE_STRING_CODEC.listOf().fieldOf("blocks"), Template::new);
+		
+		private final List<BlockState> stripesBlockStates = new ArrayList<>();
+		
+		public Template(SharedConfig shared, List<BlockState> blocks) {
+			super(shared);
+			this.stripesBlockStates.addAll(blocks);
+		}
+		
+		@Override
+		public SpheroidTemplateType<Template> getType() {
+			return SpheroidTemplateType.STACKED_HORIZONTAL;
+		}
+		
+		@Override
+		public List<BlockState> config() {
+			return stripesBlockStates;
+		}
+		
+		@Override
+		public StackedHorizontalSpheroid generate(ChunkRandom random) {
+			return new StackedHorizontalSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, stripesBlockStates);
+		}
+		
 	}
 	
 }

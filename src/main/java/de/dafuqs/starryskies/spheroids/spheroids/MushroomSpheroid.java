@@ -1,10 +1,10 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.state.property.Properties;
@@ -15,7 +15,7 @@ import net.minecraft.world.chunk.*;
 
 import java.util.*;
 
-import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
+import static de.dafuqs.starryskies.Support.*;
 
 public class MushroomSpheroid extends Spheroid {
 	
@@ -23,7 +23,7 @@ public class MushroomSpheroid extends Spheroid {
 	BlockState mushroomBlock;
 	float shellRadius;
 	
-	public MushroomSpheroid(Spheroid.Template<?> template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+	public MushroomSpheroid(Spheroid.Template<?> template, float radius, List<ConfiguredSpheroidFeature<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 							BlockState stemBlock, BlockState mushroomBlock, float shellRadius) {
 		
 		super(template, radius, decorators, spawns, random);
@@ -33,51 +33,7 @@ public class MushroomSpheroid extends Spheroid {
 		this.shellRadius = shellRadius;
 	}
 	
-	public static class Template extends Spheroid.Template<Template.Config> {
-
-		public record Config(BlockState stemBlock, BlockState mushroomBlock, int minShellRadius, int maxShellRadius) {
-			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
-					instance -> instance.group(
-							BLOCKSTATE_STRING_CODEC.fieldOf("stem_block").forGetter(Config::stemBlock),
-							BLOCKSTATE_STRING_CODEC.fieldOf("mushroom_block").forGetter(Config::mushroomBlock),
-							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
-							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius)
-					).apply(instance, Config::new)
-			);
-		}
-
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
-		
-		private final BlockState stemBlock;
-		private final BlockState mushroomBlock;
-		private final int minShellRadius;
-		private final int maxShellRadius;
-
-		public Template(SharedConfig shared, Config config) {
-			super(shared);
-			this.stemBlock = config.stemBlock;
-			this.mushroomBlock = config.mushroomBlock;
-			this.minShellRadius = config.minShellRadius;
-			this.maxShellRadius = config.maxShellRadius;
-		}
-
-		@Override
-		public SpheroidTemplateType<Template> getType() {
-			return SpheroidTemplateType.MUSHROOM;
-		}
-
-		@Override
-		public Config config() {
-			return new Config(stemBlock, mushroomBlock, minShellRadius, maxShellRadius);
-		}
-
-		@Override
-		public MushroomSpheroid generate(ChunkRandom random) {
-			return new MushroomSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, stemBlock, mushroomBlock, randomBetween(random, minShellRadius, maxShellRadius));
-		}
-		
-	}
-	
+	@Override
 	public String getDescription() {
 		return "+++ MushroomSpheroid +++" +
 				"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
@@ -128,4 +84,49 @@ public class MushroomSpheroid extends Spheroid {
 		}
 	}
 	
+	public static class Template extends Spheroid.Template<Template.Config> {
+		
+		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		private final BlockState stemBlock;
+		private final BlockState mushroomBlock;
+		private final int minShellRadius;
+		private final int maxShellRadius;
+		
+		public Template(SharedConfig shared, Config config) {
+			super(shared);
+			this.stemBlock = config.stemBlock;
+			this.mushroomBlock = config.mushroomBlock;
+			this.minShellRadius = config.minShellRadius;
+			this.maxShellRadius = config.maxShellRadius;
+		}
+		
+		@Override
+		public SpheroidTemplateType<Template> getType() {
+			return SpheroidTemplateType.MUSHROOM;
+		}
+		
+		@Override
+		public Config config() {
+			return new Config(stemBlock, mushroomBlock, minShellRadius, maxShellRadius);
+		}
+		
+		@Override
+		public MushroomSpheroid generate(ChunkRandom random) {
+			return new MushroomSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, stemBlock, mushroomBlock, randomBetween(random, minShellRadius, maxShellRadius));
+		}
+		
+		public record Config(BlockState stemBlock, BlockState mushroomBlock, int minShellRadius, int maxShellRadius) {
+			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
+					instance -> instance.group(
+							BLOCKSTATE_STRING_CODEC.fieldOf("stem_block").forGetter(Config::stemBlock),
+							BLOCKSTATE_STRING_CODEC.fieldOf("mushroom_block").forGetter(Config::mushroomBlock),
+							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius)
+					).apply(instance, Config::new)
+			);
+		}
+		
+	}
+	
 }
+	

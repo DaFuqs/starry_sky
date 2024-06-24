@@ -1,6 +1,8 @@
 package de.dafuqs.starryskies.registries;
 
 import com.mojang.serialization.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
+import de.dafuqs.starryskies.spheroids.decorators.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
@@ -14,22 +16,53 @@ import org.jetbrains.annotations.*;
 
 import java.util.*;
 
-public abstract class SpheroidDecorator {
-
-	public static final Codec<SpheroidDecorator> CODEC = StarryRegistries.SPHEROID_DECORATOR.getCodec();
+public abstract class SpheroidFeature<FC extends SpheroidFeatureConfig> {
 	
-	public SpheroidDecorator() {
+	public static SpheroidFeature<BambooDecoratorConfig> BAMBOO = register("bamboo", new BambooDecorator(BambooDecoratorConfig.CODEC));
+	public static SpheroidFeature<SingleBlockDecoratorConfig> SINGLE_BLOCK = register("single_block", new SingleBlockDecorator(SingleBlockDecoratorConfig.CODEC));
+	public static SpheroidFeature<DoubleBlockDecoratorConfig> DOUBLE_BLOCK = register("double_block", new DoubleBlockDecorator(DoubleBlockDecoratorConfig.CODEC));
+	public static SpheroidFeature<StackedBlockDecoratorConfig> STACKED_BLOCK = register("stacked_block", new StackedBlockDecorator(StackedBlockDecoratorConfig.CODEC));
+	public static SpheroidFeature<GroundDecoratorConfig> GROUND_BLOCK = register("ground_block", new GroundDecorator(GroundDecoratorConfig.CODEC));
+	public static SpheroidFeature<CaveBottomDecoratorConfig> CAVE_BOTTOM_BLOCK = register("cave_bottom_block", new CaveBottomDecorator(CaveBottomDecoratorConfig.CODEC));
+	public static SpheroidFeature<PlantAroundPondDecoratorConfig> PLANT_AROUND_POND = register("plant_around_pond", new PlantAroundPondDecorator(PlantAroundPondDecoratorConfig.CODEC));
+	public static SpheroidFeature<CenterPondDecoratorConfig> CENTER_POND = register("center_pond", new CenterPondDecorator(CenterPondDecoratorConfig.CODEC));
+	public static SpheroidFeature<MultifaceGrowthDecoratorConfig> MULTIFACE_GROWTH = register("multiface_growth", new MultifaceGrowthDecorator(MultifaceGrowthDecoratorConfig.CODEC));
+	public static SpheroidFeature<HangingBlockDecoratorConfig> HANGING_BLOCK = register("hanging_block", new HangingBlockDecorator(HangingBlockDecoratorConfig.CODEC));
+	public static SpheroidFeature<HangingCaveBlockDecoratorConfig> HANGING_CAVE_BLOCK = register("hanging_cave_block", new HangingCaveBlockDecorator(HangingCaveBlockDecoratorConfig.CODEC));
+	public static SpheroidFeature<XMarksTheSpotDecoratorConfig> X_SPOT = register("x_spot", new XMarksTheSpotDecorator(XMarksTheSpotDecoratorConfig.CODEC));
+	public static SpheroidFeature<HugePlantDecoratorConfig> HUGE_PLANT = register("huge_plant", new HugePlantDecorator(HugePlantDecoratorConfig.CODEC));
+	public static SpheroidFeature<HugePlantDecoratorConfig> HUGE_HANGING_PLANT = register("huge_hanging_plant", new HugePlantDecorator(HugePlantDecoratorConfig.CODEC));
+	public static SpheroidFeature<DripleafDecoratorConfig> DRIPLEAF = register("dripleaf", new DripleafDecorator(DripleafDecoratorConfig.CODEC));
+	public static SpheroidFeature<SpheroidFeatureConfig.DefaultSpheroidFeatureConfig> COCOA = register("cocoa", new CocoaDecorator(SpheroidFeatureConfig.DefaultSpheroidFeatureConfig.CODEC));
+	public static SpheroidFeature<SpheroidFeatureConfig.DefaultSpheroidFeatureConfig> SEA_GREENS = register("sea_greens", new SeaGreensDecorator(SpheroidFeatureConfig.DefaultSpheroidFeatureConfig.CODEC));
+	public static SpheroidFeature<RuinedPortalDecoratorConfig> RUINED_PORTAL = register("ruined_portal", new RuinedPortalDecorator(RuinedPortalDecoratorConfig.CODEC));
+	public static SpheroidFeature<SpheroidFeatureConfig.DefaultSpheroidFeatureConfig> END_PORTAL = register("end_portal", new EndPortalDecorator(SpheroidFeatureConfig.DefaultSpheroidFeatureConfig.CODEC));
+	public static SpheroidFeature<SpheroidFeatureConfig.DefaultSpheroidFeatureConfig> END_GATEWAY = register("end_gateway", new EndGatewayDecorator(SpheroidFeatureConfig.DefaultSpheroidFeatureConfig.CODEC));
+	public static SpheroidFeature<ChorusFruitDecoratorConfig> CHORUS_FRUIT = register("chorus_fruit", new ChorusFruitDecorator(ChorusFruitDecoratorConfig.CODEC));
+	
+	private final MapCodec<ConfiguredSpheroidFeature<FC, SpheroidFeature<FC>>> codec;
+	
+	public SpheroidFeature(Codec<FC> configCodec) {
+		this.codec = configCodec.fieldOf("config").xmap((config) -> new ConfiguredSpheroidFeature(this, config), ConfiguredSpheroidFeature::config);
 	}
 	
-	protected abstract SpheroidDecoratorType<?> getType();
+	public static void initialize() {
 	
-	/**
-	 * In contrast to vanilla the spheroid decorators are queried by the spheroid
-	 * not ran after the chunk generation
-	 * The spheroid tracks all blocks that can be decorated and the decorator
-	 * takes them, checks for spawning criteria and
-	 */
-	public abstract void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random);
+	}
+	
+	private static <C extends SpheroidFeatureConfig, F extends SpheroidFeature<C>> F register(String name, F feature) {
+		return Registry.register(StarryRegistries.SPHEROID_FEATURE, name, feature);
+	}
+	
+	public MapCodec<ConfiguredSpheroidFeature<FC, SpheroidFeature<FC>>> getCodec() {
+		return this.codec;
+	}
+	
+	public abstract boolean generate(SpheroidFeatureContext<FC> context);
+	
+	public boolean generateIfValid(FC config, StructureWorldAccess world, Random random, BlockPos pos, Spheroid spheroid) {
+		return world.isValidForSetBlock(pos) && this.generate(new SpheroidFeatureContext<>(world, random, new ChunkPos(pos), spheroid, config));
+	}
 	
 	protected void placeLootChest(@NotNull StructureWorldAccess world, BlockPos blockPos, RegistryKey<LootTable> lootTable, Random random) {
 		BlockState chestBlockState = Blocks.CHEST.getDefaultState();
@@ -212,5 +245,6 @@ public abstract class SpheroidDecorator {
 		}
 		return list;
 	}
+	
 	
 }

@@ -10,12 +10,6 @@ import org.spongepowered.asm.mixin.gen.*;
 @Mixin(EndGatewayBlockEntity.class)
 public interface EndGatewayBlockEntityAccessor {
 	
-	@Accessor("exitPortalPos")
-	BlockPos getExitPortalPos();
-	
-	@Accessor("exitPortalPos")
-	void setExitPortalPos(BlockPos blockPos);
-	
 	@Invoker("setupExitPortalLocation")
 	static BlockPos invokeSetupExitPortalLocation(ServerWorld world, BlockPos pos) {
 		return null;
@@ -25,5 +19,11 @@ public interface EndGatewayBlockEntityAccessor {
 	static void invokeCreatePortal(ServerWorld world, BlockPos pos, EndGatewayFeatureConfig config) {
 	
 	}
+	
+	@Accessor("exitPortalPos")
+	BlockPos getExitPortalPos();
+	
+	@Accessor("exitPortalPos")
+	void setExitPortalPos(BlockPos blockPos);
 	
 }

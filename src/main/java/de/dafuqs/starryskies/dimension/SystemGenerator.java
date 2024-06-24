@@ -50,19 +50,6 @@ public class SystemGenerator {
 	private final List<DefaultSpheroidType> defaultSpheres;
 	private final Map<Identifier, Float> generationGroups = new Object2FloatArrayMap<>();
 	
-	public record DefaultSpheroidType(int systemX, int systemZ, int x, int y, int z, Identifier templateID) {
-		public static final Codec<DefaultSpheroidType> CODEC = RecordCodecBuilder.create(
-				instance -> instance.group(
-						Codec.INT.fieldOf("system_x").forGetter(s -> s.systemX),
-						Codec.INT.fieldOf("system_y").forGetter(s -> s.systemZ),
-						Codec.INT.fieldOf("x").forGetter(s -> s.x),
-						Codec.INT.fieldOf("y").forGetter(s -> s.y),
-						Codec.INT.fieldOf("z").forGetter(s -> s.z),
-						Identifier.CODEC.fieldOf("id").forGetter(s -> s.templateID)
-				).apply(instance, DefaultSpheroidType::new)
-		);
-	}
-	
 	public SystemGenerator(int systemSizeChunks, int spheresPerSystem, int minDistanceBetweenSpheres, int floorHeight, BlockState floorState, BlockState bottomState, List<DefaultSpheroidType> defaultSpheres) {
 		this.systemSizeChunks = systemSizeChunks;
 		this.spheresPerSystem = spheresPerSystem;
@@ -156,6 +143,19 @@ public class SystemGenerator {
 		return system;
 	}
 	
+	public record DefaultSpheroidType(int systemX, int systemZ, int x, int y, int z, Identifier templateID) {
+		public static final Codec<DefaultSpheroidType> CODEC = RecordCodecBuilder.create(
+				instance -> instance.group(
+						Codec.INT.fieldOf("system_x").forGetter(s -> s.systemX),
+						Codec.INT.fieldOf("system_y").forGetter(s -> s.systemZ),
+						Codec.INT.fieldOf("x").forGetter(s -> s.x),
+						Codec.INT.fieldOf("y").forGetter(s -> s.y),
+						Codec.INT.fieldOf("z").forGetter(s -> s.z),
+						Identifier.CODEC.fieldOf("id").forGetter(s -> s.templateID)
+				).apply(instance, DefaultSpheroidType::new)
+		);
+	}
+	
 	public record System(List<Spheroid> spheroids) implements Iterable<Spheroid> {
 		
 		private static System generateSystem(SystemGenerator systemGenerator, int bottomY, int worldHeight, long seed, @NotNull Point systemPoint) {
@@ -220,7 +220,7 @@ public class SystemGenerator {
 			for (DefaultSpheroidType defaultSphere : systemGenerator.defaultSpheres) {
 				if (systemPointX == defaultSphere.systemX && systemPointZ == defaultSphere.systemZ) {
 					Spheroid.Template<?> template = StarryRegistries.SPHEROID_TEMPLATE.get(defaultSphere.templateID);
-					if(template != null) {
+					if (template != null) {
 						Spheroid spheroid = template.generate(systemRandom);
 						spheroid.setPosition(new BlockPos(defaultSphere.x, defaultSphere.y, defaultSphere.z));
 						defaultSpheroids.add(spheroid);

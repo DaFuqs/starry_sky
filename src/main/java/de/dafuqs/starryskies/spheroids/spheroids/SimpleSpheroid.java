@@ -3,7 +3,7 @@ package de.dafuqs.starryskies.spheroids.spheroids;
 import com.mojang.serialization.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
-import de.dafuqs.starryskies.spheroids.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.util.*;
@@ -11,49 +11,22 @@ import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.chunk.*;
 
-import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
-
 import java.util.*;
+
+import static de.dafuqs.starryskies.Support.*;
 
 public class SimpleSpheroid extends Spheroid {
 	
 	private final BlockState blockState;
 	
-	public SimpleSpheroid(SimpleSpheroid.Template template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+	public SimpleSpheroid(SimpleSpheroid.Template template, float radius, List<ConfiguredSpheroidFeature<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 						  BlockState blockState) {
 		
 		super(template, radius, decorators, spawns, random);
 		this.blockState = blockState;
 	}
 	
-	public static class Template extends Spheroid.Template<BlockState> {
-		
-		public static final MapCodec<SimpleSpheroid.Template> CODEC = createCodec(BLOCKSTATE_STRING_CODEC.fieldOf("block"), Template::new);
-
-		protected final BlockState state;
-
-		public Template(SharedConfig sharedConfig, BlockState state) {
-			super(sharedConfig);
-			this.state = state;
-		}
-
-		@Override
-		public SpheroidTemplateType<Template> getType() {
-			return SpheroidTemplateType.SIMPLE;
-		}
-
-		@Override
-		public BlockState config() {
-			return state;
-		}
-
-		@Override
-		public SimpleSpheroid generate(ChunkRandom random) {
-			return new SimpleSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, state);
-		}
-		
-	}
-	
+	@Override
 	public String getDescription() {
 		return "+++ SimpleSpheroid +++" +
 				"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
@@ -62,6 +35,7 @@ public class SimpleSpheroid extends Spheroid {
 				"\nBlock: " + this.blockState.toString();
 	}
 	
+	@Override
 	public void generate(Chunk chunk) {
 		int chunkX = chunk.getPos().x;
 		int chunkZ = chunk.getPos().z;
@@ -88,6 +62,34 @@ public class SimpleSpheroid extends Spheroid {
 				}
 			}
 		}
+	}
+	
+	public static class Template extends Spheroid.Template<BlockState> {
+		
+		public static final MapCodec<SimpleSpheroid.Template> CODEC = createCodec(BLOCKSTATE_STRING_CODEC.fieldOf("block"), Template::new);
+		
+		protected final BlockState state;
+		
+		public Template(SharedConfig sharedConfig, BlockState state) {
+			super(sharedConfig);
+			this.state = state;
+		}
+		
+		@Override
+		public SpheroidTemplateType<Template> getType() {
+			return SpheroidTemplateType.SIMPLE;
+		}
+		
+		@Override
+		public BlockState config() {
+			return state;
+		}
+		
+		@Override
+		public SimpleSpheroid generate(ChunkRandom random) {
+			return new SimpleSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, state);
+		}
+		
 	}
 	
 }

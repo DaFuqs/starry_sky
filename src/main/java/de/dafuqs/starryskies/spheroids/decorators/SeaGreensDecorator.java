@@ -1,6 +1,8 @@
 package de.dafuqs.starryskies.spheroids.decorators;
-import com.mojang.serialization.MapCodec;
+
+import com.mojang.serialization.*;
 import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.*;
@@ -9,28 +11,26 @@ import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
 
 
-public class SeaGreensDecorator extends SpheroidDecorator {
-
-	public static final MapCodec<SeaGreensDecorator> CODEC = MapCodec.unit(SeaGreensDecorator::new);
+public class SeaGreensDecorator extends SpheroidFeature<SpheroidFeatureConfig.DefaultSpheroidFeatureConfig> {
 	
-	// those are all always "waterlogged"
+	// those are all always waterlogged
 	private static final BlockState KELP = Blocks.KELP.getDefaultState(); // the top
 	private static final BlockState KELP_PLANT = Blocks.KELP_PLANT.getDefaultState(); // the middle
 	private static final BlockState SEAGRASS = Blocks.SEAGRASS.getDefaultState();
 	private static final BlockState TALL_SEAGRASS_UPPER = Blocks.TALL_SEAGRASS.getDefaultState().with(TallSeagrassBlock.HALF, DoubleBlockHalf.UPPER);
 	private static final BlockState TALL_SEAGRASS_LOWER = Blocks.TALL_SEAGRASS.getDefaultState().with(TallSeagrassBlock.HALF, DoubleBlockHalf.LOWER);
 	
-	public SeaGreensDecorator() {
-		super();
+	public SeaGreensDecorator(Codec<SpheroidFeatureConfig.DefaultSpheroidFeatureConfig> codec) {
+		super(codec);
 	}
-
+	
 	@Override
-	protected SpheroidDecoratorType<SeaGreensDecorator> getType() {
-		return SpheroidDecoratorType.SEA_GREENS;
-	}
-
-	@Override
-	public void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random) {
+	public boolean generate(SpheroidFeatureContext<SpheroidFeatureConfig.DefaultSpheroidFeatureConfig> context) {
+		StructureWorldAccess world = context.getWorld();
+		Spheroid spheroid = context.getSpheroid();
+		ChunkPos origin = context.getChunkPos();
+		Random random = context.getRandom();
+		
 		for (BlockPos bp : getCaveBottomBlocks(world, origin, spheroid)) {
 			int r = random.nextInt(4);
 			
@@ -54,5 +54,8 @@ public class SeaGreensDecorator extends SpheroidDecorator {
 				}
 			}
 		}
+		
+		return true;
 	}
+	
 }

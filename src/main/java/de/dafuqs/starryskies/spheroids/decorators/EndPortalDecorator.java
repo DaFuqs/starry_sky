@@ -1,44 +1,41 @@
 package de.dafuqs.starryskies.spheroids.decorators;
 
-import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.*;
 import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
 import net.minecraft.util.math.*;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
 
 import java.util.*;
 
-public class EndPortalDecorator extends SpheroidDecorator {
-
-	public static final MapCodec<EndPortalDecorator> CODEC = MapCodec.unit(EndPortalDecorator::new);
+public class EndPortalDecorator extends SpheroidFeature<SpheroidFeatureConfig.DefaultSpheroidFeatureConfig> {
 	
-	public EndPortalDecorator() {
-		super();
+	public EndPortalDecorator(Codec<SpheroidFeatureConfig.DefaultSpheroidFeatureConfig> codec) {
+		super(codec);
 	}
-
+	
 	@Override
-	protected SpheroidDecoratorType<EndPortalDecorator> getType() {
-		return SpheroidDecoratorType.END_PORTAL;
-	}
-
-	@Override
-	public void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random) {
+	public boolean generate(SpheroidFeatureContext<SpheroidFeatureConfig.DefaultSpheroidFeatureConfig> context) {
+		StructureWorldAccess world = context.getWorld();
+		Spheroid spheroid = context.getSpheroid();
+		ChunkPos origin = context.getChunkPos();
+		
 		if (!spheroid.isCenterInChunk(origin)) {
-			return;
+			return false;
 		}
-		this.generate(world, new BlockPos(0, 64, 0), true);
+		return this.generatePortal(world, new BlockPos(0, 64, 0), true);
 	}
 	
-	public boolean generate(StructureWorldAccess structureWorldAccess, BlockPos blockPos, boolean open) {
-		Iterator<BlockPos> var6 = BlockPos.iterate(new BlockPos(blockPos.getX() - 4, blockPos.getY() - 1, blockPos.getZ() - 4), new BlockPos(blockPos.getX() + 4, blockPos.getY() + 32, blockPos.getZ() + 4)).iterator();
+	private boolean generatePortal(StructureWorldAccess structureWorldAccess, BlockPos blockPos, boolean open) {
+		Iterator<BlockPos> iterator = BlockPos.iterate(new BlockPos(blockPos.getX() - 4, blockPos.getY() - 1, blockPos.getZ() - 4), new BlockPos(blockPos.getX() + 4, blockPos.getY() + 32, blockPos.getZ() + 4)).iterator();
 		
 		while (true) {
 			BlockPos blockPos2;
 			boolean bl;
 			do {
-				if (!var6.hasNext()) {
+				if (!iterator.hasNext()) {
 					for (int i = 0; i < 4; ++i) {
 						structureWorldAccess.setBlockState(blockPos.up(i), Blocks.BEDROCK.getDefaultState(), 3);
 					}
@@ -51,7 +48,7 @@ public class EndPortalDecorator extends SpheroidDecorator {
 					return true;
 				}
 				
-				blockPos2 = var6.next();
+				blockPos2 = iterator.next();
 				bl = blockPos2.isWithinDistance(blockPos, 2.5D);
 			} while (!bl && !blockPos2.isWithinDistance(blockPos, 3.5D));
 			

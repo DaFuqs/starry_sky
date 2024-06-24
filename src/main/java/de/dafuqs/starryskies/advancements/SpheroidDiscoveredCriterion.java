@@ -12,6 +12,15 @@ import java.util.*;
 
 public class SpheroidDiscoveredCriterion extends AbstractCriterion<SpheroidDiscoveredCriterion.Conditions> {
 	
+	@Override
+	public Codec<Conditions> getConditionsCodec() {
+		return Conditions.CODEC;
+	}
+	
+	public void trigger(ServerPlayerEntity player, Spheroid spheroid) {
+		this.trigger(player, (conditions) -> conditions.matches(spheroid.getTemplate().getID()));
+	}
+	
 	public record Conditions(Optional<LootContextPredicate> player,
 							 List<Identifier> identifiers) implements AbstractCriterion.Conditions {
 		
@@ -37,15 +46,6 @@ public class SpheroidDiscoveredCriterion extends AbstractCriterion<SpheroidDisco
 			return false;
 		}
 		
-	}
-	
-	@Override
-	public Codec<Conditions> getConditionsCodec() {
-		return Conditions.CODEC;
-	}
-	
-	public void trigger(ServerPlayerEntity player, Spheroid spheroid) {
-		this.trigger(player, (conditions) -> conditions.matches(spheroid.getTemplate().getID()));
 	}
 	
 }

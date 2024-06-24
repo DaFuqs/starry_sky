@@ -1,11 +1,11 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
 import net.minecraft.entity.*;
@@ -24,7 +24,7 @@ public class DungeonSpheroid extends Spheroid {
 	private final BlockState shellBlock;
 	private final float shellRadius;
 	
-	public DungeonSpheroid(Spheroid.Template<?> template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+	public DungeonSpheroid(Spheroid.Template<?> template, float radius, List<ConfiguredSpheroidFeature<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 						   EntityType<?> entityType, BlockState shellBlock, float shellRadius) {
 		
 		super(template, radius, decorators, spawns, random);
@@ -32,52 +32,6 @@ public class DungeonSpheroid extends Spheroid {
 		this.entityType = entityType;
 		this.shellBlock = shellBlock;
 		this.shellRadius = shellRadius;
-	}
-	
-	public static class Template extends Spheroid.Template<Template.Config> {
-
-		public record Config(EntityType<?> entityType, BlockStateSupplier shellBlock, int minShellRadius, int maxShellRadius) {
-			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
-					instance -> instance.group(
-							Registries.ENTITY_TYPE.getCodec().fieldOf("entity_type").forGetter(Config::entityType),
-							BlockStateSupplier.CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
-							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
-							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius)
-					).apply(instance, Config::new)
-			);
-		}
-
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
-		
-		private final EntityType<?> entityType;
-		private final BlockStateSupplier shellBlock;
-		private final int minShellRadius;
-		private final int maxShellRadius;
-
-		public Template(SharedConfig shared, Config config) {
-			super(shared);
-			this.entityType = config.entityType;
-			this.shellBlock = config.shellBlock;
-			this.minShellRadius = config.minShellRadius;
-			this.maxShellRadius = config.maxShellRadius;
-		}
-
-		@Override
-		public SpheroidTemplateType<Template> getType() {
-			return SpheroidTemplateType.DUNGEON;
-		}
-
-		@Override
-		public Config config() {
-			return new Config(entityType, shellBlock, minShellRadius, maxShellRadius);
-		}
-
-		@Override
-		public DungeonSpheroid generate(ChunkRandom random) {
-			int shellRadius = Support.getRandomBetween(random, this.minShellRadius, this.maxShellRadius);
-			return new DungeonSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, entityType, shellBlock.get(random), shellRadius);
-		}
-		
 	}
 	
 	@Override
@@ -142,4 +96,52 @@ public class DungeonSpheroid extends Spheroid {
 		}
 	}
 	
+	public static class Template extends Spheroid.Template<Template.Config> {
+		
+		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		private final EntityType<?> entityType;
+		private final BlockStateSupplier shellBlock;
+		private final int minShellRadius;
+		private final int maxShellRadius;
+		
+		public Template(SharedConfig shared, Config config) {
+			super(shared);
+			this.entityType = config.entityType;
+			this.shellBlock = config.shellBlock;
+			this.minShellRadius = config.minShellRadius;
+			this.maxShellRadius = config.maxShellRadius;
+		}
+		
+		@Override
+		public SpheroidTemplateType<Template> getType() {
+			return SpheroidTemplateType.DUNGEON;
+		}
+		
+		@Override
+		public Config config() {
+			return new Config(entityType, shellBlock, minShellRadius, maxShellRadius);
+		}
+		
+		@Override
+		public DungeonSpheroid generate(ChunkRandom random) {
+			int shellRadius = Support.getRandomBetween(random, this.minShellRadius, this.maxShellRadius);
+			return new DungeonSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, entityType, shellBlock.get(random), shellRadius);
+		}
+		
+		public record Config(EntityType<?> entityType, BlockStateSupplier shellBlock, int minShellRadius,
+							 int maxShellRadius) {
+			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
+					instance -> instance.group(
+							Registries.ENTITY_TYPE.getCodec().fieldOf("entity_type").forGetter(Config::entityType),
+							BlockStateSupplier.CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
+							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius)
+					).apply(instance, Config::new)
+			);
+		}
+		
+	}
+	
 }
+	
+	

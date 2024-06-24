@@ -1,11 +1,11 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.loot.*;
@@ -17,7 +17,7 @@ import net.minecraft.world.chunk.*;
 
 import java.util.*;
 
-import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
+import static de.dafuqs.starryskies.Support.*;
 
 public class CaveSpheroid extends Spheroid {
 	
@@ -29,7 +29,7 @@ public class CaveSpheroid extends Spheroid {
 	private final float shellRadius;
 	RegistryKey<LootTable> chestLootTable;
 	
-	public CaveSpheroid(Spheroid.Template<?> template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+	public CaveSpheroid(Spheroid.Template<?> template, float radius, List<ConfiguredSpheroidFeature<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 						BlockState caveFloorBlock, BlockState shellBlock, float shellRadius, BlockState topBlock, BlockState bottomBlock, RegistryKey<LootTable> chestLootTable) {
 		
 		super(template, radius, decorators, spawns, random);
@@ -40,86 +40,6 @@ public class CaveSpheroid extends Spheroid {
 		this.topBlock = topBlock;
 		this.bottomBlock = bottomBlock;
 		this.chestLootTable = chestLootTable;
-	}
-	
-	public static class Template extends Spheroid.Template<Template.Config> {
-
-		public record Config(BlockStateSupplier shellBlock, int minShellRadius, int maxShellRadius,
-							 Optional<BlockState> caveFloorBlock, Optional<BlockState> topBlock, Optional<BlockState> bottomBlock,
-							 Optional<Chest> chest) {
-			public record Chest(RegistryKey<LootTable> lootTable, float lootTableChance) {
-				public static final Codec<Chest> CODEC = RecordCodecBuilder.create(
-						instance -> instance.group(
-								RegistryKey.createCodec(RegistryKeys.LOOT_TABLE).fieldOf("loot_table").forGetter(Chest::lootTable),
-								Codec.FLOAT.fieldOf("chance").forGetter(Chest::lootTableChance)
-						).apply(instance, Chest::new)
-				);
-			}
-			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
-					instance -> instance.group(
-							BlockStateSupplier.CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
-							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
-							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
-							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("cave_floor_block").forGetter(Config::caveFloorBlock),
-							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("top_block").forGetter(Config::topBlock),
-							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("bottom_block").forGetter(Config::bottomBlock),
-							Chest.CODEC.lenientOptionalFieldOf("treasure_chest").forGetter(Config::chest)
-					).apply(instance, Config::new)
-			);
-		}
-
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
-		
-		private final BlockStateSupplier shellBlock;
-		private final int minShellRadius;
-		private final int maxShellRadius;
-		private final BlockState caveFloorBlock;
-		private final BlockState topBlock;
-		private final BlockState bottomBlock;
-		private final RegistryKey<LootTable> lootTable;
-		private final float lootTableChance;
-
-		public Template(SharedConfig shared, Config config) {
-			super(shared);
-			this.shellBlock = config.shellBlock;
-			this.minShellRadius = config.minShellRadius;
-			this.maxShellRadius = config.maxShellRadius;
-			this.caveFloorBlock = config.caveFloorBlock.orElse(null);
-			this.topBlock = config.topBlock.orElse(null);
-			this.bottomBlock = config.bottomBlock.orElse(null);
-			var chest = config.chest.orElse(null);
-			if (chest != null) {
-				this.lootTable = chest.lootTable;
-				this.lootTableChance = chest.lootTableChance;
-			} else {
-				this.lootTable = null;
-				this.lootTableChance = 0;
-			}
-		}
-
-		@Override
-		public SpheroidTemplateType<Template> getType() {
-			return SpheroidTemplateType.CAVE;
-		}
-
-		@Override
-		public Config config() {
-			return new Config(shellBlock, minShellRadius, maxShellRadius, Optional.ofNullable(caveFloorBlock),
-					Optional.ofNullable(topBlock), Optional.ofNullable(bottomBlock),
-					Optional.of(new Config.Chest(lootTable, lootTableChance)));
-		}
-
-		@Override
-		public CaveSpheroid generate(ChunkRandom random) {
-			int shellRadius = Support.getRandomBetween(random, this.minShellRadius, this.maxShellRadius);
-			
-			RegistryKey<LootTable> lootTable = null;
-			if (random.nextFloat() < lootTableChance) {
-				lootTable = this.lootTable;
-			}
-			return new CaveSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, caveFloorBlock, shellBlock.get(random), shellRadius, topBlock, bottomBlock, lootTable);
-		}
-		
 	}
 	
 	@Override
@@ -192,4 +112,86 @@ public class CaveSpheroid extends Spheroid {
 		}
 	}
 	
+	public static class Template extends Spheroid.Template<Template.Config> {
+		
+		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		private final BlockStateSupplier shellBlock;
+		private final int minShellRadius;
+		private final int maxShellRadius;
+		private final BlockState caveFloorBlock;
+		private final BlockState topBlock;
+		private final BlockState bottomBlock;
+		private final RegistryKey<LootTable> lootTable;
+		private final float lootTableChance;
+		
+		public Template(SharedConfig shared, Config config) {
+			super(shared);
+			this.shellBlock = config.shellBlock;
+			this.minShellRadius = config.minShellRadius;
+			this.maxShellRadius = config.maxShellRadius;
+			this.caveFloorBlock = config.caveFloorBlock.orElse(null);
+			this.topBlock = config.topBlock.orElse(null);
+			this.bottomBlock = config.bottomBlock.orElse(null);
+			var chest = config.chest.orElse(null);
+			if (chest != null) {
+				this.lootTable = chest.lootTable;
+				this.lootTableChance = chest.lootTableChance;
+			} else {
+				this.lootTable = null;
+				this.lootTableChance = 0;
+			}
+		}
+		
+		@Override
+		public SpheroidTemplateType<Template> getType() {
+			return SpheroidTemplateType.CAVE;
+		}
+		
+		@Override
+		public Config config() {
+			return new Config(shellBlock, minShellRadius, maxShellRadius, Optional.ofNullable(caveFloorBlock),
+					Optional.ofNullable(topBlock), Optional.ofNullable(bottomBlock),
+					Optional.of(new Config.Chest(lootTable, lootTableChance)));
+		}
+		
+		@Override
+		public CaveSpheroid generate(ChunkRandom random) {
+			int shellRadius = Support.getRandomBetween(random, this.minShellRadius, this.maxShellRadius);
+			
+			RegistryKey<LootTable> lootTable = null;
+			if (random.nextFloat() < lootTableChance) {
+				lootTable = this.lootTable;
+			}
+			return new CaveSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, caveFloorBlock, shellBlock.get(random), shellRadius, topBlock, bottomBlock, lootTable);
+		}
+		
+		public record Config(BlockStateSupplier shellBlock, int minShellRadius, int maxShellRadius,
+							 Optional<BlockState> caveFloorBlock, Optional<BlockState> topBlock,
+							 Optional<BlockState> bottomBlock,
+							 Optional<Chest> chest) {
+			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
+					instance -> instance.group(
+							BlockStateSupplier.CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
+							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
+							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("cave_floor_block").forGetter(Config::caveFloorBlock),
+							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("top_block").forGetter(Config::topBlock),
+							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("bottom_block").forGetter(Config::bottomBlock),
+							Chest.CODEC.lenientOptionalFieldOf("treasure_chest").forGetter(Config::chest)
+					).apply(instance, Config::new)
+			);
+			
+			public record Chest(RegistryKey<LootTable> lootTable, float lootTableChance) {
+				public static final Codec<Chest> CODEC = RecordCodecBuilder.create(
+						instance -> instance.group(
+								RegistryKey.createCodec(RegistryKeys.LOOT_TABLE).fieldOf("loot_table").forGetter(Chest::lootTable),
+								Codec.FLOAT.fieldOf("chance").forGetter(Chest::lootTableChance)
+						).apply(instance, Chest::new)
+				);
+			}
+		}
+		
+	}
+	
 }
+	

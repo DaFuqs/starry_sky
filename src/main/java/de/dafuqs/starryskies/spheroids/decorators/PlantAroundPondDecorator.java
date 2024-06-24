@@ -1,7 +1,9 @@
 package de.dafuqs.starryskies.spheroids.decorators;
-import com.mojang.serialization.MapCodec;
+
+import com.mojang.serialization.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
 import net.minecraft.util.math.*;
@@ -11,29 +13,21 @@ import net.minecraft.world.*;
 import java.util.*;
 
 
-public class PlantAroundPondDecorator extends SpheroidDecorator {
-
-	public static final MapCodec<PlantAroundPondDecorator> CODEC = MapCodec.unit(PlantAroundPondDecorator::new);
+public class PlantAroundPondDecorator extends SpheroidFeature<PlantAroundPondDecoratorConfig> {
 	
-	private final BlockState block = Blocks.SUGAR_CANE.getDefaultState();
-	private static final int pond_tries = 3;
-	private static final float plant_chance = 0.5F;
-	private static final int minHeight = 1;
-	private static final int maxHeight = 3;
-
-	// note: block value not changed???? (same behavior as pre-port)
-	public PlantAroundPondDecorator() {
-		super();
+	public PlantAroundPondDecorator(Codec<PlantAroundPondDecoratorConfig> codec) {
+		super(codec);
 	}
-
+	
 	@Override
-	protected SpheroidDecoratorType<PlantAroundPondDecorator> getType() {
-		return SpheroidDecoratorType.PLANT_AROUND_POND;
-	}
-
-	@Override
-	public void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random) {
-		for (BlockPos pos : getTopBlocks(world, origin, spheroid, random, pond_tries)) {
+	public boolean generate(SpheroidFeatureContext<PlantAroundPondDecoratorConfig> context) {
+		StructureWorldAccess world = context.getWorld();
+		Spheroid spheroid = context.getSpheroid();
+		ChunkPos origin = context.getChunkPos();
+		Random random = context.getRandom();
+		PlantAroundPondDecoratorConfig config = context.getConfig();
+		
+		for (BlockPos pos : getTopBlocks(world, origin, spheroid, random, config.pond_tries)) {
 			boolean canGenerate;
 			// check if all 4 sides of the future water pond are solid
 			canGenerate = true;
@@ -54,17 +48,23 @@ public class PlantAroundPondDecorator extends SpheroidDecorator {
 				direction = Direction.Type.HORIZONTAL.iterator();
 				while (direction.hasNext()) {
 					Direction currentDirection = direction.next();
-					if (random.nextFloat() < plant_chance) {
+					if (random.nextFloat() < config.plant_chance) {
 						BlockPos sugarCaneBlockPos = pos.up().offset(currentDirection);
-						int sugarCaneHeight = Support.getRandomBetween(random, minHeight, maxHeight);
+						int sugarCaneHeight = Support.getRandomBetween(random, config.minHeight, config.maxHeight);
 						for (int i = 0; i <= sugarCaneHeight; i++) {
-							if (block.canPlaceAt(world, sugarCaneBlockPos.up(i))) {
-								world.setBlockState(sugarCaneBlockPos.up(i), block, 3);
+							if (config.block.canPlaceAt(world, sugarCaneBlockPos.up(i))) {
+								world.setBlockState(sugarCaneBlockPos.up(i), config.block, 3);
 							}
 						}
 					}
 				}
 			}
 		}
+		
+		return true;
 	}
+	
 }
+
+
+

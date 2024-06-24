@@ -1,7 +1,7 @@
 package de.dafuqs.starryskies.data_loaders;
 
 import com.google.gson.*;
-import com.mojang.serialization.JsonOps;
+import com.mojang.serialization.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
@@ -15,15 +15,17 @@ import net.minecraft.util.profiler.*;
 import java.util.*;
 
 public class SpheroidTemplateLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
-	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-	
 	public static final String ID = "starry_skies/spheres";
 	public static final SpheroidTemplateLoader INSTANCE = new SpheroidTemplateLoader();
-	
+	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 	private static LinkedHashMap<Identifier, LinkedHashMap<Spheroid.Template<?>, Float>> WEIGHTED_SPHEROID_TYPES;
 	
 	protected SpheroidTemplateLoader() {
 		super(GSON, ID);
+	}
+	
+	public static Spheroid.Template<?> getWeightedRandomSpheroid(Identifier distributionTypeID, ChunkRandom systemRandom) {
+		return Support.getWeightedRandom(WEIGHTED_SPHEROID_TYPES.get(distributionTypeID), systemRandom);
 	}
 	
 	@Override
@@ -35,9 +37,9 @@ public class SpheroidTemplateLoader extends JsonDataLoader implements Identifiab
 				WEIGHTED_SPHEROID_TYPES.put(spheroidDistributionType, new LinkedHashMap<>());
 			}
 		});
-
+		
 		final RegistryOps<JsonElement> ops = StarrySkies.registryManager.getOps(JsonOps.INSTANCE);
-		StarryRegistries.SPHEROID_TEMPLATE.reset();
+		
 		prepared.forEach((identifier, jsonElement) -> {
 			JsonObject jsonObject = jsonElement.getAsJsonObject();
 			
@@ -48,11 +50,11 @@ public class SpheroidTemplateLoader extends JsonDataLoader implements Identifiab
 				
 				try {
 					SpheroidTemplateType<?> templateClass = StarryRegistries.SPHEROID_TEMPLATE_TYPE.get(spheroidType);
-                    template = templateClass.getCodec().codec().parse(ops, jsonObject).getOrThrow();
+					template = templateClass.getCodec().codec().parse(ops, jsonObject).getOrThrow();
 					Registry.register(StarryRegistries.SPHEROID_TEMPLATE, identifier, template);
 				} catch (NullPointerException e) {
 					if (StarrySkies.CONFIG.packCreatorMode) {
-                        StarrySkies.LOGGER.warn("Error reading sphere json definition {}: Spheroid Type {} is not known.", identifier, spheroidType);
+						StarrySkies.LOGGER.warn("Error reading sphere json definition {}: Spheroid Type {} is not known.", identifier, spheroidType);
 					}
 					return;
 				}
@@ -67,15 +69,15 @@ public class SpheroidTemplateLoader extends JsonDataLoader implements Identifiab
 				if (generationGroup != null && generationWeight > 0) {
 					LinkedHashMap<Spheroid.Template<?>, Float> weightedMap = WEIGHTED_SPHEROID_TYPES.get(generationGroup);
 					if (weightedMap == null) {
-                        StarrySkies.LOGGER.warn("Spheroid {}specifies non-existing generation_group {}. Will be ignored.", identifier, generationGroup);
+						StarrySkies.LOGGER.warn("Spheroid {}specifies non-existing generation_group {}. Will be ignored.", identifier, generationGroup);
 					} else {
 						weightedMap.put(template, generationWeight);
 					}
 				} else {
-                    StarrySkies.LOGGER.warn("Spheroid {} does not have generation_group and generation_weight set. Will be ignored.", identifier);
+					StarrySkies.LOGGER.warn("Spheroid {} does not have generation_group and generation_weight set. Will be ignored.", identifier);
 				}
 			} catch (Exception e) {
-                StarrySkies.LOGGER.error("Error reading sphere json definition {}: {}", identifier, e);
+				StarrySkies.LOGGER.error("Error reading sphere json definition {}: {}", identifier, e);
 				e.printStackTrace();
 			}
 		});
@@ -84,10 +86,6 @@ public class SpheroidTemplateLoader extends JsonDataLoader implements Identifiab
 	@Override
 	public Identifier getFabricId() {
 		return StarrySkies.locate(ID);
-	}
-	
-	public static Spheroid.Template<?> getWeightedRandomSpheroid(Identifier distributionTypeID, ChunkRandom systemRandom) {
-		return Support.getWeightedRandom(WEIGHTED_SPHEROID_TYPES.get(distributionTypeID), systemRandom);
 	}
 	
 }

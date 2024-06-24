@@ -1,12 +1,10 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.google.gson.*;
-import com.mojang.brigadier.exceptions.*;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.loot.*;
@@ -31,52 +29,11 @@ public class NetherFortressSpheroid extends Spheroid {
 	private final BlockState NETHER_BRICK_FENCE = Blocks.NETHER_BRICK_FENCE.getDefaultState();
 	private final BlockState LAVA = Blocks.LAVA.getDefaultState();
 	
-	
-	public NetherFortressSpheroid(Spheroid.Template<?> template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+	public NetherFortressSpheroid(Spheroid.Template<?> template, float radius, List<ConfiguredSpheroidFeature<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 								  int shellRadius) {
 		
 		super(template, radius, decorators, spawns, random);
 		this.shellRadius = shellRadius;
-	}
-	
-	public static class Template extends Spheroid.Template<Template.Config> {
-
-		public record Config(int minShellRadius, int maxShellRadius) {
-			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
-					instance -> instance.group(
-							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
-							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius)
-					).apply(instance, Config::new)
-			);
-		};
-
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
-
-		final int minShellRadius;
-		final int maxShellRadius;
-
-		public Template(SharedConfig shared, Config config) {
-			super(shared);
-			this.minShellRadius = config.minShellRadius;
-			this.maxShellRadius = config.maxShellRadius;
-		}
-
-		@Override
-		public SpheroidTemplateType<Template> getType() {
-			return SpheroidTemplateType.NETHER_FORTRESS;
-		}
-
-		@Override
-		public Config config() {
-			return new Config(minShellRadius, maxShellRadius);
-		}
-
-		@Override
-		public NetherFortressSpheroid generate(ChunkRandom random) {
-			int shellRadius = Support.getRandomBetween(random, minShellRadius, maxShellRadius);
-			return new NetherFortressSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, shellRadius);
-		}
-		
 	}
 	
 	@Override
@@ -275,5 +232,43 @@ public class NetherFortressSpheroid extends Spheroid {
 		}
 	}
 	
+	public static class Template extends Spheroid.Template<NetherFortressSpheroid.Template.Config> {
+		
+		public static MapCodec<NetherFortressSpheroid.Template> CODEC = createCodec(NetherFortressSpheroid.Template.Config.CODEC, NetherFortressSpheroid.Template::new);
+		private final int minShellRadius;
+		private final int maxShellRadius;
+		
+		public Template(SharedConfig shared, NetherFortressSpheroid.Template.Config config) {
+			super(shared);
+			this.minShellRadius = config.minShellRadius;
+			this.maxShellRadius = config.maxShellRadius;
+		}
+		
+		@Override
+		public SpheroidTemplateType<NetherFortressSpheroid.Template> getType() {
+			return SpheroidTemplateType.NETHER_FORTRESS;
+		}
+		
+		@Override
+		public NetherFortressSpheroid.Template.Config config() {
+			return new NetherFortressSpheroid.Template.Config(minShellRadius, maxShellRadius);
+		}
+		
+		@Override
+		public NetherFortressSpheroid generate(ChunkRandom random) {
+			int shellRadius = Support.getRandomBetween(random, this.minShellRadius, this.maxShellRadius);
+			return new NetherFortressSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, shellRadius);
+		}
+		
+		public record Config(int minShellRadius, int maxShellRadius) {
+			public static MapCodec<NetherFortressSpheroid.Template.Config> CODEC = RecordCodecBuilder.mapCodec(
+					instance -> instance.group(
+							Codec.INT.fieldOf("min_shell_size").forGetter(NetherFortressSpheroid.Template.Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(NetherFortressSpheroid.Template.Config::maxShellRadius)
+					).apply(instance, NetherFortressSpheroid.Template.Config::new)
+			);
+		}
+		
+	}
 	
 }

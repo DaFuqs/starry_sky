@@ -1,8 +1,8 @@
 package de.dafuqs.starryskies.spheroids.decorators;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.*;
 import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
 import net.minecraft.util.math.*;
@@ -11,30 +11,26 @@ import net.minecraft.world.*;
 
 import java.util.*;
 
-public class DripleafDecorator extends SpheroidDecorator {
-
-	public static final MapCodec<DripleafDecorator> CODEC = Codec.INT.fieldOf("tries").xmap(DripleafDecorator::new, d -> d.tries);
+public class DripleafDecorator extends SpheroidFeature<DripleafDecoratorConfig> {
 	
 	private static final BlockState DRIPLEAF_BLOCK_STATE = Blocks.BIG_DRIPLEAF.getDefaultState();
 	private static final BlockState DRIPLEAF_STEM_BLOCK_STATE = Blocks.BIG_DRIPLEAF_STEM.getDefaultState();
 	private static final BlockState WATER_BLOCK_STATE = Blocks.WATER.getDefaultState();
 	private static final BlockState CLAY_BLOCK_STATE = Blocks.CLAY.getDefaultState();
 	
-	private final int tries;
-
-	public DripleafDecorator(int tries) {
-		super();
-		this.tries = tries;
+	public DripleafDecorator(Codec<DripleafDecoratorConfig> codec) {
+		super(codec);
 	}
-
+	
 	@Override
-	protected SpheroidDecoratorType<DripleafDecorator> getType() {
-		return SpheroidDecoratorType.DRIPLEAF;
-	}
-
-	@Override
-	public void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random) {
-		for (BlockPos bp : getCaveBottomBlocks(world, origin, spheroid, random, tries)) {
+	public boolean generate(SpheroidFeatureContext<DripleafDecoratorConfig> context) {
+		StructureWorldAccess world = context.getWorld();
+		Spheroid spheroid = context.getSpheroid();
+		ChunkPos origin = context.getChunkPos();
+		Random random = context.getRandom();
+		DripleafDecoratorConfig config = context.getConfig();
+		
+		for (BlockPos bp : getCaveBottomBlocks(world, origin, spheroid, random, config.tries())) {
 			boolean canGenerate;
 			
 			// check if all 4 sides of the future water pond are solid
@@ -78,5 +74,8 @@ public class DripleafDecorator extends SpheroidDecorator {
 				}
 			}
 		}
+		
+		return true;
 	}
+	
 }

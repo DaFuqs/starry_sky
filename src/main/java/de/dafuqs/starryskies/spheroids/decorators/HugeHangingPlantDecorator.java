@@ -1,69 +1,54 @@
 package de.dafuqs.starryskies.spheroids.decorators;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mojang.serialization.*;
 import de.dafuqs.starryskies.*;
-import de.dafuqs.starryskies.registries.SpheroidDecoratorType;
+import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
 import net.minecraft.util.math.*;
-import net.minecraft.util.math.random.*;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
 
-import java.util.Optional;
-
-import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
-
-public class HugeHangingPlantDecorator extends HugePlantDecorator {
-
-	public static final MapCodec<HugeHangingPlantDecorator> CODEC = RecordCodecBuilder.mapCodec(
-			instance -> instance.group(
-					BLOCKSTATE_STRING_CODEC.fieldOf("block").forGetter(decorator -> decorator.block),
-					BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("first_block").forGetter(decorator -> Optional.ofNullable(decorator.firstBlock)),
-					BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("last_block").forGetter(decorator -> Optional.ofNullable(decorator.lastBlock)),
-					Codec.FLOAT.fieldOf("chance").forGetter(decorator -> decorator.chance),
-					Codec.INT.fieldOf("min_height").forGetter(decorator -> decorator.minHeight),
-					Codec.INT.fieldOf("max_height").forGetter(decorator -> decorator.maxHeight)
-			).apply(instance, HugeHangingPlantDecorator::new)
-	);
-
-	@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-	public HugeHangingPlantDecorator(BlockState block, Optional<BlockState> firstBlock, Optional<BlockState> lastBlock, float chance, int minHeight, int maxHeight) {
-		super(block, firstBlock, lastBlock, chance, minHeight, maxHeight);
+public class HugeHangingPlantDecorator extends SpheroidFeature<HugePlantDecoratorConfig> {
+	
+	public HugeHangingPlantDecorator(Codec<HugePlantDecoratorConfig> codec) {
+		super(codec);
 	}
-
+	
 	@Override
-	protected SpheroidDecoratorType<HugeHangingPlantDecorator> getType() {
-		return SpheroidDecoratorType.HUGE_HANGING_PLANT;
-	}
-
-	@Override
-	public void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random) {
+	public boolean generate(SpheroidFeatureContext<HugePlantDecoratorConfig> context) {
+		StructureWorldAccess world = context.getWorld();
+		Spheroid spheroid = context.getSpheroid();
+		ChunkPos origin = context.getChunkPos();
+		Random random = context.getRandom();
+		HugePlantDecoratorConfig config = context.getConfig();
+		
 		for (BlockPos bp : getBottomBlocks(world, origin, spheroid)) {
-			
-			if (random.nextFloat() < chance) {
-				int thisHeight = Support.getRandomBetween(random, minHeight, maxHeight);
+			if (random.nextFloat() < config.chance) {
+				int thisHeight = Support.getRandomBetween(random, config.minHeight, config.maxHeight);
 				for (int i = 1; i < thisHeight + 1; i++) {
 					if (world.getBlockState(bp.down(i)).isAir()) {
 						
-						BlockState placementBlockState = block;
-						if (i == 1 && firstBlock != null) {
-							placementBlockState = firstBlock;
-						} else if (i == thisHeight && lastBlock != null) {
-							placementBlockState = lastBlock;
+						BlockState placementBlockState = config.block;
+						if (i == 1 && config.firstBlock != null) {
+							placementBlockState = config.firstBlock;
+						} else if (i == thisHeight && config.lastBlock != null) {
+							placementBlockState = config.lastBlock;
 						}
 						
 						world.setBlockState(bp.down(i), placementBlockState, 3);
 					} else {
-						if (i > 1 && lastBlock != null) {
-							world.setBlockState(bp.down(i - 1), lastBlock, 3);
+						if (i > 1 && config.lastBlock != null) {
+							world.setBlockState(bp.down(i - 1), config.lastBlock, 3);
 						}
 						break;
 					}
 				}
 			}
 		}
+		
+		return true;
 	}
 	
 }

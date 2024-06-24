@@ -3,9 +3,11 @@ package de.dafuqs.starryskies.dimension;
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
 import net.minecraft.registry.entry.*;
+import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
@@ -22,17 +24,18 @@ import java.util.concurrent.*;
 
 public class StarrySkyChunkGenerator extends ChunkGenerator {
 	
-	protected final SystemGenerator systemGenerator;
-	
 	public static final MapCodec<StarrySkyChunkGenerator> CODEC = RecordCodecBuilder.mapCodec(
 			(instance) -> instance.group(
 					BiomeSource.CODEC.fieldOf("biome_source").forGetter((generator) -> generator.biomeSource),
-					SystemGenerator.CODEC.fieldOf("system_generator").forGetter((generator) -> generator.systemGenerator)
+					Identifier.CODEC.fieldOf("system_generator").forGetter((generator) -> generator.systemGeneratorId)
 			).apply(instance, StarrySkyChunkGenerator::new));
+	protected final Identifier systemGeneratorId;
+	protected final SystemGenerator systemGenerator;
 	
-	public StarrySkyChunkGenerator(BiomeSource biomeSource, SystemGenerator systemGenerator) {
+	public StarrySkyChunkGenerator(BiomeSource biomeSource, Identifier systemGeneratorId) {
 		super(biomeSource);
-		this.systemGenerator = systemGenerator;
+		this.systemGeneratorId = systemGeneratorId;
+		this.systemGenerator = StarryRegistries.SYSTEM_GENERATOR.get(systemGeneratorId);
 	}
 	
 	@Override

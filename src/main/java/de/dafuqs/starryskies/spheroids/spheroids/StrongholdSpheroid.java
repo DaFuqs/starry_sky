@@ -1,15 +1,11 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.google.gson.*;
-import com.mojang.brigadier.exceptions.*;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
-import de.dafuqs.starryskies.spheroids.BlockStateSupplier;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
-import net.minecraft.command.argument.BlockArgumentParser;
 import net.minecraft.entity.*;
 import net.minecraft.loot.*;
 import net.minecraft.util.*;
@@ -20,9 +16,6 @@ import net.minecraft.world.*;
 import net.minecraft.world.chunk.*;
 
 import java.util.*;
-
-import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
-import static de.dafuqs.starryskies.Support.BLOCK_RESULT_CODEC;
 
 public class StrongholdSpheroid extends Spheroid {
 	
@@ -37,54 +30,14 @@ public class StrongholdSpheroid extends Spheroid {
 	private final BlockState AIR = Blocks.AIR.getDefaultState();
 	
 	private final int shellRadius;
-	private BlockPos portalPosition;
 	private final ArrayList<BlockPos> interiorDecoratorPositions = new ArrayList<>();
+	private BlockPos portalPosition;
 	
-	public StrongholdSpheroid(Spheroid.Template<?> template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+	public StrongholdSpheroid(Spheroid.Template<?> template, float radius, List<ConfiguredSpheroidFeature<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 							  int shellRadius) {
 		
 		super(template, radius, decorators, spawns, random);
 		this.shellRadius = shellRadius;
-	}
-	
-	public static class Template extends Spheroid.Template<Template.Config> {
-
-		public record Config(int minShellRadius, int maxShellRadius) {
-			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
-					instance -> instance.group(
-							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
-							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius)
-					).apply(instance, Config::new)
-			);
-		};
-
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
-		
-		final int minShellRadius;
-		final int maxShellRadius;
-
-		public Template(SharedConfig shared, Config config) {
-			super(shared);
-			this.minShellRadius = config.minShellRadius;
-			this.maxShellRadius = config.maxShellRadius;
-		}
-
-		@Override
-		public SpheroidTemplateType<Template> getType() {
-			return SpheroidTemplateType.STRONGHOLD;
-		}
-
-		@Override
-		public Config config() {
-			return new Config(minShellRadius, maxShellRadius);
-		}
-
-		@Override
-		public StrongholdSpheroid generate(ChunkRandom random) {
-			int shellRadius = Support.getRandomBetween(random, minShellRadius, maxShellRadius);
-			return new StrongholdSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, shellRadius);
-		}
-		
 	}
 	
 	@Override
@@ -157,13 +110,6 @@ public class StrongholdSpheroid extends Spheroid {
 		}
 	}
 	
-	/**
-	 * StrongholdSpheroid uses the decorator to place all the
-	 * internal rooms more easily
-	 *
-	 * @param world  The world
-	 * @param random The decoration random
-	 */
 	@Override
 	public void decorate(StructureWorldAccess world, BlockPos origin, Random random) {
 		ChunkPos thisChunkPos = new ChunkPos(this.position);
@@ -320,6 +266,46 @@ public class StrongholdSpheroid extends Spheroid {
 		}
 		
 		placeCenterChestWithLootTable(worldAccess.getChunk(blockPos), blockPos.up(), LootTables.STRONGHOLD_CORRIDOR_CHEST, random, false);
+	}
+	
+	public static class Template extends Spheroid.Template<Template.Config> {
+		
+		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		
+		;
+		final int minShellRadius;
+		final int maxShellRadius;
+		
+		public Template(SharedConfig shared, Config config) {
+			super(shared);
+			this.minShellRadius = config.minShellRadius;
+			this.maxShellRadius = config.maxShellRadius;
+		}
+		
+		@Override
+		public SpheroidTemplateType<Template> getType() {
+			return SpheroidTemplateType.STRONGHOLD;
+		}
+		
+		@Override
+		public Config config() {
+			return new Config(minShellRadius, maxShellRadius);
+		}
+		
+		@Override
+		public StrongholdSpheroid generate(ChunkRandom random) {
+			int shellRadius = Support.getRandomBetween(random, minShellRadius, maxShellRadius);
+			return new StrongholdSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, shellRadius);
+		}
+		
+		public record Config(int minShellRadius, int maxShellRadius) {
+			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
+					instance -> instance.group(
+							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius)
+					).apply(instance, Config::new)
+			);
+		}
 		
 	}
 	

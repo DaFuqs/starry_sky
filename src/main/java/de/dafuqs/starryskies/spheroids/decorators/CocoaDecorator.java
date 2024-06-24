@@ -1,34 +1,30 @@
 package de.dafuqs.starryskies.spheroids.decorators;
 
-import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.*;
 import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
 import net.minecraft.util.math.*;
-import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
 
-public class CocoaDecorator extends SpheroidDecorator {
-
-	public static final MapCodec<CocoaDecorator> CODEC = MapCodec.unit(CocoaDecorator::new);
+public class CocoaDecorator extends SpheroidFeature<SpheroidFeatureConfig.DefaultSpheroidFeatureConfig> {
 	
 	private final BlockState AIR = Blocks.CAVE_AIR.getDefaultState();
-	private final BlockState COCOA;
+	private final BlockState COCOA = Blocks.COCOA.getDefaultState().with(CocoaBlock.AGE, 2); // 2 = fully grown
 	
-	public CocoaDecorator() {
-		super();
-		this.COCOA = Blocks.COCOA.getDefaultState().with(CocoaBlock.AGE, 2); // 2 = fully grown
+	public CocoaDecorator(Codec<SpheroidFeatureConfig.DefaultSpheroidFeatureConfig> codec) {
+		super(codec);
 	}
-
+	
 	@Override
-	protected SpheroidDecoratorType<CocoaDecorator> getType() {
-		return SpheroidDecoratorType.COCOA;
-	}
-
-	@Override
-	public void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random) {
+	public boolean generate(SpheroidFeatureContext<SpheroidFeatureConfig.DefaultSpheroidFeatureConfig> context) {
+		StructureWorldAccess world = context.getWorld();
+		Spheroid spheroid = context.getSpheroid();
+		ChunkPos origin = context.getChunkPos();
+		
 		if (!spheroid.isCenterInChunk(origin)) {
-			return;
+			return false;
 		}
 		
 		for (int x = -2; x < 3; x++) {
@@ -60,6 +56,8 @@ public class CocoaDecorator extends SpheroidDecorator {
 				}
 			}
 		}
+		
+		return true;
 	}
 	
 }

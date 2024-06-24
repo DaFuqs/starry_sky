@@ -1,12 +1,12 @@
 package de.dafuqs.starryskies.spheroids;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import net.minecraft.entity.*;
-import net.minecraft.registry.Registries;
+import net.minecraft.registry.*;
 
 public class SpheroidEntitySpawnDefinition {
-
+	
 	public static final Codec<SpheroidEntitySpawnDefinition> CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
 					Registries.ENTITY_TYPE.getCodec().fieldOf("type").forGetter(def -> def.entityType),

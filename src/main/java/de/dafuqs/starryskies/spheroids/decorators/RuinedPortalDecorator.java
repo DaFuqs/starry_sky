@@ -1,19 +1,17 @@
 package de.dafuqs.starryskies.spheroids.decorators;
-import com.mojang.serialization.MapCodec;
+
+import com.mojang.serialization.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
 import net.minecraft.block.*;
-import net.minecraft.loot.*;
-import net.minecraft.registry.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
 
 
-public class RuinedPortalDecorator extends SpheroidDecorator {
-
-	public static final MapCodec<RuinedPortalDecorator> CODEC = RegistryKey.createCodec(RegistryKeys.LOOT_TABLE).fieldOf("loot_table").xmap(RuinedPortalDecorator::new, d -> d.lootTable);
+public class RuinedPortalDecorator extends SpheroidFeature<RuinedPortalDecoratorConfig> {
 	
 	private static final BlockState NETHERRACK = Blocks.NETHERRACK.getDefaultState();
 	private static final BlockState MAGMA_BLOCK = Blocks.MAGMA_BLOCK.getDefaultState();
@@ -21,26 +19,24 @@ public class RuinedPortalDecorator extends SpheroidDecorator {
 	private static final BlockState OBSIDIAN = Blocks.OBSIDIAN.getDefaultState();
 	private static final float OBSIDIAN_CHANCE = 0.9F;
 	
-	private final RegistryKey<LootTable> lootTable;
+	public RuinedPortalDecorator(Codec<RuinedPortalDecoratorConfig> codec) {
+		super(codec);
+	}
 	
-	public RuinedPortalDecorator(RegistryKey<LootTable> lootTable) {
-		super();
-		this.lootTable = lootTable;
-	}
-
 	@Override
-	protected SpheroidDecoratorType<RuinedPortalDecorator> getType() {
-		return SpheroidDecoratorType.RUINED_PORTAL;
-	}
-
-	@Override
-	public void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random) {
+	public boolean generate(SpheroidFeatureContext<RuinedPortalDecoratorConfig> context) {
+		StructureWorldAccess world = context.getWorld();
+		Spheroid spheroid = context.getSpheroid();
+		ChunkPos origin = context.getChunkPos();
+		Random random = context.getRandom();
+		RuinedPortalDecoratorConfig config = context.getConfig();
+		
 		if (!spheroid.isCenterInChunk(origin)) {
-			return;
+			return false;
 		}
 		BlockPos spheroidPosition = spheroid.getPosition();
 		
-		// place floor
+		// place the floor
 		for (int x = -spheroid.getRadius(); x <= spheroid.getRadius(); x++) {
 			for (int z = -spheroid.getRadius(); z <= spheroid.getRadius(); z++) {
 				
@@ -98,8 +94,10 @@ public class RuinedPortalDecorator extends SpheroidDecorator {
 		
 		if (centerTopBlockY != spheroidPosition.getY()) {
 			BlockPos lootChestPosition = new BlockPos(randomX, centerTopBlockY, randomZ).up();
-			placeLootChest(world, lootChestPosition, lootTable, random);
+			placeLootChest(world, lootChestPosition, config.lootTable(), random);
 		}
+		
+		return true;
 	}
 	
 	private void placePortalBlock(StructureWorldAccess world, BlockPos blockPos, Random random) {

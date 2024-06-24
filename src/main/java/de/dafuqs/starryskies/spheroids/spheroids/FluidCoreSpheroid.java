@@ -1,13 +1,11 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.google.gson.*;
-import com.mojang.brigadier.exceptions.*;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.spheroids.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.fluid.*;
@@ -30,7 +28,7 @@ public class FluidCoreSpheroid extends Spheroid {
 	private final BlockState coreBlock;
 	private float coreRadius;
 	
-	public FluidCoreSpheroid(Spheroid.Template template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+	public FluidCoreSpheroid(Spheroid.Template<?> template, float radius, List<ConfiguredSpheroidFeature<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 							 BlockState fluidBlock, BlockState shellBlock, float shellRadius, float fillAmount, boolean holeInBottom, BlockState coreBlock, float coreRadius) {
 		
 		super(template, radius, decorators, spawns, random);
@@ -52,80 +50,7 @@ public class FluidCoreSpheroid extends Spheroid {
 		}
 	}
 	
-	public static class Template extends Spheroid.Template<Template.Config> {
-
-		public record Config(Fluid fluid, float minFillAmount, float maxFillAmount, float holeInBottomChance,
-							 BlockStateSupplier shellBlock, int minShellRadius, int maxShellRadius,
-							 BlockStateSupplier coreBlock, int minCoreRadius, int maxCoreRadius) {
-			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
-					instance -> instance.group(
-							Registries.FLUID.getCodec().fieldOf("fluid").forGetter(Config::fluid),
-							Codec.FLOAT.fieldOf("min_fill_amount").forGetter(Config::minFillAmount),
-							Codec.FLOAT.fieldOf("max_fill_amount").forGetter(Config::maxFillAmount),
-							Codec.FLOAT.fieldOf("hole_in_bottom_chance").forGetter(Config::holeInBottomChance),
-							BlockStateSupplier.CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
-							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
-							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
-							BlockStateSupplier.CODEC.fieldOf("core_block").forGetter(Config::coreBlock),
-							Codec.INT.fieldOf("min_core_size").forGetter(Config::minCoreRadius),
-							Codec.INT.fieldOf("max_core_size").forGetter(Config::maxCoreRadius)
-					).apply(instance, Config::new)
-			);
-		}
-
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
-		
-		private final Fluid fluid;
-		private final float minFillAmount;
-		private final float maxFillAmount;
-		private final float holeInBottomChance;
-		
-		private final BlockStateSupplier shellBlock;
-		private final int minShellRadius;
-		private final int maxShellRadius;
-		
-		private final BlockStateSupplier coreBlock;
-		private final int minCoreRadius;
-		private final int maxCoreRadius;
-		
-		public Template(SharedConfig shared, Config config) {
-			super(shared);
-			this.fluid = config.fluid;
-			this.minFillAmount = config.minFillAmount;
-			this.maxFillAmount = config.maxFillAmount;
-			this.holeInBottomChance = config.holeInBottomChance;
-			this.shellBlock = config.shellBlock;
-			this.minShellRadius = config.minShellRadius;
-			this.maxShellRadius = config.maxShellRadius;
-			this.coreBlock = config.coreBlock;
-			this.minCoreRadius = config.minCoreRadius;
-			this.maxCoreRadius = config.maxCoreRadius;
-		}
-
-		@Override
-		public SpheroidTemplateType<Template> getType() {
-			return SpheroidTemplateType.CORE_FLUID;
-		}
-
-		@Override
-		public Config config() {
-			return new Config(fluid, minFillAmount, maxFillAmount, holeInBottomChance,
-					shellBlock, minShellRadius, maxShellRadius,
-					coreBlock, minCoreRadius, maxCoreRadius);
-		}
-
-		@Override
-		public FluidCoreSpheroid generate(ChunkRandom random) {
-			int shellRadius = Support.getRandomBetween(random, this.minShellRadius, this.maxShellRadius);
-			int coreRadius = Support.getRandomBetween(random, this.minCoreRadius, this.maxCoreRadius);
-			float fillAmount = Support.getRandomBetween(random, this.minFillAmount, this.maxFillAmount);
-			boolean holeInBottom = random.nextFloat() < this.holeInBottomChance;
-			BlockState fluidBlockState = this.fluid.getDefaultState().getBlockState();
-			return new FluidCoreSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, fluidBlockState, shellBlock.get(random), shellRadius, fillAmount, holeInBottom, coreBlock.get(random), coreRadius);
-		}
-		
-	}
-	
+	@Override
 	public String getDescription() {
 		return "+++ FluidCoreSpheroid +++" +
 				"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
@@ -181,6 +106,78 @@ public class FluidCoreSpheroid extends Spheroid {
 				}
 			}
 		}
+	}
+	
+	
+	public static class Template extends Spheroid.Template<Template.Config> {
+		
+		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		private final Fluid fluid;
+		private final float minFillAmount;
+		private final float maxFillAmount;
+		private final float holeInBottomChance;
+		private final BlockStateSupplier shellBlock;
+		private final int minShellRadius;
+		private final int maxShellRadius;
+		private final BlockStateSupplier coreBlock;
+		private final int minCoreRadius;
+		private final int maxCoreRadius;
+		
+		public Template(SharedConfig shared, Config config) {
+			super(shared);
+			this.fluid = config.fluid;
+			this.minFillAmount = config.minFillAmount;
+			this.maxFillAmount = config.maxFillAmount;
+			this.holeInBottomChance = config.holeInBottomChance;
+			this.shellBlock = config.shellBlock;
+			this.minShellRadius = config.minShellRadius;
+			this.maxShellRadius = config.maxShellRadius;
+			this.coreBlock = config.coreBlock;
+			this.minCoreRadius = config.minCoreRadius;
+			this.maxCoreRadius = config.maxCoreRadius;
+		}
+		
+		@Override
+		public SpheroidTemplateType<Template> getType() {
+			return SpheroidTemplateType.CORE_FLUID;
+		}
+		
+		@Override
+		public Config config() {
+			return new Config(fluid, minFillAmount, maxFillAmount, holeInBottomChance,
+					shellBlock, minShellRadius, maxShellRadius,
+					coreBlock, minCoreRadius, maxCoreRadius);
+		}
+		
+		@Override
+		public FluidCoreSpheroid generate(ChunkRandom random) {
+			int shellRadius = Support.getRandomBetween(random, this.minShellRadius, this.maxShellRadius);
+			int coreRadius = Support.getRandomBetween(random, this.minCoreRadius, this.maxCoreRadius);
+			float fillAmount = Support.getRandomBetween(random, this.minFillAmount, this.maxFillAmount);
+			boolean holeInBottom = random.nextFloat() < this.holeInBottomChance;
+			BlockState fluidBlockState = this.fluid.getDefaultState().getBlockState();
+			return new FluidCoreSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, fluidBlockState, shellBlock.get(random), shellRadius, fillAmount, holeInBottom, coreBlock.get(random), coreRadius);
+		}
+		
+		public record Config(Fluid fluid, float minFillAmount, float maxFillAmount, float holeInBottomChance,
+							 BlockStateSupplier shellBlock, int minShellRadius, int maxShellRadius,
+							 BlockStateSupplier coreBlock, int minCoreRadius, int maxCoreRadius) {
+			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
+					instance -> instance.group(
+							Registries.FLUID.getCodec().fieldOf("fluid").forGetter(Config::fluid),
+							Codec.FLOAT.fieldOf("min_fill_amount").forGetter(Config::minFillAmount),
+							Codec.FLOAT.fieldOf("max_fill_amount").forGetter(Config::maxFillAmount),
+							Codec.FLOAT.fieldOf("hole_in_bottom_chance").forGetter(Config::holeInBottomChance),
+							BlockStateSupplier.CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
+							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
+							BlockStateSupplier.CODEC.fieldOf("core_block").forGetter(Config::coreBlock),
+							Codec.INT.fieldOf("min_core_size").forGetter(Config::minCoreRadius),
+							Codec.INT.fieldOf("max_core_size").forGetter(Config::maxCoreRadius)
+					).apply(instance, Config::new)
+			);
+		}
+		
 	}
 	
 }

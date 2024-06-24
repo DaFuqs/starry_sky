@@ -1,8 +1,9 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
+
+import com.mojang.serialization.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.util.*;
@@ -12,46 +13,18 @@ import net.minecraft.world.chunk.*;
 
 import java.util.*;
 
-import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
+import static de.dafuqs.starryskies.Support.*;
 
 public class RainbowSpheroid extends Spheroid {
 	
 	private final List<BlockState> rainbowBlocks;
 	
-	public RainbowSpheroid(Spheroid.Template<?> template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+	public RainbowSpheroid(Spheroid.Template<?> template, float radius, List<ConfiguredSpheroidFeature<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 						   List<BlockState> rainbowBlocks) {
 		
 		super(template, radius, decorators, spawns, random);
 		this.radius = radius;
 		this.rainbowBlocks = rainbowBlocks;
-	}
-	
-	public static class Template extends Spheroid.Template<List<BlockState>> {
-
-		public static final MapCodec<Template> CODEC = createCodec(BLOCKSTATE_STRING_CODEC.listOf().fieldOf("blocks"), Template::new);
-		
-		private final List<BlockState> rainbowBlocks = new ArrayList<>();
-
-		public Template(SharedConfig shared, List<BlockState> blocks) {
-			super(shared);
-			this.rainbowBlocks.addAll(blocks);
-		}
-
-		@Override
-		public SpheroidTemplateType<Template> getType() {
-			return SpheroidTemplateType.RAINBOW;
-		}
-
-		@Override
-		public List<BlockState> config() {
-			return rainbowBlocks;
-		}
-
-		@Override
-		public RainbowSpheroid generate(ChunkRandom random) {
-			return new RainbowSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, rainbowBlocks);
-		}
-		
 	}
 	
 	@Override
@@ -96,6 +69,34 @@ public class RainbowSpheroid extends Spheroid {
 				}
 			}
 		}
+	}
+	
+	public static class Template extends Spheroid.Template<List<BlockState>> {
+		
+		public static final MapCodec<Template> CODEC = createCodec(BLOCKSTATE_STRING_CODEC.listOf().fieldOf("blocks"), Template::new);
+		
+		private final List<BlockState> rainbowBlocks = new ArrayList<>();
+		
+		public Template(SharedConfig shared, List<BlockState> blocks) {
+			super(shared);
+			this.rainbowBlocks.addAll(blocks);
+		}
+		
+		@Override
+		public SpheroidTemplateType<Template> getType() {
+			return SpheroidTemplateType.RAINBOW;
+		}
+		
+		@Override
+		public List<BlockState> config() {
+			return rainbowBlocks;
+		}
+		
+		@Override
+		public RainbowSpheroid generate(ChunkRandom random) {
+			return new RainbowSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, rainbowBlocks);
+		}
+		
 	}
 	
 }

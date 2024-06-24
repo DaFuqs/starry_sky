@@ -1,6 +1,6 @@
 package de.dafuqs.starryskies.dimension.sky;
 
-import com.google.common.collect.Queues;
+import com.google.common.collect.*;
 import com.mojang.blaze3d.systems.*;
 import de.dafuqs.starryskies.*;
 import net.fabricmc.api.*;
@@ -14,7 +14,7 @@ import net.minecraft.world.*;
 import org.joml.*;
 
 import java.lang.Math;
-import java.util.Deque;
+import java.util.*;
 
 @Environment(EnvType.CLIENT)
 public class StarrySkyBox implements DimensionRenderingRegistry.SkyRenderer {
@@ -54,7 +54,7 @@ public class StarrySkyBox implements DimensionRenderingRegistry.SkyRenderer {
 		RenderSystem.defaultBlendFunc();
 		RenderSystem.depthMask(false);
 		RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-
+		
 		Matrix4f posMatrix = context.positionMatrix();
 		Deque<Matrix4f> matrices = Queues.newArrayDeque();
 		for (int i = 0; i < 6; ++i) {
@@ -86,7 +86,7 @@ public class StarrySkyBox implements DimensionRenderingRegistry.SkyRenderer {
 			
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder buffer = tessellator.getBuffer();
-
+			
 			buffer.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR_LIGHT);
 			buffer.vertex(posMatrix, -distance, -distance, -distance).texture(0.0F, 0.0F).color(color, color, color, color).light(vertexLight).next();
 			buffer.vertex(posMatrix, -distance, -distance, distance).texture(0.0F, 1.0F).color(color, color, color, color).light(vertexLight).next();

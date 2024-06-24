@@ -6,7 +6,7 @@ import net.minecraft.registry.*;
 import net.minecraft.util.*;
 import net.minecraft.world.gen.feature.*;
 
-public class DecoratorFeatures {
+public class StarrySkiesFeatures {
 	
 	public static Identifier SPHEROID_DECORATOR_FEATURE_ID = StarrySkies.locate("spheroid_decorator");
 	public static Feature<DefaultFeatureConfig> SPHEROID_DECORATOR_FEATURE;

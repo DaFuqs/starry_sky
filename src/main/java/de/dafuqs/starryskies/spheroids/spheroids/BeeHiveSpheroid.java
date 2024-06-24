@@ -1,11 +1,11 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.data_loaders.*;
 import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
 import net.minecraft.block.enums.*;
@@ -20,13 +20,16 @@ import java.util.*;
 
 public class BeeHiveSpheroid extends Spheroid {
 	
+	private static final Identifier FLOWERS_GROUP_ID = StarrySkies.locate("flowers");
+	private static final Identifier TALL_FLOWERS_GROUP_ID = StarrySkies.locate("tall_flowers");
+	
 	private final int shellRadius;
 	private final int flowerRingRadius;
 	private final int flowerRingSpacing;
-	private BeehiveBlockEntity queenBeehiveBlockEntity;
 	private final List<BeehiveBlockEntity> outerBeehiveBlockEntities;
+	private BeehiveBlockEntity queenBeehiveBlockEntity;
 	
-	public BeeHiveSpheroid(Spheroid.Template<?> template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+	public BeeHiveSpheroid(Spheroid.Template<?> template, float radius, List<ConfiguredSpheroidFeature<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 						   int shellRadius, int flowerRingRadius, int flowerRingSpacing) {
 		
 		super(template, radius, decorators, spawns, random);
@@ -35,63 +38,6 @@ public class BeeHiveSpheroid extends Spheroid {
 		this.flowerRingRadius = flowerRingRadius;
 		this.flowerRingSpacing = flowerRingSpacing;
 		this.outerBeehiveBlockEntities = new ArrayList<>();
-	}
-	
-	
-	public static class Template extends Spheroid.Template<Template.Config> {
-
-		public record Config(int minShellSize, int maxShellSize, int minFlowerRingRadius,
-							 int maxFlowerRingRadius, int minFlowerRingSpacing, int maxFlowerRingSpacing) {
-			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
-					instance -> instance.group(
-							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellSize),
-							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellSize),
-							Codec.INT.fieldOf("min_flower_ring_size").forGetter(Config::minFlowerRingRadius),
-							Codec.INT.fieldOf("max_flower_ring_size").forGetter(Config::maxFlowerRingRadius),
-							Codec.INT.fieldOf("min_flower_ring_spacing").forGetter(Config::minFlowerRingSpacing),
-							Codec.INT.fieldOf("max_flower_ring_spacing").forGetter(Config::maxFlowerRingSpacing)
-					).apply(instance, Config::new)
-			);
-		};
-
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
-		
-		private final int minShellSize;
-		private final int maxShellSize;
-		private final int minFlowerRingRadius;
-		private final int maxFlowerRingRadius;
-		private final int minFlowerRingSpacing;
-		private final int maxFlowerRingSpacing;
-
-		public Template(SharedConfig shared, Config config) {
-			super(shared);
-			this.minShellSize = config.minShellSize;
-			this.maxShellSize = config.maxShellSize;
-			this.minFlowerRingRadius = config.minFlowerRingRadius;
-			this.maxFlowerRingRadius = config.maxFlowerRingRadius;
-			this.minFlowerRingSpacing = config.minFlowerRingSpacing;
-			this.maxFlowerRingSpacing = config.maxFlowerRingSpacing;
-		}
-
-		@Override
-		public SpheroidTemplateType<Template> getType() {
-			return SpheroidTemplateType.BEE_HIVE;
-		}
-
-		@Override
-		public Config config() {
-			return new Config(minShellSize, maxShellSize, minFlowerRingRadius,
-					maxFlowerRingRadius, minFlowerRingSpacing, maxFlowerRingSpacing);
-		}
-
-		@Override
-		public BeeHiveSpheroid generate(ChunkRandom random) {
-			int shellRadius = Support.getRandomBetween(random, minShellSize, maxShellSize);
-			int flowerRingRadius = Support.getRandomBetween(random, minFlowerRingRadius, maxFlowerRingRadius);
-			int flowerRingSpacing = Support.getRandomBetween(random, minFlowerRingSpacing, maxFlowerRingSpacing);
-			return new BeeHiveSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, shellRadius, flowerRingRadius, flowerRingSpacing);
-		}
-		
 	}
 	
 	@Override
@@ -205,11 +151,8 @@ public class BeeHiveSpheroid extends Spheroid {
 		}
 	}
 	
-	private static final Identifier FLOWERS_GROUP_ID = StarrySkies.locate("flowers");
-	private static final Identifier TALL_FLOWERS_GROUP_ID = StarrySkies.locate("tall_flowers");
-	
 	public BlockState getRandomFlower(ChunkRandom random) {
-		return  WeightedBlockGroupsLoader.WeightedBlockGroup.getRandomState(FLOWERS_GROUP_ID, random);
+		return WeightedBlockGroupsLoader.WeightedBlockGroup.getRandomState(FLOWERS_GROUP_ID, random);
 	}
 	
 	public BlockState getRandomTallFlower(ChunkRandom random) {
@@ -236,4 +179,62 @@ public class BeeHiveSpheroid extends Spheroid {
 		return BeehiveBlockEntity.BeeData.create(random.nextInt(599));
 	}
 	
+	public static class Template extends Spheroid.Template<Template.Config> {
+		
+		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		
+		;
+		private final int minShellSize;
+		private final int maxShellSize;
+		private final int minFlowerRingRadius;
+		private final int maxFlowerRingRadius;
+		private final int minFlowerRingSpacing;
+		private final int maxFlowerRingSpacing;
+		
+		public Template(SharedConfig shared, Config config) {
+			super(shared);
+			this.minShellSize = config.minShellSize;
+			this.maxShellSize = config.maxShellSize;
+			this.minFlowerRingRadius = config.minFlowerRingRadius;
+			this.maxFlowerRingRadius = config.maxFlowerRingRadius;
+			this.minFlowerRingSpacing = config.minFlowerRingSpacing;
+			this.maxFlowerRingSpacing = config.maxFlowerRingSpacing;
+		}
+		
+		@Override
+		public SpheroidTemplateType<Template> getType() {
+			return SpheroidTemplateType.BEE_HIVE;
+		}
+		
+		@Override
+		public Config config() {
+			return new Config(minShellSize, maxShellSize, minFlowerRingRadius,
+					maxFlowerRingRadius, minFlowerRingSpacing, maxFlowerRingSpacing);
+		}
+		
+		@Override
+		public BeeHiveSpheroid generate(ChunkRandom random) {
+			int shellRadius = Support.getRandomBetween(random, minShellSize, maxShellSize);
+			int flowerRingRadius = Support.getRandomBetween(random, minFlowerRingRadius, maxFlowerRingRadius);
+			int flowerRingSpacing = Support.getRandomBetween(random, minFlowerRingSpacing, maxFlowerRingSpacing);
+			return new BeeHiveSpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, shellRadius, flowerRingRadius, flowerRingSpacing);
+		}
+		
+		public record Config(int minShellSize, int maxShellSize, int minFlowerRingRadius,
+							 int maxFlowerRingRadius, int minFlowerRingSpacing, int maxFlowerRingSpacing) {
+			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
+					instance -> instance.group(
+							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellSize),
+							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellSize),
+							Codec.INT.fieldOf("min_flower_ring_size").forGetter(Config::minFlowerRingRadius),
+							Codec.INT.fieldOf("max_flower_ring_size").forGetter(Config::maxFlowerRingRadius),
+							Codec.INT.fieldOf("min_flower_ring_spacing").forGetter(Config::minFlowerRingSpacing),
+							Codec.INT.fieldOf("max_flower_ring_spacing").forGetter(Config::maxFlowerRingSpacing)
+					).apply(instance, Config::new)
+			);
+		}
+		
+	}
+	
 }
+	

@@ -1,10 +1,10 @@
 package de.dafuqs.starryskies.spheroids.spheroids;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
 import net.minecraft.component.*;
@@ -35,51 +35,9 @@ public class EndCitySpheroid extends Spheroid {
 	private final ArrayList<BlockPos> interiorDecoratorPositions = new ArrayList<>();
 	
 	
-	public EndCitySpheroid(Spheroid.Template<?> template, float radius, List<SpheroidDecorator> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
-						   int shellRadius) {
-		
+	public EndCitySpheroid(Spheroid.Template<?> template, float radius, List<ConfiguredSpheroidFeature<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random, int shellRadius) {
 		super(template, radius, decorators, spawns, random);
 		this.shellRadius = shellRadius;
-	}
-	
-	public static class Template extends Spheroid.Template<Template.Config> {
-
-		public record Config(int minShellRadius, int maxShellRadius) {
-			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
-					instance -> instance.group(
-							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
-							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius)
-					).apply(instance, Config::new)
-			);
-		};
-
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
-
-		final int minShellRadius;
-		final int maxShellRadius;
-
-		public Template(SharedConfig shared, Config config) {
-			super(shared);
-			this.minShellRadius = config.minShellRadius;
-			this.maxShellRadius = config.maxShellRadius;
-		}
-
-		@Override
-		public SpheroidTemplateType<Template> getType() {
-			return SpheroidTemplateType.END_CITY;
-		}
-
-		@Override
-		public Config config() {
-			return new Config(minShellRadius, maxShellRadius);
-		}
-
-		@Override
-		public EndCitySpheroid generate(ChunkRandom random) {
-			int shellRadius = Support.getRandomBetween(random, minShellRadius, maxShellRadius);
-			return new EndCitySpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, shellRadius);
-		}
-		
 	}
 	
 	@Override
@@ -132,11 +90,11 @@ public class EndCitySpheroid extends Spheroid {
 		}
 	}
 	
-	/**
+	/*
 	 * EndCitySpheroid uses the decorator to place all the
 	 * internal rooms more easily
 	 *
-	 * @param world  The world
+	 * @param world The world
 	 * @param random The decoration random
 	 */
 	@Override
@@ -158,6 +116,7 @@ public class EndCitySpheroid extends Spheroid {
 			}
 		}
 	}
+	
 	
 	private void placeSolid(WorldAccess worldAccess, BlockPos blockPos) {
 		for (int x2 = -4; x2 < 5; x2++) {
@@ -303,6 +262,48 @@ public class EndCitySpheroid extends Spheroid {
 				worldAccess.setBlockState(blockPos.up().west(), dragonHeadBlockState, 3);
 			}
 		}
+	}
+	
+	
+	public static class Template extends Spheroid.Template<Template.Config> {
+		
+		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		
+		;
+		final int minShellRadius;
+		final int maxShellRadius;
+		
+		public Template(SharedConfig shared, Config config) {
+			super(shared);
+			this.minShellRadius = config.minShellRadius;
+			this.maxShellRadius = config.maxShellRadius;
+		}
+		
+		@Override
+		public SpheroidTemplateType<Template> getType() {
+			return SpheroidTemplateType.END_CITY;
+		}
+		
+		@Override
+		public Config config() {
+			return new Config(minShellRadius, maxShellRadius);
+		}
+		
+		@Override
+		public EndCitySpheroid generate(ChunkRandom random) {
+			int shellRadius = Support.getRandomBetween(random, minShellRadius, maxShellRadius);
+			return new EndCitySpheroid(this, randomBetween(random, minSize, maxSize), selectDecorators(random), selectSpawns(random), random, shellRadius);
+		}
+		
+		public record Config(int minShellRadius, int maxShellRadius) {
+			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
+					instance -> instance.group(
+							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius)
+					).apply(instance, Config::new)
+			);
+		}
+		
 	}
 	
 }

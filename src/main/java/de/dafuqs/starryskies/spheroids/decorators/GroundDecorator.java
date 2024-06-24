@@ -1,44 +1,34 @@
 package de.dafuqs.starryskies.spheroids.decorators;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mojang.serialization.*;
 import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.spheroids.decoration.*;
 import de.dafuqs.starryskies.spheroids.spheroids.*;
-import net.minecraft.block.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
 
-import static de.dafuqs.starryskies.Support.BLOCKSTATE_STRING_CODEC;
-
-public class GroundDecorator extends SpheroidDecorator {
-
-	public static final MapCodec<GroundDecorator> CODEC = RecordCodecBuilder.mapCodec((instance) ->
-			instance.group(
-					BLOCKSTATE_STRING_CODEC.fieldOf("block").forGetter(decorator -> decorator.block),
-					Codec.floatRange(0.0F, 1.0F).fieldOf("chance").forGetter(decorator -> decorator.chance)
-			).apply(instance, GroundDecorator::new));
-
-	private final BlockState block;
-	private final float chance;
-
-	public GroundDecorator(BlockState block, float chance) {
-		this.block = block;
-		this.chance = chance;
-	}
-
-	@Override
-	protected SpheroidDecoratorType<GroundDecorator> getType() {
-		return SpheroidDecoratorType.GROUND_BLOCK;
+public class GroundDecorator extends SpheroidFeature<GroundDecoratorConfig> {
+	
+	public GroundDecorator(Codec<GroundDecoratorConfig> codec) {
+		super(codec);
 	}
 	
 	@Override
-	public void decorate(StructureWorldAccess world, ChunkPos origin, Spheroid spheroid, Random random) {
+	public boolean generate(SpheroidFeatureContext<GroundDecoratorConfig> context) {
+		StructureWorldAccess world = context.getWorld();
+		Spheroid spheroid = context.getSpheroid();
+		ChunkPos origin = context.getChunkPos();
+		Random random = context.getRandom();
+		GroundDecoratorConfig config = context.getConfig();
+		
 		for (BlockPos bp : getTopBlocks(world, origin, spheroid)) {
-			if (random.nextFloat() < chance) {
-				world.setBlockState(bp, block, 3);
+			if (random.nextFloat() < config.chance()) {
+				world.setBlockState(bp, config.state(), 3);
 			}
 		}
+		
+		return true;
 	}
+	
 }

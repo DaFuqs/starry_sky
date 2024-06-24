@@ -24,11 +24,11 @@ public class GenerationGroupLoader extends JsonDataLoader implements Identifiabl
 	protected void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		prepared.forEach((identifier, jsonElement) -> {
 			final JsonObject jsonObject = jsonElement.getAsJsonObject();
-
+			
 			final Identifier systemGeneratorId = new Identifier(JsonHelper.getString(jsonObject, "system_generator"));
 			final SystemGenerator systemGenerator = StarryRegistries.SYSTEM_GENERATOR.get(systemGeneratorId);
 			
-			if(systemGenerator == null) {
+			if (systemGenerator == null) {
 				StarrySkies.LOGGER.error("Distribution Type {} is asking for System Generator {}, which does not exist", identifier, systemGeneratorId);
 				return;
 			}
