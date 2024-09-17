@@ -140,9 +140,9 @@ public class BeeHiveSpheroid extends Spheroid {
 						chunk.setBlockState(currBlockPos, Blocks.GRASS_BLOCK.getDefaultState(), false);
 						int rand = random.nextInt(4);
 						if (rand == 0) {
-							chunk.setBlockState(currBlockPos.up(), getRandomFlower(registryManager, random), false);
+							chunk.setBlockState(currBlockPos.up(), getRandomFlower(registryManager, random, currBlockPos), false);
 						} else if (rand == 1) {
-							BlockState randomTallFlower = getRandomTallFlower(registryManager, random);
+							BlockState randomTallFlower = getRandomTallFlower(registryManager, random, currBlockPos);
 							chunk.setBlockState(currBlockPos.up(), randomTallFlower.with(TallPlantBlock.HALF, DoubleBlockHalf.LOWER), false);
 							chunk.setBlockState(currBlockPos.up(2), randomTallFlower.with(TallPlantBlock.HALF, DoubleBlockHalf.UPPER), false);
 						}
@@ -152,12 +152,12 @@ public class BeeHiveSpheroid extends Spheroid {
 		}
 	}
 	
-	public BlockState getRandomFlower(DynamicRegistryManager registryManager, ChunkRandom random) {
-		return StarryStateProvider.getRandomState(registryManager, FLOWERS_GROUP_ID, random);
+	public BlockState getRandomFlower(DynamicRegistryManager registryManager, ChunkRandom random, BlockPos pos) {
+		return StarryStateProvider.getRandomState(registryManager, FLOWERS_GROUP_ID, pos, random);
 	}
 	
-	public BlockState getRandomTallFlower(DynamicRegistryManager registryManager, ChunkRandom random) {
-		return StarryStateProvider.getRandomState(registryManager, TALL_FLOWERS_GROUP_ID, random);
+	public BlockState getRandomTallFlower(DynamicRegistryManager registryManager, ChunkRandom random, BlockPos pos) {
+		return StarryStateProvider.getRandomState(registryManager, TALL_FLOWERS_GROUP_ID, pos, random);
 	}
 	
 	@Override
