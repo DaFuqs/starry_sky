@@ -95,15 +95,15 @@ public class DungeonSphere extends PlacedSphere {
 		}
 	}
 
-	public static class Template extends ConfiguredSphere<Template.Config> {
+	public static class Config extends ConfiguredSphere<Config.Config> {
 
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		public static final MapCodec<DungeonSphere.Config> CODEC = createCodec(DungeonSphere.Config.Config.CODEC, DungeonSphere.Config::new);
 		private final EntityType<?> entityType;
 		private final BlockStateProvider shellBlock;
 		private final int minShellRadius;
 		private final int maxShellRadius;
 
-		public Template(SharedConfig shared, Config config) {
+		public Config(SharedConfig shared, Config config) {
 			super(shared);
 			this.entityType = config.entityType;
 			this.shellBlock = config.shellBlock;
@@ -112,8 +112,8 @@ public class DungeonSphere extends PlacedSphere {
 		}
 
 		@Override
-		public Spheres<Template> getType() {
-			return Spheres.DUNGEON;
+		public Sphere<DungeonSphere.Config> getType() {
+			return Sphere.DUNGEON;
 		}
 
 		@Override
@@ -131,11 +131,11 @@ public class DungeonSphere extends PlacedSphere {
 							 int maxShellRadius) {
 			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
-							Registries.ENTITY_TYPE.getCodec().fieldOf("entity_type").forGetter(Config::entityType),
-							BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
-							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
-							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius)
-					).apply(instance, Config::new)
+							Registries.ENTITY_TYPE.getCodec().fieldOf("entity_type").forGetter(DungeonSphere.Config.Config::entityType),
+							BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter(DungeonSphere.Config.Config::shellBlock),
+							Codec.INT.fieldOf("min_shell_size").forGetter(DungeonSphere.Config.Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(DungeonSphere.Config.Config::maxShellRadius)
+					).apply(instance, DungeonSphere.Config.Config::new)
 			);
 		}
 

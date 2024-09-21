@@ -84,15 +84,15 @@ public class MushroomSphere extends PlacedSphere {
 		}
 	}
 
-	public static class Template extends ConfiguredSphere<Template.Config> {
+	public static class Config extends ConfiguredSphere<Config.Config> {
 
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		public static final MapCodec<MushroomSphere.Config> CODEC = createCodec(MushroomSphere.Config.Config.CODEC, MushroomSphere.Config::new);
 		private final BlockState stemBlock;
 		private final BlockState mushroomBlock;
 		private final int minShellRadius;
 		private final int maxShellRadius;
 
-		public Template(SharedConfig shared, Config config) {
+		public Config(SharedConfig shared, Config config) {
 			super(shared);
 			this.stemBlock = config.stemBlock;
 			this.mushroomBlock = config.mushroomBlock;
@@ -101,8 +101,8 @@ public class MushroomSphere extends PlacedSphere {
 		}
 
 		@Override
-		public Spheres<Template> getType() {
-			return Spheres.MUSHROOM;
+		public Sphere<MushroomSphere.Config> getType() {
+			return Sphere.MUSHROOM;
 		}
 
 		@Override
@@ -118,11 +118,11 @@ public class MushroomSphere extends PlacedSphere {
 		public record Config(BlockState stemBlock, BlockState mushroomBlock, int minShellRadius, int maxShellRadius) {
 			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
-							BLOCKSTATE_STRING_CODEC.fieldOf("stem_block").forGetter(Config::stemBlock),
-							BLOCKSTATE_STRING_CODEC.fieldOf("mushroom_block").forGetter(Config::mushroomBlock),
-							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
-							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius)
-					).apply(instance, Config::new)
+							BLOCKSTATE_STRING_CODEC.fieldOf("stem_block").forGetter(MushroomSphere.Config.Config::stemBlock),
+							BLOCKSTATE_STRING_CODEC.fieldOf("mushroom_block").forGetter(MushroomSphere.Config.Config::mushroomBlock),
+							Codec.INT.fieldOf("min_shell_size").forGetter(MushroomSphere.Config.Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(MushroomSphere.Config.Config::maxShellRadius)
+					).apply(instance, MushroomSphere.Config.Config::new)
 			);
 		}
 

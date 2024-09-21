@@ -71,20 +71,20 @@ public class RainbowSphere extends PlacedSphere {
 		}
 	}
 
-	public static class Template extends ConfiguredSphere<List<BlockState>> {
+	public static class Config extends ConfiguredSphere<List<BlockState>> {
 
-		public static final MapCodec<Template> CODEC = createCodec(BLOCKSTATE_STRING_CODEC.listOf().fieldOf("blocks"), Template::new);
+		public static final MapCodec<Config> CODEC = createCodec(BLOCKSTATE_STRING_CODEC.listOf().fieldOf("blocks"), Config::new);
 
 		private final List<BlockState> rainbowBlocks = new ArrayList<>();
 
-		public Template(SharedConfig shared, List<BlockState> blocks) {
+		public Config(SharedConfig shared, List<BlockState> blocks) {
 			super(shared);
 			this.rainbowBlocks.addAll(blocks);
 		}
 
 		@Override
-		public Spheres<Template> getType() {
-			return Spheres.RAINBOW;
+		public Sphere<Config> getType() {
+			return Sphere.RAINBOW;
 		}
 
 		@Override

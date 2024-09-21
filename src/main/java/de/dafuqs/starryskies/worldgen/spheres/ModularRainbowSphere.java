@@ -88,14 +88,14 @@ public class ModularRainbowSphere extends PlacedSphere {
 		}
 	}
 
-	public static class Template extends ConfiguredSphere<Template.Config> {
+	public static class Config extends ConfiguredSphere<Config.Config> {
 
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		public static final MapCodec<ModularRainbowSphere.Config> CODEC = createCodec(ModularRainbowSphere.Config.Config.CODEC, ModularRainbowSphere.Config::new);
 		private final List<BlockState> rainbowBlocks = new ArrayList<>();
 		private final List<BlockState> topBlocks = new ArrayList<>();
 		private final List<BlockState> bottomBlocks = new ArrayList<>();
 
-		public Template(SharedConfig shared, Config config) {
+		public Config(SharedConfig shared, Config config) {
 			super(shared);
 			rainbowBlocks.addAll(config.rainbowBlocks);
 			topBlocks.addAll(config.topBlocks);
@@ -103,8 +103,8 @@ public class ModularRainbowSphere extends PlacedSphere {
 		}
 
 		@Override
-		public Spheres<Template> getType() {
-			return Spheres.MODULAR_RAINBOW;
+		public Sphere<ModularRainbowSphere.Config> getType() {
+			return Sphere.MODULAR_RAINBOW;
 		}
 
 		@Override
@@ -121,10 +121,10 @@ public class ModularRainbowSphere extends PlacedSphere {
 							 List<BlockState> bottomBlocks) {
 			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
-							BLOCKSTATE_STRING_CODEC.listOf().fieldOf("blocks").forGetter(Config::rainbowBlocks),
-							BLOCKSTATE_STRING_CODEC.listOf().fieldOf("top_blocks").forGetter(Config::topBlocks),
-							BLOCKSTATE_STRING_CODEC.listOf().fieldOf("bottom_blocks").forGetter(Config::bottomBlocks)
-					).apply(instance, Config::new)
+							BLOCKSTATE_STRING_CODEC.listOf().fieldOf("blocks").forGetter(ModularRainbowSphere.Config.Config::rainbowBlocks),
+							BLOCKSTATE_STRING_CODEC.listOf().fieldOf("top_blocks").forGetter(ModularRainbowSphere.Config.Config::topBlocks),
+							BLOCKSTATE_STRING_CODEC.listOf().fieldOf("bottom_blocks").forGetter(ModularRainbowSphere.Config.Config::bottomBlocks)
+					).apply(instance, ModularRainbowSphere.Config.Config::new)
 			);
 		}
 

@@ -76,16 +76,16 @@ public class CoreSphere extends PlacedSphere {
 		}
 	}
 
-	public static class Template extends ConfiguredSphere<Template.Config> {
+	public static class Config extends ConfiguredSphere<Config.Config> {
 
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		public static final MapCodec<CoreSphere.Config> CODEC = createCodec(CoreSphere.Config.Config.CODEC, CoreSphere.Config::new);
 
 		private final BlockStateProvider coreBlock;
 		private final BlockStateProvider shellBlock;
 		private final int minCoreRadius;
 		private final int maxCoreRadius;
 
-		public Template(SharedConfig shared, Config config) {
+		public Config(SharedConfig shared, Config config) {
 			super(shared);
 			this.coreBlock = config.coreBlock;
 			this.shellBlock = config.shellBlock;
@@ -94,8 +94,8 @@ public class CoreSphere extends PlacedSphere {
 		}
 
 		@Override
-		public Spheres<Template> getType() {
-			return Spheres.CORE;
+		public Sphere<CoreSphere.Config> getType() {
+			return Sphere.CORE;
 		}
 
 		@Override
@@ -113,13 +113,13 @@ public class CoreSphere extends PlacedSphere {
 
 		public record Config(BlockStateProvider coreBlock, BlockStateProvider shellBlock, int minCoreRadius,
 							 int maxCoreRadius) {
-			public static final MapCodec<Template.Config> CODEC = RecordCodecBuilder.mapCodec(
+			public static final MapCodec<CoreSphere.Config.Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
-							BlockStateProvider.TYPE_CODEC.fieldOf("core_block").forGetter(Config::coreBlock),
-							BlockStateProvider.TYPE_CODEC.fieldOf("main_block").forGetter(Config::shellBlock),
-							Codec.INT.fieldOf("min_core_size").forGetter(Config::minCoreRadius),
-							Codec.INT.fieldOf("max_core_size").forGetter(Config::maxCoreRadius)
-					).apply(instance, Config::new)
+							BlockStateProvider.TYPE_CODEC.fieldOf("core_block").forGetter(CoreSphere.Config.Config::coreBlock),
+							BlockStateProvider.TYPE_CODEC.fieldOf("main_block").forGetter(CoreSphere.Config.Config::shellBlock),
+							Codec.INT.fieldOf("min_core_size").forGetter(CoreSphere.Config.Config::minCoreRadius),
+							Codec.INT.fieldOf("max_core_size").forGetter(CoreSphere.Config.Config::maxCoreRadius)
+					).apply(instance, CoreSphere.Config.Config::new)
 			);
 		}
 

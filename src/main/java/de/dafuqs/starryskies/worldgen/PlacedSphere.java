@@ -2,6 +2,7 @@ package de.dafuqs.starryskies.worldgen;
 
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.worldgen.spheres.*;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
 import net.minecraft.command.argument.*;
@@ -20,9 +21,9 @@ import org.jetbrains.annotations.*;
 import java.io.*;
 import java.util.*;
 
-public abstract class PlacedSphere implements Serializable {
+public abstract class PlacedSphere<SC extends SphereConfig> /* implements Serializable */ {
 
-	protected ConfiguredSphere<?> configuredSphere;
+	protected ConfiguredSphere<? extends Sphere<SC>, SC> configuredSphere;
 	protected float radius;
 	protected List<ConfiguredSphereDecorator<?, ?>> decorators;
 	protected List<Pair<EntityType<?>, Integer>> spawns;
@@ -30,7 +31,7 @@ public abstract class PlacedSphere implements Serializable {
 	protected BlockPos position;
 	protected ChunkRandom random;
 
-	public PlacedSphere(ConfiguredSphere<?> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random) {
+	public PlacedSphere(ConfiguredSphere<? extends Sphere<SC>, SC> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random) {
 		this.configuredSphere = configuredSphere;
 		this.radius = radius;
 		this.decorators = decorators;
@@ -39,7 +40,7 @@ public abstract class PlacedSphere implements Serializable {
 	}
 
 	public Identifier getID(DynamicRegistryManager registryManager) {
-		Registry<ConfiguredSphere<?>> registry = registryManager.get(StarryRegistryKeys.CONFIGURED_SPHERE);
+		Registry<ConfiguredSphere<?, ?>> registry = registryManager.get(StarryRegistryKeys.CONFIGURED_SPHERE);
 		return registry.getId(this.configuredSphere);
 	}
 
@@ -190,10 +191,6 @@ public abstract class PlacedSphere implements Serializable {
 		if (blockEntity instanceof MobSpawnerBlockEntity mobSpawnerBlockEntity) {
 			mobSpawnerBlockEntity.getLogic().setEntityId(entityType, null, worldAccess.getRandom(), blockPos);
 		}
-	}
-
-	public ConfiguredSphere<?> getConfiguredSphere() {
-		return this.configuredSphere;
 	}
 
 }

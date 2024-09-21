@@ -179,9 +179,9 @@ public class BeeHiveSphere extends PlacedSphere {
 		return BeehiveBlockEntity.BeeData.create(random.nextInt(599));
 	}
 
-	public static class Template extends ConfiguredSphere<Template.Config> {
+	public static class Config extends ConfiguredSphere<Config.Config> {
 
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		public static final MapCodec<BeeHiveSphere.Config> CODEC = createCodec(BeeHiveSphere.Config.Config.CODEC, BeeHiveSphere.Config::new);
 
 		private final int minShellSize;
 		private final int maxShellSize;
@@ -190,7 +190,7 @@ public class BeeHiveSphere extends PlacedSphere {
 		private final int minFlowerRingSpacing;
 		private final int maxFlowerRingSpacing;
 
-		public Template(SharedConfig shared, Config config) {
+		public Config(SharedConfig shared, Config config) {
 			super(shared);
 			this.minShellSize = config.minShellSize;
 			this.maxShellSize = config.maxShellSize;
@@ -201,8 +201,8 @@ public class BeeHiveSphere extends PlacedSphere {
 		}
 
 		@Override
-		public Spheres<Template> getType() {
-			return Spheres.BEE_HIVE;
+		public Sphere<BeeHiveSphere.Config> getType() {
+			return Sphere.BEE_HIVE;
 		}
 
 		@Override
@@ -223,13 +223,13 @@ public class BeeHiveSphere extends PlacedSphere {
 							 int maxFlowerRingRadius, int minFlowerRingSpacing, int maxFlowerRingSpacing) {
 			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
-							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellSize),
-							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellSize),
-							Codec.INT.fieldOf("min_flower_ring_size").forGetter(Config::minFlowerRingRadius),
-							Codec.INT.fieldOf("max_flower_ring_size").forGetter(Config::maxFlowerRingRadius),
-							Codec.INT.fieldOf("min_flower_ring_spacing").forGetter(Config::minFlowerRingSpacing),
-							Codec.INT.fieldOf("max_flower_ring_spacing").forGetter(Config::maxFlowerRingSpacing)
-					).apply(instance, Config::new)
+							Codec.INT.fieldOf("min_shell_size").forGetter(BeeHiveSphere.Config.Config::minShellSize),
+							Codec.INT.fieldOf("max_shell_size").forGetter(BeeHiveSphere.Config.Config::maxShellSize),
+							Codec.INT.fieldOf("min_flower_ring_size").forGetter(BeeHiveSphere.Config.Config::minFlowerRingRadius),
+							Codec.INT.fieldOf("max_flower_ring_size").forGetter(BeeHiveSphere.Config.Config::maxFlowerRingRadius),
+							Codec.INT.fieldOf("min_flower_ring_spacing").forGetter(BeeHiveSphere.Config.Config::minFlowerRingSpacing),
+							Codec.INT.fieldOf("max_flower_ring_spacing").forGetter(BeeHiveSphere.Config.Config::maxFlowerRingSpacing)
+					).apply(instance, BeeHiveSphere.Config.Config::new)
 			);
 		}
 

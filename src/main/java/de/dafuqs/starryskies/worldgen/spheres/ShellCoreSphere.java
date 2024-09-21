@@ -87,9 +87,9 @@ public class ShellCoreSphere extends PlacedSphere {
 		}
 	}
 
-	public static class Template extends ConfiguredSphere<Template.Config> {
+	public static class Config extends ConfiguredSphere<Config.Config> {
 
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		public static final MapCodec<ShellCoreSphere.Config> CODEC = createCodec(ShellCoreSphere.Config.Config.CODEC, ShellCoreSphere.Config::new);
 		private final BlockState mainBlock;
 		private final BlockState coreBlock;
 		private final BlockStateProvider shellBlock;
@@ -98,7 +98,7 @@ public class ShellCoreSphere extends PlacedSphere {
 		private final int minShellRadius;
 		private final int maxShellRadius;
 
-		public Template(SharedConfig shared, Config config) {
+		public Config(SharedConfig shared, Config config) {
 			super(shared);
 			this.mainBlock = config.mainBlock;
 			this.coreBlock = config.coreBlock;
@@ -110,8 +110,8 @@ public class ShellCoreSphere extends PlacedSphere {
 		}
 
 		@Override
-		public Spheres<Template> getType() {
-			return Spheres.SHELL_CORE;
+		public Sphere<ShellCoreSphere.Config> getType() {
+			return Sphere.SHELL_CORE;
 		}
 
 		@Override
@@ -129,14 +129,14 @@ public class ShellCoreSphere extends PlacedSphere {
 							 int minCoreRadius, int maxCoreRadius, int minShellRadius, int maxShellRadius) {
 			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
-							BLOCKSTATE_STRING_CODEC.fieldOf("main_block").forGetter(Config::mainBlock),
-							BLOCKSTATE_STRING_CODEC.fieldOf("core_block").forGetter(Config::coreBlock),
-							BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
-							Codec.INT.fieldOf("min_core_size").forGetter(Config::minCoreRadius),
-							Codec.INT.fieldOf("max_core_size").forGetter(Config::maxCoreRadius),
-							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
-							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius)
-					).apply(instance, Config::new)
+							BLOCKSTATE_STRING_CODEC.fieldOf("main_block").forGetter(ShellCoreSphere.Config.Config::mainBlock),
+							BLOCKSTATE_STRING_CODEC.fieldOf("core_block").forGetter(ShellCoreSphere.Config.Config::coreBlock),
+							BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter(ShellCoreSphere.Config.Config::shellBlock),
+							Codec.INT.fieldOf("min_core_size").forGetter(ShellCoreSphere.Config.Config::minCoreRadius),
+							Codec.INT.fieldOf("max_core_size").forGetter(ShellCoreSphere.Config.Config::maxCoreRadius),
+							Codec.INT.fieldOf("min_shell_size").forGetter(ShellCoreSphere.Config.Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(ShellCoreSphere.Config.Config::maxShellRadius)
+					).apply(instance, ShellCoreSphere.Config.Config::new)
 			);
 		}
 

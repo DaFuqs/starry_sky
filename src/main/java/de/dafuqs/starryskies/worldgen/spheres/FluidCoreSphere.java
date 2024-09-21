@@ -108,9 +108,9 @@ public class FluidCoreSphere extends PlacedSphere {
 	}
 
 
-	public static class Template extends ConfiguredSphere<Template.Config> {
+	public static class Config extends ConfiguredSphere<Config.Config> {
 
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		public static final MapCodec<FluidCoreSphere.Config> CODEC = createCodec(FluidCoreSphere.Config.Config.CODEC, FluidCoreSphere.Config::new);
 		private final Fluid fluid;
 		private final float minFillAmount;
 		private final float maxFillAmount;
@@ -122,7 +122,7 @@ public class FluidCoreSphere extends PlacedSphere {
 		private final int minCoreRadius;
 		private final int maxCoreRadius;
 
-		public Template(SharedConfig shared, Config config) {
+		public Config(SharedConfig shared, Config config) {
 			super(shared);
 			this.fluid = config.fluid;
 			this.minFillAmount = config.minFillAmount;
@@ -137,8 +137,8 @@ public class FluidCoreSphere extends PlacedSphere {
 		}
 
 		@Override
-		public Spheres<Template> getType() {
-			return Spheres.CORE_FLUID;
+		public Sphere<FluidCoreSphere.Config> getType() {
+			return Sphere.CORE_FLUID;
 		}
 
 		@Override
@@ -164,17 +164,17 @@ public class FluidCoreSphere extends PlacedSphere {
 
 			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
-							Registries.FLUID.getCodec().fieldOf("fluid").forGetter(Config::fluid),
-							Codec.FLOAT.fieldOf("min_fill_amount").forGetter(Config::minFillAmount),
-							Codec.FLOAT.fieldOf("max_fill_amount").forGetter(Config::maxFillAmount),
-							Codec.FLOAT.fieldOf("hole_in_bottom_chance").forGetter(Config::holeInBottomChance),
-							BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
-							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
-							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
-							BlockStateProvider.TYPE_CODEC.fieldOf("core_block").forGetter(Config::coreBlock),
-							Codec.INT.fieldOf("min_core_size").forGetter(Config::minCoreRadius),
-							Codec.INT.fieldOf("max_core_size").forGetter(Config::maxCoreRadius)
-					).apply(instance, Config::new)
+							Registries.FLUID.getCodec().fieldOf("fluid").forGetter(FluidCoreSphere.Config.Config::fluid),
+							Codec.FLOAT.fieldOf("min_fill_amount").forGetter(FluidCoreSphere.Config.Config::minFillAmount),
+							Codec.FLOAT.fieldOf("max_fill_amount").forGetter(FluidCoreSphere.Config.Config::maxFillAmount),
+							Codec.FLOAT.fieldOf("hole_in_bottom_chance").forGetter(FluidCoreSphere.Config.Config::holeInBottomChance),
+							BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter(FluidCoreSphere.Config.Config::shellBlock),
+							Codec.INT.fieldOf("min_shell_size").forGetter(FluidCoreSphere.Config.Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(FluidCoreSphere.Config.Config::maxShellRadius),
+							BlockStateProvider.TYPE_CODEC.fieldOf("core_block").forGetter(FluidCoreSphere.Config.Config::coreBlock),
+							Codec.INT.fieldOf("min_core_size").forGetter(FluidCoreSphere.Config.Config::minCoreRadius),
+							Codec.INT.fieldOf("max_core_size").forGetter(FluidCoreSphere.Config.Config::maxCoreRadius)
+					).apply(instance, FluidCoreSphere.Config.Config::new)
 			);
 		}
 

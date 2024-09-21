@@ -107,15 +107,15 @@ public class ShellSphere extends PlacedSphere {
 		return !this.shellSpeckleBlockStates.isEmpty();
 	}
 
-	public static class Template extends ConfiguredSphere<Template.Config> {
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+	public static class Config extends ConfiguredSphere<Config.Config> {
+		public static final MapCodec<ShellSphere.Config> CODEC = createCodec(ShellSphere.Config.Config.CODEC, ShellSphere.Config::new);
 		private final BlockState innerBlock;
 		private final BlockStateProvider shellBlock;
 		private final int minShellRadius;
 		private final int maxShellRadius;
 		private final LinkedHashMap<BlockArgumentParser.BlockResult, Float> shellSpeckleBlockStates = new LinkedHashMap<>();
 
-		public Template(SharedConfig shared, Config config) {
+		public Config(SharedConfig shared, Config config) {
 			super(shared);
 			this.innerBlock = config.innerBlock;
 			this.shellBlock = config.shellBlock;
@@ -125,8 +125,8 @@ public class ShellSphere extends PlacedSphere {
 		}
 
 		@Override
-		public Spheres<Template> getType() {
-			return Spheres.SHELL;
+		public Sphere<ShellSphere.Config> getType() {
+			return Sphere.SHELL;
 		}
 
 		@Override
@@ -145,12 +145,12 @@ public class ShellSphere extends PlacedSphere {
 
 			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
-							BLOCKSTATE_STRING_CODEC.fieldOf("main_block").forGetter(Config::innerBlock),
-							BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
-							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
-							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
-							SpeckleEntry.CODEC.codec().lenientOptionalFieldOf("shell_speckles").forGetter(Config::speckleEntry)
-					).apply(instance, Config::new)
+							BLOCKSTATE_STRING_CODEC.fieldOf("main_block").forGetter(ShellSphere.Config.Config::innerBlock),
+							BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter(ShellSphere.Config.Config::shellBlock),
+							Codec.INT.fieldOf("min_shell_size").forGetter(ShellSphere.Config.Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(ShellSphere.Config.Config::maxShellRadius),
+							SpeckleEntry.CODEC.codec().lenientOptionalFieldOf("shell_speckles").forGetter(ShellSphere.Config.Config::speckleEntry)
+					).apply(instance, ShellSphere.Config.Config::new)
 			);
 
 			public record SpeckleEntry(BlockArgumentParser.BlockResult result, Float chance) {

@@ -90,16 +90,16 @@ public class GeodeSphere extends PlacedSphere {
 		}
 	}
 
-	public static class Template extends ConfiguredSphere<Template.Config> {
+	public static class Config extends ConfiguredSphere<Config.Config> {
 
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		public static final MapCodec<GeodeSphere.Config> CODEC = createCodec(GeodeSphere.Config.Config.CODEC, GeodeSphere.Config::new);
 		private final BlockState innerBlockState;
 		private final BlockState innerSpecklesBlockState;
 		private final float speckleChance;
 		private final BlockState middleBlockState;
 		private final BlockState outerBlockState;
 
-		public Template(SharedConfig shared, Config config) {
+		public Config(SharedConfig shared, Config config) {
 			super(shared);
 			this.innerBlockState = config.innerBlockState;
 			this.innerSpecklesBlockState = config.innerSpecklesBlockState;
@@ -109,8 +109,8 @@ public class GeodeSphere extends PlacedSphere {
 		}
 
 		@Override
-		public Spheres<Template> getType() {
-			return Spheres.GEODE;
+		public Sphere<GeodeSphere.Config> getType() {
+			return Sphere.GEODE;
 		}
 
 		@Override
@@ -127,12 +127,12 @@ public class GeodeSphere extends PlacedSphere {
 							 BlockState middleBlockState, BlockState outerBlockState) {
 			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
-							BLOCKSTATE_STRING_CODEC.fieldOf("inner_block").forGetter(Config::innerBlockState),
-							BLOCKSTATE_STRING_CODEC.fieldOf("inner_speckles_block").forGetter(Config::innerSpecklesBlockState),
-							Codec.FLOAT.fieldOf("inner_speckles_block_chance").forGetter(Config::speckleChance),
-							BLOCKSTATE_STRING_CODEC.fieldOf("middle_block").forGetter(Config::middleBlockState),
-							BLOCKSTATE_STRING_CODEC.fieldOf("outer_block").forGetter(Config::outerBlockState)
-					).apply(instance, Config::new)
+							BLOCKSTATE_STRING_CODEC.fieldOf("inner_block").forGetter(GeodeSphere.Config.Config::innerBlockState),
+							BLOCKSTATE_STRING_CODEC.fieldOf("inner_speckles_block").forGetter(GeodeSphere.Config.Config::innerSpecklesBlockState),
+							Codec.FLOAT.fieldOf("inner_speckles_block_chance").forGetter(GeodeSphere.Config.Config::speckleChance),
+							BLOCKSTATE_STRING_CODEC.fieldOf("middle_block").forGetter(GeodeSphere.Config.Config::middleBlockState),
+							BLOCKSTATE_STRING_CODEC.fieldOf("outer_block").forGetter(GeodeSphere.Config.Config::outerBlockState)
+					).apply(instance, GeodeSphere.Config.Config::new)
 			);
 		}
 

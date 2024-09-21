@@ -232,26 +232,26 @@ public class NetherFortressSphere extends PlacedSphere {
 		}
 	}
 
-	public static class Template extends ConfiguredSphere<Template.Config> {
+	public static class Config extends ConfiguredSphere<Config.Config> {
 
-		public static MapCodec<NetherFortressSphere.Template> CODEC = createCodec(NetherFortressSphere.Template.Config.CODEC, NetherFortressSphere.Template::new);
+		public static MapCodec<NetherFortressSphere.Config> CODEC = createCodec(NetherFortressSphere.Config.Config.CODEC, NetherFortressSphere.Config::new);
 		private final int minShellRadius;
 		private final int maxShellRadius;
 
-		public Template(SharedConfig shared, NetherFortressSphere.Template.Config config) {
+		public Config(SharedConfig shared, NetherFortressSphere.Config.Config config) {
 			super(shared);
 			this.minShellRadius = config.minShellRadius;
 			this.maxShellRadius = config.maxShellRadius;
 		}
 
 		@Override
-		public Spheres<Template> getType() {
-			return Spheres.NETHER_FORTRESS;
+		public Sphere<NetherFortressSphere.Config> getType() {
+			return Sphere.NETHER_FORTRESS;
 		}
 
 		@Override
-		public NetherFortressSphere.Template.Config config() {
-			return new NetherFortressSphere.Template.Config(minShellRadius, maxShellRadius);
+		public NetherFortressSphere.Config.Config config() {
+			return new NetherFortressSphere.Config.Config(minShellRadius, maxShellRadius);
 		}
 
 		@Override
@@ -261,11 +261,11 @@ public class NetherFortressSphere extends PlacedSphere {
 		}
 
 		public record Config(int minShellRadius, int maxShellRadius) {
-			public static MapCodec<NetherFortressSphere.Template.Config> CODEC = RecordCodecBuilder.mapCodec(
+			public static MapCodec<NetherFortressSphere.Config.Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
-							Codec.INT.fieldOf("min_shell_size").forGetter(NetherFortressSphere.Template.Config::minShellRadius),
-							Codec.INT.fieldOf("max_shell_size").forGetter(NetherFortressSphere.Template.Config::maxShellRadius)
-					).apply(instance, NetherFortressSphere.Template.Config::new)
+							Codec.INT.fieldOf("min_shell_size").forGetter(NetherFortressSphere.Config.Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(NetherFortressSphere.Config.Config::maxShellRadius)
+					).apply(instance, NetherFortressSphere.Config.Config::new)
 			);
 		}
 

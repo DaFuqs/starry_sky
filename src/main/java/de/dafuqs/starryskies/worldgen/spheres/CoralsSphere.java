@@ -124,16 +124,16 @@ public class CoralsSphere extends PlacedSphere {
 		return LIST_WATERLOGGABLE_CORAL_BLOCKS.get(random.nextInt(LIST_WATERLOGGABLE_CORAL_BLOCKS.size()));
 	}
 
-	public static class Template extends ConfiguredSphere<Template.Config> {
+	public static class Config extends ConfiguredSphere<Config.Config> {
 
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		public static final MapCodec<CoralsSphere.Config> CODEC = createCodec(CoralsSphere.Config.Config.CODEC, CoralsSphere.Config::new);
 		private final BlockStateProvider validShellBlocks;
 		private final int minShellRadius;
 		private final int maxShellRadius;
 		private final RegistryKey<LootTable> lootTable;
 		private final float lootTableChance;
 
-		public Template(SharedConfig shared, Config config) {
+		public Config(SharedConfig shared, Config config) {
 			super(shared);
 			this.validShellBlocks = config.validShellBlocks;
 			this.minShellRadius = config.minShellRadius;
@@ -149,8 +149,8 @@ public class CoralsSphere extends PlacedSphere {
 		}
 
 		@Override
-		public Spheres<Template> getType() {
-			return Spheres.CORALS;
+		public Sphere<CoralsSphere.Config> getType() {
+			return Sphere.CORALS;
 		}
 
 		@Override
@@ -170,11 +170,11 @@ public class CoralsSphere extends PlacedSphere {
 							 Optional<Chest> chest) {
 			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
-							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
-							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
-							BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter(Config::validShellBlocks),
-							Chest.CODEC.lenientOptionalFieldOf("treasure_chest").forGetter(Config::chest)
-					).apply(instance, Config::new)
+							Codec.INT.fieldOf("min_shell_size").forGetter(CoralsSphere.Config.Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(CoralsSphere.Config.Config::maxShellRadius),
+							BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter(CoralsSphere.Config.Config::validShellBlocks),
+							Chest.CODEC.lenientOptionalFieldOf("treasure_chest").forGetter(CoralsSphere.Config.Config::chest)
+					).apply(instance, CoralsSphere.Config.Config::new)
 			);
 
 			public record Chest(RegistryKey<LootTable> lootTable, float lootTableChance) {

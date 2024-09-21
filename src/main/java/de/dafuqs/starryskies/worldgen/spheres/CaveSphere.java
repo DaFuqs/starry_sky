@@ -111,9 +111,9 @@ public class CaveSphere extends PlacedSphere {
 		}
 	}
 
-	public static class Template extends ConfiguredSphere<Template.Config> {
+	public static class Config extends ConfiguredSphere<Config.Config> {
 
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		public static final MapCodec<CaveSphere.Config> CODEC = createCodec(CaveSphere.Config.Config.CODEC, CaveSphere.Config::new);
 		private final BlockStateProvider shellBlock;
 		private final int minShellRadius;
 		private final int maxShellRadius;
@@ -123,7 +123,7 @@ public class CaveSphere extends PlacedSphere {
 		private final RegistryKey<LootTable> lootTable;
 		private final float lootTableChance;
 
-		public Template(SharedConfig shared, Config config) {
+		public Config(SharedConfig shared, Config config) {
 			super(shared);
 			this.shellBlock = config.shellBlock;
 			this.minShellRadius = config.minShellRadius;
@@ -142,8 +142,8 @@ public class CaveSphere extends PlacedSphere {
 		}
 
 		@Override
-		public Spheres<Template> getType() {
-			return Spheres.CAVE;
+		public Sphere<CaveSphere.Config> getType() {
+			return Sphere.CAVE;
 		}
 
 		@Override
@@ -170,14 +170,14 @@ public class CaveSphere extends PlacedSphere {
 							 Optional<Chest> chest) {
 			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
-							BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
-							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
-							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
-							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("cave_floor_block").forGetter(Config::caveFloorBlock),
-							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("top_block").forGetter(Config::topBlock),
-							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("bottom_block").forGetter(Config::bottomBlock),
-							Chest.CODEC.lenientOptionalFieldOf("treasure_chest").forGetter(Config::chest)
-					).apply(instance, Config::new)
+							BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter(CaveSphere.Config.Config::shellBlock),
+							Codec.INT.fieldOf("min_shell_size").forGetter(CaveSphere.Config.Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(CaveSphere.Config.Config::maxShellRadius),
+							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("cave_floor_block").forGetter(CaveSphere.Config.Config::caveFloorBlock),
+							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("top_block").forGetter(CaveSphere.Config.Config::topBlock),
+							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("bottom_block").forGetter(CaveSphere.Config.Config::bottomBlock),
+							Chest.CODEC.lenientOptionalFieldOf("treasure_chest").forGetter(CaveSphere.Config.Config::chest)
+					).apply(instance, CaveSphere.Config.Config::new)
 			);
 
 			public record Chest(RegistryKey<LootTable> lootTable, float lootTableChance) {

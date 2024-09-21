@@ -14,8 +14,8 @@ public class StarryRegistryKeys {
 
 	public static final RegistryKey<Registry<SphereDecorator<?>>> SPHERE_DECORATOR = of("starry_skies/decorator");
 	public static final RegistryKey<Registry<ConfiguredSphereDecorator<?, ?>>> CONFIGURED_SPHERE_DECORATOR = of("starry_skies/configured_decorator");
-	public static final RegistryKey<Registry<Spheres<?>>> SPHERE = of("starry_skies/sphere_type");
-	public static final RegistryKey<Registry<ConfiguredSphere<?>>> CONFIGURED_SPHERE = of("starry_skies/sphere");
+	public static final RegistryKey<Registry<Sphere<?>>> SPHERE = of("starry_skies/sphere_type");
+	public static final RegistryKey<Registry<ConfiguredSphere<?, ?>>> CONFIGURED_SPHERE = of("starry_skies/configured_sphere");
 	public static final RegistryKey<Registry<StarryStateProvider>> STATE_PROVIDER = of("starry_skies/state_provider");
 
 	private static <T> RegistryKey<Registry<T>> of(String id) {

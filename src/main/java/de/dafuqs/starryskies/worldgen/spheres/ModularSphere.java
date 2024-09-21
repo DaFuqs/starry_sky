@@ -83,14 +83,14 @@ public class ModularSphere extends PlacedSphere {
 		}
 	}
 
-	public static class Template extends ConfiguredSphere<Template.Config> {
+	public static class Config extends ConfiguredSphere<Config.Config> {
 
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		public static final MapCodec<ModularSphere.Config> CODEC = createCodec(ModularSphere.Config.Config.CODEC, ModularSphere.Config::new);
 		private final BlockState mainBlock;
 		private final BlockState topBlock;
 		private final BlockState bottomBlock;
 
-		public Template(SharedConfig shared, Config config) {
+		public Config(SharedConfig shared, Config config) {
 			super(shared);
 			this.mainBlock = config.mainBlock;
 			this.topBlock = config.topBlock.orElse(null);
@@ -98,8 +98,8 @@ public class ModularSphere extends PlacedSphere {
 		}
 
 		@Override
-		public Spheres<Template> getType() {
-			return Spheres.MODULAR;
+		public Sphere<ModularSphere.Config> getType() {
+			return Sphere.MODULAR;
 		}
 
 		@Override
@@ -115,10 +115,10 @@ public class ModularSphere extends PlacedSphere {
 		public record Config(BlockState mainBlock, Optional<BlockState> topBlock, Optional<BlockState> bottomBlock) {
 			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
-							BLOCKSTATE_STRING_CODEC.fieldOf("main_block").forGetter(Config::mainBlock),
-							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("top_block").forGetter(Config::topBlock),
-							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("bottom_block").forGetter(Config::bottomBlock)
-					).apply(instance, Config::new)
+							BLOCKSTATE_STRING_CODEC.fieldOf("main_block").forGetter(ModularSphere.Config.Config::mainBlock),
+							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("top_block").forGetter(ModularSphere.Config.Config::topBlock),
+							BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("bottom_block").forGetter(ModularSphere.Config.Config::bottomBlock)
+					).apply(instance, ModularSphere.Config.Config::new)
 			);
 		}
 

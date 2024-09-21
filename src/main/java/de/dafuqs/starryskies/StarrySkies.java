@@ -79,7 +79,7 @@ public class StarrySkies implements ModInitializer {
 
 		StarryRegistries.register();
 		StarryFeatures.initialize();
-		Spheres.initialize();
+		Sphere.initialize();
 		SphereDecorators.initialize();
 		StarryAdvancementCriteria.register();
 

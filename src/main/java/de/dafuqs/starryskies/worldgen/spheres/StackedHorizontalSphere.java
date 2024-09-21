@@ -69,20 +69,20 @@ public class StackedHorizontalSphere extends PlacedSphere {
 		}
 	}
 
-	public static class Template extends ConfiguredSphere<List<BlockState>> {
+	public static class Config extends ConfiguredSphere<List<BlockState>> {
 
-		public static final MapCodec<Template> CODEC = createCodec(BLOCKSTATE_STRING_CODEC.listOf().fieldOf("blocks"), Template::new);
+		public static final MapCodec<Config> CODEC = createCodec(BLOCKSTATE_STRING_CODEC.listOf().fieldOf("blocks"), Config::new);
 
 		private final List<BlockState> stripesBlockStates = new ArrayList<>();
 
-		public Template(SharedConfig shared, List<BlockState> blocks) {
+		public Config(SharedConfig shared, List<BlockState> blocks) {
 			super(shared);
 			this.stripesBlockStates.addAll(blocks);
 		}
 
 		@Override
-		public Spheres<Template> getType() {
-			return Spheres.STACKED_HORIZONTAL;
+		public Sphere<Config> getType() {
+			return Sphere.STACKED_HORIZONTAL;
 		}
 
 		@Override

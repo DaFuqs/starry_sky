@@ -91,9 +91,9 @@ public class FluidSphere extends PlacedSphere {
 		}
 	}
 
-	public static class Template extends ConfiguredSphere<Template.Config> {
+	public static class Config extends ConfiguredSphere<Config.Config> {
 
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		public static final MapCodec<FluidSphere.Config> CODEC = createCodec(FluidSphere.Config.Config.CODEC, FluidSphere.Config::new);
 		private final Fluid fluid;
 		private final BlockStateProvider shellBlock;
 		private final int minShellRadius;
@@ -102,7 +102,7 @@ public class FluidSphere extends PlacedSphere {
 		private final float maxFillAmount;
 		private final float holeInBottomChance;
 
-		public Template(SharedConfig shared, Config config) {
+		public Config(SharedConfig shared, Config config) {
 			super(shared);
 			this.fluid = config.fluid;
 			this.shellBlock = config.shellBlock;
@@ -114,8 +114,8 @@ public class FluidSphere extends PlacedSphere {
 		}
 
 		@Override
-		public Spheres<Template> getType() {
-			return Spheres.FLUID;
+		public Sphere<FluidSphere.Config> getType() {
+			return Sphere.FLUID;
 		}
 
 		@Override
@@ -137,14 +137,14 @@ public class FluidSphere extends PlacedSphere {
 							 float minFillAmount, float maxFillAmount, float holeInBottomChance) {
 			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
-							Registries.FLUID.getCodec().fieldOf("fluid").forGetter(Config::fluid),
-							BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter(Config::shellBlock),
-							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
-							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
-							Codec.FLOAT.fieldOf("min_fill_amount").forGetter(Config::minFillAmount),
-							Codec.FLOAT.fieldOf("max_fill_amount").forGetter(Config::maxFillAmount),
-							Codec.FLOAT.fieldOf("hole_in_bottom_chance").forGetter(Config::holeInBottomChance)
-					).apply(instance, Config::new)
+							Registries.FLUID.getCodec().fieldOf("fluid").forGetter(FluidSphere.Config.Config::fluid),
+							BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter(FluidSphere.Config.Config::shellBlock),
+							Codec.INT.fieldOf("min_shell_size").forGetter(FluidSphere.Config.Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(FluidSphere.Config.Config::maxShellRadius),
+							Codec.FLOAT.fieldOf("min_fill_amount").forGetter(FluidSphere.Config.Config::minFillAmount),
+							Codec.FLOAT.fieldOf("max_fill_amount").forGetter(FluidSphere.Config.Config::maxFillAmount),
+							Codec.FLOAT.fieldOf("hole_in_bottom_chance").forGetter(FluidSphere.Config.Config::holeInBottomChance)
+					).apply(instance, FluidSphere.Config.Config::new)
 			);
 		}
 

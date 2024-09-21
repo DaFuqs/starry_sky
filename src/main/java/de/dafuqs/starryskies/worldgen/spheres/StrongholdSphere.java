@@ -268,23 +268,23 @@ public class StrongholdSphere extends PlacedSphere {
 		placeCenterChestWithLootTable(worldAccess.getChunk(blockPos), blockPos.up(), LootTables.STRONGHOLD_CORRIDOR_CHEST, random, false);
 	}
 
-	public static class Template extends ConfiguredSphere<Template.Config> {
+	public static class Config extends ConfiguredSphere<Config.Config> {
 
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		public static final MapCodec<StrongholdSphere.Config> CODEC = createCodec(StrongholdSphere.Config.Config.CODEC, StrongholdSphere.Config::new);
 
 		;
 		final int minShellRadius;
 		final int maxShellRadius;
 
-		public Template(SharedConfig shared, Config config) {
+		public Config(SharedConfig shared, Config config) {
 			super(shared);
 			this.minShellRadius = config.minShellRadius;
 			this.maxShellRadius = config.maxShellRadius;
 		}
 
 		@Override
-		public Spheres<Template> getType() {
-			return Spheres.STRONGHOLD;
+		public Sphere<StrongholdSphere.Config> getType() {
+			return Sphere.STRONGHOLD;
 		}
 
 		@Override
@@ -301,9 +301,9 @@ public class StrongholdSphere extends PlacedSphere {
 		public record Config(int minShellRadius, int maxShellRadius) {
 			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
-							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
-							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius)
-					).apply(instance, Config::new)
+							Codec.INT.fieldOf("min_shell_size").forGetter(StrongholdSphere.Config.Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(StrongholdSphere.Config.Config::maxShellRadius)
+					).apply(instance, StrongholdSphere.Config.Config::new)
 			);
 		}
 

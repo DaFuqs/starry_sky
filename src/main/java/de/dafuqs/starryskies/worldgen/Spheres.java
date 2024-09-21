@@ -1,50 +1,37 @@
 package de.dafuqs.starryskies.worldgen;
 
-import com.mojang.serialization.*;
-import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.worldgen.spheres.*;
 import net.minecraft.registry.*;
-import org.jetbrains.annotations.*;
 
-public class Spheres<P extends ConfiguredSphere<?>> {
+public class Spheres {
 
-	public static final Spheres<SimpleSphere.Template> SIMPLE = register("simple", SimpleSphere.Template.CODEC);
-	public static final Spheres<DungeonSphere.Template> DUNGEON = register("dungeon", DungeonSphere.Template.CODEC);
-	public static final Spheres<CaveSphere.Template> CAVE = register("cave", CaveSphere.Template.CODEC);
-	public static final Spheres<ModularSphere.Template> MODULAR = register("modular", ModularSphere.Template.CODEC);
-	public static final Spheres<CoreSphere.Template> CORE = register("core", CoreSphere.Template.CODEC);
-	public static final Spheres<NetherFortressSphere.Template> NETHER_FORTRESS = register("nether_fortress", NetherFortressSphere.Template.CODEC);
-	public static final Spheres<GeodeSphere.Template> GEODE = register("geode", GeodeSphere.Template.CODEC);
-	public static final Spheres<CoralsSphere.Template> CORALS = register("corals", CoralsSphere.Template.CODEC);
-	public static final Spheres<StrongholdSphere.Template> STRONGHOLD = register("stronghold", StrongholdSphere.Template.CODEC);
-	public static final Spheres<StackedHorizontalSphere.Template> STACKED_HORIZONTAL = register("stacked_horizontal", StackedHorizontalSphere.Template.CODEC);
-	public static final Spheres<EndCitySphere.Template> END_CITY = register("end_city", EndCitySphere.Template.CODEC);
-	public static final Spheres<ShellSphere.Template> SHELL = register("shell", ShellSphere.Template.CODEC);
-	public static final Spheres<FluidSphere.Template> FLUID = register("fluid", FluidSphere.Template.CODEC);
-	public static final Spheres<FluidCoreSphere.Template> CORE_FLUID = register("fluid_core", FluidCoreSphere.Template.CODEC);
-	public static final Spheres<MushroomSphere.Template> MUSHROOM = register("mushroom", MushroomSphere.Template.CODEC);
-	public static final Spheres<ShellCoreSphere.Template> SHELL_CORE = register("shell_core", ShellCoreSphere.Template.CODEC);
-	public static final Spheres<BeeHiveSphere.Template> BEE_HIVE = register("bee_hive", BeeHiveSphere.Template.CODEC);
-	public static final Spheres<OceanMonumentSphere.Template> OCEAN_MONUMENT = register("ocean_monument", OceanMonumentSphere.Template.CODEC);
-	public static final Spheres<RainbowSphere.Template> RAINBOW = register("rainbow", RainbowSphere.Template.CODEC);
-	public static final Spheres<ModularRainbowSphere.Template> MODULAR_RAINBOW = register("modular_rainbow", ModularRainbowSphere.Template.CODEC);
+	public static final Sphere<SimpleSphere.Config> SIMPLE = register("simple", new SimpleSphere(SimpleSphere.Config.CODEC));
+	public static final Sphere<DungeonSphere.Config> DUNGEON = register("dungeon", DungeonSphere.Config.CODEC);
+	public static final Sphere<CaveSphere.Config> CAVE = register("cave", CaveSphere.Config.CODEC);
+	public static final Sphere<ModularSphere.Config> MODULAR = register("modular", ModularSphere.Config.CODEC);
+	public static final Sphere<CoreSphere.Config> CORE = register("core", CoreSphere.Config.CODEC);
+	public static final Sphere<NetherFortressSphere.Config> NETHER_FORTRESS = register("nether_fortress", NetherFortressSphere.Config.CODEC);
+	public static final Sphere<GeodeSphere.Config> GEODE = register("geode", GeodeSphere.Config.CODEC);
+	public static final Sphere<CoralsSphere.Config> CORALS = register("corals", CoralsSphere.Config.CODEC);
+	public static final Sphere<StrongholdSphere.Config> STRONGHOLD = register("stronghold", StrongholdSphere.Config.CODEC);
+	public static final Sphere<StackedHorizontalSphere.Config> STACKED_HORIZONTAL = register("stacked_horizontal", StackedHorizontalSphere.Config.CODEC);
+	public static final Sphere<EndCitySphere.Config> END_CITY = register("end_city", EndCitySphere.Config.CODEC);
+	public static final Sphere<ShellSphere.Config> SHELL = register("shell", ShellSphere.Config.CODEC);
+	public static final Sphere<FluidSphere.Config> FLUID = register("fluid", FluidSphere.Config.CODEC);
+	public static final Sphere<FluidCoreSphere.Config> CORE_FLUID = register("fluid_core", FluidCoreSphere.Config.CODEC);
+	public static final Sphere<MushroomSphere.Config> MUSHROOM = register("mushroom", MushroomSphere.Config.CODEC);
+	public static final Sphere<ShellCoreSphere.Config> SHELL_CORE = register("shell_core", ShellCoreSphere.Config.CODEC);
+	public static final Sphere<BeeHiveSphere.Config> BEE_HIVE = register("bee_hive", BeeHiveSphere.Config.CODEC);
+	public static final Sphere<OceanMonumentSphere.Config> OCEAN_MONUMENT = register("ocean_monument", OceanMonumentSphere.Config.CODEC);
+	public static final Sphere<RainbowSphere.Config> RAINBOW = register("rainbow", RainbowSphere.Config.CODEC);
+	public static final Sphere<ModularRainbowSphere.Config> MODULAR_RAINBOW = register("modular_rainbow", ModularRainbowSphere.Config.CODEC);
 
-	private final MapCodec<P> codec;
-
-	public Spheres(MapCodec<P> codec) {
-		this.codec = codec;
-	}
-
-	private static <P extends ConfiguredSphere<?>> Spheres<P> register(String id, MapCodec<P> codec) {
-		return Registry.register(StarryRegistries.SPHERE, StarrySkies.locate(id), new Spheres<>(codec));
+	private static <C extends SphereConfig, F extends Sphere<C>> F register(String name, F feature) {
+		return Registry.register(StarryRegistries.SPHERE, name, feature);
 	}
 
 	public static void initialize() {
-	}
-
-	public @NotNull MapCodec<P> getCodec() {
-		return this.codec;
 	}
 
 }

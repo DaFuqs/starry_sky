@@ -142,15 +142,15 @@ public class OceanMonumentSphere extends PlacedSphere {
 		}
 	}
 
-	public static class Template extends ConfiguredSphere<Template.Config> {
+	public static class Config extends ConfiguredSphere<Config.Config> {
 
-		public static MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		public static MapCodec<OceanMonumentSphere.Config> CODEC = createCodec(OceanMonumentSphere.Config.Config.CODEC, OceanMonumentSphere.Config::new);
 		private final int minShellRadius;
 		private final int maxShellRadius;
 		private final int minCoreRadius;
 		private final int maxCoreRadius;
 
-		public Template(SharedConfig shared, Config config) {
+		public Config(SharedConfig shared, Config config) {
 			super(shared);
 			this.minShellRadius = config.minShellRadius;
 			this.maxShellRadius = config.maxShellRadius;
@@ -159,8 +159,8 @@ public class OceanMonumentSphere extends PlacedSphere {
 		}
 
 		@Override
-		public Spheres<Template> getType() {
-			return Spheres.OCEAN_MONUMENT;
+		public Sphere<OceanMonumentSphere.Config> getType() {
+			return Sphere.OCEAN_MONUMENT;
 		}
 
 		@Override
@@ -178,11 +178,11 @@ public class OceanMonumentSphere extends PlacedSphere {
 		public record Config(int minShellRadius, int maxShellRadius, int minCoreRadius, int maxCoreRadius) {
 			public static MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
-							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
-							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius),
-							Codec.INT.fieldOf("min_core_size").forGetter(Config::minCoreRadius),
-							Codec.INT.fieldOf("max_core_size").forGetter(Config::maxCoreRadius)
-					).apply(instance, Config::new)
+							Codec.INT.fieldOf("min_shell_size").forGetter(OceanMonumentSphere.Config.Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(OceanMonumentSphere.Config.Config::maxShellRadius),
+							Codec.INT.fieldOf("min_core_size").forGetter(OceanMonumentSphere.Config.Config::minCoreRadius),
+							Codec.INT.fieldOf("max_core_size").forGetter(OceanMonumentSphere.Config.Config::maxCoreRadius)
+					).apply(instance, OceanMonumentSphere.Config.Config::new)
 			);
 		}
 

@@ -265,23 +265,23 @@ public class EndCitySphere extends PlacedSphere {
 	}
 
 
-	public static class Template extends ConfiguredSphere<Template.Config> {
+	public static class Config extends ConfiguredSphere<Config.Config> {
 
-		public static final MapCodec<Template> CODEC = createCodec(Config.CODEC, Template::new);
+		public static final MapCodec<EndCitySphere.Config> CODEC = createCodec(EndCitySphere.Config.Config.CODEC, EndCitySphere.Config::new);
 
 		;
 		final int minShellRadius;
 		final int maxShellRadius;
 
-		public Template(SharedConfig shared, Config config) {
+		public Config(SharedConfig shared, Config config) {
 			super(shared);
 			this.minShellRadius = config.minShellRadius;
 			this.maxShellRadius = config.maxShellRadius;
 		}
 
 		@Override
-		public Spheres<Template> getType() {
-			return Spheres.END_CITY;
+		public Sphere<EndCitySphere.Config> getType() {
+			return Sphere.END_CITY;
 		}
 
 		@Override
@@ -298,9 +298,9 @@ public class EndCitySphere extends PlacedSphere {
 		public record Config(int minShellRadius, int maxShellRadius) {
 			public static final MapCodec<Config> CODEC = RecordCodecBuilder.mapCodec(
 					instance -> instance.group(
-							Codec.INT.fieldOf("min_shell_size").forGetter(Config::minShellRadius),
-							Codec.INT.fieldOf("max_shell_size").forGetter(Config::maxShellRadius)
-					).apply(instance, Config::new)
+							Codec.INT.fieldOf("min_shell_size").forGetter(EndCitySphere.Config.Config::minShellRadius),
+							Codec.INT.fieldOf("max_shell_size").forGetter(EndCitySphere.Config.Config::maxShellRadius)
+					).apply(instance, EndCitySphere.Config.Config::new)
 			);
 		}
 
