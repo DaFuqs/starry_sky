@@ -1,19 +1,18 @@
 package de.dafuqs.starryskies.advancements;
 
 import de.dafuqs.starryskies.*;
-import de.dafuqs.starryskies.spheroids.spheroids.*;
+import de.dafuqs.starryskies.worldgen.*;
 import net.fabricmc.fabric.api.event.lifecycle.v1.*;
-import net.minecraft.registry.*;
 import net.minecraft.server.*;
 import net.minecraft.server.network.*;
 
 import java.util.*;
 
 public class ProximityAdvancementCheckEvent implements ServerTickEvents.EndTick {
-	
+
 	private final static int ADVANCEMENT_CHECK_TICKS = 100;
 	private static int tickCounter;
-	
+
 	@Override
 	public void onEndTick(MinecraftServer minecraftServer) {
 		tickCounter++;
@@ -26,12 +25,12 @@ public class ProximityAdvancementCheckEvent implements ServerTickEvents.EndTick 
 					StarrySkies.LOGGER.debug("In starry world");
 					Optional<Support.SpheroidDistance> spheroidDistance = Support.getClosestSpheroidToPlayer(serverPlayerEntity);
 					if (spheroidDistance.isPresent() && (Math.sqrt(spheroidDistance.get().squaredDistance)) < spheroidDistance.get().spheroid.getRadius() + 2) {
-						Spheroid spheroid = spheroidDistance.get().spheroid;
-						StarryAdvancementCriteria.SPHEROID_DISCOVERED.trigger(serverPlayerEntity, spheroid);
+						PlacedSphere spheroid = spheroidDistance.get().spheroid;
+						StarryAdvancementCriteria.SPHERE_DISCOVERED.trigger(serverPlayerEntity, spheroid);
 					}
 				}
 			}
 		}
 	}
-	
+
 }

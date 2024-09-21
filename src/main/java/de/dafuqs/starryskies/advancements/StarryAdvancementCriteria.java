@@ -4,11 +4,11 @@ import de.dafuqs.starryskies.*;
 import net.minecraft.advancement.criterion.*;
 
 public class StarryAdvancementCriteria {
-	
-	public static SpheroidDiscoveredCriterion SPHEROID_DISCOVERED;
-	
+
+	public static SphereDiscoveredCriterion SPHERE_DISCOVERED;
+
 	public static void register() {
-		SPHEROID_DISCOVERED = Criteria.register(StarrySkies.locatePlain("spheroid_discovered"), new SpheroidDiscoveredCriterion());
+		SPHERE_DISCOVERED = Criteria.register(StarrySkies.locatePlain("sphere_discovered"), new SphereDiscoveredCriterion());
 	}
-	
+
 }

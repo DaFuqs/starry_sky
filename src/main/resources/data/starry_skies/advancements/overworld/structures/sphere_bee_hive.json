@@ -16,7 +16,7 @@
   "parent": "starry_skies:overworld/group_structures",
   "criteria": {
     "sphere_discovered": {
-      "trigger": "starry_skies:spheroid_discovered",
+      "trigger": "starry_skies:sphere_discovered",
       "conditions": {
         "ids": [
           "starry_skies:overworld/treasure/bee_hive"

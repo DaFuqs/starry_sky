@@ -5,15 +5,17 @@ import de.dafuqs.starryskies.advancements.*;
 import de.dafuqs.starryskies.commands.*;
 import de.dafuqs.starryskies.configs.*;
 import de.dafuqs.starryskies.data_loaders.*;
-import de.dafuqs.starryskies.dimension.*;
 import de.dafuqs.starryskies.registries.*;
-import de.dafuqs.starryskies.spheroids.*;
+import de.dafuqs.starryskies.worldgen.*;
+import de.dafuqs.starryskies.worldgen.dimension.*;
 import me.shedaniel.autoconfig.*;
 import me.shedaniel.autoconfig.serializer.*;
 import net.fabricmc.api.*;
 import net.fabricmc.fabric.api.command.v2.*;
 import net.fabricmc.fabric.api.event.lifecycle.v1.*;
 import net.fabricmc.fabric.api.resource.*;
+import net.kyrptonaught.customportalapi.*;
+import net.kyrptonaught.customportalapi.util.*;
 import net.minecraft.block.*;
 import net.minecraft.command.argument.*;
 import net.minecraft.registry.*;
@@ -25,24 +27,23 @@ import org.jetbrains.annotations.*;
 import org.slf4j.*;
 
 public class StarrySkies implements ModInitializer {
-	
+
 	public static final String MOD_ID = "starry_skies";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static StarrySkyConfig CONFIG;
-	public static DynamicRegistryManager registryManager = DynamicRegistryManager.of(Registries.REGISTRIES);
-	
+
 	public static Identifier locate(String name) {
 		return new Identifier(MOD_ID, name);
 	}
-	
+
 	public static String locatePlain(String name) {
 		return locate(name).toString();
 	}
-	
+
 	public static BlockState getStateFromString(String s) throws CommandSyntaxException {
 		return BlockArgumentParser.block(Registries.BLOCK.getReadOnlyWrapper(), s, false).blockState();
 	}
-	
+
 	public static @Nullable BlockState getNullableStateFromString(String s) {
 		try {
 			return BlockArgumentParser.block(Registries.BLOCK.getReadOnlyWrapper(), s, false).blockState();
@@ -51,7 +52,7 @@ public class StarrySkies implements ModInitializer {
 			return null;
 		}
 	}
-	
+
 	public static @Nullable BlockArgumentParser.BlockResult getBlockResult(String element) {
 		try {
 			return BlockArgumentParser.block(Registries.BLOCK.getReadOnlyWrapper(), element, true);
@@ -60,51 +61,50 @@ public class StarrySkies implements ModInitializer {
 			return null;
 		}
 	}
-	
+
 	public static boolean inStarryWorld(ServerPlayerEntity serverPlayerEntity) {
 		ChunkGenerator chunkGenerator = serverPlayerEntity.getServerWorld().getChunkManager().getChunkGenerator();
 		return chunkGenerator instanceof StarrySkyChunkGenerator;
 	}
-	
+
 	@Override
 	public void onInitialize() {
-		
 		//Set up config
 		LOGGER.info("Starting up...");
 		AutoConfig.register(StarrySkyConfig.class, JanksonConfigSerializer::new);
 		CONFIG = AutoConfig.getConfigHolder(StarrySkyConfig.class).getConfig();
-		
-		
+
 		// Register all the stuff
-		StarryRegistries.register();
 		Registry.register(Registries.CHUNK_GENERATOR, new Identifier(MOD_ID, "starry_skies_chunk_generator"), StarrySkyChunkGenerator.CODEC);
-		StarrySkyBiomes.initialize();
-		if (CONFIG.registerStarryPortal) {
-			StarrySkyDimension.setupPortals();
-		}
-		StarrySkiesFeatures.initialize();
+
+		StarryRegistries.register();
+		StarryFeatures.initialize();
+		Spheres.initialize();
+		SphereDecorators.initialize();
 		StarryAdvancementCriteria.register();
-		
-		SpheroidFeature.initialize();
-		SpheroidTemplateType.initialize();
-		
-		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> ClosestSpheroidCommand.register(dispatcher));
-		
-		// triggers everytime a world is loaded
-		// so for overworld, nether, ... (they all share the same seed)
-		ServerWorldEvents.LOAD.register((server, world) -> {
-			registryManager = server.getRegistryManager();
-		});
-		
-		//ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(UniqueBlockGroupsLoader.INSTANCE);
-		//ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(WeightedBlockGroupsLoader.INSTANCE);
-		//ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(SpheroidDecoratorLoader.INSTANCE);
+
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> ClosestSphereCommand.register(dispatcher));
+
+		// TODO: make dynamic registry?
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(GenerationGroupLoader.INSTANCE);
-		//ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(SpheroidTemplateLoader.INSTANCE);
-		
+
 		ServerTickEvents.END_SERVER_TICK.register(new ProximityAdvancementCheckEvent());
-		
+
+		if (CONFIG.registerStarryPortal) {
+			setupPortals();
+		}
+
 		LOGGER.info("Finished loading.");
 	}
-	
+
+	public static void setupPortals() {
+		StarrySkies.LOGGER.info("Setting up Portal to Starry Skies...");
+
+		Identifier portalFrameBlockIdentifier = new Identifier(StarrySkies.CONFIG.starrySkyPortalFrameBlock.toLowerCase());
+		Block portalFrameBlock = Registries.BLOCK.get(portalFrameBlockIdentifier);
+
+		PortalLink portalLink = new PortalLink(portalFrameBlockIdentifier, StarryDimensionKeys.STARRY_SKIES_DIMENSION_ID, StarrySkies.CONFIG.starrySkyPortalColor);
+		CustomPortalApiRegistry.addPortal(portalFrameBlock, portalLink);
+	}
+
 }

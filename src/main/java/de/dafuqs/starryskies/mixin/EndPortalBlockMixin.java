@@ -12,15 +12,15 @@ import org.spongepowered.asm.mixin.injection.callback.*;
 
 @Mixin(EndPortalBlock.class)
 public abstract class EndPortalBlockMixin {
-	
+
 	@Inject(at = @At("HEAD"), method = "onEntityCollision", cancellable = true)
 	void starryskies$onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, CallbackInfo callbackInfo) {
 		if (StarrySkies.CONFIG.enableEndPortalsToStarryEnd) {
-			boolean handled = StarrySkyDimensionTravelHandler.handleEndPortalCollision(state, world, pos, entity);
+			boolean handled = StarryDimensionTravelHandler.handleEndPortalCollision(state, world, pos, entity);
 			if (handled) {
 				callbackInfo.cancel();
 			}
 		}
 	}
-	
+
 }

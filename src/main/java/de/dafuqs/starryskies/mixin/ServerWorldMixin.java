@@ -1,7 +1,7 @@
 package de.dafuqs.starryskies.mixin;
 
 import de.dafuqs.starryskies.*;
-import de.dafuqs.starryskies.dimension.*;
+import de.dafuqs.starryskies.worldgen.dimension.*;
 import net.minecraft.registry.tag.*;
 import net.minecraft.server.world.*;
 import net.minecraft.util.*;
@@ -21,7 +21,7 @@ public abstract class ServerWorldMixin {
 		put(StructureTags.EYE_OF_ENDER_LOCATED, StarrySkies.locate("overworld/treasure/stronghold"));
 		put(StructureTags.ON_OCEAN_EXPLORER_MAPS, StarrySkies.locate("overworld/treasure/ocean_monument"));
 	}};
-	
+
 	@Inject(at = @At("HEAD"), method = "locateStructure(Lnet/minecraft/registry/tag/TagKey;Lnet/minecraft/util/math/BlockPos;IZ)Lnet/minecraft/util/math/BlockPos;", cancellable = true)
 	public void starryskies$locateStructure(TagKey<Structure> structureTag, BlockPos pos, int radius, boolean skipReferencedStructures, CallbackInfoReturnable<BlockPos> cir) {
 		ServerWorld thisWorld = (ServerWorld) (Object) this;
@@ -36,6 +36,6 @@ public abstract class ServerWorldMixin {
 			}
 		}
 	}
-	
-	
+
+
 }

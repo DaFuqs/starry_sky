@@ -16,7 +16,7 @@
   "parent": "starry_skies:overworld/group_organic",
   "criteria": {
     "sphere_discovered": {
-      "trigger": "starry_skies:spheroid_discovered",
+      "trigger": "starry_skies:sphere_discovered",
       "conditions": {
         "ids": [
           "starry_skies:overworld/decorative/plain/coarse_dirt"

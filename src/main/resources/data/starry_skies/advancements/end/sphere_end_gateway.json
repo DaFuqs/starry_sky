@@ -16,7 +16,7 @@
   "parent": "starry_skies:starry_skies_end",
   "criteria": {
     "sphere_discovered": {
-      "trigger": "starry_skies:spheroid_discovered",
+      "trigger": "starry_skies:sphere_discovered",
       "conditions": {
         "ids": [
           "starry_skies:end/treasure/end_gateway"
