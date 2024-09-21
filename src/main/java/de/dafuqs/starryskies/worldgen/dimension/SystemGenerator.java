@@ -25,7 +25,6 @@ public class SystemGenerator {
 
 	public static final Codec<SystemGenerator> CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
-					Codec.INT.fieldOf("system_size_chunks").forGetter(generator -> generator.systemSizeChunks),
 					Codec.INT.fieldOf("spheres_per_system").forGetter(generator -> generator.spheresPerSystem),
 					Codec.INT.fieldOf("min_distance_between_spheres").forGetter(generator -> generator.minDistanceBetweenSpheres),
 					Codec.INT.fieldOf("floor_height").forGetter(generator -> generator.floorHeight),
@@ -40,7 +39,6 @@ public class SystemGenerator {
 	// spawning probabilities
 	private final HashMap<Point, System> systemCache = new HashMap<>();
 
-	private final int systemSizeChunks;
 	private final int spheresPerSystem;
 	private final int minDistanceBetweenSpheres;
 	private final int floorHeight;
@@ -49,8 +47,7 @@ public class SystemGenerator {
 	private final List<DefaultSphere> defaultSpheres;
 	private final Map<Identifier, Float> generationGroups = new Object2FloatArrayMap<>();
 
-	public SystemGenerator(int systemSizeChunks, int spheresPerSystem, int minDistanceBetweenSpheres, int floorHeight, BlockState floorState, BlockState bottomState, List<DefaultSphere> defaultSpheres) {
-		this.systemSizeChunks = systemSizeChunks;
+	public SystemGenerator(int spheresPerSystem, int minDistanceBetweenSpheres, int floorHeight, BlockState floorState, BlockState bottomState, List<DefaultSphere> defaultSpheres) {
 		this.spheresPerSystem = spheresPerSystem;
 		this.minDistanceBetweenSpheres = minDistanceBetweenSpheres;
 		this.floorHeight = floorHeight;
@@ -142,10 +139,6 @@ public class SystemGenerator {
 		return system;
 	}
 
-	public int getSystemSizeChunks() {
-		return this.systemSizeChunks;
-	}
-
 	public record DefaultSphere(int systemX, int systemZ, int x, int y, int z, Identifier sphereId) {
 		public static final Codec<DefaultSphere> CODEC = RecordCodecBuilder.create(
 				instance -> instance.group(
@@ -172,6 +165,8 @@ public class SystemGenerator {
 			List<PlacedSphere> defaultSpheroids = getDefaultSpheroids(systemGenerator, systemPointX, systemPointZ, systemRandom, registryManager);
 			ArrayList<PlacedSphere> spheroids = new ArrayList<>(defaultSpheroids);
 
+			int systemSizeChunks = StarrySkies.CONFIG.systemSizeChunks;
+
 			// try to create DENSITY spheroids in this system
 			for (int currentDensity = 0; currentDensity < systemGenerator.spheresPerSystem; currentDensity++) {
 
@@ -179,10 +174,10 @@ public class SystemGenerator {
 				PlacedSphere currentSpheres = getRandomSpheroid(systemGenerator, systemRandom, registryManager);
 
 				// set position, check bounds with system edges on x and z
-				int xPos = Support.getRandomBetween(systemRandom, currentSpheres.getRadius(), (systemGenerator.systemSizeChunks * 16 - currentSpheres.getRadius()));
-				xPos += systemGenerator.systemSizeChunks * 16 * systemPointX;
-				int zPos = Support.getRandomBetween(systemRandom, currentSpheres.getRadius(), (systemGenerator.systemSizeChunks * 16 - currentSpheres.getRadius()));
-				zPos += systemGenerator.systemSizeChunks * 16 * systemPointZ;
+				int xPos = Support.getRandomBetween(systemRandom, currentSpheres.getRadius(), (systemSizeChunks * 16 - currentSpheres.getRadius()));
+				xPos += systemSizeChunks * 16 * systemPointX;
+				int zPos = Support.getRandomBetween(systemRandom, currentSpheres.getRadius(), (systemSizeChunks * 16 - currentSpheres.getRadius()));
+				zPos += systemSizeChunks * 16 * systemPointZ;
 				int yPos = bottomY + systemGenerator.floorHeight + currentSpheres.getRadius() + systemRandom.nextInt(((worldHeight - currentSpheres.getRadius() * 2 - systemGenerator.floorHeight)));
 				BlockPos spherePos = new BlockPos(xPos, yPos, zPos);
 

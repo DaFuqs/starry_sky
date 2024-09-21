@@ -67,14 +67,14 @@ public class Support {
 	}
 
 	public static @Nullable SpheroidDistance getClosestSpheroid3x3(@NotNull ServerWorld serverWorld, BlockPos position, Identifier spheroidIdentifier, DynamicRegistryManager registryManager) {
-		SystemGenerator spheroidGenerator = SystemGenerator.get(serverWorld.getRegistryKey());
+		SystemGenerator systemGenerator = SystemGenerator.get(serverWorld.getRegistryKey());
 
 		PlacedSphere closestSpheroid = null;
 		double currentMinDistance = Double.MAX_VALUE;
 		for (Point currentPoint : AROUND_POINTS) {
 			Point systemPos = getSystemCoordinateFromChunkCoordinate(position.getX() / 16, position.getZ() / 16);
 
-			for (PlacedSphere p : spheroidGenerator.getSystem(serverWorld, new Point(systemPos.x + currentPoint.x, systemPos.y + currentPoint.y))) {
+			for (PlacedSphere p : systemGenerator.getSystem(serverWorld, new Point(systemPos.x + currentPoint.x, systemPos.y + currentPoint.y))) {
 				if (p.getID(registryManager).equals(spheroidIdentifier)) {
 					double currDist = position.getSquaredDistance(p.getPosition());
 					if (currDist < currentMinDistance) {
@@ -107,8 +107,8 @@ public class Support {
 		return result;
 	}
 
-	public static @NotNull Point getSystemCoordinateFromChunkCoordinate(SystemGenerator systemGenerator, int chunkX, int chunkZ) {
-		int systemSizeChunks = systemGenerator.getSystemSizeChunks();
+	public static @NotNull Point getSystemCoordinateFromChunkCoordinate(int chunkX, int chunkZ) {
+		int systemSizeChunks = StarrySkies.CONFIG.systemSizeChunks;
 
 		int sysX;
 		if (chunkX >= 0) {

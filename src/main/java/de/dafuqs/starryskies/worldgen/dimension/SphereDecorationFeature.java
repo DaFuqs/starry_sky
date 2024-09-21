@@ -7,9 +7,9 @@ import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.util.*;
 import org.jetbrains.annotations.*;
 
-public class SphereDecorator extends Feature<DefaultFeatureConfig> {
+public class SphereDecorationFeature extends Feature<DefaultFeatureConfig> {
 
-	public SphereDecorator(Codec<DefaultFeatureConfig> configCodec) {
+	public SphereDecorationFeature(Codec<DefaultFeatureConfig> configCodec) {
 		super(configCodec);
 	}
 

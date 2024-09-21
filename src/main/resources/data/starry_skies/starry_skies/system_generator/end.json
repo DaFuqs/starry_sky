@@ -1,5 +1,4 @@
 {
-  "system_size_chunks": 50,
   "spheres_per_system": 1500,
   "min_distance_between_spheres": 8,
   "floor_height": 0,

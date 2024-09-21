@@ -43,6 +43,13 @@ public class StarrySkyConfig implements ConfigData {
 
 	@ConfigEntry.Category("GENERAL")
 	@Comment(value = """
+			The amount of chunks each sphere system spans.
+			Higher values make spheres spread out farther, having more air in between
+			Default: 50""")
+	public int systemSizeChunks = 50;
+
+	@ConfigEntry.Category("GENERAL")
+	@Comment(value = """
 			Use a fancy rainbow skybox instead of a generic one.
 			Default: true""")
 	public boolean rainbowSkybox = true;
@@ -63,8 +70,7 @@ public class StarrySkyConfig implements ConfigData {
 	@ConfigEntry.Category("GENERAL")
 	@Comment(value = """
 			The '/sphere' command lists all the data of the closest sphere (position, blocks, ...)
-						
-			Default: 0""")
+			Default: 2""")
 	public int sphereCommandRequiredPermissionLevel = 2;
 
 	private boolean isValidBlock(String blockName) {
