@@ -238,7 +238,7 @@ public class NetherFortressSphere extends PlacedSphere {
 		private final int minShellRadius;
 		private final int maxShellRadius;
 
-		public Config(SharedConfig shared, NetherFortressSphere.Config.Config config) {
+		public Config(SphereConfig.SharedConfig shared, NetherFortressSphere.Config.Config config) {
 			super(shared);
 			this.minShellRadius = config.minShellRadius;
 			this.maxShellRadius = config.maxShellRadius;

@@ -98,7 +98,7 @@ public class ShellCoreSphere extends PlacedSphere {
 		private final int minShellRadius;
 		private final int maxShellRadius;
 
-		public Config(SharedConfig shared, Config config) {
+		public Config(SphereConfig.SharedConfig shared, Config config) {
 			super(shared);
 			this.mainBlock = config.mainBlock;
 			this.coreBlock = config.coreBlock;

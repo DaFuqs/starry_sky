@@ -103,7 +103,7 @@ public class DungeonSphere extends PlacedSphere {
 		private final int minShellRadius;
 		private final int maxShellRadius;
 
-		public Config(SharedConfig shared, Config config) {
+		public Config(SphereConfig.SharedConfig shared, Config config) {
 			super(shared);
 			this.entityType = config.entityType;
 			this.shellBlock = config.shellBlock;

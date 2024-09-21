@@ -90,7 +90,7 @@ public class ModularSphere extends PlacedSphere {
 		private final BlockState topBlock;
 		private final BlockState bottomBlock;
 
-		public Config(SharedConfig shared, Config config) {
+		public Config(SphereConfig.SharedConfig shared, Config config) {
 			super(shared);
 			this.mainBlock = config.mainBlock;
 			this.topBlock = config.topBlock.orElse(null);

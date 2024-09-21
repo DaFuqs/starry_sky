@@ -123,7 +123,7 @@ public class CaveSphere extends PlacedSphere {
 		private final RegistryKey<LootTable> lootTable;
 		private final float lootTableChance;
 
-		public Config(SharedConfig shared, Config config) {
+		public Config(SphereConfig.SharedConfig shared, Config config) {
 			super(shared);
 			this.shellBlock = config.shellBlock;
 			this.minShellRadius = config.minShellRadius;

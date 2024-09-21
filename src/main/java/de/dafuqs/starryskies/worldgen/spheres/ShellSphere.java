@@ -115,7 +115,7 @@ public class ShellSphere extends PlacedSphere {
 		private final int maxShellRadius;
 		private final LinkedHashMap<BlockArgumentParser.BlockResult, Float> shellSpeckleBlockStates = new LinkedHashMap<>();
 
-		public Config(SharedConfig shared, Config config) {
+		public Config(SphereConfig.SharedConfig shared, Config config) {
 			super(shared);
 			this.innerBlock = config.innerBlock;
 			this.shellBlock = config.shellBlock;

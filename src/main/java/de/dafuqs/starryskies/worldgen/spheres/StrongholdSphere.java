@@ -276,7 +276,7 @@ public class StrongholdSphere extends PlacedSphere {
 		final int minShellRadius;
 		final int maxShellRadius;
 
-		public Config(SharedConfig shared, Config config) {
+		public Config(SphereConfig.SharedConfig shared, Config config) {
 			super(shared);
 			this.minShellRadius = config.minShellRadius;
 			this.maxShellRadius = config.maxShellRadius;

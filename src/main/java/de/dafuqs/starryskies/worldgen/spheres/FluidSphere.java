@@ -102,7 +102,7 @@ public class FluidSphere extends PlacedSphere {
 		private final float maxFillAmount;
 		private final float holeInBottomChance;
 
-		public Config(SharedConfig shared, Config config) {
+		public Config(SphereConfig.SharedConfig shared, Config config) {
 			super(shared);
 			this.fluid = config.fluid;
 			this.shellBlock = config.shellBlock;

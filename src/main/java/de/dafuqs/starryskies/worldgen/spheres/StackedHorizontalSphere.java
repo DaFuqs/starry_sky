@@ -75,7 +75,7 @@ public class StackedHorizontalSphere extends PlacedSphere {
 
 		private final List<BlockState> stripesBlockStates = new ArrayList<>();
 
-		public Config(SharedConfig shared, List<BlockState> blocks) {
+		public Config(SphereConfig.SharedConfig shared, List<BlockState> blocks) {
 			super(shared);
 			this.stripesBlockStates.addAll(blocks);
 		}

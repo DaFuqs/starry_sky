@@ -95,7 +95,7 @@ public class ModularRainbowSphere extends PlacedSphere {
 		private final List<BlockState> topBlocks = new ArrayList<>();
 		private final List<BlockState> bottomBlocks = new ArrayList<>();
 
-		public Config(SharedConfig shared, Config config) {
+		public Config(SphereConfig.SharedConfig shared, Config config) {
 			super(shared);
 			rainbowBlocks.addAll(config.rainbowBlocks);
 			topBlocks.addAll(config.topBlocks);

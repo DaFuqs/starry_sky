@@ -77,7 +77,7 @@ public class RainbowSphere extends PlacedSphere {
 
 		private final List<BlockState> rainbowBlocks = new ArrayList<>();
 
-		public Config(SharedConfig shared, List<BlockState> blocks) {
+		public Config(SphereConfig.SharedConfig shared, List<BlockState> blocks) {
 			super(shared);
 			this.rainbowBlocks.addAll(blocks);
 		}

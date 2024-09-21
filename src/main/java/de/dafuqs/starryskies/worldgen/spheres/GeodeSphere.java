@@ -99,7 +99,7 @@ public class GeodeSphere extends PlacedSphere {
 		private final BlockState middleBlockState;
 		private final BlockState outerBlockState;
 
-		public Config(SharedConfig shared, Config config) {
+		public Config(SphereConfig.SharedConfig shared, Config config) {
 			super(shared);
 			this.innerBlockState = config.innerBlockState;
 			this.innerSpecklesBlockState = config.innerSpecklesBlockState;

@@ -1,8 +1,9 @@
 package de.dafuqs.starryskies.worldgen;
 
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
 import net.minecraft.entity.*;
-import net.minecraft.registry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.util.math.random.Random;
@@ -17,7 +18,7 @@ public interface SphereConfig {
 		return min + random.nextFloat() * (max - min);
 	}
 
-	static List<ConfiguredSphereDecorator<?, ?>> selectDecorators(net.minecraft.util.math.random.Random random, ConfiguredSphere.SharedConfig sharedConfig) {
+	static List<ConfiguredSphereDecorator<?, ?>> selectDecorators(net.minecraft.util.math.random.Random random, SharedConfig sharedConfig) {
 		List<ConfiguredSphereDecorator<?, ?>> decorators = new ArrayList<>();
 		for (Map.Entry<ConfiguredSphereDecorator<?, ?>, Float> entry : sharedConfig.decorators().entrySet()) {
 			if (random.nextFloat() < entry.getValue()) {
@@ -27,7 +28,7 @@ public interface SphereConfig {
 		return decorators;
 	}
 
-	static List<Pair<EntityType<?>, Integer>> selectSpawns(Random random, ConfiguredSphere.SharedConfig sharedConfig) {
+	static List<Pair<EntityType<?>, Integer>> selectSpawns(Random random, SharedConfig sharedConfig) {
 		List<Pair<EntityType<?>, Integer>> spawns = new ArrayList<>();
 		for (SphereEntitySpawnDefinition entry : sharedConfig.spawns()) {
 			if (random.nextFloat() < entry.chance) {
@@ -38,7 +39,7 @@ public interface SphereConfig {
 		return spawns;
 	}
 
-	ConfiguredSphere.SharedConfig config();
+	SharedConfig config();
 
 	default float getSize(ChunkRandom random) {
 		return SphereConfig.randomBetween(random, config().minSize(), config().maxSize());
@@ -50,5 +51,18 @@ public interface SphereConfig {
 
 	default List<Pair<EntityType<?>, Integer>> getSpawns(ChunkRandom random) {
 		return SphereConfig.selectSpawns(random, config());
+	}
+
+	record SharedConfig(int minSize, int maxSize, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators,
+							   List<SphereEntitySpawnDefinition> spawns) {
+		public static final MapCodec<SharedConfig> CODEC = RecordCodecBuilder.mapCodec(
+				instance -> instance.group(
+						Codec.INT.fieldOf("min_size").forGetter(SharedConfig::minSize),
+						Codec.INT.fieldOf("max_size").forGetter(SharedConfig::maxSize),
+						new Support.FailSoftMapCodec<>(ConfiguredSphereDecorator.CODEC, Codec.FLOAT).fieldOf("decorators").forGetter(SharedConfig::decorators),
+						SphereEntitySpawnDefinition.CODEC.listOf().fieldOf("spawns").forGetter(SharedConfig::spawns)
+				).apply(instance, SharedConfig::new)
+		);
+
 	}
 }

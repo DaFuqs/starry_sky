@@ -190,7 +190,7 @@ public class BeeHiveSphere extends PlacedSphere {
 		private final int minFlowerRingSpacing;
 		private final int maxFlowerRingSpacing;
 
-		public Config(SharedConfig shared, Config config) {
+		public Config(SphereConfig.SharedConfig shared, Config config) {
 			super(shared);
 			this.minShellSize = config.minShellSize;
 			this.maxShellSize = config.maxShellSize;

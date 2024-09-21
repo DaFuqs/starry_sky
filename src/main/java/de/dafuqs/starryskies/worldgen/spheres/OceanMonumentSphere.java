@@ -150,7 +150,7 @@ public class OceanMonumentSphere extends PlacedSphere {
 		private final int minCoreRadius;
 		private final int maxCoreRadius;
 
-		public Config(SharedConfig shared, Config config) {
+		public Config(SphereConfig.SharedConfig shared, Config config) {
 			super(shared);
 			this.minShellRadius = config.minShellRadius;
 			this.maxShellRadius = config.maxShellRadius;

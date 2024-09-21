@@ -133,7 +133,7 @@ public class CoralsSphere extends PlacedSphere {
 		private final RegistryKey<LootTable> lootTable;
 		private final float lootTableChance;
 
-		public Config(SharedConfig shared, Config config) {
+		public Config(SphereConfig.SharedConfig shared, Config config) {
 			super(shared);
 			this.validShellBlocks = config.validShellBlocks;
 			this.minShellRadius = config.minShellRadius;

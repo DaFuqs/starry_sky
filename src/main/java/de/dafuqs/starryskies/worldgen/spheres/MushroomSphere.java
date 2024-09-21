@@ -92,7 +92,7 @@ public class MushroomSphere extends PlacedSphere {
 		private final int minShellRadius;
 		private final int maxShellRadius;
 
-		public Config(SharedConfig shared, Config config) {
+		public Config(SphereConfig.SharedConfig shared, Config config) {
 			super(shared);
 			this.stemBlock = config.stemBlock;
 			this.mushroomBlock = config.mushroomBlock;

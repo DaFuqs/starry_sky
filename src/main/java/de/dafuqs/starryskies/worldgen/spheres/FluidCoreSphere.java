@@ -122,7 +122,7 @@ public class FluidCoreSphere extends PlacedSphere {
 		private final int minCoreRadius;
 		private final int maxCoreRadius;
 
-		public Config(SharedConfig shared, Config config) {
+		public Config(SphereConfig.SharedConfig shared, Config config) {
 			super(shared);
 			this.fluid = config.fluid;
 			this.minFillAmount = config.minFillAmount;

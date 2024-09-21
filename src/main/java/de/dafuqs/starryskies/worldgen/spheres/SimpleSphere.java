@@ -11,7 +11,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.chunk.*;
-import net.minecraft.world.gen.feature.*;
 
 import java.util.*;
 
@@ -83,17 +82,17 @@ public class SimpleSphere extends Sphere<SimpleSphere.Config> {
 	public static class Config implements SphereConfig {
 
 		public static final Codec<SimpleSphere.Config> CODEC = RecordCodecBuilder.create((instance) -> {
-			return instance.group(ConfiguredSphere.SharedConfig.CODEC.fieldOf("config").forGetter((config) -> {
+			return instance.group(SphereConfig.SharedConfig.CODEC.fieldOf("config").forGetter((config) -> {
 				return config.sharedConfig;
 			}), BLOCKSTATE_STRING_CODEC.fieldOf("block").forGetter((config) -> {
 				return config.state;
 			})).apply(instance, SimpleSphere.Config::new);
 		});
 
-		protected final ConfiguredSphere.SharedConfig sharedConfig;
+		protected final SharedConfig sharedConfig;
 		protected final BlockState state;
 
-		public Config(ConfiguredSphere.SharedConfig sharedConfig, BlockState state) {
+		public Config(SharedConfig sharedConfig, BlockState state) {
 			this.sharedConfig = sharedConfig;
 			this.state = state;
 		}
@@ -103,7 +102,7 @@ public class SimpleSphere extends Sphere<SimpleSphere.Config> {
 		}
 
 		@Override
-		public ConfiguredSphere.SharedConfig config() {
+		public SharedConfig config() {
 			return sharedConfig;
 		}
 	}
