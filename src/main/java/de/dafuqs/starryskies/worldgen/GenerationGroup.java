@@ -13,4 +13,8 @@ public record GenerationGroup(Identifier systemGenerator, float weight) {
 			).apply(instance, GenerationGroup::new)
 	);
 	
+	public GenerationGroup(Identifier systemGenerator, float weight) {
+		this.systemGenerator = systemGenerator;
+		this.weight = weight;
+	}
 }

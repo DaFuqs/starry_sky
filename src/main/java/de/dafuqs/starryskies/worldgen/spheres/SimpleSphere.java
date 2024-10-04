@@ -23,10 +23,8 @@ public class SimpleSphere extends Sphere<SimpleSphere.Config> {
 	}
 
 	@Override
-	public PlacedSphere<?> generate(ConfiguredSphere<? extends Sphere<SimpleSphere.Config>, SimpleSphere.Config> configuredSphere, SimpleSphere.Config config, ChunkRandom random, DynamicRegistryManager registryManager) {
-		return new Placed(configuredSphere,
-				config.getSize(random), config.getDecorators(random), config.getSpawns(random),
-				random, config.state);
+	public PlacedSphere generate(ConfiguredSphere<? extends Sphere<SimpleSphere.Config>, SimpleSphere.Config> configuredSphere, SimpleSphere.Config config, ChunkRandom random, DynamicRegistryManager registryManager) {
+		return new Placed(configuredSphere, config.getSize(random), config.getDecorators(random), config.getSpawns(random), random, config.state);
 	}
 
 	public static class Placed extends PlacedSphere<SimpleSphere.Config> {

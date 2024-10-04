@@ -20,11 +20,14 @@ import net.minecraft.block.*;
 import net.minecraft.command.argument.*;
 import net.minecraft.registry.*;
 import net.minecraft.resource.*;
+import net.minecraft.server.*;
 import net.minecraft.server.network.*;
 import net.minecraft.util.*;
 import net.minecraft.world.gen.chunk.*;
 import org.jetbrains.annotations.*;
 import org.slf4j.*;
+
+import java.util.*;
 
 public class StarrySkies implements ModInitializer {
 
@@ -77,15 +80,25 @@ public class StarrySkies implements ModInitializer {
 		// Register all the stuff
 		Registry.register(Registries.CHUNK_GENERATOR, new Identifier(MOD_ID, "starry_skies_chunk_generator"), StarrySkyChunkGenerator.CODEC);
 		
-		StarryFeatures.initialize();
 		StarryRegistries.register();
 		Spheres.initialize();
+		StarryFeatures.initialize();
 		SphereDecorators.initialize();
 		StarryAdvancementCriteria.register();
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> ClosestSphereCommand.register(dispatcher));
 		ServerTickEvents.END_SERVER_TICK.register(new ProximityAdvancementCheckEvent());
 
+		// TODO: Make not ugly. Can this be handled in the codec directly?
+		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+			for(var generationGroup : server.getRegistryManager().get(StarryRegistryKeys.GENERATION_GROUP).getEntrySet()) {
+				var systemGenerator = server.getRegistryManager().get(StarryRegistryKeys.SYSTEM_GENERATOR).get(generationGroup.getValue().systemGenerator());
+				if(systemGenerator != null) {
+					systemGenerator.addGenerationGroup(generationGroup.getKey().getValue(), generationGroup.getValue().weight());
+				}
+			}
+		});
+		
 		if (CONFIG.registerStarryPortal) {
 			setupPortals();
 		}

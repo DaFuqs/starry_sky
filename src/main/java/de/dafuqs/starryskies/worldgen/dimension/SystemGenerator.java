@@ -13,6 +13,7 @@ import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
 import net.minecraft.world.chunk.*;
+import net.minecraft.world.gen.chunk.*;
 import org.jetbrains.annotations.*;
 
 import javax.annotation.processing.*;
@@ -64,10 +65,6 @@ public class SystemGenerator {
 
 	public void addGenerationGroup(Identifier id, float weight) {
 		this.generationGroups.put(id, weight);
-	}
-
-	public Iterable<Identifier> getGenerationGroups() {
-		return this.generationGroups.keySet();
 	}
 
 	public int getFloorHeight() {

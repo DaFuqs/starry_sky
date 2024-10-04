@@ -13,7 +13,7 @@ public abstract class Sphere<SC extends SphereConfig> {
 				.xmap((config) -> new ConfiguredSphere<>(this, config), ConfiguredSphere::config);
 	}
 
-	public abstract PlacedSphere generate(ConfiguredSphere<? extends Sphere<SC>, SC> configuredSphere, SC config, ChunkRandom random, DynamicRegistryManager registryManager);
+	public abstract PlacedSphere<? extends Sphere<SC>> generate(ConfiguredSphere<? extends Sphere<SC>, SC> configuredSphere, SC config, ChunkRandom random, DynamicRegistryManager registryManager);
 
 	public MapCodec<ConfiguredSphere<Sphere<SC>, SC>> getCodec() {
 		return this.codec;
