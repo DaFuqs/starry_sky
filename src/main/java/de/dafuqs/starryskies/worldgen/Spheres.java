@@ -7,7 +7,7 @@ import net.minecraft.registry.*;
 public class Spheres {
 
 	public static final Sphere<SimpleSphere.Config> SIMPLE = register("simple", new SimpleSphere(SimpleSphere.Config.CODEC));
-	public static final Sphere<DungeonSphere.Config> DUNGEON = register("dungeon", DungeonSphere.Config.CODEC);
+	/*public static final Sphere<DungeonSphere.Config> DUNGEON = register("dungeon", DungeonSphere.Config.CODEC);
 	public static final Sphere<CaveSphere.Config> CAVE = register("cave", CaveSphere.Config.CODEC);
 	public static final Sphere<ModularSphere.Config> MODULAR = register("modular", ModularSphere.Config.CODEC);
 	public static final Sphere<CoreSphere.Config> CORE = register("core", CoreSphere.Config.CODEC);
@@ -25,7 +25,7 @@ public class Spheres {
 	public static final Sphere<BeeHiveSphere.Config> BEE_HIVE = register("bee_hive", BeeHiveSphere.Config.CODEC);
 	public static final Sphere<OceanMonumentSphere.Config> OCEAN_MONUMENT = register("ocean_monument", OceanMonumentSphere.Config.CODEC);
 	public static final Sphere<RainbowSphere.Config> RAINBOW = register("rainbow", RainbowSphere.Config.CODEC);
-	public static final Sphere<ModularRainbowSphere.Config> MODULAR_RAINBOW = register("modular_rainbow", ModularRainbowSphere.Config.CODEC);
+	public static final Sphere<ModularRainbowSphere.Config> MODULAR_RAINBOW = register("modular_rainbow", ModularRainbowSphere.Config.CODEC);*/
 
 	private static <C extends SphereConfig, F extends Sphere<C>> F register(String name, F feature) {
 		return Registry.register(StarryRegistries.SPHERE, name, feature);

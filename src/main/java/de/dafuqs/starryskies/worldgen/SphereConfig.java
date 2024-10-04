@@ -40,6 +40,7 @@ public interface SphereConfig {
 	}
 
 	SharedConfig config();
+	Optional<GenerationConfig> generation();
 
 	default float getSize(ChunkRandom random) {
 		return SphereConfig.randomBetween(random, config().minSize(), config().maxSize());
@@ -53,8 +54,7 @@ public interface SphereConfig {
 		return SphereConfig.selectSpawns(random, config());
 	}
 
-	record SharedConfig(int minSize, int maxSize, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators,
-							   List<SphereEntitySpawnDefinition> spawns) {
+	record SharedConfig(int minSize, int maxSize, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns) {
 		public static final MapCodec<SharedConfig> CODEC = RecordCodecBuilder.mapCodec(
 				instance -> instance.group(
 						Codec.INT.fieldOf("min_size").forGetter(SharedConfig::minSize),
@@ -62,6 +62,15 @@ public interface SphereConfig {
 						new Support.FailSoftMapCodec<>(ConfiguredSphereDecorator.CODEC, Codec.FLOAT).fieldOf("decorators").forGetter(SharedConfig::decorators),
 						SphereEntitySpawnDefinition.CODEC.listOf().fieldOf("spawns").forGetter(SharedConfig::spawns)
 				).apply(instance, SharedConfig::new)
+		);
+	}
+
+	record GenerationConfig(Identifier group, float weight) {
+		public static final Codec<GenerationConfig> CODEC = RecordCodecBuilder.create(
+				instance -> instance.group(
+						Identifier.CODEC.fieldOf("group").forGetter(GenerationConfig::group),
+						Codec.FLOAT.fieldOf("weight").forGetter(GenerationConfig::weight)
+				).apply(instance, GenerationConfig::new)
 		);
 
 	}

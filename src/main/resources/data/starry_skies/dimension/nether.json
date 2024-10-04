@@ -6,6 +6,22 @@
       "type": "minecraft:fixed",
       "biome": "starry_skies:nether"
     },
-    "system_generator": "starry_skies:nether"
+    "system_generator": {
+      "spheres_per_system": 2500,
+      "min_distance_between_spheres": 7,
+      "floor_height": 3,
+      "floor_state": "minecraft:lava",
+      "bottom_state": "minecraft:bedrock",
+      "fixed_spheres": [
+        {
+          "system_x": 0,
+          "system_y": 0,
+          "x": 16,
+          "y": 70,
+          "z": 16,
+          "sphere_id": "starry_skies:spawn/nether"
+        }
+      ]
+    }
   }
 }

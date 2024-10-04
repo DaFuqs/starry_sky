@@ -9,12 +9,12 @@ import net.minecraft.registry.*;
 
 public class StarryRegistries {
 
-	public static final Registry<SystemGenerator> SYSTEM_GENERATOR = create(StarryRegistryKeys.SYSTEM_GENERATOR);
 	public static final Registry<Sphere<?>> SPHERE = create(StarryRegistryKeys.SPHERE);
-	public static final Registry<ConfiguredSphere<?, ?>> CONFIGURED_SPHERE = create(StarryRegistryKeys.CONFIGURED_SPHERE);
 	public static final Registry<SphereDecorator<?>> SPHERE_DECORATOR = create(StarryRegistryKeys.SPHERE_DECORATOR);
 
 	public static void register() {
+		DynamicRegistries.register(StarryRegistryKeys.SYSTEM_GENERATOR, SystemGenerator.CODEC);
+		DynamicRegistries.register(StarryRegistryKeys.GENERATION_GROUP, GenerationGroup.CODEC);
 		DynamicRegistries.register(StarryRegistryKeys.STATE_PROVIDER, StarryStateProvider.CODEC);
 		DynamicRegistries.register(StarryRegistryKeys.CONFIGURED_SPHERE, ConfiguredSphere.CODEC);
 		DynamicRegistries.register(StarryRegistryKeys.CONFIGURED_SPHERE_DECORATOR, ConfiguredSphereDecorator.CODEC);

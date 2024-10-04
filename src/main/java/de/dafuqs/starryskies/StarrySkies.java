@@ -76,18 +76,14 @@ public class StarrySkies implements ModInitializer {
 
 		// Register all the stuff
 		Registry.register(Registries.CHUNK_GENERATOR, new Identifier(MOD_ID, "starry_skies_chunk_generator"), StarrySkyChunkGenerator.CODEC);
-
-		StarryRegistries.register();
+		
 		StarryFeatures.initialize();
-		Sphere.initialize();
+		StarryRegistries.register();
+		Spheres.initialize();
 		SphereDecorators.initialize();
 		StarryAdvancementCriteria.register();
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> ClosestSphereCommand.register(dispatcher));
-
-		// TODO: make dynamic registry?
-		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(GenerationGroupLoader.INSTANCE);
-
 		ServerTickEvents.END_SERVER_TICK.register(new ProximityAdvancementCheckEvent());
 
 		if (CONFIG.registerStarryPortal) {

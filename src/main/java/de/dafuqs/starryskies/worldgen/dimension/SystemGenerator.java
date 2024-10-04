@@ -15,9 +15,11 @@ import net.minecraft.world.*;
 import net.minecraft.world.chunk.*;
 import org.jetbrains.annotations.*;
 
+import javax.annotation.processing.*;
 import java.awt.*;
 import java.util.List;
 import java.util.*;
+import java.util.function.*;
 
 import static de.dafuqs.starryskies.Support.*;
 
@@ -125,7 +127,7 @@ public class SystemGenerator {
 		return system;
 	}
 
-	public Iterable<? extends PlacedSphere> getSystem(Chunk chunk, long seed, DynamicRegistryManager registryManager) {
+	public Iterable<? extends PlacedSphere<?>> getSystem(Chunk chunk, long seed, DynamicRegistryManager registryManager) {
 		Point systemPos = Support.getSystemCoordinateFromChunkCoordinate(chunk.getPos().x, chunk.getPos().z);
 		System system = systemCache.get(systemPos);
 
@@ -152,7 +154,7 @@ public class SystemGenerator {
 		);
 	}
 
-	public record System(List<PlacedSphere> spheroids) implements Iterable<PlacedSphere> {
+	public record System(List<PlacedSphere<?>> spheres) implements Iterable<PlacedSphere<?>> {
 
 		private static System generateSystem(SystemGenerator systemGenerator, int bottomY, int worldHeight, long seed, @NotNull Point systemPoint, DynamicRegistryManager registryManager) {
 
@@ -162,16 +164,16 @@ public class SystemGenerator {
 			ChunkRandom systemRandom = getSystemRandom(systemPoint, seed);
 
 			// Places a log/leaf planet at 16, 16 in the overworld etc.
-			List<PlacedSphere> defaultSpheroids = getDefaultSpheroids(systemGenerator, systemPointX, systemPointZ, systemRandom, registryManager);
-			ArrayList<PlacedSphere> spheroids = new ArrayList<>(defaultSpheroids);
+			List<PlacedSphere<?>> defaultSpheres = getDefaultSpheres(systemGenerator, systemPointX, systemPointZ, systemRandom, registryManager);
+			ArrayList<PlacedSphere<?>> spheresInSystem = new ArrayList<>(defaultSpheres);
 
 			int systemSizeChunks = StarrySkies.CONFIG.systemSizeChunks;
 
-			// try to create DENSITY spheroids in this system
+			// try to create DENSITY spheresInSystem in this system
 			for (int currentDensity = 0; currentDensity < systemGenerator.spheresPerSystem; currentDensity++) {
 
 				// create new planets
-				PlacedSphere currentSpheres = getRandomSpheroid(systemGenerator, systemRandom, registryManager);
+				PlacedSphere<?> currentSpheres = getRandomSphere(systemGenerator, systemRandom, registryManager);
 
 				// set position, check bounds with system edges on x and z
 				int xPos = Support.getRandomBetween(systemRandom, currentSpheres.getRadius(), (systemSizeChunks * 16 - currentSpheres.getRadius()));
@@ -181,13 +183,13 @@ public class SystemGenerator {
 				int yPos = bottomY + systemGenerator.floorHeight + currentSpheres.getRadius() + systemRandom.nextInt(((worldHeight - currentSpheres.getRadius() * 2 - systemGenerator.floorHeight)));
 				BlockPos spherePos = new BlockPos(xPos, yPos, zPos);
 
-				// check for collisions with existing spheroids
+				// check for collisions with existing spheresInSystem
 				// if any collision, discard it
 				boolean discard = false;
-				for (PlacedSphere spheroid : spheroids) {
-					//each spheroid has to be at least pl1.radius + pl2.radius + min distance apart
-					int distMin = (spheroid.getRadius() + currentSpheres.getRadius() + systemGenerator.minDistanceBetweenSpheres);
-					double distSquared = spherePos.getSquaredDistance(spheroid.getPosition());
+				for (PlacedSphere<?> sphere : spheresInSystem) {
+					//each sphere has to be at least pl1.radius + pl2.radius + min distance apart
+					int distMin = (sphere.getRadius() + currentSpheres.getRadius() + systemGenerator.minDistanceBetweenSpheres);
+					double distSquared = spherePos.getSquaredDistance(sphere.getPosition());
 					if (distSquared < distMin * distMin) {
 						discard = true;
 						break;
@@ -197,13 +199,13 @@ public class SystemGenerator {
 				if (!discard) {
 					// no intersections with other spheres => add it to the list
 					currentSpheres.setPosition(spherePos);
-					spheroids.add(currentSpheres);
+					spheresInSystem.add(currentSpheres);
 				}
 			}
 
-			StarrySkies.LOGGER.debug("Created a new system with {} spheroids at system position {},{}", spheroids.size(), systemPointX, systemPointZ);
+			StarrySkies.LOGGER.debug("Created a new system with {} spheres at system position {},{}", spheresInSystem.size(), systemPointX, systemPointZ);
 
-			return new System(spheroids);
+			return new System(spheresInSystem);
 		}
 
 		private static @NotNull ChunkRandom getSystemRandom(@NotNull Point systemPoint, long seed) {
@@ -212,32 +214,44 @@ public class SystemGenerator {
 			return systemRandom;
 		}
 
-		private static List<PlacedSphere> getDefaultSpheroids(SystemGenerator systemGenerator, int systemPointX, int systemPointZ, ChunkRandom systemRandom, DynamicRegistryManager registryManager) {
+		private static List<PlacedSphere<?>> getDefaultSpheres(SystemGenerator systemGenerator, int systemPointX, int systemPointZ, ChunkRandom systemRandom, DynamicRegistryManager registryManager) {
 			if (systemGenerator.defaultSpheres.isEmpty()) {
 				return List.of();
 			}
 
-			Registry<ConfiguredSphere<?>> templateRegistry = registryManager.get(StarryRegistryKeys.CONFIGURED_SPHERE);
-			ArrayList<PlacedSphere> defaultSpheroids = new ArrayList<>();
+			Registry<ConfiguredSphere<?, ?>> templateRegistry = registryManager.get(StarryRegistryKeys.CONFIGURED_SPHERE);
+			ArrayList<PlacedSphere<?>> defaultSpheres = new ArrayList<>();
 			for (DefaultSphere defaultSphere : systemGenerator.defaultSpheres) {
 				if (systemPointX == defaultSphere.systemX && systemPointZ == defaultSphere.systemZ) {
-					ConfiguredSphere<?> template = templateRegistry.get(defaultSphere.sphereId);
+					ConfiguredSphere<?, ?> template = templateRegistry.get(defaultSphere.sphereId);
 					if (template != null) {
-						PlacedSphere spheroid = template.generate(systemRandom, registryManager);
-						spheroid.setPosition(new BlockPos(defaultSphere.x, defaultSphere.y, defaultSphere.z));
-						defaultSpheroids.add(spheroid);
+						PlacedSphere<?> sphere = template.generate(systemRandom, registryManager);
+						sphere.setPosition(new BlockPos(defaultSphere.x, defaultSphere.y, defaultSphere.z));
+						defaultSpheres.add(sphere);
 					}
 				}
 			}
 
-			return defaultSpheroids;
+			return defaultSpheres;
 		}
 
-		private static PlacedSphere getRandomSpheroid(SystemGenerator systemGenerator, ChunkRandom systemRandom, DynamicRegistryManager registryManager) {
-			ConfiguredSphere<?> template;
+		private static PlacedSphere<?> getRandomSphere(SystemGenerator systemGenerator, ChunkRandom systemRandom, DynamicRegistryManager registryManager) {
+			ConfiguredSphere<?, ?> template;
 			do {
 				Identifier distributionTypeID = Support.getWeightedRandom(systemGenerator.generationGroups, systemRandom);
-				template = SpheroidTemplateLoader.getWeightedRandomSpheroid(distributionTypeID, systemRandom);
+				
+				// TODO: improve; iterating all spheres every time is very slow
+				Set<Map.Entry<RegistryKey<ConfiguredSphere<?, ?>>, ConfiguredSphere<?, ?>>> s = registryManager.get(StarryRegistryKeys.CONFIGURED_SPHERE).getEntrySet();
+				Map<ConfiguredSphere<?, ?>, Float> possibleEntries = new HashMap<>();
+				
+				for(Map.Entry<RegistryKey<ConfiguredSphere<?, ?>>, ConfiguredSphere<?, ?>> entry : s) {
+					Optional<SphereConfig.GenerationConfig> generationConfig = entry.getValue().config().generation();
+					if(generationConfig.isPresent() && generationConfig.get().group().equals(distributionTypeID)) {
+						possibleEntries.put(entry.getValue(), generationConfig.get().weight());
+					}
+				}
+				
+				template = Support.getWeightedRandom(possibleEntries, systemRandom);
 			} while (template == null);
 
 			StarrySkies.LOGGER.debug("Created a new sphere of type {} Next random: {}", template, systemRandom.nextInt());
@@ -246,8 +260,8 @@ public class SystemGenerator {
 
 		@NotNull
 		@Override
-		public Iterator<PlacedSphere> iterator() {
-			return this.spheroids.iterator();
+		public Iterator<PlacedSphere<?>> iterator() {
+			return this.spheres.iterator();
 		}
 	}
 

@@ -23,7 +23,7 @@ public class SimpleSphere extends Sphere<SimpleSphere.Config> {
 	}
 
 	@Override
-	public PlacedSphere generate(ConfiguredSphere<? extends Sphere<SimpleSphere.Config>, SimpleSphere.Config> configuredSphere, SimpleSphere.Config config, ChunkRandom random, DynamicRegistryManager registryManager) {
+	public PlacedSphere<?> generate(ConfiguredSphere<? extends Sphere<SimpleSphere.Config>, SimpleSphere.Config> configuredSphere, SimpleSphere.Config config, ChunkRandom random, DynamicRegistryManager registryManager) {
 		return new Placed(configuredSphere,
 				config.getSize(random), config.getDecorators(random), config.getSpawns(random),
 				random, config.state);
@@ -84,16 +84,20 @@ public class SimpleSphere extends Sphere<SimpleSphere.Config> {
 		public static final Codec<SimpleSphere.Config> CODEC = RecordCodecBuilder.create((instance) -> {
 			return instance.group(SphereConfig.SharedConfig.CODEC.fieldOf("config").forGetter((config) -> {
 				return config.sharedConfig;
+			}), SphereConfig.GenerationConfig.CODEC.optionalFieldOf("generation").forGetter((config) -> {
+				return config.generation;
 			}), BLOCKSTATE_STRING_CODEC.fieldOf("block").forGetter((config) -> {
 				return config.state;
 			})).apply(instance, SimpleSphere.Config::new);
 		});
 
 		protected final SharedConfig sharedConfig;
+		protected final Optional<GenerationConfig> generation;
 		protected final BlockState state;
 
-		public Config(SharedConfig sharedConfig, BlockState state) {
+		public Config(SharedConfig sharedConfig, Optional<GenerationConfig> generation, BlockState state) {
 			this.sharedConfig = sharedConfig;
+			this.generation = generation;
 			this.state = state;
 		}
 
@@ -104,6 +108,11 @@ public class SimpleSphere extends Sphere<SimpleSphere.Config> {
 		@Override
 		public SharedConfig config() {
 			return sharedConfig;
+		}
+
+		@Override
+		public Optional<GenerationConfig> generation() {
+			return generation;
 		}
 	}
 
