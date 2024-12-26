@@ -78,7 +78,7 @@ public class StarrySkies implements ModInitializer {
 		CONFIG = AutoConfig.getConfigHolder(StarrySkyConfig.class).getConfig();
 
 		// Register all the stuff
-		Registry.register(Registries.CHUNK_GENERATOR, new Identifier(MOD_ID, "starry_skies_chunk_generator"), StarrySkyChunkGenerator.CODEC);
+		Registry.register(Registries.CHUNK_GENERATOR, new Identifier(MOD_ID, "starry_skies"), StarrySkyChunkGenerator.CODEC);
 		
 		StarryRegistries.register();
 		Spheres.initialize();

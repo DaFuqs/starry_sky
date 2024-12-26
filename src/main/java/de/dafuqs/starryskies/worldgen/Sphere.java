@@ -9,8 +9,7 @@ public abstract class Sphere<SC extends SphereConfig> {
 	private final MapCodec<ConfiguredSphere<Sphere<SC>, SC>> codec;
 
 	public Sphere(Codec<SC> configCodec) {
-		this.codec = configCodec.fieldOf("config")
-				.xmap((config) -> new ConfiguredSphere<>(this, config), ConfiguredSphere::config);
+		this.codec = configCodec.fieldOf("config").xmap((config) -> new ConfiguredSphere<>(this, config), ConfiguredSphere::config);
 	}
 
 	public abstract PlacedSphere<? extends Sphere<SC>> generate(ConfiguredSphere<? extends Sphere<SC>, SC> configuredSphere, SC config, ChunkRandom random, DynamicRegistryManager registryManager);

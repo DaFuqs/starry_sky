@@ -7,8 +7,7 @@ import net.minecraft.util.math.random.*;
 
 public class ConfiguredSphere<S extends Sphere<SC>, SC extends SphereConfig> {
 
-	public static final Codec<ConfiguredSphere<?, ?>> CODEC = StarryRegistries.SPHERE
-			.getCodec().dispatch((configuredSphere) -> configuredSphere.sphere, Sphere::getCodec);
+	public static final Codec<ConfiguredSphere<?, ?>> CODEC = StarryRegistries.SPHERE.getCodec().dispatch((configuredSphere) -> configuredSphere.sphere, Sphere::getCodec);
 
 	protected final S sphere;
 	protected final SC config;

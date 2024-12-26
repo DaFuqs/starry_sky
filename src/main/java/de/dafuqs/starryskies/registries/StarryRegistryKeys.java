@@ -9,9 +9,12 @@ import net.minecraft.registry.*;
 
 public class StarryRegistryKeys {
 	
+	// Builtin Registries
 	public static final RegistryKey<Registry<GenerationGroup>> GENERATION_GROUP = of("starry_skies/generation_group");
+	public static final RegistryKey<Registry<SphereDecorator<?>>> SPHERE_DECORATOR = of("starry_skies/sphere_decorator");
+	
+	// Dynamic Registries
 	public static final RegistryKey<Registry<SystemGenerator>> SYSTEM_GENERATOR = of("starry_skies/system_generator");
-	public static final RegistryKey<Registry<SphereDecorator<?>>> SPHERE_DECORATOR = of("starry_skies/decorator");
 	public static final RegistryKey<Registry<ConfiguredSphereDecorator<?, ?>>> CONFIGURED_SPHERE_DECORATOR = of("starry_skies/configured_decorator");
 	public static final RegistryKey<Registry<Sphere<?>>> SPHERE = of("starry_skies/sphere_type");
 	public static final RegistryKey<Registry<ConfiguredSphere<?, ?>>> CONFIGURED_SPHERE = of("starry_skies/configured_sphere");

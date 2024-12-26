@@ -18,7 +18,7 @@ public abstract class SphereDecorator<FC extends SphereDecoratorConfig> {
 	private final MapCodec<ConfiguredSphereDecorator<FC, SphereDecorator<FC>>> codec;
 
 	public SphereDecorator(Codec<FC> configCodec) {
-		this.codec = configCodec.fieldOf("config").xmap((config) -> new ConfiguredSphereDecorator(this, config), ConfiguredSphereDecorator::config);
+		this.codec = configCodec.fieldOf("config").xmap((config) -> new ConfiguredSphereDecorator<>(this, config), ConfiguredSphereDecorator::config);
 	}
 
 	public MapCodec<ConfiguredSphereDecorator<FC, SphereDecorator<FC>>> getCodec() {
@@ -27,8 +27,8 @@ public abstract class SphereDecorator<FC extends SphereDecoratorConfig> {
 
 	public abstract boolean generate(SphereFeatureContext<FC> context);
 
-	public boolean generateIfValid(FC config, StructureWorldAccess world, Random random, BlockPos pos, PlacedSphere spheroid) {
-		return world.isValidForSetBlock(pos) && this.generate(new SphereFeatureContext<>(world, random, new ChunkPos(pos), spheroid, config));
+	public boolean generateIfValid(FC config, StructureWorldAccess world, Random random, BlockPos pos, PlacedSphere<?> sphere) {
+		return world.isValidForSetBlock(pos) && this.generate(new SphereFeatureContext<>(world, random, new ChunkPos(pos), sphere, config));
 	}
 
 	protected void placeLootChest(@NotNull StructureWorldAccess world, BlockPos blockPos, RegistryKey<LootTable> lootTable, Random random) {

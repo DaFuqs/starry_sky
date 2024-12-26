@@ -154,7 +154,6 @@ public class SystemGenerator {
 	public record System(List<PlacedSphere<?>> spheres) implements Iterable<PlacedSphere<?>> {
 
 		private static System generateSystem(SystemGenerator systemGenerator, int bottomY, int worldHeight, long seed, @NotNull Point systemPoint, DynamicRegistryManager registryManager) {
-
 			int systemPointX = systemPoint.x;
 			int systemPointZ = systemPoint.y;
 
