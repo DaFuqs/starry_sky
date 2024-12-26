@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:huge_hanging_plant",
-  "type_data": {
+  "config": {
     "block": "betterend:jungle_vine[shape=middle]",
     "first_block": "betterend:jungle_vine[shape=top]",
     "last_block": "betterend:jungle_vine[shape=bottom]",

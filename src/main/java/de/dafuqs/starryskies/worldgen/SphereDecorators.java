@@ -1,5 +1,6 @@
 package de.dafuqs.starryskies.worldgen;
 
+import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.worldgen.decorators.*;
 import net.minecraft.registry.*;
@@ -33,7 +34,7 @@ public class SphereDecorators {
 	}
 
 	private static <C extends SphereDecoratorConfig, F extends SphereDecorator<C>> F register(String name, F feature) {
-		return Registry.register(StarryRegistries.SPHERE_DECORATOR, name, feature);
+		return Registry.register(StarryRegistries.SPHERE_DECORATOR, StarrySkies.id(name), feature);
 	}
 
 }

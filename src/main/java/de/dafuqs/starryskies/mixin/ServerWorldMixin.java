@@ -18,8 +18,8 @@ import java.util.*;
 public abstract class ServerWorldMixin {
 	@Unique
 	private final Map<TagKey<Structure>, Identifier> locatableStarrySpheres = new HashMap<>() {{
-		put(StructureTags.EYE_OF_ENDER_LOCATED, StarrySkies.locate("overworld/treasure/stronghold"));
-		put(StructureTags.ON_OCEAN_EXPLORER_MAPS, StarrySkies.locate("overworld/treasure/ocean_monument"));
+		put(StructureTags.EYE_OF_ENDER_LOCATED, StarrySkies.id("overworld/treasure/stronghold"));
+		put(StructureTags.ON_OCEAN_EXPLORER_MAPS, StarrySkies.id("overworld/treasure/ocean_monument"));
 	}};
 
 	@Inject(at = @At("HEAD"), method = "locateStructure(Lnet/minecraft/registry/tag/TagKey;Lnet/minecraft/util/math/BlockPos;IZ)Lnet/minecraft/util/math/BlockPos;", cancellable = true)

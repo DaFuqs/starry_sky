@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:huge_hanging_plant",
-  "type_data": {
+  "config": {
     "block": "byg:weeping_roots_plant",
     "min_height": 1,
     "max_height": 7,

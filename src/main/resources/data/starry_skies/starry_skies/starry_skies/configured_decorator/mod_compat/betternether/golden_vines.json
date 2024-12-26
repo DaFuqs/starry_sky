@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:huge_hanging_plant",
-  "type_data": {
+  "config": {
     "block": "betternether:golden_vine",
     "min_height": 1,
     "max_height": 6,

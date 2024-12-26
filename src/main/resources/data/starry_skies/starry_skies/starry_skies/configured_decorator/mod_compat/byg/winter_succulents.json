@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:single_block",
-  "type_data": {
+  "config": {
     "block": "byg:winter_succulent",
     "chance": 0.07
   },

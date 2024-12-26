@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:huge_hanging_plant",
-  "type_data": {
+  "config": {
     "block": "byg:soul_shroom_spore",
     "last_block": "byg:soul_shroom_spore_end",
     "min_height": 2,

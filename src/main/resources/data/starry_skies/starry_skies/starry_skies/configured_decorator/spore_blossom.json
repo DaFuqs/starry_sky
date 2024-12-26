@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:hanging_cave_block",
-  "type_data": {
+  "config": {
     "block": "minecraft:spore_blossom",
     "chance": 0.1
   }

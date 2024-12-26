@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:single_block",
-  "type_data": {
+  "config": {
     "block": "byg:mini_cactus",
     "chance": 0.03
   },

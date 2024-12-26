@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:single_block",
-  "type_data": {
+  "config": {
     "block": "byg:beach_grass",
     "chance": 0.1
   },

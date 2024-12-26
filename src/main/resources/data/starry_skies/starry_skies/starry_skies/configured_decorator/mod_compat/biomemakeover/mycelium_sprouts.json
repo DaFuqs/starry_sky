@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:single_block",
-  "type_data": {
+  "config": {
     "block": "biomemakeover:mycelium_sprouts",
     "chance": 0.03
   },

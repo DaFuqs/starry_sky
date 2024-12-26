@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:dripleaf",
-  "type_data": {
+  "config": {
     "tries": 8
   }
 }

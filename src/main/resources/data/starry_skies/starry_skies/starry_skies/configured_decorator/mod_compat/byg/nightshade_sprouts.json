@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:single_block",
-  "type_data": {
+  "config": {
     "block": "byg:nightshade_sprouts",
     "chance": 0.2
   },

@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:single_block",
-  "type_data": {
+  "config": {
     "block": "minecraft:brown_mushroom",
     "chance": 0.05
   }

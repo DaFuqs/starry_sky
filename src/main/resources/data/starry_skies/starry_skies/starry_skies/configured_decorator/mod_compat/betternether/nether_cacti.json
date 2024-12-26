@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:single_block",
-  "type_data": {
+  "config": {
     "block": "betternether:nether_cactus",
     "chance": 0.05
   },

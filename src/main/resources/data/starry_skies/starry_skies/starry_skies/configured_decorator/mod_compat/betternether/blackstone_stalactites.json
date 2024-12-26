@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:single_block",
-  "type_data": {
+  "config": {
     "block": "betternether:blackstone_stalactite",
     "chance": 0.1
   },

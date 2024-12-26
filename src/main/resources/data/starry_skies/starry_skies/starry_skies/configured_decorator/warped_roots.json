@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:single_block",
-  "type_data": {
+  "config": {
     "block": "minecraft:warped_roots",
     "chance": 0.08
   }

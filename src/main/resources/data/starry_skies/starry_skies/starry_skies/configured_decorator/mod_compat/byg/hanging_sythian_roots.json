@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:huge_hanging_plant",
-  "type_data": {
+  "config": {
     "block": "byg:hanging_sythian_roots_plant",
     "last_block": "byg:hanging_sythian_roots",
     "min_height": 2,

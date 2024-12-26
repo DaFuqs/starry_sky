@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:single_block",
-  "type_data": {
+  "config": {
     "block": "betterend:jungle_grass",
     "chance": 0.2
   },

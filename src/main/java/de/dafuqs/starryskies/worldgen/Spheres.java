@@ -1,5 +1,6 @@
 package de.dafuqs.starryskies.worldgen;
 
+import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.worldgen.spheres.*;
 import net.minecraft.registry.*;
@@ -28,7 +29,7 @@ public class Spheres {
 	public static final Sphere<ModularRainbowSphere.Config> MODULAR_RAINBOW = register("modular_rainbow", ModularRainbowSphere.Config.CODEC);*/
 
 	private static <C extends SphereConfig, F extends Sphere<C>> F register(String name, F feature) {
-		return Registry.register(StarryRegistries.SPHERE, name, feature);
+		return Registry.register(StarryRegistries.SPHERE, StarrySkies.id(name), feature);
 	}
 
 	public static void initialize() {

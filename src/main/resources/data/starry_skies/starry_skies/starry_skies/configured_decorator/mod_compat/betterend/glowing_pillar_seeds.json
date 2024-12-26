@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:single_block",
-  "type_data": {
+  "config": {
     "block": "betterend:glowing_pillar_seed",
     "chance": 0.05
   },

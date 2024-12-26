@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:huge_hanging_plant",
-  "type_data": {
+  "config": {
     "block": "betternether:eye_vine",
     "last_block": "betternether:eyeball",
     "min_height": 4,

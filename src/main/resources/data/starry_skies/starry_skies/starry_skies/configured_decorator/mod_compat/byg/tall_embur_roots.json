@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:double_block",
-  "type_data": {
+  "config": {
     "block": "byg:tall_embur_roots",
     "chance": 0.05
   },

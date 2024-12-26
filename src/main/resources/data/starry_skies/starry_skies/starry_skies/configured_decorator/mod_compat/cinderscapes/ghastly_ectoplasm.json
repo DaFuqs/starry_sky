@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:hanging_block",
-  "type_data": {
+  "config": {
     "block": "cinderscapes:ghastly_ectoplasm",
     "chance": 0.1
   },

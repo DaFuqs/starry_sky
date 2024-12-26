@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:double_block",
-  "type_data": {
+  "config": {
     "block": "betterend:umbrella_moss_tall",
     "chance": 0.05
   },

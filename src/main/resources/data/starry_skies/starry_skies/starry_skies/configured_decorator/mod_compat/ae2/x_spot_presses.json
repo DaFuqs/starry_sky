@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:x_spot",
-  "type_data": {
+  "config": {
     "loot_table": "ae2:blocks/mysterious_cube",
     "marking_block": "minecraft:air"
   },

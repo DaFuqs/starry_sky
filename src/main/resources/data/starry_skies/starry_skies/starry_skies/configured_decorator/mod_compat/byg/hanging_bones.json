@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:huge_hanging_plant",
-  "type_data": {
+  "config": {
     "block": "byg:hanging_bones",
     "min_height": 2,
     "max_height": 5,

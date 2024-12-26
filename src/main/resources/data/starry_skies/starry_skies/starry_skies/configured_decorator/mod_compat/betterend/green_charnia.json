@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:cave_bottom_block",
-  "type_data": {
+  "config": {
     "block": "betterend:charnia_green",
     "chance": 0.1
   },

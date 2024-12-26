@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:double_block",
-  "type_data": {
+  "config": {
     "block": "byg:ether_bush",
     "chance": 0.04
   },

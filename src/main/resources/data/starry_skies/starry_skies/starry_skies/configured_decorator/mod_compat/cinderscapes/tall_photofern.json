@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:double_block",
-  "type_data": {
+  "config": {
     "block": "cinderscapes:tall_photofern",
     "chance": 0.1
   },

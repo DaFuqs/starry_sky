@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:single_block",
-  "type_data": {
+  "config": {
     "block": "byg:shulkren_fungus",
     "chance": 0.05
   },

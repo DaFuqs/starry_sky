@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:single_block",
-  "type_data": {
+  "config": {
     "block": "cinderscapes:polypite_sulfur_quartz",
     "chance": 0.1
   },

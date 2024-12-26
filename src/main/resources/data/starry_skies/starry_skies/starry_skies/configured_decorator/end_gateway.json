@@ -1,3 +1,4 @@
 {
-  "type": "starry_skies:end_gateway"
+  "type": "starry_skies:end_gateway",
+  "config": {}
 }

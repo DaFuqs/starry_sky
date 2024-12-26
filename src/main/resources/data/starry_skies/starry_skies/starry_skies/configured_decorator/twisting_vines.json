@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:huge_plant",
-  "type_data": {
+  "config": {
     "block": "minecraft:twisting_vines_plant",
     "last_block": "minecraft:twisting_vines",
     "min_height": 1,

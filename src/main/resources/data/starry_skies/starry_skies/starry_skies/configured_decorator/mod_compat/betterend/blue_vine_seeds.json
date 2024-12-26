@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:single_block",
-  "type_data": {
+  "config": {
     "block": "betterend:blue_vine_seed",
     "chance": 0.1
   },

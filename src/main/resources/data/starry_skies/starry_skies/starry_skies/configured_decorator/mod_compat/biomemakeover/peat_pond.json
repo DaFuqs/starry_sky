@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:center_pond",
-  "type_data": {
+  "config": {
     "beach_block": "biomemakeover:mossy_peat",
     "fluid_block": "minecraft:water",
     "loot_table": "minecraft:chests/underwater_ruin_small",

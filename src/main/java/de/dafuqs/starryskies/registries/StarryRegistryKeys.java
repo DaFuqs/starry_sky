@@ -21,7 +21,7 @@ public class StarryRegistryKeys {
 	public static final RegistryKey<Registry<StarryStateProvider>> STATE_PROVIDER = of("starry_skies/state_provider");
 
 	private static <T> RegistryKey<Registry<T>> of(String id) {
-		return RegistryKey.ofRegistry(StarrySkies.locate(id));
+		return RegistryKey.ofRegistry(StarrySkies.id(id));
 	}
 
 }

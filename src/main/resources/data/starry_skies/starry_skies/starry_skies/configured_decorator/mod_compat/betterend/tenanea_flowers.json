@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:huge_hanging_plant",
-  "type_data": {
+  "config": {
     "block": "betterend:tenanea_flowers[shape=middle]",
     "first_block": "betterend:tenanea_flowers[shape=top]",
     "last_block": "betterend:tenanea_flowers[shape=bottom]",

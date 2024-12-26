@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:bamboo",
-  "type_data": {
+  "config": {
     "bamboo_block": "betternether:stalagnate_stem",
     "sapling_block": "betternether:stalagnate_seed",
     "chance": 0.075,

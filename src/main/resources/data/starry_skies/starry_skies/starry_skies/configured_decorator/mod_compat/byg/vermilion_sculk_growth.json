@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:single_block",
-  "type_data": {
+  "config": {
     "block": "byg:vermilion_sculk_growth",
     "chance": 0.15
   },

@@ -4,7 +4,6 @@ import com.mojang.brigadier.exceptions.*;
 import de.dafuqs.starryskies.advancements.*;
 import de.dafuqs.starryskies.commands.*;
 import de.dafuqs.starryskies.configs.*;
-import de.dafuqs.starryskies.data_loaders.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.worldgen.*;
 import de.dafuqs.starryskies.worldgen.dimension.*;
@@ -13,21 +12,16 @@ import me.shedaniel.autoconfig.serializer.*;
 import net.fabricmc.api.*;
 import net.fabricmc.fabric.api.command.v2.*;
 import net.fabricmc.fabric.api.event.lifecycle.v1.*;
-import net.fabricmc.fabric.api.resource.*;
 import net.kyrptonaught.customportalapi.*;
 import net.kyrptonaught.customportalapi.util.*;
 import net.minecraft.block.*;
 import net.minecraft.command.argument.*;
 import net.minecraft.registry.*;
-import net.minecraft.resource.*;
-import net.minecraft.server.*;
 import net.minecraft.server.network.*;
 import net.minecraft.util.*;
 import net.minecraft.world.gen.chunk.*;
 import org.jetbrains.annotations.*;
 import org.slf4j.*;
-
-import java.util.*;
 
 public class StarrySkies implements ModInitializer {
 
@@ -35,12 +29,12 @@ public class StarrySkies implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static StarrySkyConfig CONFIG;
 
-	public static Identifier locate(String name) {
+	public static Identifier id(String name) {
 		return new Identifier(MOD_ID, name);
 	}
 
-	public static String locatePlain(String name) {
-		return locate(name).toString();
+	public static String idPlain(String name) {
+		return id(name).toString();
 	}
 
 	public static BlockState getStateFromString(String s) throws CommandSyntaxException {

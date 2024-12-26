@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:ground_block",
-  "type_data": {
+  "config": {
     "block": "sandwichable:salty_sand",
     "chance": 0.2
   },

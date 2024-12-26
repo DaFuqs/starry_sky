@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:double_block",
-  "type_data": {
+  "config": {
     "block": "byg:nightshade_roots",
     "chance": 0.1
   },

@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:single_block",
-  "type_data": {
+  "config": {
     "block": "betternether:golden_lumabus_seed",
     "chance": 0.025
   },

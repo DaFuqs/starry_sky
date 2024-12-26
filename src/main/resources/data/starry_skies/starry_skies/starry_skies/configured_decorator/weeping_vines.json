@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:huge_hanging_plant",
-  "type_data": {
+  "config": {
     "block": "minecraft:weeping_vines_plant",
     "last_block": "minecraft:weeping_vines",
     "min_height": 1,

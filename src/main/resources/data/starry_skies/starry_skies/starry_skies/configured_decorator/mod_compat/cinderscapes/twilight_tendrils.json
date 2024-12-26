@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:single_block",
-  "type_data": {
+  "config": {
     "block": "cinderscapes:twilight_tendrils",
     "chance": 0.1
   },

@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:stacked_block",
-  "type_data": {
+  "config": {
     "block": "byg:nightshade_sprouts",
     "chance": 0.2,
     "min_height": 1,

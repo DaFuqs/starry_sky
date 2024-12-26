@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:stacked_block",
-  "type_data": {
+  "config": {
     "block": "biomemakeover:saguaro_cactus",
     "chance": 0.05,
     "min_height": 2,

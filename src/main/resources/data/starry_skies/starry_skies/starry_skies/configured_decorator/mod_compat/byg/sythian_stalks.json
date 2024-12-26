@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:bamboo",
-  "type_data": {
+  "config": {
     "bamboo_block": "byg:sythian_stalk_block",
     "sapling_block": "byg:sythian_stalk_block",
     "chance": 0.075,

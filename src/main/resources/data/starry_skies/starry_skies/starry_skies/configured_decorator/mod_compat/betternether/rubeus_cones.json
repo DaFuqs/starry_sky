@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:hanging_block",
-  "type_data": {
+  "config": {
     "block": "betternether:rubeus_cone",
     "chance": 0.05
   },

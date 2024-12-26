@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:stacked_block",
-  "type_data": {
+  "config": {
     "block": "byg:warped_cactus",
     "chance": 0.15,
     "min_height": 1,

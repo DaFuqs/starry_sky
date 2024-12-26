@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:huge_hanging_plant",
-  "type_data": {
+  "config": {
     "block": "byg:shulkren_vine_plant",
     "last_block": "byg:shulkren_vine",
     "chance": 0.05,

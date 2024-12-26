@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:single_block",
-  "type_data": {
+  "config": {
     "block": "biomemakeover:barrel_cactus_flowered",
     "chance": 0.02
   },

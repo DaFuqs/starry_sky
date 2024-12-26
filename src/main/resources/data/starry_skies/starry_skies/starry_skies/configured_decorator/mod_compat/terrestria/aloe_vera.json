@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:single_block",
-  "type_data": {
+  "config": {
     "block": "terrestria:aloe_vera",
     "chance": 0.02
   },

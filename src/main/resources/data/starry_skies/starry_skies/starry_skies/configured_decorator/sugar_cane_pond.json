@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:plant_around_pond",
-  "type_data": {
+  "config": {
     "block": "minecraft:sugar_cane",
     "pond_tries": 3,
     "plant_chance": 0.5,

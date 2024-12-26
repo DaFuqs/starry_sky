@@ -8,7 +8,7 @@ import net.minecraft.world.gen.feature.*;
 
 public class StarryFeatures {
 
-	public static Identifier SPHERE_DECORATOR_FEATURE_ID = StarrySkies.locate("sphere_decoration");
+	public static Identifier SPHERE_DECORATOR_FEATURE_ID = StarrySkies.id("sphere_decoration");
 	public static Feature<DefaultFeatureConfig> SPHERE_DECORATION;
 
 	public static void initialize() {

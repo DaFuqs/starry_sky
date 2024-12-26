@@ -1,6 +1,6 @@
 {
   "type": "starry_skies:huge_hanging_plant",
-  "type_data": {
+  "config": {
     "block": "byg:lament_vine_plant",
     "last_block": "byg:lament_vine",
     "min_height": 2,
