@@ -1,9 +1,13 @@
 {
-  "min_size": 7,
-  "max_size": 16,
   "type": "starry_skies:simple",
   "type_data": {
     "block": "minecraft:netherrack"
+  },
+  "config": {
+    "min_size": 7,
+    "max_size": 16,
+    "decorators": {},
+    "spawns": []
   },
   "decorators": {},
   "spawns": []

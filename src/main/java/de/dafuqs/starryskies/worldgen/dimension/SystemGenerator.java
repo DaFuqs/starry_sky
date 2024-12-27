@@ -13,14 +13,11 @@ import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.*;
 import net.minecraft.world.chunk.*;
-import net.minecraft.world.gen.chunk.*;
 import org.jetbrains.annotations.*;
 
-import javax.annotation.processing.*;
 import java.awt.*;
 import java.util.List;
 import java.util.*;
-import java.util.function.*;
 
 import static de.dafuqs.starryskies.Support.*;
 
@@ -241,7 +238,7 @@ public class SystemGenerator {
 				Map<ConfiguredSphere<?, ?>, Float> possibleEntries = new HashMap<>();
 				
 				for(Map.Entry<RegistryKey<ConfiguredSphere<?, ?>>, ConfiguredSphere<?, ?>> entry : s) {
-					Optional<SphereConfig.GenerationConfig> generationConfig = entry.getValue().config().generation();
+					Optional<ConfiguredSphere.Generation> generationConfig = entry.getValue().generation();
 					if(generationConfig.isPresent() && generationConfig.get().group().equals(distributionTypeID)) {
 						possibleEntries.put(entry.getValue(), generationConfig.get().weight());
 					}
