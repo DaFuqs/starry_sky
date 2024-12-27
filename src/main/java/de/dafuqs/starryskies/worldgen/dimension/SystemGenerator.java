@@ -238,7 +238,7 @@ public class SystemGenerator {
 				Map<ConfiguredSphere<?, ?>, Float> possibleEntries = new HashMap<>();
 				
 				for(Map.Entry<RegistryKey<ConfiguredSphere<?, ?>>, ConfiguredSphere<?, ?>> entry : s) {
-					Optional<ConfiguredSphere.Generation> generationConfig = entry.getValue().generation();
+					Optional<SphereConfig.Generation> generationConfig = entry.getValue().config().generation;
 					if(generationConfig.isPresent() && generationConfig.get().group().equals(distributionTypeID)) {
 						possibleEntries.put(entry.getValue(), generationConfig.get().weight());
 					}
