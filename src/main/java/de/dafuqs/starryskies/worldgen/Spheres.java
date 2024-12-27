@@ -8,6 +8,7 @@ import net.minecraft.registry.*;
 public class Spheres {
 
 	public static final Sphere<SimpleSphere.Config> SIMPLE = register("simple", new SimpleSphere(SimpleSphere.Config.CODEC));
+	public static final Sphere<ShellSphere.Config> SHELL = register("shell", new ShellSphere(ShellSphere.Config.CODEC));
 	/*public static final Sphere<DungeonSphere.Config> DUNGEON = register("dungeon", DungeonSphere.Config.CODEC);
 	public static final Sphere<CaveSphere.Config> CAVE = register("cave", CaveSphere.Config.CODEC);
 	public static final Sphere<ModularSphere.Config> MODULAR = register("modular", ModularSphere.Config.CODEC);
@@ -18,7 +19,6 @@ public class Spheres {
 	public static final Sphere<StrongholdSphere.Config> STRONGHOLD = register("stronghold", StrongholdSphere.Config.CODEC);
 	public static final Sphere<StackedHorizontalSphere.Config> STACKED_HORIZONTAL = register("stacked_horizontal", StackedHorizontalSphere.Config.CODEC);
 	public static final Sphere<EndCitySphere.Config> END_CITY = register("end_city", EndCitySphere.Config.CODEC);
-	public static final Sphere<ShellSphere.Config> SHELL = register("shell", ShellSphere.Config.CODEC);
 	public static final Sphere<FluidSphere.Config> FLUID = register("fluid", FluidSphere.Config.CODEC);
 	public static final Sphere<FluidCoreSphere.Config> CORE_FLUID = register("fluid_core", FluidCoreSphere.Config.CODEC);
 	public static final Sphere<MushroomSphere.Config> MUSHROOM = register("mushroom", MushroomSphere.Config.CODEC);
