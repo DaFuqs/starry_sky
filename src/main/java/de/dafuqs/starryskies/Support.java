@@ -1,7 +1,7 @@
 package de.dafuqs.starryskies;
 
 import com.google.common.collect.*;
-import com.mojang.datafixers.util.Pair;
+import com.mojang.datafixers.util.*;
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.worldgen.*;
@@ -11,7 +11,6 @@ import net.minecraft.command.argument.*;
 import net.minecraft.registry.*;
 import net.minecraft.server.network.*;
 import net.minecraft.server.world.*;
-import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
@@ -70,7 +69,7 @@ public class Support {
 		}
 	}
 	
-	public static Optional<SphereDistance> getClosestSphere3x3(@NotNull ServerWorld serverWorld, BlockPos position, Identifier sphereId, DynamicRegistryManager registryManager) {
+	public static Optional<SphereDistance> getClosestSphere3x3(@NotNull ServerWorld serverWorld, BlockPos position, RegistryKey<ConfiguredSphere<?, ?>> sphereKey, DynamicRegistryManager registryManager) {
 		if (!(serverWorld.getChunkManager().getChunkGenerator() instanceof StarrySkyChunkGenerator starrySkyChunkGenerator)) {
 			return Optional.empty();
 		}
@@ -83,7 +82,7 @@ public class Support {
 			Point systemPos = getSystemCoordinateFromChunkCoordinate(position.getX() / 16, position.getZ() / 16);
 			
 			for (PlacedSphere<?> p : systemGenerator.getSystem(serverWorld, new Point(systemPos.x + currentPoint.x, systemPos.y + currentPoint.y))) {
-				if (p.getID(registryManager).equals(sphereId)) {
+				if (sphereKey.equals(p.getRegistryKey(registryManager))) {
 					double currDist = position.getSquaredDistance(p.getPosition());
 					if (currDist < currentMinDistance) {
 						currentMinDistance = currDist;

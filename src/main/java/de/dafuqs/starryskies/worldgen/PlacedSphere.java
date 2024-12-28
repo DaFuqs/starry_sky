@@ -36,6 +36,10 @@ public abstract class PlacedSphere<SC extends SphereConfig> /* implements Serial
 		this.spawns = spawns;
 		this.random = random;
 	}
+	
+	public Optional<RegistryKey<ConfiguredSphere<?, ?>>> getRegistryKey(DynamicRegistryManager registryManager) {
+		return registryManager.get(StarryRegistryKeys.CONFIGURED_SPHERE).getKey(this.configuredSphere);
+	}
 
 	public Identifier getID(DynamicRegistryManager registryManager) {
 		Registry<ConfiguredSphere<?, ?>> registry = registryManager.get(StarryRegistryKeys.CONFIGURED_SPHERE);

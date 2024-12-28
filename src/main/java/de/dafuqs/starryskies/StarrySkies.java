@@ -82,8 +82,8 @@ public class StarrySkies implements ModInitializer {
 		StarryFeatures.initialize();
 		SphereDecorators.initialize();
 		StarryAdvancementCriteria.register();
-
-		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> ClosestSphereCommand.register(dispatcher));
+		
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> ClosestSphereCommand.register(dispatcher, registryAccess));
 		ServerTickEvents.END_SERVER_TICK.register(new ProximityAdvancementCheckEvent());
 		
 		// Build a final map of sphere generation data for each chunk generator
