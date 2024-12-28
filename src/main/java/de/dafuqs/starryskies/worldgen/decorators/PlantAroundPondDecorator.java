@@ -20,12 +20,12 @@ public class PlantAroundPondDecorator extends SphereDecorator<PlantAroundPondDec
 	@Override
 	public boolean generate(SphereFeatureContext<PlantAroundPondDecoratorConfig> context) {
 		StructureWorldAccess world = context.getWorld();
-		PlacedSphere sphere = context.getSpheroid();
+		PlacedSphere<?> sphere = context.getSphere();
 		ChunkPos origin = context.getChunkPos();
 		Random random = context.getRandom();
 		PlantAroundPondDecoratorConfig config = context.getConfig();
-
-		for (BlockPos pos : getTopBlocks(world, origin, sphere, random, config.pond_tries)) {
+		
+		for (BlockPos pos : getTopBlocks(world, origin, sphere, random, PlantAroundPondDecoratorConfig.pond_tries)) {
 			boolean canGenerate;
 			// check if all 4 sides of the future water pond are solid
 			canGenerate = true;

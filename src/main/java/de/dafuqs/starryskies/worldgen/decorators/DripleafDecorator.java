@@ -23,7 +23,7 @@ public class DripleafDecorator extends SphereDecorator<DripleafDecoratorConfig> 
 	@Override
 	public boolean generate(SphereFeatureContext<DripleafDecoratorConfig> context) {
 		StructureWorldAccess world = context.getWorld();
-		PlacedSphere sphere = context.getSpheroid();
+		PlacedSphere<?> sphere = context.getSphere();
 		ChunkPos origin = context.getChunkPos();
 		Random random = context.getRandom();
 		DripleafDecoratorConfig config = context.getConfig();

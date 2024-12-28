@@ -15,7 +15,7 @@ public class HangingCaveBlockDecorator extends SphereDecorator<HangingCaveBlockD
 	@Override
 	public boolean generate(SphereFeatureContext<HangingCaveBlockDecoratorConfig> context) {
 		StructureWorldAccess world = context.getWorld();
-		PlacedSphere sphere = context.getSpheroid();
+		PlacedSphere<?> sphere = context.getSphere();
 		ChunkPos origin = context.getChunkPos();
 		Random random = context.getRandom();
 		HangingCaveBlockDecoratorConfig config = context.getConfig();

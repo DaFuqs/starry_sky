@@ -15,7 +15,7 @@ public class GroundDecorator extends SphereDecorator<GroundDecoratorConfig> {
 	@Override
 	public boolean generate(SphereFeatureContext<GroundDecoratorConfig> context) {
 		StructureWorldAccess world = context.getWorld();
-		PlacedSphere sphere = context.getSpheroid();
+		PlacedSphere<?> sphere = context.getSphere();
 		ChunkPos origin = context.getChunkPos();
 		Random random = context.getRandom();
 		GroundDecoratorConfig config = context.getConfig();

@@ -8,15 +8,15 @@ public class SphereFeatureContext<FC extends SphereDecoratorConfig> {
 
 	private final StructureWorldAccess world;
 	private final Random random;
-	private final PlacedSphere spheroid;
+	private final PlacedSphere<?> sphere;
 	private final ChunkPos chunkPos;
 	private final FC config;
-
-	public SphereFeatureContext(StructureWorldAccess world, Random random, ChunkPos chunkPos, PlacedSphere spheroid, FC config) {
+	
+	public SphereFeatureContext(StructureWorldAccess world, Random random, ChunkPos chunkPos, PlacedSphere<?> sphere, FC config) {
 		this.world = world;
 		this.random = random;
 		this.chunkPos = chunkPos;
-		this.spheroid = spheroid;
+		this.sphere = sphere;
 		this.config = config;
 	}
 
@@ -27,9 +27,9 @@ public class SphereFeatureContext<FC extends SphereDecoratorConfig> {
 	public Random getRandom() {
 		return this.random;
 	}
-
-	public PlacedSphere getSpheroid() {
-		return this.spheroid;
+	
+	public PlacedSphere<?> getSphere() {
+		return this.sphere;
 	}
 
 	public ChunkPos getChunkPos() {

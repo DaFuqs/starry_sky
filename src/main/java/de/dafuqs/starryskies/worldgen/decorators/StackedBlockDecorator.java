@@ -17,7 +17,7 @@ public class StackedBlockDecorator extends SphereDecorator<StackedBlockDecorator
 	@Override
 	public boolean generate(SphereFeatureContext<StackedBlockDecoratorConfig> context) {
 		StructureWorldAccess world = context.getWorld();
-		PlacedSphere sphere = context.getSpheroid();
+		PlacedSphere<?> sphere = context.getSphere();
 		ChunkPos origin = context.getChunkPos();
 		Random random = context.getRandom();
 		StackedBlockDecoratorConfig config = context.getConfig();

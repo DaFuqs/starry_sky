@@ -16,7 +16,7 @@ public class ChorusFruitDecorator extends SphereDecorator<ChorusFruitDecoratorCo
 	@Override
 	public boolean generate(SphereFeatureContext<ChorusFruitDecoratorConfig> context) {
 		StructureWorldAccess world = context.getWorld();
-		PlacedSphere sphere = context.getSpheroid();
+		PlacedSphere<?> sphere = context.getSphere();
 		ChunkPos origin = context.getChunkPos();
 		Random random = context.getRandom();
 		ChorusFruitDecoratorConfig config = context.getConfig();

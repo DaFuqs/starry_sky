@@ -18,7 +18,7 @@ public class MultifaceGrowthDecorator extends SphereDecorator<MultifaceGrowthDec
 	@Override
 	public boolean generate(SphereFeatureContext<MultifaceGrowthDecoratorConfig> context) {
 		StructureWorldAccess world = context.getWorld();
-		PlacedSphere sphere = context.getSpheroid();
+		PlacedSphere<?> sphere = context.getSphere();
 		ChunkPos origin = context.getChunkPos();
 		Random random = context.getRandom();
 		MultifaceGrowthDecoratorConfig config = context.getConfig();

@@ -13,9 +13,9 @@ public record ConfiguredSphereDecorator<FC extends SphereDecoratorConfig, F exte
 	public static final Codec<ConfiguredSphereDecorator<?, ?>> CODEC = StarryRegistries.SPHERE_DECORATOR.getCodec().dispatch((f) -> f.feature, SphereDecorator::getCodec);
 	public static final Codec<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> REGISTRY_CODEC = RegistryElementCodec.of(StarryRegistryKeys.CONFIGURED_SPHERE_DECORATOR, CODEC);
 	public static final Codec<RegistryEntryList<ConfiguredSphereDecorator<?, ?>>> LIST_CODEC = RegistryCodecs.entryList(StarryRegistryKeys.CONFIGURED_SPHERE_DECORATOR, CODEC);
-
-	public boolean generate(StructureWorldAccess world, net.minecraft.util.math.random.Random random, BlockPos pos, PlacedSphere spheroid) {
-		return this.feature.generateIfValid(this.config, world, random, pos, spheroid);
+	
+	public boolean generate(StructureWorldAccess world, net.minecraft.util.math.random.Random random, BlockPos pos, PlacedSphere<?> sphere) {
+		return this.feature.generateIfValid(this.config, world, random, pos, sphere);
 	}
 
 	public String toString() {

@@ -33,8 +33,8 @@ public class SystemGenerator {
 					DefaultSphere.CODEC.listOf().fieldOf("fixed_spheres").forGetter(generator -> generator.defaultSpheres)
 			).apply(instance, SystemGenerator::new)
 	);
-
-	public static Map<RegistryKey<World>, SystemGenerator> systemGeneratorMap = new HashMap<>();
+	
+	protected static Map<Identifier, SystemGenerator> SYSTEM_GENERATOR_MAP = new HashMap<>();
 
 	// spawning probabilities
 	private final HashMap<Point, System> systemCache = new HashMap<>();
@@ -46,18 +46,20 @@ public class SystemGenerator {
 	private final BlockState bottomState;
 	private final List<DefaultSphere> defaultSpheres;
 	private final Map<Identifier, Float> generationGroups = new Object2FloatArrayMap<>();
-
-	public SystemGenerator(int spheresPerSystem, int minDistanceBetweenSpheres, int floorHeight, BlockState floorState, BlockState bottomState, List<DefaultSphere> defaultSpheres) {
+	
+	public SystemGenerator(Identifier id, int spheresPerSystem, int minDistanceBetweenSpheres, int floorHeight, BlockState floorState, BlockState bottomState, List<DefaultSphere> defaultSpheres) {
 		this.spheresPerSystem = spheresPerSystem;
 		this.minDistanceBetweenSpheres = minDistanceBetweenSpheres;
 		this.floorHeight = floorHeight;
 		this.floorState = floorState;
 		this.bottomState = bottomState;
 		this.defaultSpheres = defaultSpheres;
+		
+		SYSTEM_GENERATOR_MAP.put(id, this);
 	}
-
-	public static SystemGenerator get(RegistryKey<World> registryKey) {
-		return systemGeneratorMap.get(registryKey);
+	
+	public static SystemGenerator get(Identifier id) {
+		return SYSTEM_GENERATOR_MAP.get(id);
 	}
 
 	public void addGenerationGroup(Identifier id, float weight) {

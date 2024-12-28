@@ -17,7 +17,7 @@ public class HugeHangingPlantDecorator extends SphereDecorator<HugePlantDecorato
 	@Override
 	public boolean generate(SphereFeatureContext<HugePlantDecoratorConfig> context) {
 		StructureWorldAccess world = context.getWorld();
-		PlacedSphere sphere = context.getSpheroid();
+		PlacedSphere<?> sphere = context.getSphere();
 		ChunkPos origin = context.getChunkPos();
 		Random random = context.getRandom();
 		HugePlantDecoratorConfig config = context.getConfig();

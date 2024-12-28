@@ -28,7 +28,7 @@ public class XMarksTheSpotDecorator extends SphereDecorator<XMarksTheSpotDecorat
 	@Override
 	public boolean generate(SphereFeatureContext<XMarksTheSpotDecoratorConfig> context) {
 		StructureWorldAccess world = context.getWorld();
-		PlacedSphere sphere = context.getSpheroid();
+		PlacedSphere<?> sphere = context.getSphere();
 		ChunkPos origin = context.getChunkPos();
 		Random random = context.getRandom();
 		XMarksTheSpotDecoratorConfig config = context.getConfig();
@@ -53,7 +53,7 @@ public class XMarksTheSpotDecorator extends SphereDecorator<XMarksTheSpotDecorat
 	/**
 	 * Draws an "X" in a 5x5 pattern on a sphere.
 	 */
-	private void paintXInDirection(StructureWorldAccess world, PlacedSphere sphere, BlockState markingState, Direction direction) {
+	private void paintXInDirection(StructureWorldAccess world, PlacedSphere<?> sphere, BlockState markingState, Direction direction) {
 		int startX;
 		int startY;
 		int startZ;

@@ -17,7 +17,7 @@ public class CenterPondDecorator extends SphereDecorator<CenterPondDecoratorConf
 	@Override
 	public boolean generate(SphereFeatureContext<CenterPondDecoratorConfig> context) {
 		StructureWorldAccess world = context.getWorld();
-		PlacedSphere sphere = context.getSpheroid();
+		PlacedSphere<?> sphere = context.getSphere();
 		ChunkPos origin = context.getChunkPos();
 		Random random = context.getRandom();
 		CenterPondDecoratorConfig config = context.getConfig();

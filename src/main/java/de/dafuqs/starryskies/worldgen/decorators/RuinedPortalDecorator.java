@@ -24,7 +24,7 @@ public class RuinedPortalDecorator extends SphereDecorator<RuinedPortalDecorator
 	@Override
 	public boolean generate(SphereFeatureContext<RuinedPortalDecoratorConfig> context) {
 		StructureWorldAccess world = context.getWorld();
-		PlacedSphere sphere = context.getSpheroid();
+		PlacedSphere<?> sphere = context.getSphere();
 		ChunkPos origin = context.getChunkPos();
 		Random random = context.getRandom();
 		RuinedPortalDecoratorConfig config = context.getConfig();

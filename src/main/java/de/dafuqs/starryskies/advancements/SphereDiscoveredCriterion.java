@@ -16,8 +16,8 @@ public class SphereDiscoveredCriterion extends AbstractCriterion<SphereDiscovere
 	public Codec<Conditions> getConditionsCodec() {
 		return Conditions.CODEC;
 	}
-
-	public void trigger(ServerPlayerEntity player, PlacedSphere sphere) {
+	
+	public void trigger(ServerPlayerEntity player, PlacedSphere<?> sphere) {
 		this.trigger(player, (conditions) -> conditions.matches(sphere.getID(player.getRegistryManager())));
 	}
 

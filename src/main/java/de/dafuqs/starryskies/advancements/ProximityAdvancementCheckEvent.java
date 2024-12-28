@@ -23,10 +23,10 @@ public class ProximityAdvancementCheckEvent implements ServerTickEvents.EndTick 
 				StarrySkies.LOGGER.debug("Checking player {}", serverPlayerEntity.getName());
 				if (StarrySkies.inStarryWorld(serverPlayerEntity)) {
 					StarrySkies.LOGGER.debug("In starry world");
-					Optional<Support.SpheroidDistance> spheroidDistance = Support.getClosestSpheroidToPlayer(serverPlayerEntity);
-					if (spheroidDistance.isPresent() && (Math.sqrt(spheroidDistance.get().squaredDistance)) < spheroidDistance.get().spheroid.getRadius() + 2) {
-						PlacedSphere spheroid = spheroidDistance.get().spheroid;
-						StarryAdvancementCriteria.SPHERE_DISCOVERED.trigger(serverPlayerEntity, spheroid);
+					Optional<Support.SphereDistance> distance = Support.getClosestSphere(serverPlayerEntity);
+					if (distance.isPresent() && (Math.sqrt(distance.get().squaredDistance)) < distance.get().sphere.getRadius() + 2) {
+						PlacedSphere<?> sphere = distance.get().sphere;
+						StarryAdvancementCriteria.SPHERE_DISCOVERED.trigger(serverPlayerEntity, sphere);
 					}
 				}
 			}

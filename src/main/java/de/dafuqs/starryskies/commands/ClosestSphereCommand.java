@@ -24,19 +24,18 @@ public class ClosestSphereCommand {
 
 	private static int execute(ServerCommandSource source, Identifier identifier) {
 		ServerPlayerEntity caller = source.getPlayer();
-
-		Optional<Support.SpheroidDistance> spheroidDistance;
+		
+		Optional<Support.SphereDistance> distance;
 		if (identifier == null) {
-			spheroidDistance = Support.getClosestSpheroidToPlayer(caller);
+			distance = Support.getClosestSphere(caller);
 		} else {
-			spheroidDistance = Optional.ofNullable(Support.getClosestSpheroid3x3(source.getWorld(), BlockPos.ofFloored(source.getPosition()), identifier, source.getRegistryManager()));
+			distance = Optional.ofNullable(Support.getClosestSphere3x3(source.getWorld(), BlockPos.ofFloored(source.getPosition()), identifier, source.getRegistryManager()));
 		}
-
-		if (spheroidDistance.isPresent()) {
-			source.sendFeedback(() -> Text.translatable(spheroidDistance.get().spheroid.getDescription(source.getRegistryManager())), false);
+		
+		if (distance.isPresent()) {
+			source.sendFeedback(() -> Text.translatable(distance.get().sphere.getDescription(source.getRegistryManager())), false);
 		} else {
-			// TODO: add lang key
-			source.sendFeedback(() -> Text.translatable("Could not determine closest spheroid. :("), false);
+			source.sendFeedback(() -> Text.translatable("commands.starry_skies.locate.fail"), false);
 		}
 
 		return 1;

@@ -17,8 +17,8 @@ public class SphereDecorationFeature extends Feature<DefaultFeatureConfig> {
 	public boolean generate(@NotNull FeatureContext featureContext) {
 		if (featureContext.getGenerator() instanceof StarrySkyChunkGenerator starrySkyChunkGenerator) {
 			SystemGenerator systemGenerator = starrySkyChunkGenerator.getSystemGenerator();
-
-			for (PlacedSphere sphere : systemGenerator.getSystem(featureContext.getWorld(), featureContext.getOrigin())) {
+			
+			for (PlacedSphere<?> sphere : systemGenerator.getSystem(featureContext.getWorld(), featureContext.getOrigin())) {
 				if (sphere.isInChunk(new ChunkPos(featureContext.getOrigin()))) {
 					sphere.decorate(featureContext.getWorld(), featureContext.getOrigin(), featureContext.getRandom());
 				}

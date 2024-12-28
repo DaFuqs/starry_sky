@@ -16,7 +16,7 @@ public class CaveBottomDecorator extends SphereDecorator<CaveBottomDecoratorConf
 	@Override
 	public boolean generate(SphereFeatureContext<CaveBottomDecoratorConfig> context) {
 		StructureWorldAccess world = context.getWorld();
-		PlacedSphere sphere = context.getSpheroid();
+		PlacedSphere<?> sphere = context.getSphere();
 		ChunkPos origin = context.getChunkPos();
 		Random random = context.getRandom();
 		CaveBottomDecoratorConfig config = context.getConfig();

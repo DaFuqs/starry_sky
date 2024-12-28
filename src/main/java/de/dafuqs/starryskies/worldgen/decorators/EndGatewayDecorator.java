@@ -17,7 +17,7 @@ public class EndGatewayDecorator extends SphereDecorator<SphereDecoratorConfig.D
 	@Override
 	public boolean generate(SphereFeatureContext<SphereDecoratorConfig.DefaultSphereDecoratorConfig> context) {
 		StructureWorldAccess world = context.getWorld();
-		PlacedSphere sphere = context.getSpheroid();
+		PlacedSphere<?> sphere = context.getSphere();
 		ChunkPos origin = context.getChunkPos();
 
 		if (!sphere.isCenterInChunk(origin)) {

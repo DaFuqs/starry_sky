@@ -43,53 +43,53 @@ public class Support {
 	}
 
 	@Contract("_ -> new")
-	public static Optional<SpheroidDistance> getClosestSpheroidToPlayer(@NotNull PlayerEntity serverPlayerEntity) {
+	public static Optional<SphereDistance> getClosestSphere(@NotNull PlayerEntity serverPlayerEntity) {
 		Vec3d playerPos = serverPlayerEntity.getPos();
 		BlockPos playerPosBlock = new BlockPos((int) playerPos.x, (int) playerPos.y, (int) playerPos.z);
 
 		SystemGenerator systemGenerator = SystemGenerator.get(serverPlayerEntity.getEntityWorld().getRegistryKey());
 		if (systemGenerator != null) {
-			PlacedSphere closestSpheroid = null;
+			PlacedSphere<?> closestSphere = null;
 			double currentMinDistance = Double.MAX_VALUE;
-
-			for (PlacedSphere p : systemGenerator.getSystem((ServerWorld) serverPlayerEntity.getWorld(), playerPosBlock)) {
+			
+			for (PlacedSphere<?> p : systemGenerator.getSystem((ServerWorld) serverPlayerEntity.getWorld(), playerPosBlock)) {
 				double currDist = playerPosBlock.getSquaredDistance(p.getPosition());
 				if (currDist < currentMinDistance) {
 					currentMinDistance = currDist;
-					closestSpheroid = p;
+					closestSphere = p;
 				}
 			}
-
-			return Optional.of(new SpheroidDistance(closestSpheroid, currentMinDistance));
+			
+			return Optional.of(new SphereDistance(closestSphere, currentMinDistance));
 		} else {
 			return Optional.empty();
 		}
 	}
-
-	public static @Nullable SpheroidDistance getClosestSpheroid3x3(@NotNull ServerWorld serverWorld, BlockPos position, Identifier spheroidIdentifier, DynamicRegistryManager registryManager) {
+	
+	public static Optional<SphereDistance> getClosestSphere3x3(@NotNull ServerWorld serverWorld, BlockPos position, Identifier sphereId, DynamicRegistryManager registryManager) {
 		SystemGenerator systemGenerator = SystemGenerator.get(serverWorld.getRegistryKey());
-
-		PlacedSphere closestSpheroid = null;
+		
+		PlacedSphere<?> closestSphere = null;
 		double currentMinDistance = Double.MAX_VALUE;
 		for (Point currentPoint : AROUND_POINTS) {
 			Point systemPos = getSystemCoordinateFromChunkCoordinate(position.getX() / 16, position.getZ() / 16);
-
-			for (PlacedSphere p : systemGenerator.getSystem(serverWorld, new Point(systemPos.x + currentPoint.x, systemPos.y + currentPoint.y))) {
-				if (p.getID(registryManager).equals(spheroidIdentifier)) {
+			
+			for (PlacedSphere<?> p : systemGenerator.getSystem(serverWorld, new Point(systemPos.x + currentPoint.x, systemPos.y + currentPoint.y))) {
+				if (p.getID(registryManager).equals(sphereId)) {
 					double currDist = position.getSquaredDistance(p.getPosition());
 					if (currDist < currentMinDistance) {
 						currentMinDistance = currDist;
-						closestSpheroid = p;
+						closestSphere = p;
 					}
 				}
 			}
-
-			if (closestSpheroid != null) {
-				return new SpheroidDistance(closestSpheroid, currentMinDistance);
+			
+			if (closestSphere != null) {
+				return Optional.of(new SphereDistance(closestSphere, currentMinDistance));
 			}
 		}
-
-		return null;
+		
+		return Optional.empty();
 	}
 
 	public static <E> E getWeightedRandom(@NotNull Map<E, Float> weights, Random random) {
@@ -182,13 +182,13 @@ public class Support {
 		}
 		return -1;
 	}
-
-	public static class SpheroidDistance {
-		public PlacedSphere spheroid;
+	
+	public static class SphereDistance {
+		public PlacedSphere<?> sphere;
 		public double squaredDistance;
-
-		public SpheroidDistance(PlacedSphere spheroid, double squaredDistance) {
-			this.spheroid = spheroid;
+		
+		public SphereDistance(PlacedSphere<?> sphere, double squaredDistance) {
+			this.sphere = sphere;
 			this.squaredDistance = squaredDistance;
 		}
 	}

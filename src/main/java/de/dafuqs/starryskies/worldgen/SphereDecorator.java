@@ -65,15 +65,15 @@ public abstract class SphereDecorator<FC extends SphereDecoratorConfig> {
 		}
 		return null;
 	}
-
-	protected List<BlockPos> getTopBlocks(StructureWorldAccess world, ChunkPos chunkPos, PlacedSphere spheroid) {
+	
+	protected List<BlockPos> getTopBlocks(StructureWorldAccess world, ChunkPos chunkPos, PlacedSphere<?> sphere) {
 		List<BlockPos> list = new ArrayList<>();
-
-		int x = spheroid.getPosition().getX();
-		int y = spheroid.getPosition().getY();
-		int z = spheroid.getPosition().getZ();
-
-		int rad = spheroid.getRadius();
+		
+		int x = sphere.getPosition().getX();
+		int y = sphere.getPosition().getY();
+		int z = sphere.getPosition().getZ();
+		
+		int rad = sphere.getRadius();
 		int maxX = Math.min(chunkPos.getEndX(), x + rad);
 		int maxZ = Math.min(chunkPos.getEndZ(), z + rad);
 		BlockPos.Mutable mutable = new BlockPos.Mutable();
@@ -90,15 +90,15 @@ public abstract class SphereDecorator<FC extends SphereDecoratorConfig> {
 		}
 		return list;
 	}
-
-	protected List<BlockPos> getBottomBlocks(StructureWorldAccess world, ChunkPos chunkPos, PlacedSphere spheroid) {
+	
+	protected List<BlockPos> getBottomBlocks(StructureWorldAccess world, ChunkPos chunkPos, PlacedSphere<?> sphere) {
 		List<BlockPos> list = new ArrayList<>();
-
-		int x = spheroid.getPosition().getX();
-		int y = spheroid.getPosition().getY();
-		int z = spheroid.getPosition().getZ();
-
-		int rad = spheroid.getRadius();
+		
+		int x = sphere.getPosition().getX();
+		int y = sphere.getPosition().getY();
+		int z = sphere.getPosition().getZ();
+		
+		int rad = sphere.getRadius();
 		int maxX = Math.min(chunkPos.getEndX(), x + rad);
 		int maxZ = Math.min(chunkPos.getEndZ(), z + rad);
 		BlockPos.Mutable mutable = new BlockPos.Mutable();
@@ -115,15 +115,15 @@ public abstract class SphereDecorator<FC extends SphereDecoratorConfig> {
 		}
 		return list;
 	}
-
-	protected List<BlockPos> getTopBlocks(StructureWorldAccess world, ChunkPos chunkPos, PlacedSphere spheroid, Random random, int amount) {
+	
+	protected List<BlockPos> getTopBlocks(StructureWorldAccess world, ChunkPos chunkPos, PlacedSphere<?> sphere, Random random, int amount) {
 		List<BlockPos> list = new ArrayList<>();
-
-		int x = spheroid.getPosition().getX();
-		int y = spheroid.getPosition().getY();
-		int z = spheroid.getPosition().getZ();
-
-		int rad = spheroid.getRadius();
+		
+		int x = sphere.getPosition().getX();
+		int y = sphere.getPosition().getY();
+		int z = sphere.getPosition().getZ();
+		
+		int rad = sphere.getRadius();
 		int minX = Math.max(chunkPos.getStartX(), x - rad);
 		int minZ = Math.max(chunkPos.getStartZ(), z - rad);
 		int maxX = Math.min(chunkPos.getEndX(), x + rad);
@@ -144,15 +144,15 @@ public abstract class SphereDecorator<FC extends SphereDecoratorConfig> {
 
 		return list;
 	}
-
-	protected List<BlockPos> getCaveBottomBlocks(StructureWorldAccess world, ChunkPos chunkPos, PlacedSphere spheroid) {
+	
+	protected List<BlockPos> getCaveBottomBlocks(StructureWorldAccess world, ChunkPos chunkPos, PlacedSphere<?> sphere) {
 		List<BlockPos> list = new ArrayList<>();
-
-		int x = spheroid.getPosition().getX();
-		int y = spheroid.getPosition().getY();
-		int z = spheroid.getPosition().getZ();
-
-		int rad = spheroid.getRadius();
+		
+		int x = sphere.getPosition().getX();
+		int y = sphere.getPosition().getY();
+		int z = sphere.getPosition().getZ();
+		
+		int rad = sphere.getRadius();
 		int maxX = Math.min(chunkPos.getEndX(), x + rad);
 		int maxZ = Math.min(chunkPos.getEndZ(), z + rad);
 		BlockPos.Mutable mutable = new BlockPos.Mutable();
@@ -177,15 +177,15 @@ public abstract class SphereDecorator<FC extends SphereDecoratorConfig> {
 
 		return list;
 	}
-
-	protected List<BlockPos> getCaveBottomBlocks(StructureWorldAccess world, ChunkPos chunkPos, PlacedSphere spheroid, Random random, int amount) {
+	
+	protected List<BlockPos> getCaveBottomBlocks(StructureWorldAccess world, ChunkPos chunkPos, PlacedSphere<?> sphere, Random random, int amount) {
 		List<BlockPos> list = new ArrayList<>();
-
-		int x = spheroid.getPosition().getX();
-		int y = spheroid.getPosition().getY();
-		int z = spheroid.getPosition().getZ();
-
-		int rad = spheroid.getRadius();
+		
+		int x = sphere.getPosition().getX();
+		int y = sphere.getPosition().getY();
+		int z = sphere.getPosition().getZ();
+		
+		int rad = sphere.getRadius();
 		int minX = Math.max(chunkPos.getStartX(), x - rad);
 		int minZ = Math.max(chunkPos.getStartZ(), z - rad);
 		int maxX = Math.min(chunkPos.getEndX(), x + rad);

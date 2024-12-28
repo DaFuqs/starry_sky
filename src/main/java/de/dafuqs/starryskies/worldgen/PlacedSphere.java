@@ -2,7 +2,6 @@ package de.dafuqs.starryskies.worldgen;
 
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
-import de.dafuqs.starryskies.worldgen.spheres.*;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
 import net.minecraft.command.argument.*;
@@ -18,7 +17,6 @@ import net.minecraft.world.*;
 import net.minecraft.world.chunk.*;
 import org.jetbrains.annotations.*;
 
-import java.io.*;
 import java.util.*;
 
 public abstract class PlacedSphere<SC extends SphereConfig> /* implements Serializable */ {
@@ -140,7 +138,7 @@ public abstract class PlacedSphere<SC extends SphereConfig> /* implements Serial
 
 	public void populateEntities(ChunkPos chunkPos, ChunkRegion chunkRegion, ChunkRandom chunkRandom) {
 		if (isCenterInChunk(chunkPos)) {
-			StarrySkies.LOGGER.debug("Populating entities for spheroid in chunk x:{} z:{} (StartX:{} StartZ:{}) {}", chunkPos.x, chunkPos.z, chunkPos.getStartX(), chunkPos.getStartZ(), this.getDescription(chunkRegion.getRegistryManager()));
+			StarrySkies.LOGGER.debug("Populating entities for sphere in chunk x:{} z:{} (StartX:{} StartZ:{}) {}", chunkPos.x, chunkPos.z, chunkPos.getStartX(), chunkPos.getStartZ(), this.getDescription(chunkRegion.getRegistryManager()));
 			for (Pair<EntityType<?>, Integer> spawnEntry : spawns) {
 
 				int xCord = chunkPos.getStartX();
