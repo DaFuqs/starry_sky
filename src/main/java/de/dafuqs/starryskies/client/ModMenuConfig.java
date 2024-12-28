@@ -1,6 +1,7 @@
-package de.dafuqs.starryskies.configs;
+package de.dafuqs.starryskies.client;
 
 import com.terraformersmc.modmenu.api.*;
+import de.dafuqs.starryskies.configs.*;
 import me.shedaniel.autoconfig.*;
 import net.fabricmc.api.*;
 

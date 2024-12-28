@@ -1,7 +1,8 @@
-package de.dafuqs.starryskies;
+package de.dafuqs.starryskies.client;
 
+import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.client.sky.*;
 import de.dafuqs.starryskies.registries.*;
-import de.dafuqs.starryskies.sky.*;
 import net.fabricmc.api.*;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 

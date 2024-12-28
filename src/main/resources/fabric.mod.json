@@ -20,10 +20,10 @@
       "de.dafuqs.starryskies.StarrySkies"
     ],
     "client": [
-      "de.dafuqs.starryskies.StarrySkiesClient"
+      "de.dafuqs.starryskies.client.StarrySkiesClient"
     ],
     "modmenu": [
-      "de.dafuqs.starryskies.configs.ModMenuConfig"
+      "de.dafuqs.starryskies.client.ModMenuConfig"
     ]
   },
   "mixins": [

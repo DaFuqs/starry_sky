@@ -12,11 +12,6 @@ public class StarrySkyConfig implements ConfigData {
 
 	@ConfigEntry.Category("GENERAL")
 	@Comment(value = """
-			Logs errors when loading Datapack Spheres and decorators to the log.""")
-	public boolean packCreatorMode = false;
-
-	@ConfigEntry.Category("GENERAL")
-	@Comment(value = """
 			Should Starry register Portal Blocks for Overworld <=> Starry Skies travel.
 			If set to false can be used completely serverside, as long as you add a means to travel between dimensions.""")
 	public boolean registerStarryPortal = true;

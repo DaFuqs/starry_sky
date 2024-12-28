@@ -1,4 +1,4 @@
-package de.dafuqs.starryskies.sky;
+package de.dafuqs.starryskies.client.sky;
 
 import com.mojang.blaze3d.systems.*;
 import de.dafuqs.starryskies.*;

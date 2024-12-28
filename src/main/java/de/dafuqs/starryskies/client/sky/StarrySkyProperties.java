@@ -1,4 +1,4 @@
-package de.dafuqs.starryskies.sky;
+package de.dafuqs.starryskies.client.sky;
 
 import de.dafuqs.starryskies.*;
 import net.fabricmc.api.*;

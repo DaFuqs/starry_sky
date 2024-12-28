@@ -18,6 +18,7 @@ import java.util.*;
 
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldMixin {
+	
 	@Unique
 	private final Map<TagKey<Structure>, RegistryKey<ConfiguredSphere<?, ?>>> locatableStarrySpheres = new HashMap<>() {{
 		put(StructureTags.EYE_OF_ENDER_LOCATED, RegistryKey.of(StarryRegistryKeys.CONFIGURED_SPHERE, StarrySkies.id("overworld/treasure/stronghold")));

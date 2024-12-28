@@ -4,12 +4,9 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AbstractFireBlockMixin",
-    "CustomTeleporterMixin",
-    "EndGatewayBlockEntityAccessor",
     "EndGatewayBlockEntityMixin",
     "EndPortalBlockMixin",
-    "EntityAccessor",
-    "EntityMixin",
+    "NetherPortalBlockMixin",
     "ServerWorldMixin"
   ],
   "client": [],

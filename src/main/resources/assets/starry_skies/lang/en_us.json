@@ -9,7 +9,6 @@
   "text.autoconfig.StarrySky.category.WORLD FLOOR GENERATION": "World Floor",
   "text.autoconfig.StarrySky.category.SPHERES": "Available Spheres",
 
-  "text.autoconfig.StarrySky.option.packCreatorMode": "Log Datapack Errors",
   "text.autoconfig.StarrySky.option.registerStarryPortal": "Register Starry Portal",
   "text.autoconfig.StarrySky.option.starrySkyPortalFrameBlock.@PrefixText": "The blocks with which the portals to the Starry Sky dimensions needs to be built with. Build it like a nether portal & has to be activated with flint & steel.",
   "text.autoconfig.StarrySky.option.starrySkyPortalFrameBlock": "Starry Sky Portal Frame Block",
