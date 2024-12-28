@@ -6,6 +6,7 @@ import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.worldgen.*;
 import de.dafuqs.starryskies.worldgen.dimension.*;
+import net.minecraft.block.*;
 import net.minecraft.command.argument.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.registry.*;
@@ -33,6 +34,8 @@ public class Support {
 		add(new Point(-1, 0));
 		add(new Point(-1, 1));
 	}};
+	public static Codec<BlockState> BLOCKSTATE_STRING_CODEC = Codec.STRING.xmap(StarrySkies::getNullableStateFromString, BlockArgumentParser::stringifyBlockState);
+	public static Codec<BlockArgumentParser.BlockResult> BLOCK_RESULT_CODEC = Codec.STRING.xmap(StarrySkies::getBlockResult, Support::blockResultToParseableString);
 
 	public static String blockResultToParseableString(BlockArgumentParser.BlockResult result) {
 		var stringifiedBlockState = BlockArgumentParser.stringifyBlockState(result.blockState());

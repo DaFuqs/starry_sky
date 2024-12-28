@@ -34,11 +34,11 @@ public class ShellSphere extends Sphere<ShellSphere.Config> {
 				BlockStateProvider.TYPE_CODEC.fieldOf("main_block").forGetter((config) -> config.innerBlock),
 				BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter((config) -> config.shellBlock),
 				IntProvider.POSITIVE_CODEC.fieldOf("shell_thickness").forGetter((config) -> config.shellThickness)
-		).apply(instance, (sphereConfig, state) -> new ShellSphere.Config(sphereConfig.size, sphereConfig.decorators, sphereConfig.spawns, sphereConfig.generation, state)));
+		).apply(instance, (sphereConfig, innerBlock, shellBlock, shellThickness) -> new Config(sphereConfig.size, sphereConfig.decorators, sphereConfig.spawns, sphereConfig.generation, innerBlock, shellBlock, shellThickness)));
 		
-		protected BlockStateProvider innerBlock;
-		protected BlockStateProvider shellBlock;
-		protected IntProvider shellThickness;
+		protected final BlockStateProvider innerBlock;
+		protected final BlockStateProvider shellBlock;
+		protected final IntProvider shellThickness;
 		
 		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, BlockStateProvider innerBlock, BlockStateProvider shellBlock, IntProvider shellThickness) {
 			super(size, decorators, spawns, generation);
