@@ -4,10 +4,10 @@
       "id": "minecraft:iron_block"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.group_crystalline.title"
+      "translate": "advancements.starry_skies.group_crystalline.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.group_crystalline.description"
+      "translate": "advancements.starry_skies.group_crystalline.description"
     },
     "hidden": false,
     "show_toast": false,

@@ -4,10 +4,10 @@
       "id": "minecraft:end_crystal"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.starry_skies_end.title"
+      "translate": "advancements.starry_skies.starry_skies_end.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.starry_skies_end.description"
+      "translate": "advancements.starry_skies.starry_skies_end.description"
     },
     "background": "starry_skies:textures/advancement_background.png"
   },

@@ -4,10 +4,10 @@
       "id": "minecraft:nether_star"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.starry_skies_nether.title"
+      "translate": "advancements.starry_skies.starry_skies_nether.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.starry_skies_nether.description"
+      "translate": "advancements.starry_skies.starry_skies_nether.description"
     },
     "background": "starry_skies:textures/advancement_background.png"
   },

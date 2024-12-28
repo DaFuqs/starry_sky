@@ -4,10 +4,10 @@
       "id": "minecraft:red_concrete"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_rainbow_concrete_powder.title"
+      "translate": "advancements.starry_skies.sphere_rainbow_concrete_powder.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_rainbow_concrete_powder.description"
+      "translate": "advancements.starry_skies.sphere_rainbow_concrete_powder.description"
     },
     "hidden": false,
     "show_toast": true,

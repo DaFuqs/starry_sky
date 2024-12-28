@@ -4,10 +4,10 @@
       "id": "minecraft:rooted_dirt"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_rooted_dirt.title"
+      "translate": "advancements.starry_skies.sphere_rooted_dirt.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_rooted_dirt.description"
+      "translate": "advancements.starry_skies.sphere_rooted_dirt.description"
     },
     "hidden": false,
     "show_toast": true,

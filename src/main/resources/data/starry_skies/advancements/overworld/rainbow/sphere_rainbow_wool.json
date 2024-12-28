@@ -4,10 +4,10 @@
       "id": "minecraft:blue_wool"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_rainbow_wool.title"
+      "translate": "advancements.starry_skies.sphere_rainbow_wool.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_rainbow_wool.description"
+      "translate": "advancements.starry_skies.sphere_rainbow_wool.description"
     },
     "hidden": false,
     "show_toast": true,

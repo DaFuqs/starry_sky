@@ -4,10 +4,10 @@
       "id": "minecraft:red_sand"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_red_sand.title"
+      "translate": "advancements.starry_skies.sphere_red_sand.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_red_sand.description"
+      "translate": "advancements.starry_skies.sphere_red_sand.description"
     },
     "hidden": false,
     "show_toast": true,

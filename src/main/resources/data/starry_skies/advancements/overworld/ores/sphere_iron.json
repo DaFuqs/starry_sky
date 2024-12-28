@@ -4,10 +4,10 @@
       "id": "minecraft:iron_ore"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_iron.title"
+      "translate": "advancements.starry_skies.sphere_iron.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_iron.description"
+      "translate": "advancements.starry_skies.sphere_iron.description"
     },
     "hidden": false,
     "show_toast": true,

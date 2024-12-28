@@ -4,10 +4,10 @@
       "id": "minecraft:ancient_debris"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_ancient_debris.title"
+      "translate": "advancements.starry_skies.sphere_ancient_debris.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_ancient_debris.description"
+      "translate": "advancements.starry_skies.sphere_ancient_debris.description"
     },
     "hidden": false,
     "show_toast": true,

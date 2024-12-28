@@ -4,10 +4,10 @@
       "id": "minecraft:birch_wood"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_birch_wood.title"
+      "translate": "advancements.starry_skies.sphere_birch_wood.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_birch_wood.description"
+      "translate": "advancements.starry_skies.sphere_birch_wood.description"
     },
     "hidden": false,
     "show_toast": true,

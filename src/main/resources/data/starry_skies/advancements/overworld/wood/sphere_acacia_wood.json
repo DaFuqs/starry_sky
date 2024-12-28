@@ -4,10 +4,10 @@
       "id": "minecraft:acacia_wood"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_acacia_wood.title"
+      "translate": "advancements.starry_skies.sphere_acacia_wood.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_acacia_wood.description"
+      "translate": "advancements.starry_skies.sphere_acacia_wood.description"
     },
     "hidden": false,
     "show_toast": true,

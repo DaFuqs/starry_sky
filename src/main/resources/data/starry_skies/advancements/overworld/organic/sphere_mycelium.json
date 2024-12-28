@@ -4,10 +4,10 @@
       "id": "minecraft:mycelium"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_mycelium.title"
+      "translate": "advancements.starry_skies.sphere_mycelium.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_mycelium.description"
+      "translate": "advancements.starry_skies.sphere_mycelium.description"
     },
     "hidden": false,
     "show_toast": true,

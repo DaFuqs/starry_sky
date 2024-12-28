@@ -4,10 +4,10 @@
       "id": "minecraft:nether_bricks"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_nether_fortress.title"
+      "translate": "advancements.starry_skies.sphere_nether_fortress.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_nether_fortress.description"
+      "translate": "advancements.starry_skies.sphere_nether_fortress.description"
     },
     "hidden": false,
     "show_toast": true,

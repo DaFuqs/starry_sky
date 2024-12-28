@@ -4,10 +4,10 @@
       "id": "minecraft:amethyst_block"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_amethyst.title"
+      "translate": "advancements.starry_skies.sphere_amethyst.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_amethyst.description"
+      "translate": "advancements.starry_skies.sphere_amethyst.description"
     },
     "hidden": false,
     "show_toast": true,

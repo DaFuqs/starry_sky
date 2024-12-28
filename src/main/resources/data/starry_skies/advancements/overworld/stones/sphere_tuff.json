@@ -4,10 +4,10 @@
       "id": "minecraft:tuff"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_tuff.title"
+      "translate": "advancements.starry_skies.sphere_tuff.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_tuff.description"
+      "translate": "advancements.starry_skies.sphere_tuff.description"
     },
     "hidden": false,
     "show_toast": true,

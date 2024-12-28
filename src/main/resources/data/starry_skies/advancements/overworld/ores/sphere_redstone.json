@@ -4,10 +4,10 @@
       "id": "minecraft:redstone_ore"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_redstone.title"
+      "translate": "advancements.starry_skies.sphere_redstone.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_redstone.description"
+      "translate": "advancements.starry_skies.sphere_redstone.description"
     },
     "hidden": false,
     "show_toast": true,

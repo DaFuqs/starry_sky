@@ -4,10 +4,10 @@
       "id": "minecraft:red_mushroom"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_red_mushroom.title"
+      "translate": "advancements.starry_skies.sphere_red_mushroom.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_red_mushroom.description"
+      "translate": "advancements.starry_skies.sphere_red_mushroom.description"
     },
     "hidden": false,
     "show_toast": true,

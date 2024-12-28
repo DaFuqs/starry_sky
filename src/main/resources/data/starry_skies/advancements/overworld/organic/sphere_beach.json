@@ -4,10 +4,10 @@
       "id": "minecraft:iron_shovel"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_beach.title"
+      "translate": "advancements.starry_skies.sphere_beach.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_beach.description"
+      "translate": "advancements.starry_skies.sphere_beach.description"
     },
     "hidden": false,
     "show_toast": true,

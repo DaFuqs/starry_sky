@@ -1,5 +1,4 @@
 {
-  "id": "starry_skies:nether",
   "spheres_per_system": 2500,
   "min_distance_between_spheres": 7,
   "floor_height": 3,

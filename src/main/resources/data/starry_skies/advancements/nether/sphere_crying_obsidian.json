@@ -4,10 +4,10 @@
       "id": "minecraft:crying_obsidian"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_crying_obsidian.title"
+      "translate": "advancements.starry_skies.sphere_crying_obsidian.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_crying_obsidian.description"
+      "translate": "advancements.starry_skies.sphere_crying_obsidian.description"
     },
     "hidden": false,
     "show_toast": true,

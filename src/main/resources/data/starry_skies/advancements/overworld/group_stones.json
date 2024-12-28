@@ -4,10 +4,10 @@
       "id": "minecraft:stone"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.group_stones.title"
+      "translate": "advancements.starry_skies.group_stones.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.group_stones.description"
+      "translate": "advancements.starry_skies.group_stones.description"
     },
     "hidden": false,
     "show_toast": false,

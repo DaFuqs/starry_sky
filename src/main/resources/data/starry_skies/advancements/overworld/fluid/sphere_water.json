@@ -4,10 +4,10 @@
       "id": "minecraft:water_bucket"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_water.title"
+      "translate": "advancements.starry_skies.sphere_water.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_water.description"
+      "translate": "advancements.starry_skies.sphere_water.description"
     },
     "hidden": false,
     "show_toast": true,

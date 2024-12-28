@@ -4,10 +4,10 @@
       "id": "minecraft:soul_soil"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_soul_soil.title"
+      "translate": "advancements.starry_skies.sphere_soul_soil.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_soul_soil.description"
+      "translate": "advancements.starry_skies.sphere_soul_soil.description"
     },
     "hidden": false,
     "show_toast": true,

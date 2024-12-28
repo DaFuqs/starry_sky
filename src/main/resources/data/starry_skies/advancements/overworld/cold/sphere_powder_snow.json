@@ -4,10 +4,10 @@
       "id": "minecraft:powder_snow_bucket"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_powder_snow.title"
+      "translate": "advancements.starry_skies.sphere_powder_snow.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_powder_snow.description"
+      "translate": "advancements.starry_skies.sphere_powder_snow.description"
     },
     "hidden": false,
     "show_toast": true,

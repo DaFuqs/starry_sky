@@ -4,10 +4,10 @@
       "id": "minecraft:copper_ore"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_copper.title"
+      "translate": "advancements.starry_skies.sphere_copper.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_copper.description"
+      "translate": "advancements.starry_skies.sphere_copper.description"
     },
     "hidden": false,
     "show_toast": true,

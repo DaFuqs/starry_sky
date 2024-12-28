@@ -4,10 +4,10 @@
       "id": "minecraft:netherrack"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_netherrack.title"
+      "translate": "advancements.starry_skies.sphere_netherrack.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_netherrack.description"
+      "translate": "advancements.starry_skies.sphere_netherrack.description"
     },
     "hidden": false,
     "show_toast": true,

@@ -4,10 +4,10 @@
       "id": "minecraft:coarse_dirt"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_coarse_dirt.title"
+      "translate": "advancements.starry_skies.sphere_coarse_dirt.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_coarse_dirt.description"
+      "translate": "advancements.starry_skies.sphere_coarse_dirt.description"
     },
     "hidden": false,
     "show_toast": true,

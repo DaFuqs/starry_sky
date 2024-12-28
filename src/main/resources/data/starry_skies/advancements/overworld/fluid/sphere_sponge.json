@@ -4,10 +4,10 @@
       "id": "minecraft:sponge"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_sponge.title"
+      "translate": "advancements.starry_skies.sphere_sponge.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_sponge.description"
+      "translate": "advancements.starry_skies.sphere_sponge.description"
     },
     "hidden": false,
     "show_toast": true,

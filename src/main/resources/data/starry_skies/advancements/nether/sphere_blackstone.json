@@ -4,10 +4,10 @@
       "id": "minecraft:blackstone"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_blackstone.title"
+      "translate": "advancements.starry_skies.sphere_blackstone.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_blackstone.description"
+      "translate": "advancements.starry_skies.sphere_blackstone.description"
     },
     "hidden": false,
     "show_toast": true,

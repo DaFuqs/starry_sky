@@ -4,10 +4,10 @@
       "id": "minecraft:orange_wool"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.group_rainbow.title"
+      "translate": "advancements.starry_skies.group_rainbow.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.group_rainbow.description"
+      "translate": "advancements.starry_skies.group_rainbow.description"
     },
     "hidden": false,
     "show_toast": false,

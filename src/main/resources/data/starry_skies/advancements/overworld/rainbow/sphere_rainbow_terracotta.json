@@ -4,10 +4,10 @@
       "id": "minecraft:green_terracotta"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_rainbow_terracotta.title"
+      "translate": "advancements.starry_skies.sphere_rainbow_terracotta.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_rainbow_terracotta.description"
+      "translate": "advancements.starry_skies.sphere_rainbow_terracotta.description"
     },
     "hidden": false,
     "show_toast": true,

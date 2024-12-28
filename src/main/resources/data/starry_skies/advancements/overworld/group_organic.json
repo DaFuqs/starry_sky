@@ -4,10 +4,10 @@
       "id": "minecraft:moss_block"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.group_organic.title"
+      "translate": "advancements.starry_skies.group_organic.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.group_organic.description"
+      "translate": "advancements.starry_skies.group_organic.description"
     },
     "hidden": false,
     "show_toast": false,

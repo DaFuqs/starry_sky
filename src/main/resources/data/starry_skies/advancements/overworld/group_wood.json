@@ -4,10 +4,10 @@
       "id": "minecraft:oak_wood"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.group_wood.title"
+      "translate": "advancements.starry_skies.group_wood.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.group_wood.description"
+      "translate": "advancements.starry_skies.group_wood.description"
     },
     "hidden": false,
     "show_toast": false,

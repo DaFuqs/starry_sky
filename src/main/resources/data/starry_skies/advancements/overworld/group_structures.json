@@ -4,10 +4,10 @@
       "id": "minecraft:spawner"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.group_structures.title"
+      "translate": "advancements.starry_skies.group_structures.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.group_structures.description"
+      "translate": "advancements.starry_skies.group_structures.description"
     },
     "hidden": false,
     "show_toast": false,

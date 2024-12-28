@@ -4,10 +4,10 @@
       "id": "minecraft:cobbled_deepslate"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_cobbled_deepslate.title"
+      "translate": "advancements.starry_skies.sphere_cobbled_deepslate.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_cobbled_deepslate.description"
+      "translate": "advancements.starry_skies.sphere_cobbled_deepslate.description"
     },
     "hidden": false,
     "show_toast": true,

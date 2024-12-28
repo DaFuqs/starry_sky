@@ -4,10 +4,10 @@
       "id": "minecraft:purpur_block"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_end_city.title"
+      "translate": "advancements.starry_skies.sphere_end_city.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_end_city.description"
+      "translate": "advancements.starry_skies.sphere_end_city.description"
     },
     "hidden": false,
     "show_toast": true,

@@ -4,10 +4,10 @@
       "id": "minecraft:gravel"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_gravel.title"
+      "translate": "advancements.starry_skies.sphere_gravel.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_gravel.description"
+      "translate": "advancements.starry_skies.sphere_gravel.description"
     },
     "hidden": false,
     "show_toast": true,

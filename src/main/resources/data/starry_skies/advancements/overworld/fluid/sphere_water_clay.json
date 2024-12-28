@@ -4,10 +4,10 @@
       "id": "minecraft:clay"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_clay.title"
+      "translate": "advancements.starry_skies.sphere_clay.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_clay.description"
+      "translate": "advancements.starry_skies.sphere_clay.description"
     },
     "hidden": false,
     "show_toast": true,

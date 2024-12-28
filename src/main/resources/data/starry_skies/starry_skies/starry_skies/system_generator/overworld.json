@@ -1,5 +1,4 @@
 {
-  "id": "starry_skies:overworld",
   "spheres_per_system": 2000,
   "min_distance_between_spheres": 10,
   "floor_height": 0,

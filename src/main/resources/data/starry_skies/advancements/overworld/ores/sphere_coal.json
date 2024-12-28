@@ -4,10 +4,10 @@
       "id": "minecraft:coal_ore"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_coal.title"
+      "translate": "advancements.starry_skies.sphere_coal.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_coal.description"
+      "translate": "advancements.starry_skies.sphere_coal.description"
     },
     "hidden": false,
     "show_toast": true,

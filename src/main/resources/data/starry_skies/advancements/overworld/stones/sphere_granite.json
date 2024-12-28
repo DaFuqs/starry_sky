@@ -4,10 +4,10 @@
       "id": "minecraft:granite"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_granite.title"
+      "translate": "advancements.starry_skies.sphere_granite.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_granite.description"
+      "translate": "advancements.starry_skies.sphere_granite.description"
     },
     "hidden": false,
     "show_toast": true,

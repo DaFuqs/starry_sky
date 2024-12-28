@@ -4,10 +4,10 @@
       "id": "minecraft:lapis_ore"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_lapis.title"
+      "translate": "advancements.starry_skies.sphere_lapis.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_lapis.description"
+      "translate": "advancements.starry_skies.sphere_lapis.description"
     },
     "hidden": false,
     "show_toast": true,

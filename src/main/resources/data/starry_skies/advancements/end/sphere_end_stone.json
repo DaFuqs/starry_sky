@@ -4,10 +4,10 @@
       "id": "minecraft:end_stone"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_end_stone.title"
+      "translate": "advancements.starry_skies.sphere_end_stone.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_end_stone.description"
+      "translate": "advancements.starry_skies.sphere_end_stone.description"
     },
     "hidden": false,
     "show_toast": true,

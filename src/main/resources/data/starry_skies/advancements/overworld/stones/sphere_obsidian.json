@@ -4,10 +4,10 @@
       "id": "minecraft:obsidian"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_obsidian.title"
+      "translate": "advancements.starry_skies.sphere_obsidian.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_obsidian.description"
+      "translate": "advancements.starry_skies.sphere_obsidian.description"
     },
     "hidden": false,
     "show_toast": true,

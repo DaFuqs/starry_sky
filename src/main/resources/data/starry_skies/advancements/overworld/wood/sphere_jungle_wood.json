@@ -4,10 +4,10 @@
       "id": "minecraft:jungle_wood"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_jungle_wood.title"
+      "translate": "advancements.starry_skies.sphere_jungle_wood.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_jungle_wood.description"
+      "translate": "advancements.starry_skies.sphere_jungle_wood.description"
     },
     "hidden": false,
     "show_toast": true,

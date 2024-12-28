@@ -4,10 +4,10 @@
       "id": "minecraft:dripstone_block"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_dripstone.title"
+      "translate": "advancements.starry_skies.sphere_dripstone.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_dripstone.description"
+      "translate": "advancements.starry_skies.sphere_dripstone.description"
     },
     "hidden": false,
     "show_toast": true,

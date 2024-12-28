@@ -4,10 +4,10 @@
       "id": "minecraft:cobblestone"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_cobblestone.title"
+      "translate": "advancements.starry_skies.sphere_cobblestone.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_cobblestone.description"
+      "translate": "advancements.starry_skies.sphere_cobblestone.description"
     },
     "hidden": false,
     "show_toast": true,

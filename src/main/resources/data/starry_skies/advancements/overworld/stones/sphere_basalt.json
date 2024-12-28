@@ -4,10 +4,10 @@
       "id": "minecraft:basalt"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_basalt.title"
+      "translate": "advancements.starry_skies.sphere_basalt.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_basalt.description"
+      "translate": "advancements.starry_skies.sphere_basalt.description"
     },
     "hidden": false,
     "show_toast": true,

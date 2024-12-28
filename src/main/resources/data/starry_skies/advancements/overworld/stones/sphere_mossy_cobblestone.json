@@ -4,10 +4,10 @@
       "id": "minecraft:mossy_cobblestone"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_mossy_cobblestone.title"
+      "translate": "advancements.starry_skies.sphere_mossy_cobblestone.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_mossy_cobblestone.description"
+      "translate": "advancements.starry_skies.sphere_mossy_cobblestone.description"
     },
     "hidden": false,
     "show_toast": true,

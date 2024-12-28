@@ -4,10 +4,10 @@
       "id": "minecraft:water_bucket"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.group_fluids.title"
+      "translate": "advancements.starry_skies.group_fluids.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.group_fluids.description"
+      "translate": "advancements.starry_skies.group_fluids.description"
     },
     "hidden": false,
     "show_toast": false,

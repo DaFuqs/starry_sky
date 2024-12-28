@@ -4,10 +4,10 @@
       "id": "minecraft:diorite"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_diorite.title"
+      "translate": "advancements.starry_skies.sphere_diorite.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_diorite.description"
+      "translate": "advancements.starry_skies.sphere_diorite.description"
     },
     "hidden": false,
     "show_toast": true,

@@ -4,10 +4,10 @@
       "id": "minecraft:flowering_azalea_leaves"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_azalea_wood.title"
+      "translate": "advancements.starry_skies.sphere_azalea_wood.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_azalea_wood.description"
+      "translate": "advancements.starry_skies.sphere_azalea_wood.description"
     },
     "hidden": false,
     "show_toast": true,

@@ -4,10 +4,10 @@
       "id": "minecraft:lava_bucket"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_lava.title"
+      "translate": "advancements.starry_skies.sphere_lava.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_lava.description"
+      "translate": "advancements.starry_skies.sphere_lava.description"
     },
     "hidden": false,
     "show_toast": true,

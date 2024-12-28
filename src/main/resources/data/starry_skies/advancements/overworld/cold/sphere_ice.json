@@ -4,10 +4,10 @@
       "id": "minecraft:ice"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_ice.title"
+      "translate": "advancements.starry_skies.sphere_ice.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_ice.description"
+      "translate": "advancements.starry_skies.sphere_ice.description"
     },
     "hidden": false,
     "show_toast": true,

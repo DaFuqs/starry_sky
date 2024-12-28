@@ -4,10 +4,10 @@
       "id": "minecraft:diamond_ore"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_diamond.title"
+      "translate": "advancements.starry_skies.sphere_diamond.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_diamond.description"
+      "translate": "advancements.starry_skies.sphere_diamond.description"
     },
     "hidden": false,
     "show_toast": true,

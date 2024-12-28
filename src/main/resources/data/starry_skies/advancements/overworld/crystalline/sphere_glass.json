@@ -4,10 +4,10 @@
       "id": "minecraft:glass"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_glass.title"
+      "translate": "advancements.starry_skies.sphere_glass.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_glass.description"
+      "translate": "advancements.starry_skies.sphere_glass.description"
     },
     "hidden": false,
     "show_toast": true,

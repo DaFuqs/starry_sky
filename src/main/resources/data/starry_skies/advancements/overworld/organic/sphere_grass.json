@@ -4,10 +4,10 @@
       "id": "minecraft:short_grass"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_grass.title"
+      "translate": "advancements.starry_skies.sphere_grass.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_grass.description"
+      "translate": "advancements.starry_skies.sphere_grass.description"
     },
     "hidden": false,
     "show_toast": true,

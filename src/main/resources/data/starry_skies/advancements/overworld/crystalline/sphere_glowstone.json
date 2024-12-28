@@ -4,10 +4,10 @@
       "id": "minecraft:glowstone"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_glowstone.title"
+      "translate": "advancements.starry_skies.sphere_glowstone.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_glowstone.description"
+      "translate": "advancements.starry_skies.sphere_glowstone.description"
     },
     "hidden": false,
     "show_toast": true,

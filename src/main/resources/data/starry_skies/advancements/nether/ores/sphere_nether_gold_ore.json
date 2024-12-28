@@ -4,10 +4,10 @@
       "id": "minecraft:nether_gold_ore"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_nether_gold_ore.title"
+      "translate": "advancements.starry_skies.sphere_nether_gold_ore.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_nether_gold_ore.description"
+      "translate": "advancements.starry_skies.sphere_nether_gold_ore.description"
     },
     "hidden": false,
     "show_toast": true,

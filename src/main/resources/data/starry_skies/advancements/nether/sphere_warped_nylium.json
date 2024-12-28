@@ -4,10 +4,10 @@
       "id": "minecraft:warped_nylium"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_warped_nylium.title"
+      "translate": "advancements.starry_skies.sphere_warped_nylium.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_warped_nylium.description"
+      "translate": "advancements.starry_skies.sphere_warped_nylium.description"
     },
     "hidden": false,
     "show_toast": true,

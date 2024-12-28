@@ -4,10 +4,10 @@
       "id": "minecraft:tube_coral"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_coral.title"
+      "translate": "advancements.starry_skies.sphere_coral.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_coral.description"
+      "translate": "advancements.starry_skies.sphere_coral.description"
     },
     "hidden": false,
     "show_toast": true,

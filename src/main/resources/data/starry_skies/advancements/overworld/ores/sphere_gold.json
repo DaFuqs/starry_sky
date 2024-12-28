@@ -4,10 +4,10 @@
       "id": "minecraft:gold_ore"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_gold.title"
+      "translate": "advancements.starry_skies.sphere_gold.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_gold.description"
+      "translate": "advancements.starry_skies.sphere_gold.description"
     },
     "hidden": false,
     "show_toast": true,

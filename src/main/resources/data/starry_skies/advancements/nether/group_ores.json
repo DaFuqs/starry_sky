@@ -4,10 +4,10 @@
       "id": "minecraft:nether_quartz_ore"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.group_ores.title"
+      "translate": "advancements.starry_skies.group_ores.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.group_ores.description"
+      "translate": "advancements.starry_skies.group_ores.description"
     },
     "hidden": false,
     "show_toast": false,

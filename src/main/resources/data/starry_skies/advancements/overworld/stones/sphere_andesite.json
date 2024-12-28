@@ -4,10 +4,10 @@
       "id": "minecraft:andesite"
     },
     "title": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_andesite.title"
+      "translate": "advancements.starry_skies.sphere_andesite.title"
     },
     "description": {
-      "translate": "advancements.dafuqs.starry_skies.sphere_andesite.description"
+      "translate": "advancements.starry_skies.sphere_andesite.description"
     },
     "hidden": false,
     "show_toast": true,
