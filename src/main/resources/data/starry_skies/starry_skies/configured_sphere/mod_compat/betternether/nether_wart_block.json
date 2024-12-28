@@ -1,17 +1,18 @@
 {
   "type": "starry_skies:simple",
   "config": {
-    "decorators": {
-      "starry_skies:mod_compat/betternether/wart_seeds": 1.0
-    },
-    "spawns": [],
+    "block": "minecraft:nether_wart_block",
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 5,
       "max_exclusive": 10
     },
-    "block": "minecraft:nether_wart_block",
 
+    "decorators": {
+      "starry_skies:mod_compat/betternether/wart_seeds": 1.0
+    },
+    "spawns": [],
     "generation": {
       "weight": 0.4,
       "group": "starry_skies:nether/decorative"

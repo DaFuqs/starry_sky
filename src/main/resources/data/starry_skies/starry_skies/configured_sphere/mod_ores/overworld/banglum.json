@@ -1,6 +1,17 @@
 {
   "type": "starry_skies:core",
   "config": {
+    "core_block": "%starry_skies:banglum_ore",
+    "min_core_size": 3,
+    "max_core_size": 6,
+    "main_block": "$starry_skies:stones",
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 6,
+      "max_exclusive": 9
+    },
+
     "decorators": {},
     "spawns": [],
     "fabric:load_conditions": [
@@ -10,16 +21,6 @@
       []
       }
     ],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 6,
-      "max_exclusive": 9
-    },
-    "core_block": "%starry_skies:banglum_ore",
-    "min_core_size": 3,
-    "max_core_size": 6,
-    "main_block": "$starry_skies:stones",
-
     "generation": {
       "weight": 0.7,
       "group": "starry_skies:overworld/ores"

@@ -1,6 +1,17 @@
 {
   "type": "starry_skies:core",
   "config": {
+    "main_block": "minecraft:ice",
+    "core_block": "minecraft:packed_ice",
+    "min_core_size": 3,
+    "max_core_size": 6,
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 15
+    },
+
     "decorators": {
       "starry_skies:sweet_berries": 0.4
     },
@@ -12,16 +23,6 @@
         "max_count": 2
       }
     ],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 5,
-      "max_exclusive": 15
-    },
-    "main_block": "minecraft:ice",
-    "core_block": "minecraft:packed_ice",
-    "min_core_size": 3,
-    "max_core_size": 6,
-
     "generation": {
       "weight": 0.3,
       "group": "starry_skies:overworld/decorative"

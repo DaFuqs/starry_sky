@@ -1,17 +1,18 @@
 {
   "type": "starry_skies:simple",
   "config": {
-    "decorators": {
-      "starry_skies:chorus_fruit": 0.2
-    },
-    "spawns": [],
+    "block": "minecraft:end_stone",
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 10,
       "max_exclusive": 20
     },
-    "block": "minecraft:end_stone",
 
+    "decorators": {
+      "starry_skies:chorus_fruit": 0.2
+    },
+    "spawns": [],
     "generation": {
       "weight": 10.0,
       "group": "starry_skies:end/essential"

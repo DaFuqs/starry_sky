@@ -1,16 +1,7 @@
 {
   "type": "starry_skies:shell",
   "config": {
-    "decorators": {},
-    "spawns": [],
-    "fabric:load_conditions": [
-      {
-        "condition": "fabric:all_mods_loaded",
-        "values": [
-          "betterend"
-        ]
-      }
-    ],
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 6,
@@ -25,6 +16,16 @@
       "chance": 0.15
     },
 
+    "decorators": {},
+    "spawns": [],
+    "fabric:load_conditions": [
+      {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "betterend"
+        ]
+      }
+    ],
     "generation": {
       "weight": 1.0,
       "group": "starry_skies:end/essential"

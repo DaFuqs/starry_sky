@@ -1,17 +1,18 @@
 {
   "type": "starry_skies:simple",
   "config": {
-    "decorators": {
-      "starry_skies:mod_compat/biomemakeover/peat_pond": 0.7
-    },
-    "spawns": [],
+    "block": "biomemakeover:peat",
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 6,
       "max_exclusive": 12
     },
-    "block": "biomemakeover:peat",
 
+    "decorators": {
+      "starry_skies:mod_compat/biomemakeover/peat_pond": 0.7
+    },
+    "spawns": [],
     "generation": {
       "weight": 0.2,
       "group": "starry_skies:overworld/decorative"

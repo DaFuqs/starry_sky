@@ -1,10 +1,7 @@
 {
   "type": "starry_skies:shell",
   "config": {
-    "decorators": {
-      "starry_skies:mod_compat/byg/shulkren_vines": 0.9
-    },
-    "spawns": [],
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 7,
@@ -19,6 +16,10 @@
       "chance": 0.1
     },
 
+    "decorators": {
+      "starry_skies:mod_compat/byg/shulkren_vines": 0.9
+    },
+    "spawns": [],
     "generation": {
       "weight": 0.4,
       "group": "starry_skies:end/wood"

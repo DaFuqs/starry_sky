@@ -1,20 +1,21 @@
 {
   "type": "starry_skies:shell",
   "config": {
-    "decorators": {
-      "starry_skies:mod_compat/betternether/rubeus_cones": 1.0
-    },
-    "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 8,
-      "max_exclusive": 20
-    },
     "main_block": "betternether:rubeus_log",
     "shell_block": "betternether:rubeus_leaves",
     "min_shell_size": 2,
     "max_shell_size": 3,
 
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 8,
+      "max_exclusive": 20
+    },
+
+    "decorators": {
+      "starry_skies:mod_compat/betternether/rubeus_cones": 1.0
+    },
+    "spawns": [],
     "generation": {
       "weight": 1.0,
       "group": "starry_skies:nether/wood"

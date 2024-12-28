@@ -1,6 +1,17 @@
 {
   "type": "starry_skies:core",
   "config": {
+    "core_block": "%starry_skies:kyber_ore",
+    "min_core_size": 7,
+    "max_core_size": 10,
+    "main_block": "$starry_skies:stones",
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 12,
+      "max_exclusive": 15
+    },
+
     "decorators": {},
     "spawns": [],
     "fabric:load_conditions": [
@@ -10,16 +21,6 @@
       []
       }
     ],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 12,
-      "max_exclusive": 15
-    },
-    "core_block": "%starry_skies:kyber_ore",
-    "min_core_size": 7,
-    "max_core_size": 10,
-    "main_block": "$starry_skies:stones",
-
     "generation": {
       "weight": 0.4,
       "group": "starry_skies:overworld/ores"

@@ -1,13 +1,6 @@
 {
   "type": "starry_skies:fluid",
   "config": {
-    "decorators": {},
-    "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 5,
-      "max_exclusive": 14
-    },
     "fluid": "minecraft:lava",
     "min_shell_size": 1,
     "max_shell_size": 3,
@@ -16,6 +9,14 @@
     "hole_in_bottom_chance": 0.5,
     "shell_block": "$starry_skies:nether_glass",
 
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 14
+    },
+
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 10.0,
       "group": "starry_skies:nether/fluid"

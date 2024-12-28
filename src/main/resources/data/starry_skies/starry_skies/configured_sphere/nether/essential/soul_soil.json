@@ -1,18 +1,19 @@
 {
   "type": "starry_skies:simple",
   "config": {
-    "decorators": {
-      "starry_skies:soul_fire": 0.25,
-      "starry_skies:nether_wart": 0.1
-    },
-    "spawns": [],
+    "block": "minecraft:soul_soil",
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 6,
       "max_exclusive": 10
     },
-    "block": "minecraft:soul_soil",
 
+    "decorators": {
+      "starry_skies:soul_fire": 0.25,
+      "starry_skies:nether_wart": 0.1
+    },
+    "spawns": [],
     "generation": {
       "weight": 3.0,
       "group": "starry_skies:nether/essential"

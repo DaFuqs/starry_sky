@@ -1,13 +1,6 @@
 {
   "type": "starry_skies:stacked_horizontal",
   "config": {
-    "decorators": {},
-    "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 5,
-      "max_exclusive": 16
-    },
     "blocks": [
       "minecraft:red_wool",
       "minecraft:orange_wool",
@@ -17,6 +10,14 @@
       "minecraft:purple_wool"
     ],
 
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 16
+    },
+
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 0.1,
       "group": "starry_skies:overworld/decorative"

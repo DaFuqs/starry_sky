@@ -1,16 +1,17 @@
 {
   "type": "starry_skies:modular",
   "config": {
-    "decorators": {},
-    "spawns": [],
+    "main_block": "minecraft:gravel",
+    "bottom_block": "minecraft:cobblestone",
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 6,
       "max_exclusive": 10
     },
-    "main_block": "minecraft:gravel",
-    "bottom_block": "minecraft:cobblestone",
 
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 1.0,
       "group": "starry_skies:overworld/essential"

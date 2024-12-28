@@ -1,15 +1,16 @@
 {
   "type": "starry_skies:simple",
   "config": {
-    "decorators": {},
-    "spawns": [],
+    "block": "minecraft:bedrock",
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 3,
       "max_exclusive": 5
     },
-    "block": "minecraft:bedrock",
 
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 0.1,
       "group": "starry_skies:overworld/decorative"

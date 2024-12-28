@@ -1,6 +1,14 @@
 {
   "type": "starry_skies:simple",
   "config": {
+    "block": "minecraft:stone",
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 13
+    },
+
     "decorators": {
       "starry_skies:center_pond_lava": 0.1
     },
@@ -18,13 +26,6 @@
         "max_count": 3
       }
     ],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 5,
-      "max_exclusive": 13
-    },
-    "block": "minecraft:stone",
-
     "generation": {
       "weight": 2.0,
       "group": "starry_skies:overworld/decorative"

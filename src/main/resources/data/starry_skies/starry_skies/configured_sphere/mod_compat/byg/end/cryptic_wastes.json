@@ -1,12 +1,7 @@
 {
   "type": "starry_skies:shell",
   "config": {
-    "decorators": {
-      "starry_skies:mod_compat/byg/cryptic_fire": 0.9,
-      "starry_skies:mod_compat/byg/scorched_bushes": 0.9,
-      "starry_skies:mod_compat/byg/scorched_grass": 0.9
-    },
-    "spawns": [],
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 8,
@@ -21,6 +16,12 @@
       "chance": 0.2
     },
 
+    "decorators": {
+      "starry_skies:mod_compat/byg/cryptic_fire": 0.9,
+      "starry_skies:mod_compat/byg/scorched_bushes": 0.9,
+      "starry_skies:mod_compat/byg/scorched_grass": 0.9
+    },
+    "spawns": [],
     "generation": {
       "weight": 0.5,
       "group": "starry_skies:end/decorative"

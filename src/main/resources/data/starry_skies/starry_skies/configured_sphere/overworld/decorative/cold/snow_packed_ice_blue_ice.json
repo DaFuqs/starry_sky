@@ -1,16 +1,6 @@
 {
   "type": "starry_skies:shell_core",
   "config": {
-    "decorators": {
-      "starry_skies:sweet_berries": 0.2,
-      "starry_skies:mod_compat/byg/winter_succulents": 0.1
-    },
-    "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 5,
-      "max_exclusive": 8
-    },
     "main_block": "minecraft:ice",
     "core_block": "minecraft:blue_ice",
     "min_core_size": 1,
@@ -19,6 +9,17 @@
     "min_shell_size": 2,
     "max_shell_size": 4,
 
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 8
+    },
+
+    "decorators": {
+      "starry_skies:sweet_berries": 0.2,
+      "starry_skies:mod_compat/byg/winter_succulents": 0.1
+    },
+    "spawns": [],
     "generation": {
       "weight": 0.4,
       "group": "starry_skies:overworld/decorative"

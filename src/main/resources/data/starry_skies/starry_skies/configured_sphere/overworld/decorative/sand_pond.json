@@ -1,6 +1,15 @@
 {
   "type": "starry_skies:modular",
   "config": {
+    "main_block": "minecraft:sand",
+    "bottom_block": "minecraft:sandstone",
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 10,
+      "max_exclusive": 18
+    },
+
     "decorators": {
       "starry_skies:center_pond_underwater_ruin_small_chest": 1.0,
       "starry_skies:mod_compat/byg/beach_grass": 0.25,
@@ -14,14 +23,6 @@
         "max_count": 4
       }
     ],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 10,
-      "max_exclusive": 18
-    },
-    "main_block": "minecraft:sand",
-    "bottom_block": "minecraft:sandstone",
-
     "generation": {
       "weight": 0.5,
       "group": "starry_skies:overworld/decorative"

@@ -1,13 +1,7 @@
 {
   "type": "starry_skies:shell",
   "config": {
-    "decorators": {
-      "starry_skies:mod_compat/byg/warped_cacti": 0.8,
-      "starry_skies:mod_compat/byg/warped_corals": 0.7,
-      "starry_skies:mod_compat/byg/warped_coral_fans": 0.6,
-      "starry_skies:mod_compat/byg/soul_shroom_spores": 0.5
-    },
-    "spawns": [],
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 10,
@@ -22,6 +16,13 @@
       "chance": 0.05
     },
 
+    "decorators": {
+      "starry_skies:mod_compat/byg/warped_cacti": 0.8,
+      "starry_skies:mod_compat/byg/warped_corals": 0.7,
+      "starry_skies:mod_compat/byg/warped_coral_fans": 0.6,
+      "starry_skies:mod_compat/byg/soul_shroom_spores": 0.5
+    },
+    "spawns": [],
     "generation": {
       "weight": 0.5,
       "group": "starry_skies:nether/decorative"

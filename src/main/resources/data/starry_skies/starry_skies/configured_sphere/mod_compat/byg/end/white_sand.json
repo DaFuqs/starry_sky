@@ -1,19 +1,20 @@
 {
   "type": "starry_skies:modular",
   "config": {
-    "decorators": {
-      "starry_skies:mod_compat/byg/oddity_cacti": 0.9,
-      "starry_skies:mod_compat/byg/oddity_bushes": 0.9
-    },
-    "spawns": [],
+    "main_block": "byg:white_sand",
+    "bottom_block": "minecraft:end_stone",
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 8,
       "max_exclusive": 13
     },
-    "main_block": "byg:white_sand",
-    "bottom_block": "minecraft:end_stone",
 
+    "decorators": {
+      "starry_skies:mod_compat/byg/oddity_cacti": 0.9,
+      "starry_skies:mod_compat/byg/oddity_bushes": 0.9
+    },
+    "spawns": [],
     "generation": {
       "weight": 0.5,
       "group": "starry_skies:end/decorative"

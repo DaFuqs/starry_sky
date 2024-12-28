@@ -1,13 +1,6 @@
 {
   "type": "starry_skies:rainbow",
   "config": {
-    "decorators": {},
-    "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 4,
-      "max_exclusive": 8
-    },
     "blocks": [
       "cinderscapes:crystalline_quartz",
       "cinderscapes:crystalline_sulfur_quartz",
@@ -15,6 +8,14 @@
       "cinderscapes:crystalline_smoky_quartz"
     ],
 
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 4,
+      "max_exclusive": 8
+    },
+
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 0.2,
       "group": "starry_skies:nether/treasure"

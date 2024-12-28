@@ -1,6 +1,17 @@
 {
   "type": "starry_skies:shell",
   "config": {
+    "main_block": "betterend:helix_tree_log",
+    "shell_block": "betterend:helix_tree_leaves",
+    "min_shell_size": 2,
+    "max_shell_size": 3,
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 6,
+      "max_exclusive": 11
+    },
+
     "decorators": {},
     "spawns": [],
     "fabric:load_conditions": [
@@ -11,16 +22,6 @@
         ]
       }
     ],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 6,
-      "max_exclusive": 11
-    },
-    "main_block": "betterend:helix_tree_log",
-    "shell_block": "betterend:helix_tree_leaves",
-    "min_shell_size": 2,
-    "max_shell_size": 3,
-
     "generation": {
       "weight": 1.0,
       "group": "starry_skies:end/wood"

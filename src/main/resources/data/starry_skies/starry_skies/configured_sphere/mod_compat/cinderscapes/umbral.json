@@ -1,6 +1,15 @@
 {
   "type": "starry_skies:modular",
   "config": {
+    "main_block": "minecraft:netherrack",
+    "top_block": "cinderscapes:umbral_nylium",
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 10,
+      "max_exclusive": 20
+    },
+
     "decorators": {
       "starry_skies:mod_compat/cinderscapes/twilight_fescues": 0.8,
       "starry_skies:mod_compat/cinderscapes/photofern": 0.8,
@@ -9,14 +18,6 @@
       "starry_skies:mod_compat/cinderscapes/luminous_pod": 0.8
     },
     "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 10,
-      "max_exclusive": 20
-    },
-    "main_block": "minecraft:netherrack",
-    "top_block": "cinderscapes:umbral_nylium",
-
     "generation": {
       "weight": 0.5,
       "group": "starry_skies:nether/decorative"

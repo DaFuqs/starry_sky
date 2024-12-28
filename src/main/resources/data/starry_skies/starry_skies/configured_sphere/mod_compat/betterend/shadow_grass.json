@@ -1,6 +1,17 @@
 {
   "type": "starry_skies:modular",
   "config": {
+    "main_block": "minecraft:end_stone",
+    "top_block": "betterend:shadow_grass",
+    "min_shell_size": 2,
+    "max_shell_size": 4,
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 6,
+      "max_exclusive": 14
+    },
+
     "decorators": {
       "starry_skies:mod_compat/betterend/shadow_plants": 0.9,
       "starry_skies:mod_compat/betterend/needlegrass": 0.7,
@@ -8,24 +19,14 @@
       "starry_skies:mod_compat/betterend/shadow_berries": 0.3
     },
     "spawns": [],
-  "fabric:load_conditions": [
-    {
-      "condition": "fabric:all_mods_loaded",
-      "values": [
-        "betterend"
-      ]
-    }
-  ],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 6,
-      "max_exclusive": 14
-    },
-    "main_block": "minecraft:end_stone",
-    "top_block": "betterend:shadow_grass",
-    "min_shell_size": 2,
-    "max_shell_size": 4,
-
+    "fabric:load_conditions": [
+      {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "betterend"
+        ]
+      }
+    ],
     "generation": {
       "weight": 0.4,
       "group": "starry_skies:end/decorative"

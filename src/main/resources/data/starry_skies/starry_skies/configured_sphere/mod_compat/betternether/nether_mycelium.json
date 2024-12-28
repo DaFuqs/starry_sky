@@ -1,6 +1,15 @@
 {
   "type": "starry_skies:modular",
   "config": {
+    "main_block": "minecraft:nether_wart_block",
+    "top_block": "betternether:nether_mycelium",
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 8,
+      "max_exclusive": 20
+    },
+
     "decorators": {
       "starry_skies:mod_compat/betternether/gray_mold": 0.9,
       "starry_skies:mod_compat/betternether/red_mold": 0.9,
@@ -9,14 +18,6 @@
       "starry_skies:mod_compat/betternether/giant_mold_saplings": 0.9
     },
     "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 8,
-      "max_exclusive": 20
-    },
-    "main_block": "minecraft:nether_wart_block",
-    "top_block": "betternether:nether_mycelium",
-
     "generation": {
       "weight": 1.0,
       "group": "starry_skies:nether/decorative"

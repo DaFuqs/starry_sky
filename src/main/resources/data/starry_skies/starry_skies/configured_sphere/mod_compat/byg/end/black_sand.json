@@ -1,16 +1,17 @@
 {
   "type": "starry_skies:modular",
   "config": {
-    "decorators": {},
-    "spawns": [],
+    "main_block": "byg:black_sand",
+    "bottom_block": "byg:black_sandstone",
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 8,
       "max_exclusive": 13
     },
-    "main_block": "byg:black_sand",
-    "bottom_block": "byg:black_sandstone",
 
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 0.4,
       "group": "starry_skies:end/decorative"

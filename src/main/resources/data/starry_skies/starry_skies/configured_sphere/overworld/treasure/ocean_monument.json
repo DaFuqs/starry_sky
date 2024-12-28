@@ -1,18 +1,19 @@
 {
   "type": "starry_skies:ocean_monument",
   "config": {
-    "decorators": {},
-    "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 25,
-      "max_exclusive": 35
-    },
     "min_core_size": 3,
     "max_core_size": 5,
     "min_shell_size": 2,
     "max_shell_size": 3,
 
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 25,
+      "max_exclusive": 35
+    },
+
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 0.5,
       "group": "starry_skies:overworld/treasure"

@@ -1,6 +1,17 @@
 {
   "type": "starry_skies:mushroom",
   "config": {
+    "mushroom_block": "biomemakeover:green_glowshroom_block",
+    "stem_block": "biomemakeover:glowshroom_stem",
+    "min_shell_size": 2,
+    "max_shell_size": 3,
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 4,
+      "max_exclusive": 7
+    },
+
     "decorators": {},
     "spawns": [
       {
@@ -10,16 +21,6 @@
         "max_count": 3
       }
     ],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 4,
-      "max_exclusive": 7
-    },
-    "mushroom_block": "biomemakeover:green_glowshroom_block",
-    "stem_block": "biomemakeover:glowshroom_stem",
-    "min_shell_size": 2,
-    "max_shell_size": 3,
-
     "generation": {
       "weight": 0.2,
       "group": "starry_skies:overworld/treasure"

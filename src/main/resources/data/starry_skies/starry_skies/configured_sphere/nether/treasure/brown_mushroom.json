@@ -1,6 +1,17 @@
 {
   "type": "starry_skies:mushroom",
   "config": {
+    "mushroom_block": "minecraft:brown_mushroom_block",
+    "stem_block": "minecraft:mushroom_stem",
+    "min_shell_size": 2,
+    "max_shell_size": 3,
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 4,
+      "max_exclusive": 10
+    },
+
     "decorators": {},
     "spawns": [
       {
@@ -10,16 +21,6 @@
         "max_count": 3
       }
     ],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 4,
-      "max_exclusive": 10
-    },
-    "mushroom_block": "minecraft:brown_mushroom_block",
-    "stem_block": "minecraft:mushroom_stem",
-    "min_shell_size": 2,
-    "max_shell_size": 3,
-
     "generation": {
       "weight": 5.0,
       "group": "starry_skies:nether/treasure"

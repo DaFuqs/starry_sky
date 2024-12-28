@@ -1,6 +1,15 @@
 {
   "type": "starry_skies:modular",
   "config": {
+    "main_block": "minecraft:netherrack",
+    "top": "byg:overgrown_netherrack",
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 7,
+      "max_exclusive": 14
+    },
+
     "decorators": {
       "starry_skies:mod_compat/byg/wailing_grass": 0.9,
       "starry_skies:nether_sprouts": 0.7,
@@ -9,14 +18,6 @@
       "starry_skies:mod_compat/byg/lament_vines": 0.15
     },
     "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 7,
-      "max_exclusive": 14
-    },
-    "main_block": "minecraft:netherrack",
-    "top": "byg:overgrown_netherrack",
-
     "generation": {
       "weight": 0.4,
       "group": "starry_skies:nether/decorative"

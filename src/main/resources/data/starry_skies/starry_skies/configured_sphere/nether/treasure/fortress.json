@@ -1,16 +1,17 @@
 {
   "type": "starry_skies:nether_fortress",
   "config": {
-    "decorators": {},
-    "spawns": [],
+    "min_shell_size": 4,
+    "max_shell_size": 6,
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 25,
       "max_exclusive": 35
     },
-    "min_shell_size": 4,
-    "max_shell_size": 6,
 
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 5.0,
       "group": "starry_skies:nether/treasure"

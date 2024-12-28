@@ -1,13 +1,6 @@
 {
   "type": "starry_skies:shell_core",
   "config": {
-    "decorators": {},
-    "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 6,
-      "max_exclusive": 10
-    },
     "main_block": "betterend:dense_emerald_ice",
     "core_block": "betterend:ancient_emerald_ice",
     "min_core_size": 1,
@@ -16,6 +9,14 @@
     "min_shell_size": 2,
     "max_shell_size": 4,
 
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 6,
+      "max_exclusive": 10
+    },
+
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 0.1,
       "group": "starry_skies:end/decorative"

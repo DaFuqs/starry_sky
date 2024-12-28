@@ -1,17 +1,18 @@
 {
   "type": "starry_skies:simple",
   "config": {
-    "decorators": {
-      "starry_skies:soul_fire": 0.9
-    },
-    "spawns": [],
+    "block": "byg:frost_magma",
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 10,
       "max_exclusive": 16
     },
-    "block": "byg:frost_magma",
 
+    "decorators": {
+      "starry_skies:soul_fire": 0.9
+    },
+    "spawns": [],
     "generation": {
       "weight": 0.5,
       "group": "starry_skies:nether/decorative"

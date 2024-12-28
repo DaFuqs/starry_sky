@@ -1,6 +1,17 @@
 {
   "type": "starry_skies:core",
   "config": {
+    "core_block": "%starry_skies:deepslate_lead_ore",
+    "min_core_size": 4,
+    "max_core_size": 6,
+    "main_block": "$starry_skies:deepslates",
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 15
+    },
+
     "decorators": {},
     "spawns": [],
     "fabric:load_conditions": [
@@ -10,16 +21,6 @@
       []
       }
     ],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 5,
-      "max_exclusive": 15
-    },
-    "core_block": "%starry_skies:deepslate_lead_ore",
-    "min_core_size": 4,
-    "max_core_size": 6,
-    "main_block": "$starry_skies:deepslates",
-
     "generation": {
       "weight": 0.5,
       "group": "starry_skies:overworld/ores"

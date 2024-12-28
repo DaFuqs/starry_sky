@@ -1,18 +1,19 @@
 {
   "type": "starry_skies:dungeon",
   "config": {
-    "decorators": {},
-    "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 6,
-      "max_exclusive": 11
-    },
     "entity_type": "minecraft:hoglin",
     "min_shell_size": 2,
     "max_shell_size": 4,
     "shell_block": "$starry_skies:nether_dungeon_stones",
 
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 6,
+      "max_exclusive": 11
+    },
+
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 1.5,
       "group": "starry_skies:nether/dungeon"

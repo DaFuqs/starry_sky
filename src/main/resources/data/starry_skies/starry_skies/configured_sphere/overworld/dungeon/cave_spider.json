@@ -1,8 +1,7 @@
 {
   "type": "starry_skies:dungeon",
   "config": {
-    "decorators": {},
-    "spawns": [],
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 6,
@@ -23,6 +22,8 @@
       "minecraft:andesite": 2
     },
 
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 1.5,
       "group": "starry_skies:overworld/decorative"

@@ -1,15 +1,16 @@
 {
   "type": "starry_skies:simple",
   "config": {
-    "decorators": {},
-    "spawns": [],
+    "block": "minecraft:end_stone",
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 3,
       "max_exclusive": 7
     },
-    "block": "minecraft:end_stone",
 
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 10.0,
       "group": "starry_skies:end/essential"

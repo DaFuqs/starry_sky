@@ -1,8 +1,7 @@
 {
   "type": "starry_skies:shell",
   "config": {
-    "decorators": {},
-    "spawns": [],
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 6,
@@ -17,6 +16,8 @@
       "chance": 0.1
     },
 
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 0.5,
       "group": "starry_skies:nether/decorative"

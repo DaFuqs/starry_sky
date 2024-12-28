@@ -1,10 +1,10 @@
 {
   "type": "starry_skies:fluid_core",
   "config": {
-    "decorators": {
-      "starry_skies:x_spot_ruined_portal": 0.1
-    },
-    "spawns": [],
+    "core_block": "minecraft:obsidian",
+    "min_core_size": 2,
+    "max_core_size": 5,
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 10,
@@ -23,10 +23,11 @@
       "minecraft:diorite": 1,
       "minecraft:andesite": 1
     },
-    "core_block": "minecraft:obsidian",
-    "min_core_size": 2,
-    "max_core_size": 5,
 
+    "decorators": {
+      "starry_skies:x_spot_ruined_portal": 0.1
+    },
+    "spawns": [],
     "generation": {
       "weight": 2.0,
       "group": "starry_skies:overworld/fluid"

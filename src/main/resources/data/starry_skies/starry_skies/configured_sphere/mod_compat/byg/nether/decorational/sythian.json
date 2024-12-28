@@ -1,17 +1,18 @@
 {
   "type": "starry_skies:simple",
   "config": {
-    "decorators": {
-      "starry_skies:mod_compat/byg/hanging_sythian_roots": 1.0
-    },
-    "spawns": [],
+    "block": "byg:sythian_hyphae",
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 10,
       "max_exclusive": 16
     },
-    "block": "byg:sythian_hyphae",
 
+    "decorators": {
+      "starry_skies:mod_compat/byg/hanging_sythian_roots": 1.0
+    },
+    "spawns": [],
     "generation": {
       "weight": 0.5,
       "group": "starry_skies:nether/decorative"

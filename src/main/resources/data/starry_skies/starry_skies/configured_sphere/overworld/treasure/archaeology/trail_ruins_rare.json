@@ -1,15 +1,7 @@
 {
   "type": "starry_skies:shell",
   "config": {
-    "decorators": {},
-    "spawns": [
-      {
-        "type": "minecraft:camel",
-        "chance": 0.75,
-        "min_count": 1,
-        "max_count": 2
-      }
-    ],
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 3,
@@ -24,6 +16,15 @@
       "chance": 0.05
     },
 
+    "decorators": {},
+    "spawns": [
+      {
+        "type": "minecraft:camel",
+        "chance": 0.75,
+        "min_count": 1,
+        "max_count": 2
+      }
+    ],
     "generation": {
       "weight": 0.3,
       "group": "starry_skies:overworld/treasure"

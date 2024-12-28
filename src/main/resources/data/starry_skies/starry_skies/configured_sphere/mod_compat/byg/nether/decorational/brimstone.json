@@ -1,17 +1,18 @@
 {
   "type": "starry_skies:simple",
   "config": {
-    "decorators": {
-      "starry_skies:mod_compat/byg/boric_fire": 0.75
-    },
-    "spawns": [],
+    "block": "byg:brimstone",
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 5,
       "max_exclusive": 12
     },
-    "block": "byg:brimstone",
 
+    "decorators": {
+      "starry_skies:mod_compat/byg/boric_fire": 0.75
+    },
+    "spawns": [],
     "generation": {
       "weight": 0.5,
       "group": "starry_skies:nether/decorative"

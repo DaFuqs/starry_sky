@@ -1,17 +1,18 @@
 {
   "type": "starry_skies:simple",
   "config": {
-    "decorators": {
-      "starry_skies:mod_compat/cinderscapes/ghastly_ectoplasm": 0.9
-    },
-    "spawns": [],
+    "block": "cinderscapes:twilight_vine_block",
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 5,
       "max_exclusive": 8
     },
-    "block": "cinderscapes:twilight_vine_block",
 
+    "decorators": {
+      "starry_skies:mod_compat/cinderscapes/ghastly_ectoplasm": 0.9
+    },
+    "spawns": [],
     "generation": {
       "weight": 0.5,
       "group": "starry_skies:nether/decorative"

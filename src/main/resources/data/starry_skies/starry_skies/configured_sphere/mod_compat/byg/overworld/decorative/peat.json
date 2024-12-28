@@ -1,15 +1,16 @@
 {
   "type": "starry_skies:simple",
   "config": {
-    "decorators": {},
-    "spawns": [],
+    "block": "byg:peat",
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 4,
       "max_exclusive": 10
     },
-    "block": "byg:peat",
 
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 0.4,
       "group": "starry_skies:overworld/decorative"

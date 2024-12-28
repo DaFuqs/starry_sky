@@ -1,12 +1,7 @@
 {
   "type": "starry_skies:cave",
   "config": {
-    "decorators": {
-      "starry_skies:red_mushrooms": 0.3,
-      "starry_skies:brown_mushrooms": 0.3,
-      "starry_skies:glow_lichen": 0.5
-    },
-    "spawns": [],
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 20,
@@ -22,6 +17,12 @@
       "chance": 0.5
     },
 
+    "decorators": {
+      "starry_skies:red_mushrooms": 0.3,
+      "starry_skies:brown_mushrooms": 0.3,
+      "starry_skies:glow_lichen": 0.5
+    },
+    "spawns": [],
     "generation": {
       "weight": 1.0,
       "group": "starry_skies:overworld/treasure"

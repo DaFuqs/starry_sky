@@ -1,6 +1,15 @@
 {
   "type": "starry_skies:modular",
   "config": {
+    "main_block": "minecraft:netherrack",
+    "top_block": "minecraft:crimson_nylium",
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 9,
+      "max_exclusive": 15
+    },
+
     "decorators": {
       "starry_skies:crimson_roots": 0.8,
       "starry_skies:weeping_vines": 0.8,
@@ -15,14 +24,6 @@
         "max_count": 5
       }
     ],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 9,
-      "max_exclusive": 15
-    },
-    "main_block": "minecraft:netherrack",
-    "top_block": "minecraft:crimson_nylium",
-
     "generation": {
       "weight": 4.0,
       "group": "starry_skies:nether/essential"

@@ -1,18 +1,19 @@
 {
   "type": "starry_skies:modular",
   "config": {
-    "decorators": {
-      "starry_skies:mod_compat/byg/shulkren_fungi": 0.9
-    },
-    "spawns": [],
+    "main_block": "byg:ether_stone",
+    "top_block": "byg:vermilion_sculk",
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 6,
       "max_exclusive": 10
     },
-    "main_block": "byg:ether_stone",
-    "top_block": "byg:vermilion_sculk",
 
+    "decorators": {
+      "starry_skies:mod_compat/byg/shulkren_fungi": 0.9
+    },
+    "spawns": [],
     "generation": {
       "weight": 0.5,
       "group": "starry_skies:end/decorative"

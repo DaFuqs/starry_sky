@@ -1,6 +1,14 @@
 {
   "type": "starry_skies:simple",
   "config": {
+    "block": "minecraft:netherrack",
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 7,
+      "max_exclusive": 16
+    },
+
     "decorators": {
       "starry_skies:fire": 0.3,
       "starry_skies:ruined_portal": 0.03,
@@ -28,13 +36,6 @@
         "max_count": 1
       }
     ],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 7,
-      "max_exclusive": 16
-    },
-    "block": "minecraft:netherrack",
-
     "generation": {
       "weight": 10.0,
       "group": "starry_skies:nether/essential"

@@ -1,15 +1,16 @@
 {
   "type": "starry_skies:simple",
   "config": {
-    "decorators": {},
-    "spawns": [],
+    "block": "byg:magmatic_stone",
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 7,
       "max_exclusive": 13
     },
-    "block": "byg:magmatic_stone",
 
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 0.6,
       "group": "starry_skies:nether/decorative"

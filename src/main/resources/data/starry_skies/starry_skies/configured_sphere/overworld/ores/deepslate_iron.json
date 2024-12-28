@@ -1,18 +1,19 @@
 {
   "type": "starry_skies:core",
   "config": {
-    "decorators": {},
-    "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 5,
-      "max_exclusive": 12
-    },
     "core_block": "minecraft:deepslate_iron_ore",
     "min_core_size": 3,
     "max_core_size": 5,
     "main_block": "$starry_skies:deepslates",
 
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 12
+    },
+
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 1.0,
       "group": "starry_skies:overworld/ores"

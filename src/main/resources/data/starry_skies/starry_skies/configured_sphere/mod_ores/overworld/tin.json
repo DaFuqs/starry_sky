@@ -1,6 +1,17 @@
 {
   "type": "starry_skies:core",
   "config": {
+    "core_block": "%starry_skies:tin_ore",
+    "min_core_size": 5,
+    "max_core_size": 7,
+    "main_block": "$starry_skies:stones",
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 6,
+      "max_exclusive": 10
+    },
+
     "decorators": {},
     "spawns": [],
     "fabric:load_conditions": [
@@ -10,16 +21,6 @@
       []
       }
     ],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 6,
-      "max_exclusive": 10
-    },
-    "core_block": "%starry_skies:tin_ore",
-    "min_core_size": 5,
-    "max_core_size": 7,
-    "main_block": "$starry_skies:stones",
-
     "generation": {
       "weight": 1.0,
       "group": "starry_skies:overworld/ores"

@@ -1,8 +1,7 @@
 {
   "type": "starry_skies:fluid",
   "config": {
-    "decorators": {},
-    "spawns": [],
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 5,
@@ -22,6 +21,8 @@
       "minecraft:andesite": 1
     },
 
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 3.0,
       "group": "starry_skies:overworld/fluid"

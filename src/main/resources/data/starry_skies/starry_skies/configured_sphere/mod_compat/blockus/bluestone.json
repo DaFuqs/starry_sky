@@ -1,15 +1,16 @@
 {
   "type": "starry_skies:simple",
   "config": {
-    "decorators": {},
-    "spawns": [],
+    "block": "blockus:bluestone",
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 5,
       "max_exclusive": 12
     },
-    "block": "blockus:bluestone",
 
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 1.0,
       "group": "starry_skies:overworld/decorative"

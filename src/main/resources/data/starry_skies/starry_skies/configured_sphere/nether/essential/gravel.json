@@ -1,20 +1,21 @@
 {
   "type": "starry_skies:modular",
   "config": {
+    "main_block": "minecraft:gravel",
+    "bottom_block": "minecraft:cobblestone",
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 7
+    },
+
     "decorators": {
       "starry_skies:mod_compat/betternether/agave": 0.3,
       "starry_skies:mod_compat/betternether/barrel_cacti": 0.15,
       "starry_skies:mod_compat/betternether/nether_cacti": 0.15
     },
     "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 5,
-      "max_exclusive": 7
-    },
-    "main_block": "minecraft:gravel",
-    "bottom_block": "minecraft:cobblestone",
-
     "generation": {
       "weight": 2.0,
       "group": "starry_skies:nether/essential"

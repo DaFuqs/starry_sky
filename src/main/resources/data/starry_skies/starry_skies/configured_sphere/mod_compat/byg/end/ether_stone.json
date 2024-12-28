@@ -1,15 +1,16 @@
 {
   "type": "starry_skies:simple",
   "config": {
-    "decorators": {},
-    "spawns": [],
+    "block": "byg:ether_stone",
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 8,
       "max_exclusive": 15
     },
-    "block": "byg:ether_stone",
 
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 0.5,
       "group": "starry_skies:end/decorative"

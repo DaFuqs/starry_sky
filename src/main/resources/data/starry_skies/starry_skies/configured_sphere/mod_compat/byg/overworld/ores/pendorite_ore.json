@@ -1,18 +1,19 @@
 {
   "type": "starry_skies:core",
   "config": {
-    "decorators": {},
-    "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 5,
-      "max_exclusive": 6
-    },
     "core_block": "byg:pendorite_ore",
     "min_core_size": 2,
     "max_core_size": 3,
     "main_block": "$starry_skies:mountain_stones",
 
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 6
+    },
+
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 0.01,
       "group": "starry_skies:overworld/ores"

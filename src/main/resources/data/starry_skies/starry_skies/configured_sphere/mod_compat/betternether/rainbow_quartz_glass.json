@@ -1,13 +1,6 @@
 {
   "type": "starry_skies:rainbow",
   "config": {
-    "decorators": {},
-    "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 6,
-      "max_exclusive": 10
-    },
     "blocks": [
       "betternether:quartz_glass_white",
       "betternether:quartz_glass_light_gray",
@@ -27,6 +20,14 @@
       "betternether:quartz_glass_pink"
     ],
 
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 6,
+      "max_exclusive": 10
+    },
+
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 0.01,
       "group": "starry_skies:nether/decorative"

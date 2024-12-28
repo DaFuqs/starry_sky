@@ -1,14 +1,7 @@
 {
   "type": "starry_skies:shell",
   "config": {
-    "decorators": {
-      "starry_skies:mod_compat/byg/quartz_crystals": 0.95,
-      "starry_skies:mod_compat/byg/hanging_bones": 0.8,
-      "starry_skies:red_mushrooms": 0.25,
-      "starry_skies:brown_mushrooms": 0.25,
-      "starry_skies:fire": 0.3
-    },
-    "spawns": [],
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 10,
@@ -23,6 +16,14 @@
       "chance": 0.2
     },
 
+    "decorators": {
+      "starry_skies:mod_compat/byg/quartz_crystals": 0.95,
+      "starry_skies:mod_compat/byg/hanging_bones": 0.8,
+      "starry_skies:red_mushrooms": 0.25,
+      "starry_skies:brown_mushrooms": 0.25,
+      "starry_skies:fire": 0.3
+    },
+    "spawns": [],
     "generation": {
       "weight": 0.5,
       "group": "starry_skies:nether/decorative"

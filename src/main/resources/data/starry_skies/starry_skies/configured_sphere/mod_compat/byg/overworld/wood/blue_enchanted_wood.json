@@ -1,18 +1,19 @@
 {
   "type": "starry_skies:shell",
   "config": {
-    "decorators": {},
-    "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 6,
-      "max_exclusive": 9
-    },
     "min_shell_size": 2,
     "max_shell_size": 3,
     "main_block": "byg:blue_enchanted_log",
     "shell_block": "byg:blue_enchanted_leaves[distance=1]",
 
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 6,
+      "max_exclusive": 9
+    },
+
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 0.1,
       "group": "starry_skies:overworld/wood"

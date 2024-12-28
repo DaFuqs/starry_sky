@@ -1,6 +1,14 @@
 {
   "type": "starry_skies:simple",
   "config": {
+    "block": "minecraft:netherrack",
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 8
+    },
+
     "decorators": {
       "starry_skies:fire": 0.5,
       "starry_skies:center_pond_lava": 0.15,
@@ -10,13 +18,6 @@
       "starry_skies:mod_compat/betternether/netherrack_stalactites": 0.2
     },
     "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 5,
-      "max_exclusive": 8
-    },
-    "block": "minecraft:netherrack",
-
     "generation": {
       "weight": 2.0,
       "group": "starry_skies:nether/essential"

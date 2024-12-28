@@ -1,13 +1,6 @@
 {
   "type": "starry_skies:rainbow",
   "config": {
-    "decorators": {},
-    "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 9,
-      "max_exclusive": 14
-    },
     "blocks": [
       "byg:black_sand",
       "byg:white_sand",
@@ -19,6 +12,14 @@
       "minecraft:sandstone"
     ],
 
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 9,
+      "max_exclusive": 14
+    },
+
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 0.25,
       "group": "starry_skies:overworld/treasure"

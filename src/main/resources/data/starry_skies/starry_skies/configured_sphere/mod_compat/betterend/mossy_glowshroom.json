@@ -1,6 +1,20 @@
 {
   "type": "starry_skies:shell_core",
   "config": {
+    "main_block": "betterend:mossy_glowshroom_log",
+    "shell_block": "betterend:mossy_glowshroom_hymenophore",
+    "min_shell_size": 2,
+    "max_shell_size": 4,
+    "core_block": "betterend:mossy_glowshroom_cap",
+    "min_core_size": 2,
+    "max_core_size": 4,
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 12
+    },
+
     "decorators": {},
     "spawns": [],
     "fabric:load_conditions": [
@@ -11,19 +25,6 @@
         ]
       }
     ],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 5,
-      "max_exclusive": 12
-    },
-    "main_block": "betterend:mossy_glowshroom_log",
-    "shell_block": "betterend:mossy_glowshroom_hymenophore",
-    "min_shell_size": 2,
-    "max_shell_size": 4,
-    "core_block": "betterend:mossy_glowshroom_cap",
-    "min_core_size": 2,
-    "max_core_size": 4,
-
     "generation": {
       "weight": 0.4,
       "group": "starry_skies:end/wood"

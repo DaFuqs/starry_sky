@@ -1,6 +1,17 @@
 {
   "type": "starry_skies:core",
   "config": {
+    "core_block": "%starry_skies:deepslate_adamantine_ore",
+    "min_core_size": 1,
+    "max_core_size": 2,
+    "main_block": "$starry_skies:deepslates",
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 4,
+      "max_exclusive": 6
+    },
+
     "decorators": {},
     "spawns": [],
     "fabric:load_conditions": [
@@ -10,16 +21,6 @@
       []
       }
     ],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 4,
-      "max_exclusive": 6
-    },
-    "core_block": "%starry_skies:deepslate_adamantine_ore",
-    "min_core_size": 1,
-    "max_core_size": 2,
-    "main_block": "$starry_skies:deepslates",
-
     "generation": {
       "weight": 0.1,
       "group": "starry_skies:overworld/ores"

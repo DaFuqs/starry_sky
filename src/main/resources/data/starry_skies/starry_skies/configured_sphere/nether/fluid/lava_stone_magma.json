@@ -1,15 +1,6 @@
 {
   "type": "starry_skies:fluid_core",
   "config": {
-    "decorators": {
-      "starry_skies:mod_compat/betternether/geysers": 0.4
-    },
-    "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 5,
-      "max_exclusive": 20
-    },
     "fluid": "minecraft:lava",
     "min_shell_size": 2,
     "max_shell_size": 5,
@@ -21,6 +12,16 @@
     "min_core_size": 2,
     "max_core_size": 5,
 
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 20
+    },
+
+    "decorators": {
+      "starry_skies:mod_compat/betternether/geysers": 0.4
+    },
+    "spawns": [],
     "generation": {
       "weight": 4.0,
       "group": "starry_skies:nether/fluid"

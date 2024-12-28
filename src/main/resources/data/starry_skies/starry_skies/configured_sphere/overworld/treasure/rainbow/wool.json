@@ -1,13 +1,6 @@
 {
   "type": "starry_skies:rainbow",
   "config": {
-    "decorators": {},
-    "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 5,
-      "max_exclusive": 16
-    },
     "blocks": [
       "white_wool",
       "light_gray_wool",
@@ -27,6 +20,14 @@
       "pink_wool"
     ],
 
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 16
+    },
+
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 1.0,
       "group": "starry_skies:overworld/treasure"

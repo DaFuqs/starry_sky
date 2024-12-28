@@ -1,21 +1,22 @@
 {
   "type": "starry_skies:modular",
   "config": {
-    "decorators": {
-      "starry_skies:mod_compat/byg/thereal_bellflowers": 0.9,
-      "starry_skies:mod_compat/byg/ether_grass": 0.9
-    },
-    "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 8,
-      "max_exclusive": 15
-    },
     "main_block": "byg:ether_soil",
     "top_block": "byg:ether_phylium",
     "min_core_size": 4,
     "max_core_size": 6,
 
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 8,
+      "max_exclusive": 15
+    },
+
+    "decorators": {
+      "starry_skies:mod_compat/byg/thereal_bellflowers": 0.9,
+      "starry_skies:mod_compat/byg/ether_grass": 0.9
+    },
+    "spawns": [],
     "generation": {
       "weight": 0.5,
       "group": "starry_skies:end/decorative"

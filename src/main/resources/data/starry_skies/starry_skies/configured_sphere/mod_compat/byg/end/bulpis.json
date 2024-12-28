@@ -1,21 +1,22 @@
 {
   "type": "starry_skies:mushroom",
   "config": {
-    "decorators": {
-      "starry_skies:mod_compat/byg/ether_bushes": 0.4,
-      "starry_skies:mod_compat/byg/ivis_roots": 0.9
-    },
-    "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 6,
-      "max_exclusive": 14
-    },
     "mushroom_block": "byg:bulbis_shell",
     "stem_block": "byg:bulbis_stem",
     "min_shell_size": 2,
     "max_shell_size": 2,
 
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 6,
+      "max_exclusive": 14
+    },
+
+    "decorators": {
+      "starry_skies:mod_compat/byg/ether_bushes": 0.4,
+      "starry_skies:mod_compat/byg/ivis_roots": 0.9
+    },
+    "spawns": [],
     "generation": {
       "weight": 0.3,
       "group": "starry_skies:end/wood"

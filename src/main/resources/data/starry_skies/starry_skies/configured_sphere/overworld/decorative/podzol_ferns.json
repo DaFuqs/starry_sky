@@ -1,19 +1,20 @@
 {
   "type": "starry_skies:modular",
   "config": {
-    "decorators": {
-      "starry_skies:ferns": 0.7,
-      "starry_skies:large_ferns": 0.7
-    },
-    "spawns": [],
+    "main_block": "minecraft:dirt",
+    "top_block": "minecraft:podzol",
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 5,
       "max_exclusive": 12
     },
-    "main_block": "minecraft:dirt",
-    "top_block": "minecraft:podzol",
 
+    "decorators": {
+      "starry_skies:ferns": 0.7,
+      "starry_skies:large_ferns": 0.7
+    },
+    "spawns": [],
     "generation": {
       "weight": 0.5,
       "group": "starry_skies:overworld/decorative"

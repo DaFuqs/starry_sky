@@ -1,6 +1,20 @@
 {
   "type": "starry_skies:shell_core",
   "config": {
+    "main_block": "minecraft:ice",
+    "core_block": "minecraft:packed_ice",
+    "min_core_size": 2,
+    "max_core_size": 4,
+    "shell_block": "minecraft:powder_snow",
+    "min_shell_size": 1,
+    "max_shell_size": 3,
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 12
+    },
+
     "decorators": {
       "starry_skies:sweet_berries": 0.2
     },
@@ -12,19 +26,6 @@
         "max_count": 2
       }
     ],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 5,
-      "max_exclusive": 12
-    },
-    "main_block": "minecraft:ice",
-    "core_block": "minecraft:packed_ice",
-    "min_core_size": 2,
-    "max_core_size": 4,
-    "shell_block": "minecraft:powder_snow",
-    "min_shell_size": 1,
-    "max_shell_size": 3,
-
     "generation": {
       "weight": 0.4,
       "group": "starry_skies:overworld/decorative"

@@ -1,21 +1,22 @@
 {
   "type": "starry_skies:core",
   "config": {
-    "decorators": {
-      "starry_skies:mod_compat/cinderscapes/crystinium": 0.5,
-      "starry_skies:mod_compat/cinderscapes/polypite_smoky_quartz": 0.25
-    },
-    "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 5,
-      "max_exclusive": 15
-    },
     "core_block": "cinderscapes:smoky_quartz_ore",
     "min_core_size": 2,
     "max_core_size": 4,
     "main_block": "$starry_skies:nether_stones",
 
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 15
+    },
+
+    "decorators": {
+      "starry_skies:mod_compat/cinderscapes/crystinium": 0.5,
+      "starry_skies:mod_compat/cinderscapes/polypite_smoky_quartz": 0.25
+    },
+    "spawns": [],
     "generation": {
       "weight": 0.2,
       "group": "starry_skies:nether/ores"

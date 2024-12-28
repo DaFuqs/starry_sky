@@ -1,6 +1,15 @@
 {
   "type": "starry_skies:modular",
   "config": {
+    "main_block": "minecraft:blackstone",
+    "top_block": "byg:overgrown_crimson_blackstone",
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 7,
+      "max_exclusive": 12
+    },
+
     "decorators": {
       "starry_skies:crimson_roots": 0.5,
       "starry_skies:weeping_vines": 0.5,
@@ -9,14 +18,6 @@
       "starry_skies:mod_compat/byg/tall_embur_roots": 0.5
     },
     "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 7,
-      "max_exclusive": 12
-    },
-    "main_block": "minecraft:blackstone",
-    "top_block": "byg:overgrown_crimson_blackstone",
-
     "generation": {
       "weight": 0.5,
       "group": "starry_skies:nether/decorative"

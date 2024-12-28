@@ -1,6 +1,15 @@
 {
   "type": "starry_skies:modular",
   "config": {
+    "main_block": "minecraft:netherrack",
+    "top_block": "betternether:mushroom_grass",
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 8,
+      "max_exclusive": 14
+    },
+
     "decorators": {
       "starry_skies:mod_compat/betternether/bone_grass": 0.9,
       "starry_skies:mod_compat/betternether/feather_ferns": 0.5,
@@ -9,14 +18,6 @@
       "starry_skies:mod_compat/betternether/jellyfish_mushrooms": 0.5
     },
     "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 8,
-      "max_exclusive": 14
-    },
-    "main_block": "minecraft:netherrack",
-    "top_block": "betternether:mushroom_grass",
-
     "generation": {
       "weight": 0.8,
       "group": "starry_skies:nether/decorative"

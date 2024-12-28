@@ -1,18 +1,19 @@
 {
   "type": "starry_skies:modular",
   "config": {
-    "decorators": {
-      "starry_skies:mod_compat/byg/blueberry_bushes": 0.5
-    },
-    "spawns": [],
+    "main_block": "byg:lush_dirt",
+    "top_block": "byg:lush_grass_block",
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 5,
       "max_exclusive": 14
     },
-    "main_block": "byg:lush_dirt",
-    "top_block": "byg:lush_grass_block",
 
+    "decorators": {
+      "starry_skies:mod_compat/byg/blueberry_bushes": 0.5
+    },
+    "spawns": [],
     "generation": {
       "weight": 0.5,
       "group": "starry_skies:overworld/decorative"

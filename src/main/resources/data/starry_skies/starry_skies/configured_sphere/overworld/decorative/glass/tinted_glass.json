@@ -1,15 +1,16 @@
 {
   "type": "starry_skies:simple",
   "config": {
-    "decorators": {},
-    "spawns": [],
+    "block": "minecraft:tinted_glass",
+
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 5,
       "max_exclusive": 10
     },
-    "block": "minecraft:tinted_glass",
 
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 0.005,
       "group": "starry_skies:overworld/decorative"

@@ -1,18 +1,19 @@
 {
   "type": "starry_skies:core",
   "config": {
-    "decorators": {},
-    "spawns": [],
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 6,
-      "max_exclusive": 10
-    },
     "main_block": "minecraft:netherrack",
     "core_block": "betternether:nether_lapis_ore",
     "min_core_size": 3,
     "max_core_size": 5,
 
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 6,
+      "max_exclusive": 10
+    },
+
+    "decorators": {},
+    "spawns": [],
     "generation": {
       "weight": 0.8,
       "group": "starry_skies:nether/ores"
