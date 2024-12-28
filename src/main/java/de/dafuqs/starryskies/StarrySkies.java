@@ -4,7 +4,9 @@ import com.mojang.brigadier.exceptions.*;
 import de.dafuqs.starryskies.advancements.*;
 import de.dafuqs.starryskies.commands.*;
 import de.dafuqs.starryskies.configs.*;
+import de.dafuqs.starryskies.data_loaders.*;
 import de.dafuqs.starryskies.registries.*;
+import de.dafuqs.starryskies.state_provider.*;
 import de.dafuqs.starryskies.worldgen.*;
 import de.dafuqs.starryskies.worldgen.dimension.*;
 import it.unimi.dsi.fastutil.objects.*;
@@ -14,11 +16,13 @@ import net.fabricmc.api.*;
 import net.fabricmc.fabric.api.command.v2.*;
 import net.fabricmc.fabric.api.entity.event.v1.*;
 import net.fabricmc.fabric.api.event.lifecycle.v1.*;
+import net.fabricmc.fabric.api.resource.*;
 import net.kyrptonaught.customportalapi.*;
 import net.kyrptonaught.customportalapi.util.*;
 import net.minecraft.block.*;
 import net.minecraft.command.argument.*;
 import net.minecraft.registry.*;
+import net.minecraft.resource.*;
 import net.minecraft.server.network.*;
 import net.minecraft.server.world.*;
 import net.minecraft.util.*;
@@ -81,10 +85,14 @@ public class StarrySkies implements ModInitializer {
 		Registry.register(Registries.CHUNK_GENERATOR, StarrySkies.id("starry_skies"), StarrySkyChunkGenerator.CODEC);
 		
 		StarryRegistries.register();
+		StarryStateProviders.register();
 		Spheres.initialize();
 		StarryFeatures.initialize();
 		SphereDecorators.initialize();
 		StarryAdvancementCriteria.register();
+		
+		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(UniqueBlockGroupDataLoader.INSTANCE);
+		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(WeightedBlockGroupDataLoader.INSTANCE);
 		
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> ClosestSphereCommand.register(dispatcher, registryAccess));
 		ServerTickEvents.END_SERVER_TICK.register(new ProximityAdvancementCheckEvent());
