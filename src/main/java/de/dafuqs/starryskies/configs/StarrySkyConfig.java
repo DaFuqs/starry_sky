@@ -76,7 +76,7 @@ public class StarrySkyConfig implements ConfigData {
 	private boolean isValidBlock(String blockName) {
 		// validate floorBlock
 		try {
-			Identifier identifier = new Identifier(blockName.toLowerCase());
+			Identifier identifier = Identifier.tryParse(blockName.toLowerCase());
 			BlockState bs = Registries.BLOCK.get(identifier).getDefaultState();
 			if (bs == null) {
 				return false;

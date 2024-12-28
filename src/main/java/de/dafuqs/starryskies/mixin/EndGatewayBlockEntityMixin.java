@@ -1,20 +1,12 @@
 package de.dafuqs.starryskies.mixin;
 
-import de.dafuqs.starryskies.registries.*;
-import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
-import net.minecraft.entity.*;
-import net.minecraft.server.world.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.*;
-import net.minecraft.world.gen.feature.*;
 import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.*;
-import org.spongepowered.asm.mixin.injection.callback.*;
 
 @Mixin(EndGatewayBlockEntity.class)
 public abstract class EndGatewayBlockEntityMixin {
 
+	/* TODO
 	@Inject(at = @At("HEAD"), method = "tryTeleportingEntity(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;Lnet/minecraft/entity/Entity;Lnet/minecraft/block/entity/EndGatewayBlockEntity;)V")
 	private static void starryskies$tryTeleportingEntity(World world, BlockPos pos, BlockState state, Entity entity, EndGatewayBlockEntity blockEntity, CallbackInfo ci) {
 		BlockPos blockPos;
@@ -26,6 +18,6 @@ public abstract class EndGatewayBlockEntityMixin {
 				((EndGatewayBlockEntityAccessor) blockEntity).setExitPortalPos(blockPos);
 			}
 		}
-	}
+	}*/
 
 }

@@ -2,7 +2,6 @@ package de.dafuqs.starryskies.registries;
 
 import de.dafuqs.starryskies.*;
 import net.minecraft.registry.*;
-import net.minecraft.util.*;
 import net.minecraft.world.biome.*;
 
 public class StarryBiomeKeys {
@@ -12,7 +11,7 @@ public class StarryBiomeKeys {
 	public static final RegistryKey<Biome> END_KEY = getBiomeKey("end");
 
 	private static RegistryKey<Biome> getBiomeKey(String name) {
-		return RegistryKey.of(RegistryKeys.BIOME, new Identifier(StarrySkies.MOD_ID, name));
+		return RegistryKey.of(RegistryKeys.BIOME, StarrySkies.id(name));
 	}
 
 }

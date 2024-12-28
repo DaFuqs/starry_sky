@@ -1,17 +1,12 @@
 package de.dafuqs.starryskies.mixin;
 
-import de.dafuqs.starryskies.*;
 import net.minecraft.entity.*;
-import net.minecraft.registry.*;
-import net.minecraft.server.world.*;
-import net.minecraft.world.*;
 import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.*;
-import org.spongepowered.asm.mixin.injection.callback.*;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin {
 
+	/* TODO
 	@Inject(at = @At("HEAD"), method = "getTeleportTarget", cancellable = true)
 	void starryskies$getTeleportTarget(ServerWorld destination, CallbackInfoReturnable<TeleportTarget> callbackInfo) {
 		Entity thisEntity = (Entity) (Object) this;
@@ -31,5 +26,7 @@ public abstract class EntityMixin {
 	private RegistryKey<World> starryskies$tickPortal(RegistryKey<World> registryKey) {
 		return StarryDimensionTravelHandler.modifyNetherPortalDestination((Entity) (Object) this, registryKey);
 	}
+	
+	 */
 
 }

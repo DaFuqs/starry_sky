@@ -27,12 +27,12 @@ public class StarrySkyBox implements DimensionRenderingRegistry.SkyRenderer {
 	public final Identifier SOUTH;
 
 	public StarrySkyBox(String up, String down, String west, String east, String north, String south) {
-		UP = new Identifier(StarrySkies.MOD_ID, up);
-		DOWN = new Identifier(StarrySkies.MOD_ID, down);
-		WEST = new Identifier(StarrySkies.MOD_ID, west);
-		EAST = new Identifier(StarrySkies.MOD_ID, east);
-		NORTH = new Identifier(StarrySkies.MOD_ID, north);
-		SOUTH = new Identifier(StarrySkies.MOD_ID, south);
+		UP = StarrySkies.id(up);
+		DOWN = StarrySkies.id(down);
+		WEST = StarrySkies.id(west);
+		EAST = StarrySkies.id(east);
+		NORTH = StarrySkies.id(north);
+		SOUTH = StarrySkies.id(south);
 	}
 
 	@Override

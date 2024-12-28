@@ -33,7 +33,7 @@ public class StarrySkies implements ModInitializer {
 	public static StarrySkyConfig CONFIG;
 
 	public static Identifier id(String name) {
-		return new Identifier(MOD_ID, name);
+		return Identifier.of(MOD_ID, name);
 	}
 
 	public static String idPlain(String name) {
@@ -75,7 +75,7 @@ public class StarrySkies implements ModInitializer {
 		CONFIG = AutoConfig.getConfigHolder(StarrySkyConfig.class).getConfig();
 
 		// Register all the stuff
-		Registry.register(Registries.CHUNK_GENERATOR, new Identifier(MOD_ID, "starry_skies"), StarrySkyChunkGenerator.CODEC);
+		Registry.register(Registries.CHUNK_GENERATOR, StarrySkies.id("starry_skies"), StarrySkyChunkGenerator.CODEC);
 		
 		StarryRegistries.register();
 		Spheres.initialize();
@@ -122,8 +122,8 @@ public class StarrySkies implements ModInitializer {
 
 	public static void setupPortals() {
 		StarrySkies.LOGGER.info("Setting up Portal to Starry Skies...");
-
-		Identifier portalFrameBlockIdentifier = new Identifier(StarrySkies.CONFIG.starrySkyPortalFrameBlock.toLowerCase());
+		
+		Identifier portalFrameBlockIdentifier = Identifier.tryParse(StarrySkies.CONFIG.starrySkyPortalFrameBlock.toLowerCase());
 		Block portalFrameBlock = Registries.BLOCK.get(portalFrameBlockIdentifier);
 
 		PortalLink portalLink = new PortalLink(portalFrameBlockIdentifier, StarryDimensionKeys.STARRY_SKIES_DIMENSION_ID, StarrySkies.CONFIG.starrySkyPortalColor);
