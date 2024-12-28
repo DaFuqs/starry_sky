@@ -1,8 +1,18 @@
 {
   "type": "starry_skies:modular",
   "config": {
-    "main_block": "minecraft:sand",
-    "bottom_block": "minecraft:sandstone",
+    "main_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:red_sand"
+      }
+    },
+    "bottom_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:red_sandstone"
+      }
+    },
 
     "size": {
       "type": "minecraft:uniform",
@@ -14,14 +24,12 @@
       "starry_skies:cactus": 0.3,
       "starry_skies:dead_grass": 0.3,
       "starry_skies:x_spot_desert_pyramid": 0.1,
-      "starry_skies:mod_compat/sandwichable/salty_sand": 0.25,
       "starry_skies:mod_compat/biomemakeover/saguaro_cactus": 0.8,
       "starry_skies:mod_compat/biomemakeover/barrel_cactus": 0.8,
       "starry_skies:mod_compat/biomemakeover/barrel_cactus_flowered": 0.8,
       "starry_skies:mod_compat/byg/mini_cactus": 0.1,
       "starry_skies:mod_compat/byg/golden_spined_cactus": 0.1,
-      "starry_skies:mod_compat/byg/prickly_pear_cactus": 0.1,
-      "starry_skies:mod_compat/byg/prairie_grass": 0.1
+      "starry_skies:mod_compat/byg/prickly_pear_cactus": 0.1
     },
     "spawns": [
       {
@@ -31,15 +39,8 @@
         "max_count": 3
       }
     ],
-    "fabric:load_conditions": [
-      {
-        condition=fabric: all_mods_loaded,
-        values=System.Object
-      []
-      }
-    ],
     "generation": {
-      "weight": 4.0,
+      "weight": 1.0,
       "group": "starry_skies:overworld/essential"
     }
   }

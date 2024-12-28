@@ -1,8 +1,18 @@
 {
   "type": "starry_skies:modular",
   "config": {
-    "main_block": "minecraft:sand",
-    "bottom_block": "minecraft:sandstone",
+    "main_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:sand"
+      }
+    },
+    "bottom_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:sandstone"
+      }
+    },
 
     "size": {
       "type": "minecraft:uniform",

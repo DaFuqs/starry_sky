@@ -1,8 +1,18 @@
 {
   "type": "starry_skies:modular",
   "config": {
-    "main_block": "minecraft:netherrack",
-    "top_block": "minecraft:warped_nylium",
+    "main_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:netherrack"
+      }
+    },
+    "top_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:warped_nylium"
+      }
+    },
 
     "size": {
       "type": "minecraft:uniform",
