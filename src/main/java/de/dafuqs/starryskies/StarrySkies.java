@@ -117,8 +117,8 @@ public class StarrySkies implements ModInitializer {
 		});
 		
 		/*
-			Workaround for
-			https://bugs.mojang.com/browse/MC-188578: Sleeping in a bed in a custom dimension doesn't set time to day
+			Workaround for https://bugs.mojang.com/browse/MC-188578:
+			Sleeping in a bed in a custom dimension doesn't set time to day
 			Weather and time of day is also only tracked in the overworld
 		 */
 		EntitySleepEvents.STOP_SLEEPING.register((entity, sleepingPos) -> {
