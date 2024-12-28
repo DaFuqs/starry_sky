@@ -1,0 +1,48 @@
+{
+  "type": "starry_skies:shell",
+  "config": {
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 10
+    },
+    "main_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:blackstone"
+      }
+    },
+    "shell_block": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "weight": 7,
+          "data": {
+            "Name": "minecraft:blackstone",
+            "Properties": {}
+          }
+        },
+        {
+          "weight": 1,
+          "data": {
+            "Name": "minecraft:gilded_blackstone",
+            "Properties": {}
+          }
+        }
+      ]
+    },
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 1,
+      "max_inclusive": 2
+    },
+
+    "decorators": {},
+    "spawns": [],
+    "generation": {
+      "weight": 2.0,
+      "group": "starry_skies:nether/decorative"
+    }
+  }
+}

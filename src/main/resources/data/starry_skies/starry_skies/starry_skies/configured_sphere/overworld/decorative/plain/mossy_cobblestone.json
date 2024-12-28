@@ -1,0 +1,22 @@
+{
+  "type": "starry_skies:simple",
+  "config": {
+    "block": {
+      "Name": "minecraft:mossy_cobblestone",
+      "Properties": {}
+    },
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 6
+    },
+
+    "decorators": {},
+    "spawns": [],
+    "generation": {
+      "weight": 0.1,
+      "group": "starry_skies:overworld/decorative"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "starry_skies:simple",
+  "config": {
+    "block": {
+      "Name": "minecraft:bedrock",
+      "Properties": {}
+    },
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 4,
+      "max_exclusive": 7
+    },
+
+    "decorators": {},
+    "spawns": [],
+    "generation": {
+      "weight": 1.0,
+      "group": "starry_skies:nether/treasure"
+    }
+  }
+}

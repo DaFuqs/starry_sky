@@ -1,0 +1,25 @@
+{
+  "type": "starry_skies:simple",
+  "config": {
+    "block": {
+      "Name": "minecraft:soul_soil",
+      "Properties": {}
+    },
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 6,
+      "max_exclusive": 10
+    },
+
+    "decorators": {
+      "starry_skies:soul_fire": 0.25,
+      "starry_skies:nether_wart": 0.1
+    },
+    "spawns": [],
+    "generation": {
+      "weight": 3.0,
+      "group": "starry_skies:nether/essential"
+    }
+  }
+}

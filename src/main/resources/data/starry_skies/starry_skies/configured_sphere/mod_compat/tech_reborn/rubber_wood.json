@@ -1,10 +1,26 @@
 {
   "type": "starry_skies:shell",
   "config": {
-    "min_shell_size": 2,
-    "max_shell_size": 4,
-    "main_block": "techreborn:rubber_log",
-    "shell_block": "techreborn:rubber_leaves[distance=1]",
+    "main_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "techreborn:rubber_log"
+      }
+    },
+    "shell_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "techreborn:rubber_leaves",
+        "Properties": {
+          "distance": "1"
+        }
+      }
+    },
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 2,
+      "max_inclusive": 4
+    },
 
     "size": {
       "type": "minecraft:uniform",

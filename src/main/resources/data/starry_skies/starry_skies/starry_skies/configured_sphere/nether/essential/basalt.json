@@ -1,0 +1,25 @@
+{
+  "type": "starry_skies:simple",
+  "config": {
+    "block": {
+      "Name": "minecraft:basalt",
+      "Properties": {}
+    },
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 10,
+      "max_exclusive": 25
+    },
+
+    "decorators": {
+      "starry_skies:center_pond_lava": 0.08,
+      "starry_skies:mod_compat/betternether/basalt_stalactites": 0.2
+    },
+    "spawns": [],
+    "generation": {
+      "weight": 3.0,
+      "group": "starry_skies:nether/essential"
+    }
+  }
+}

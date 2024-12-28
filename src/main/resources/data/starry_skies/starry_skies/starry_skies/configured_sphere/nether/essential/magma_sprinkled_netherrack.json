@@ -1,0 +1,49 @@
+{
+  "type": "starry_skies:shell",
+  "config": {
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 7,
+      "max_exclusive": 16
+    },
+    "main_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:netherrack"
+      }
+    },
+    "shell_block": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "weight": 7,
+          "data": {
+            "Name": "minecraft:netherrack",
+            "Properties": {}
+          }
+        },
+        {
+          "weight": 1,
+          "data": {
+            "Name": "minecraft:magma_block",
+            "Properties": {}
+          }
+        }
+      ]
+    },
+    "shell_thickness": {
+      "type": "minecraft:constant",
+      "value": 1
+    },
+
+    "decorators": {
+      "starry_skies:center_pond_lava": 0.15
+    },
+    "spawns": [],
+    "generation": {
+      "weight": 10.0,
+      "group": "starry_skies:nether/essential"
+    }
+  }
+}

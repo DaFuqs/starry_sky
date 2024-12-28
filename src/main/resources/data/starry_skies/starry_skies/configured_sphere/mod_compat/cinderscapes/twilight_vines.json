@@ -1,7 +1,10 @@
 {
   "type": "starry_skies:simple",
   "config": {
-    "block": "cinderscapes:twilight_vine_block",
+    "block": {
+      "Name": "cinderscapes:twilight_vine_block",
+      "Properties": {}
+    },
 
     "size": {
       "type": "minecraft:uniform",

@@ -1,0 +1,22 @@
+{
+  "type": "starry_skies:simple",
+  "config": {
+    "block": {
+      "Name": "minecraft:obsidian",
+      "Properties": {}
+    },
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 3,
+      "max_exclusive": 6
+    },
+
+    "decorators": {},
+    "spawns": [],
+    "generation": {
+      "weight": 0.5,
+      "group": "starry_skies:overworld/decorative"
+    }
+  }
+}

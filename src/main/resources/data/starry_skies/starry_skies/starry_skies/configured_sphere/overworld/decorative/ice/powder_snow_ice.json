@@ -1,0 +1,47 @@
+{
+  "type": "starry_skies:shell",
+  "config": {
+    "main_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:ice"
+      }
+    },
+    "shell_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:powder_snow",
+        "Properties": {
+          "distance": "1"
+        }
+      }
+    },
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 1,
+      "max_inclusive": 3
+    },
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 12
+    },
+
+    "decorators": {
+      "starry_skies:sweet_berries": 0.2
+    },
+    "spawns": [
+      {
+        "type": "minecraft:fox",
+        "chance": 0.3,
+        "min_count": 1,
+        "max_count": 2
+      }
+    ],
+    "generation": {
+      "weight": 0.6,
+      "group": "starry_skies:overworld/decorative"
+    }
+  }
+}

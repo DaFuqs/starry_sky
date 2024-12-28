@@ -1,0 +1,22 @@
+{
+  "type": "starry_skies:simple",
+  "config": {
+    "block": {
+      "Name": "minecraft:magenta_stained_glass",
+      "Properties": {}
+    },
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 9
+    },
+
+    "decorators": {},
+    "spawns": [],
+    "generation": {
+      "weight": 5.0,
+      "group": "starry_skies:end/decorative"
+    }
+  }
+}

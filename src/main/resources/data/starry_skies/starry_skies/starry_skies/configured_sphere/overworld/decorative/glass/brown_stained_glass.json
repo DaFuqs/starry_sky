@@ -1,0 +1,22 @@
+{
+  "type": "starry_skies:simple",
+  "config": {
+    "block": {
+      "Name": "minecraft:brown_stained_glass",
+      "Properties": {}
+    },
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 10
+    },
+
+    "decorators": {},
+    "spawns": [],
+    "generation": {
+      "weight": 0.02,
+      "group": "starry_skies:overworld/decorative"
+    }
+  }
+}

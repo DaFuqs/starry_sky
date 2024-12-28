@@ -1,7 +1,10 @@
 {
   "type": "starry_skies:simple",
   "config": {
-    "block": "cinderscapes:ash_block",
+    "block": {
+      "Name": "cinderscapes:ash_block",
+      "Properties": {}
+    },
 
     "size": {
       "type": "minecraft:uniform",

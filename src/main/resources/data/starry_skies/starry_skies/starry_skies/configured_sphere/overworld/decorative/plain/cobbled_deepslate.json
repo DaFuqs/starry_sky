@@ -1,0 +1,22 @@
+{
+  "type": "starry_skies:simple",
+  "config": {
+    "block": {
+      "Name": "minecraft:cobbled_deepslate",
+      "Properties": {}
+    },
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 4,
+      "max_exclusive": 10
+    },
+
+    "decorators": {},
+    "spawns": [],
+    "generation": {
+      "weight": 0.2,
+      "group": "starry_skies:overworld/decorative"
+    }
+  }
+}

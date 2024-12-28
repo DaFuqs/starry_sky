@@ -1,10 +1,25 @@
 {
   "type": "starry_skies:shell",
   "config": {
-    "min_shell_size": 2,
-    "max_shell_size": 2,
-    "main_block": "minecraft:jungle_wood",
-    "shell_block": "terrestria:jungle_palm_leaves[distance=1]",
+    "main_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:jungle_wood"
+      }
+    },
+    "shell_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "terrestria:jungle_palm_leaves",
+        "Properties": {
+          "distance": "1"
+        }
+      }
+    },
+    "shell_thickness": {
+      "type": "minecraft:constant",
+      "value": 2
+    },
 
     "size": {
       "type": "minecraft:uniform",

@@ -1,0 +1,52 @@
+{
+  "type": "starry_skies:shell",
+  "config": {
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 8,
+      "max_exclusive": 15
+    },
+    "main_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:crimson_stem"
+      }
+    },
+    "shell_block": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "weight": 9,
+          "data": {
+            "Name": "minecraft:nether_wart_block",
+            "Properties": {
+              "distance": "1"
+            }
+          }
+        },
+        {
+          "weight": 1,
+          "data": {
+            "Name": "minecraft:shroomlight",
+            "Properties": {
+              "distance": "1"
+            }
+          }
+        }
+      ]
+    },
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 2,
+      "max_inclusive": 3
+    },
+
+    "decorators": {},
+    "spawns": [],
+    "generation": {
+      "weight": 10.0,
+      "group": "starry_skies:nether/wood"
+    }
+  }
+}
