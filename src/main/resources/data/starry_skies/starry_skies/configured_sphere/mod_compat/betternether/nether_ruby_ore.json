@@ -1,17 +1,23 @@
 {
-  "generation_group": "starry_skies:nether/ores",
-  "generation_weight": 0.4,
-  "min_size": 5,
-  "max_size": 8,
   "type": "starry_skies:core",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 8
+    },
     "main_block": "minecraft:netherrack",
     "core_block": "betternether:nether_ruby_ore",
     "min_core_size": 2,
-    "max_core_size": 4
+    "max_core_size": 4,
+
+    "generation": {
+      "weight": 0.4,
+      "group": "starry_skies:nether/ores"
+    }
   },
-  "decorators": {},
-  "spawns": [],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

@@ -1,10 +1,15 @@
 {
-  "generation_group": "starry_skies:nether/essential",
-  "generation_weight": 10.0,
-  "min_size": 7,
-  "max_size": 16,
   "type": "starry_skies:shell",
-  "type_data": {
+  "config": {
+    "decorators": {
+      "starry_skies:center_pond_lava": 0.15
+    },
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 7,
+      "max_exclusive": 16
+    },
     "main_block": "minecraft:netherrack",
     "shell_block": "minecraft:netherrack",
     "min_shell_size": 1,
@@ -12,10 +17,11 @@
     "shell_speckles": {
       "block": "minecraft:magma_block",
       "chance": 0.15
+    },
+
+    "generation": {
+      "weight": 10.0,
+      "group": "starry_skies:nether/essential"
     }
-  },
-  "decorators": {
-    "starry_skies:center_pond_lava": 0.15
-  },
-  "spawns": []
+  }
 }

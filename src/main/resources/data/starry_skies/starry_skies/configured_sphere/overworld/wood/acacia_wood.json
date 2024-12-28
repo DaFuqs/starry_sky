@@ -1,17 +1,23 @@
 {
-  "generation_group": "starry_skies:overworld/wood",
-  "generation_weight": 1.5,
-  "min_size": 5,
-  "max_size": 12,
   "type": "starry_skies:shell",
-  "type_data": {
+  "config": {
+    "decorators": {
+      "starry_skies:x_spot_pillager_outpost": 0.1
+    },
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 12
+    },
     "min_shell_size": 2,
     "max_shell_size": 2,
     "main_block": "minecraft:acacia_log",
-    "shell_block": "minecraft:acacia_leaves[distance=1]"
-  },
-  "decorators": {
-    "starry_skies:x_spot_pillager_outpost": 0.1
-  },
-  "spawns": []
+    "shell_block": "minecraft:acacia_leaves[distance=1]",
+
+    "generation": {
+      "weight": 1.5,
+      "group": "starry_skies:overworld/wood"
+    }
+  }
 }

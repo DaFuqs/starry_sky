@@ -1,18 +1,23 @@
 {
-  "generation_group": "starry_skies:overworld/treasure",
-  "generation_weight": 0.05,
-  "min_size": 50,
-  "max_size": 50,
   "type": "starry_skies:shell_core",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "size": {
+      "type": "minecraft:constant",
+      "value": 50
+    },
     "main_block": "minecraft:gold_block",
     "core_block": "minecraft:netherite_block",
     "min_core_size": 2,
     "max_core_size": 2,
     "shell_block": "minecraft:glowstone",
     "min_shell_size": 45,
-    "max_shell_size": 45
-  },
-  "decorators": {},
-  "spawns": []
+    "max_shell_size": 45,
+
+    "generation": {
+      "weight": 0.05,
+      "group": "starry_skies:overworld/treasure"
+    }
+  }
 }

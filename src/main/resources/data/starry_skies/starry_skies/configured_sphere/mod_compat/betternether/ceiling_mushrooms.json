@@ -1,18 +1,24 @@
 {
-  "generation_group": "starry_skies:nether/decorative",
-  "generation_weight": 0.5,
-  "min_size": 8,
-  "max_size": 13,
   "type": "starry_skies:modular",
-  "type_data": {
+  "config": {
+    "decorators": {
+      "starry_skies:mod_compat/betternether/neon_equisetum": 0.75,
+      "starry_skies:mod_compat/betternether/hook_mushrooms": 0.75
+    },
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 8,
+      "max_exclusive": 13
+    },
     "main_block": "minecraft:netherrack",
-    "bottom_block": "betternether:ceiling_mushrooms"
+    "bottom_block": "betternether:ceiling_mushrooms",
+
+    "generation": {
+      "weight": 0.5,
+      "group": "starry_skies:nether/decorative"
+    }
   },
-  "decorators": {
-    "starry_skies:mod_compat/betternether/neon_equisetum": 0.75,
-    "starry_skies:mod_compat/betternether/hook_mushrooms": 0.75
-  },
-  "spawns": [],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

@@ -1,10 +1,13 @@
 {
-  "generation_group": "starry_skies:nether/wood",
-  "generation_weight": 0.5,
-  "min_size": 7,
-  "max_size": 10,
   "type": "starry_skies:shell",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 7,
+      "max_exclusive": 10
+    },
     "main_block": "byg:lament_log",
     "shell_block": "byg:lament_leaves[distance=1]",
     "min_shell_size": 2,
@@ -12,10 +15,13 @@
     "shell_speckles": {
       "block": "minecraft:shroomlight",
       "chance": 0.05
+    },
+
+    "generation": {
+      "weight": 0.5,
+      "group": "starry_skies:nether/wood"
     }
   },
-  "decorators": {},
-  "spawns": [],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

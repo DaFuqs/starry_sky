@@ -1,16 +1,22 @@
 {
-  "generation_group": "starry_skies:nether/decorative",
-  "generation_weight": 0.8,
-  "min_size": 8,
-  "max_size": 14,
   "type": "starry_skies:simple",
-  "type_data": {
-    "block": "betternether:bone_block"
+  "config": {
+    "decorators": {
+      "starry_skies:mod_compat/betternether/bone_mushrooms": 1.0
+    },
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 8,
+      "max_exclusive": 14
+    },
+    "block": "betternether:bone_block",
+
+    "generation": {
+      "weight": 0.8,
+      "group": "starry_skies:nether/decorative"
+    }
   },
-  "decorators": {
-    "starry_skies:mod_compat/betternether/bone_mushrooms": 1.0
-  },
-  "spawns": [],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

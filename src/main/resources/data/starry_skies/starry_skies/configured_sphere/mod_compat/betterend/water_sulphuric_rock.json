@@ -1,27 +1,41 @@
 {
-  "generation_group": "starry_skies:end/fluid",
-  "generation_weight": 0.2,
-  "min_size": 6,
-  "max_size": 11,
   "type": "starry_skies:fluid",
-  "type_data": {
+  "config": {
+    "decorators": {
+      "starry_skies:mod_compat/betterend/red_charnia": 0.2,
+      "starry_skies:mod_compat/betterend/purple_charnia": 0.2,
+      "starry_skies:mod_compat/betterend/orange_charnia": 0.2,
+      "starry_skies:mod_compat/betterend/light_blue_charnia": 0.2,
+      "starry_skies:mod_compat/betterend/cyan_charnia": 0.2,
+      "starry_skies:mod_compat/betterend/green_charnia": 0.2
+    },
+    "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "betterend"
+      ]
+    }
+  ],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 6,
+      "max_exclusive": 11
+    },
     "fluid": "minecraft:water",
     "min_shell_size": 2,
     "max_shell_size": 3,
     "min_fill_amount": 0.2,
     "max_fill_amount": 0.8,
     "hole_in_bottom_chance": 0.5,
-    "shell_block": "betterend:sulphuric_rock"
+    "shell_block": "betterend:sulphuric_rock",
+
+    "generation": {
+      "weight": 0.2,
+      "group": "starry_skies:end/fluid"
+    }
   },
-  "decorators": {
-    "starry_skies:mod_compat/betterend/red_charnia": 0.2,
-    "starry_skies:mod_compat/betterend/purple_charnia": 0.2,
-    "starry_skies:mod_compat/betterend/orange_charnia": 0.2,
-    "starry_skies:mod_compat/betterend/light_blue_charnia": 0.2,
-    "starry_skies:mod_compat/betterend/cyan_charnia": 0.2,
-    "starry_skies:mod_compat/betterend/green_charnia": 0.2
-  },
-  "spawns": [],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

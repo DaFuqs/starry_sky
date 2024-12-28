@@ -1,17 +1,23 @@
 {
-  "generation_group": "starry_skies:nether/wood",
-  "generation_weight": 0.6,
-  "min_size": 10,
-  "max_size": 20,
   "type": "starry_skies:shell",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 10,
+      "max_exclusive": 20
+    },
     "main_block": "betternether:anchor_tree_log",
     "shell_block": "betternether:anchor_tree_leaves",
     "min_shell_size": 2,
-    "max_shell_size": 3
+    "max_shell_size": 3,
+
+    "generation": {
+      "weight": 0.6,
+      "group": "starry_skies:nether/wood"
+    }
   },
-  "decorators": {},
-  "spawns": [],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

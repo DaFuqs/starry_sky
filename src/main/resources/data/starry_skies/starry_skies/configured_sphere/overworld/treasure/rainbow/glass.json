@@ -1,10 +1,13 @@
 {
-  "generation_group": "starry_skies:overworld/treasure",
-  "generation_weight": 1.0,
-  "min_size": 5,
-  "max_size": 16,
   "type": "starry_skies:rainbow",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 16
+    },
     "blocks": [
       "white_stained_glass",
       "light_gray_stained_glass",
@@ -22,8 +25,11 @@
       "purple_stained_glass",
       "magenta_stained_glass",
       "pink_stained_glass"
-    ]
-  },
-  "decorators": {},
-  "spawns": []
+    ],
+
+    "generation": {
+      "weight": 1.0,
+      "group": "starry_skies:overworld/treasure"
+    }
+  }
 }

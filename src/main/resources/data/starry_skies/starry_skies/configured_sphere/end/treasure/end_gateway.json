@@ -1,17 +1,23 @@
 {
-  "generation_group": "starry_skies:end/treasure",
-  "generation_weight": 1.0,
-  "min_size": 20,
-  "max_size": 30,
   "type": "starry_skies:shell",
-  "type_data": {
+  "config": {
+    "decorators": {
+      "starry_skies:end_gateway": 1.0
+    },
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 20,
+      "max_exclusive": 30
+    },
     "min_shell_size": 1,
     "max_shell_size": 2,
     "main_block": "minecraft:air",
-    "shell_block": "minecraft:purple_stained_glass"
-  },
-  "decorators": {
-    "starry_skies:end_gateway": 1.0
-  },
-  "spawns": []
+    "shell_block": "minecraft:purple_stained_glass",
+
+    "generation": {
+      "weight": 1.0,
+      "group": "starry_skies:end/treasure"
+    }
+  }
 }

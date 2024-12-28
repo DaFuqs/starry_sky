@@ -1,23 +1,28 @@
 {
-  "generation_group": "starry_skies:overworld/ores",
-  "generation_weight": 0.1,
-  "min_size": 4,
-  "max_size": 6,
   "type": "starry_skies:core",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "fabric:load_conditions": [
+      {
+        condition=starry_skies: unique_block_group_exist,
+        values=System.Object
+      []
+      }
+    ],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 4,
+      "max_exclusive": 6
+    },
     "core_block": "%starry_skies:adamantite_ore",
     "min_core_size": 1,
     "max_core_size": 2,
-    "main_block": "$starry_skies:stones"
-  },
-  "decorators": {},
-  "spawns": [],
-  "fabric:load_conditions": [
-    {
-      "condition": "starry_skies:unique_block_group_exist",
-      "values": [
-        "starry_skies:adamantite_ore"
-      ]
+    "main_block": "$starry_skies:stones",
+
+    "generation": {
+      "weight": 0.1,
+      "group": "starry_skies:overworld/ores"
     }
-  ]
+  }
 }

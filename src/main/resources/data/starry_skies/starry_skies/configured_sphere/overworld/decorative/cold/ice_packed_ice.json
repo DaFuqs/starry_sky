@@ -1,24 +1,30 @@
 {
-  "generation_group": "starry_skies:overworld/decorative",
-  "generation_weight": 0.3,
-  "min_size": 5,
-  "max_size": 15,
   "type": "starry_skies:core",
-  "type_data": {
+  "config": {
+    "decorators": {
+      "starry_skies:sweet_berries": 0.4
+    },
+    "spawns": [
+      {
+        "type": "minecraft:fox",
+        "chance": 0.3,
+        "min_count": 1,
+        "max_count": 2
+      }
+    ],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 15
+    },
     "main_block": "minecraft:ice",
     "core_block": "minecraft:packed_ice",
     "min_core_size": 3,
-    "max_core_size": 6
-  },
-  "decorators": {
-    "starry_skies:sweet_berries": 0.4
-  },
-  "spawns": [
-    {
-      "type": "minecraft:fox",
-      "chance": 0.3,
-      "min_count": 1,
-      "max_count": 2
+    "max_core_size": 6,
+
+    "generation": {
+      "weight": 0.3,
+      "group": "starry_skies:overworld/decorative"
     }
-  ]
+  }
 }

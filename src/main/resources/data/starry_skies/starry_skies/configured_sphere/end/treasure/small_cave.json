@@ -1,10 +1,13 @@
 {
-  "generation_group": "starry_skies:end/treasure",
-  "generation_weight": 8.0,
-  "min_size": 8,
-  "max_size": 13,
   "type": "starry_skies:cave",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 8,
+      "max_exclusive": 13
+    },
     "min_shell_size": 2,
     "max_shell_size": 5,
     "cave_floor_block": "minecraft:end_stone",
@@ -12,8 +15,11 @@
     "treasure_chest": {
       "loot_table": "minecraft/chests/end_city_treasure_chest",
       "chance": 0.1
+    },
+
+    "generation": {
+      "weight": 8.0,
+      "group": "starry_skies:end/treasure"
     }
-  },
-  "decorators": {},
-  "spawns": []
+  }
 }

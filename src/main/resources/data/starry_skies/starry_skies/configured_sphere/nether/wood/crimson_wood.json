@@ -1,10 +1,13 @@
 {
-  "generation_group": "starry_skies:nether/wood",
-  "generation_weight": 10.0,
-  "min_size": 8,
-  "max_size": 15,
   "type": "starry_skies:shell",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 8,
+      "max_exclusive": 15
+    },
     "main_block": "minecraft:crimson_stem",
     "shell_block": "minecraft:nether_wart_block",
     "min_shell_size": 2,
@@ -12,8 +15,11 @@
     "shell_speckles": {
       "block": "minecraft:shroomlight",
       "chance": 0.1
+    },
+
+    "generation": {
+      "weight": 10.0,
+      "group": "starry_skies:nether/wood"
     }
-  },
-  "decorators": {},
-  "spawns": []
+  }
 }

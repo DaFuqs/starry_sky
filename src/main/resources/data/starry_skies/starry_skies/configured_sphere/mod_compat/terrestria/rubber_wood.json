@@ -1,17 +1,23 @@
 {
-  "generation_group": "starry_skies:overworld/wood",
-  "generation_weight": 1.0,
-  "min_size": 6,
-  "max_size": 10,
   "type": "starry_skies:shell",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 6,
+      "max_exclusive": 10
+    },
     "min_shell_size": 1,
     "max_shell_size": 2,
     "main_block": "terrestria:rubber_log",
-    "shell_block": "terrestria:rubber_leaves[distance=1]"
+    "shell_block": "terrestria:rubber_leaves[distance=1]",
+
+    "generation": {
+      "weight": 1.0,
+      "group": "starry_skies:overworld/wood"
+    }
   },
-  "decorators": {},
-  "spawns": [],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

@@ -1,12 +1,18 @@
 {
-  "generation_group": "starry_skies:overworld/decorative",
-  "generation_weight": 1.0,
-  "min_size": 5,
-  "max_size": 8,
   "type": "starry_skies:simple",
-  "type_data": {
-    "block": "minecraft:tuff"
-  },
-  "decorators": {},
-  "spawns": []
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 8
+    },
+    "block": "minecraft:tuff",
+
+    "generation": {
+      "weight": 1.0,
+      "group": "starry_skies:overworld/decorative"
+    }
+  }
 }

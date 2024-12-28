@@ -1,15 +1,21 @@
 {
-  "generation_group": "starry_skies:nether/essential",
-  "generation_weight": 3.0,
-  "min_size": 10,
-  "max_size": 25,
   "type": "starry_skies:simple",
-  "type_data": {
-    "block": "minecraft:basalt"
-  },
-  "decorators": {
-    "starry_skies:center_pond_lava": 0.08,
-    "starry_skies:mod_compat/betternether/basalt_stalactites": 0.2
-  },
-  "spawns": []
+  "config": {
+    "decorators": {
+      "starry_skies:center_pond_lava": 0.08,
+      "starry_skies:mod_compat/betternether/basalt_stalactites": 0.2
+    },
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 10,
+      "max_exclusive": 25
+    },
+    "block": "minecraft:basalt",
+
+    "generation": {
+      "weight": 3.0,
+      "group": "starry_skies:nether/essential"
+    }
+  }
 }

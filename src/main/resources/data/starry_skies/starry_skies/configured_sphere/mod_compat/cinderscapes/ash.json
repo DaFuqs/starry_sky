@@ -1,17 +1,23 @@
 {
-  "generation_group": "starry_skies:nether/decorative",
-  "generation_weight": 0.5,
-  "min_size": 10,
-  "max_size": 20,
   "type": "starry_skies:simple",
-  "type_data": {
-    "block": "cinderscapes:ash_block"
+  "config": {
+    "decorators": {
+      "starry_skies:mod_compat/cinderscapes/crystinium": 0.5,
+      "starry_skies:mod_compat/cinderscapes/polypite_quartz": 0.25
+    },
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 10,
+      "max_exclusive": 20
+    },
+    "block": "cinderscapes:ash_block",
+
+    "generation": {
+      "weight": 0.5,
+      "group": "starry_skies:nether/decorative"
+    }
   },
-  "decorators": {
-    "starry_skies:mod_compat/cinderscapes/crystinium": 0.5,
-    "starry_skies:mod_compat/cinderscapes/polypite_quartz": 0.25
-  },
-  "spawns": [],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

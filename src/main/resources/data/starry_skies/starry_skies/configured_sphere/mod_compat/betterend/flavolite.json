@@ -1,14 +1,28 @@
 {
-  "generation_group": "starry_skies:end/essential",
-  "generation_weight": 0.4,
-  "min_size": 6,
-  "max_size": 12,
   "type": "starry_skies:simple",
-  "type_data": {
-    "block": "betterend:flavolite"
+  "config": {
+    "decorators": {},
+    "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "betterend"
+      ]
+    }
+  ],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 6,
+      "max_exclusive": 12
+    },
+    "block": "betterend:flavolite",
+
+    "generation": {
+      "weight": 0.4,
+      "group": "starry_skies:end/essential"
+    }
   },
-  "decorators": {},
-  "spawns": [],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

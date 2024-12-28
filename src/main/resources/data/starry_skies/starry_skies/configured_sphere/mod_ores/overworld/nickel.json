@@ -1,23 +1,28 @@
 {
-  "generation_group": "starry_skies:overworld/ores",
-  "generation_weight": 0.4,
-  "min_size": 5,
-  "max_size": 7,
   "type": "starry_skies:core",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "fabric:load_conditions": [
+      {
+        condition=starry_skies: unique_block_group_exist,
+        values=System.Object
+      []
+      }
+    ],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 7
+    },
     "core_block": "%starry_skies:nickel_ore",
     "min_core_size": 3,
     "max_core_size": 4,
-    "main_block": "$starry_skies:stones"
-  },
-  "decorators": {},
-  "spawns": [],
-  "fabric:load_conditions": [
-    {
-      "condition": "starry_skies:unique_block_group_exist",
-      "values": [
-        "starry_skies:nickel_ore"
-      ]
+    "main_block": "$starry_skies:stones",
+
+    "generation": {
+      "weight": 0.4,
+      "group": "starry_skies:overworld/ores"
     }
-  ]
+  }
 }

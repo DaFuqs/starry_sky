@@ -1,19 +1,25 @@
 {
-  "generation_group": "starry_skies:end/decorative",
-  "generation_weight": 0.3,
-  "min_size": 6,
-  "max_size": 13,
   "type": "starry_skies:modular",
-  "type_data": {
+  "config": {
+    "decorators": {
+      "starry_skies:mod_compat/betterend/amber_grass": 0.9,
+      "starry_skies:mod_compat/betterend/lanceleaf_seeds": 0.5,
+      "starry_skies:mod_compat/betterend/glowing_pillar_seeds": 0.5
+    },
+    "spawns": []
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 6,
+      "max_exclusive": 13
+    },
     "main_block": "minecraft:end_stone",
-    "top_block": "betterend:amber_moss"
+    "top_block": "betterend:amber_moss",
+
+    "generation": {
+      "weight": 0.3,
+      "group": "starry_skies:end/decorative"
+    }
   },
-  "decorators": {
-    "starry_skies:mod_compat/betterend/amber_grass": 0.9,
-    "starry_skies:mod_compat/betterend/lanceleaf_seeds": 0.5,
-    "starry_skies:mod_compat/betterend/glowing_pillar_seeds": 0.5
-  },
-  "spawns": [],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

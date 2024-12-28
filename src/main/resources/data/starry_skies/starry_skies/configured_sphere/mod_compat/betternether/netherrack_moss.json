@@ -1,21 +1,27 @@
 {
-  "generation_group": "starry_skies:nether/decorative",
-  "generation_weight": 0.6,
-  "min_size": 8,
-  "max_size": 15,
   "type": "starry_skies:modular",
-  "type_data": {
+  "config": {
+    "decorators": {
+      "starry_skies:mod_compat/betternether/wart_seeds": 0.8,
+      "starry_skies:mod_compat/betternether/ink_bushes": 0.8,
+      "starry_skies:mod_compat/betternether/nether_grass": 0.8,
+      "starry_skies:mod_compat/betternether/smokers": 0.8,
+      "starry_skies:mod_compat/betternether/black_apples": 0.5
+    },
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 8,
+      "max_exclusive": 15
+    },
     "main_block": "minecraft:nether_wart_block",
-    "top_block": "betternether:netherrack_moss"
+    "top_block": "betternether:netherrack_moss",
+
+    "generation": {
+      "weight": 0.6,
+      "group": "starry_skies:nether/decorative"
+    }
   },
-  "decorators": {
-    "starry_skies:mod_compat/betternether/wart_seeds": 0.8,
-    "starry_skies:mod_compat/betternether/ink_bushes": 0.8,
-    "starry_skies:mod_compat/betternether/nether_grass": 0.8,
-    "starry_skies:mod_compat/betternether/smokers": 0.8,
-    "starry_skies:mod_compat/betternether/black_apples": 0.5
-  },
-  "spawns": [],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

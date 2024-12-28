@@ -1,15 +1,21 @@
 {
-  "generation_group": "starry_skies:nether/essential",
-  "generation_weight": 10.0,
-  "min_size": 5,
-  "max_size": 12,
   "type": "starry_skies:simple",
-  "type_data": {
-    "block": "minecraft:glowstone"
-  },
-  "decorators": {
-    "starry_skies:mod_compat/byg/weeping_roots": 0.05,
-    "starry_skies:mod_compat/betternether/glowstone_stalactites": 0.1
-  },
-  "spawns": []
+  "config": {
+    "decorators": {
+      "starry_skies:mod_compat/byg/weeping_roots": 0.05,
+      "starry_skies:mod_compat/betternether/glowstone_stalactites": 0.1
+    },
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 12
+    },
+    "block": "minecraft:glowstone",
+
+    "generation": {
+      "weight": 10.0,
+      "group": "starry_skies:nether/essential"
+    }
+  }
 }

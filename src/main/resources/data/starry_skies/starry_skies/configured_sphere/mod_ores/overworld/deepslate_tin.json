@@ -1,23 +1,28 @@
 {
-  "generation_group": "starry_skies:overworld/ores",
-  "generation_weight": 2.0,
-  "min_size": 6,
-  "max_size": 10,
   "type": "starry_skies:core",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "fabric:load_conditions": [
+      {
+        condition=starry_skies: unique_block_group_exist,
+        values=System.Object
+      []
+      }
+    ],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 6,
+      "max_exclusive": 10
+    },
     "core_block": "%starry_skies:deepslate_tin_ore",
     "min_core_size": 5,
     "max_core_size": 7,
-    "main_block": "$starry_skies:deepslates"
-  },
-  "decorators": {},
-  "spawns": [],
-  "fabric:load_conditions": [
-    {
-      "condition": "starry_skies:unique_block_group_exist",
-      "values": [
-        "starry_skies:deepslate_tin_ore"
-      ]
+    "main_block": "$starry_skies:deepslates",
+
+    "generation": {
+      "weight": 2.0,
+      "group": "starry_skies:overworld/ores"
     }
-  ]
+  }
 }

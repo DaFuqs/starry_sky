@@ -1,10 +1,15 @@
 {
-  "generation_group": "starry_skies:overworld/fluid",
-  "generation_weight": 1.0,
-  "min_size": 5,
-  "max_size": 20,
   "type": "starry_skies:fluid_core",
-  "type_data": {
+  "config": {
+    "decorators": {
+      "starry_skies:x_spot_ruined_portal": 0.1
+    },
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 20
+    },
     "fluid": "minecraft:lava",
     "min_shell_size": 3,
     "max_shell_size": 6,
@@ -20,10 +25,11 @@
     },
     "core_block": "minecraft:magma_block",
     "min_core_size": 2,
-    "max_core_size": 5
-  },
-  "decorators": {
-    "starry_skies:x_spot_ruined_portal": 0.1
-  },
-  "spawns": []
+    "max_core_size": 5,
+
+    "generation": {
+      "weight": 1.0,
+      "group": "starry_skies:overworld/fluid"
+    }
+  }
 }

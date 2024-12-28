@@ -1,10 +1,13 @@
 {
-  "generation_group": "starry_skies:overworld/treasure",
-  "generation_weight": 1.0,
-  "min_size": 5,
-  "max_size": 16,
   "type": "starry_skies:rainbow",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 16
+    },
     "blocks": [
       "blockus:white_beveled_glass",
       "blockus:light_gray_beveled_glass",
@@ -22,10 +25,21 @@
       "blockus:purple_beveled_glass",
       "blockus:magenta_beveled_glass",
       "blockus:pink_beveled_glass"
-    ]
+    ],
+
+    "generation": {
+      "weight": 1.0,
+      "group": "starry_skies:overworld/treasure"
+    }
   },
-  "decorators": {},
-  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "blockus"
+      ]
+    }
+  ],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

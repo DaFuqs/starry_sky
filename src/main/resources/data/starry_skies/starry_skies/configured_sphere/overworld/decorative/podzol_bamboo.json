@@ -1,35 +1,41 @@
 {
-  "generation_group": "starry_skies:overworld/decorative",
-  "generation_weight": 0.5,
-  "min_size": 5,
-  "max_size": 12,
   "type": "starry_skies:modular",
-  "type_data": {
+  "config": {
+    "decorators": {
+      "starry_skies:bamboo": 0.7,
+      "starry_skies:x_spot_jungle_temple": 0.7
+    },
+    "spawns": [
+      {
+        "type": "minecraft:panda",
+        "chance": 0.4,
+        "min_count": 1,
+        "max_count": 3
+      },
+      {
+        "type": "minecraft:ocelot",
+        "chance": 0.4,
+        "min_count": 1,
+        "max_count": 2
+      },
+      {
+        "type": "minecraft:parrot",
+        "chance": 0.4,
+        "min_count": 2,
+        "max_count": 2
+      }
+    ],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 12
+    },
     "main_block": "minecraft:dirt",
-    "top_block": "minecraft:podzol"
-  },
-  "decorators": {
-    "starry_skies:bamboo": 0.7,
-    "starry_skies:x_spot_jungle_temple": 0.7
-  },
-  "spawns": [
-    {
-      "type": "minecraft:panda",
-      "chance": 0.4,
-      "min_count": 1,
-      "max_count": 3
-    },
-    {
-      "type": "minecraft:ocelot",
-      "chance": 0.4,
-      "min_count": 1,
-      "max_count": 2
-    },
-    {
-      "type": "minecraft:parrot",
-      "chance": 0.4,
-      "min_count": 2,
-      "max_count": 2
+    "top_block": "minecraft:podzol",
+
+    "generation": {
+      "weight": 0.5,
+      "group": "starry_skies:overworld/decorative"
     }
-  ]
+  }
 }

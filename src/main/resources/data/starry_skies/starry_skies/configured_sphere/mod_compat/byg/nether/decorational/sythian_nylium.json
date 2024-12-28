@@ -1,18 +1,24 @@
 {
-  "generation_group": "starry_skies:nether/decorative",
-  "generation_weight": 0.5,
-  "min_size": 10,
-  "max_size": 16,
   "type": "starry_skies:modular",
-  "type_data": {
+  "config": {
+    "decorators": {
+      "starry_skies:mod_compat/byg/sythian_sprouts": 0.8,
+      "starry_skies:mod_compat/byg/sythian_stalks": 0.8
+    },
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 10,
+      "max_exclusive": 16
+    },
     "main_block": "minecraft:netherrack",
-    "top_block": "byg:sythian_nylium"
+    "top_block": "byg:sythian_nylium",
+
+    "generation": {
+      "weight": 0.5,
+      "group": "starry_skies:nether/decorative"
+    }
   },
-  "decorators": {
-    "starry_skies:mod_compat/byg/sythian_sprouts": 0.8,
-    "starry_skies:mod_compat/byg/sythian_stalks": 0.8
-  },
-  "spawns": [],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

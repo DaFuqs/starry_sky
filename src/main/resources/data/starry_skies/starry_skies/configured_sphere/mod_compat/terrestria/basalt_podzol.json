@@ -1,20 +1,26 @@
 {
-  "generation_group": "starry_skies:overworld/decorative",
-  "generation_weight": 0.3,
-  "min_size": 5,
-  "max_size": 14,
   "type": "starry_skies:modular",
-  "type_data": {
+  "config": {
+    "decorators": {
+      "starry_skies:mod_compat/terrestria/indian_paintbrush": 0.5,
+      "starry_skies:mod_compat/terrestria/monsteras": 0.5,
+      "starry_skies:ferns": 0.75,
+      "starry_skies:large_ferns": 0.75
+    },
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 14
+    },
     "main_block": "terrestria:basalt_dirt",
-    "top_block": "terrestria:basalt_podzol"
+    "top_block": "terrestria:basalt_podzol",
+
+    "generation": {
+      "weight": 0.3,
+      "group": "starry_skies:overworld/decorative"
+    }
   },
-  "decorators": {
-    "starry_skies:mod_compat/terrestria/indian_paintbrush": 0.5,
-    "starry_skies:mod_compat/terrestria/monsteras": 0.5,
-    "starry_skies:ferns": 0.75,
-    "starry_skies:large_ferns": 0.75
-  },
-  "spawns": [],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

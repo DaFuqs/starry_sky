@@ -1,17 +1,31 @@
 {
-  "generation_group": "starry_skies:end/decorative",
-  "generation_weight": 0.2,
-  "min_size": 6,
-  "max_size": 12,
   "type": "starry_skies:shell",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "fabric:load_conditions": [
+      {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "betterend"
+        ]
+      }
+    ],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 6,
+      "max_exclusive": 12
+    },
     "main_block": "betterend:sulphuric_rock",
     "shell_block": "betterend:brimstone",
     "min_shell_size": 2,
-    "max_shell_size": 3
+    "max_shell_size": 3,
+
+    "generation": {
+      "weight": 0.2,
+      "group": "starry_skies:end/decorative"
+    }
   },
-  "decorators": {},
-  "spawns": [],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

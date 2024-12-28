@@ -1,19 +1,25 @@
 {
-  "generation_group": "starry_skies:overworld/treasure",
-  "generation_weight": 0.3,
-  "min_size": 3,
-  "max_size": 7,
   "type": "starry_skies:shell",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 3,
+      "max_exclusive": 7
+    },
     "main_block": "minecraft:gravel",
     "shell_block": "minecraft:gravel",
     "min_shell_size": 1,
     "max_shell_size": 3,
     "shell_speckles": {
-      "block": "minecraft:suspicious_gravel{LootTable:\"minecraft:archaeology/ocean_ruin_warm\"}",
+      "block": "minecraft:suspicious_gravel{LootTable:\"minecraft:archaeology/ocean_ruin_warm\"},
       "chance": 0.1
+    },
+
+    "generation": {
+      "weight": 0.3,
+      "group": "starry_skies:overworld/treasure"
     }
-  },
-  "decorators": {},
-  "spawns": []
+  }
 }

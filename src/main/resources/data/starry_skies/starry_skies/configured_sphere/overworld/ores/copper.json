@@ -1,15 +1,21 @@
 {
-  "generation_group": "starry_skies:overworld/ores",
-  "generation_weight": 2.0,
-  "min_size": 4,
-  "max_size": 6,
   "type": "starry_skies:core",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 4,
+      "max_exclusive": 6
+    },
     "core_block": "minecraft:copper_ore",
     "min_core_size": 3,
     "max_core_size": 5,
-    "main_block": "$starry_skies:stones"
-  },
-  "decorators": {},
-  "spawns": []
+    "main_block": "$starry_skies:stones",
+
+    "generation": {
+      "weight": 2.0,
+      "group": "starry_skies:overworld/ores"
+    }
+  }
 }

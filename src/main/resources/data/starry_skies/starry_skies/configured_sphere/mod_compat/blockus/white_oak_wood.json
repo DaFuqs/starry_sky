@@ -1,19 +1,25 @@
 {
-  "generation_group": "starry_skies:overworld/wood",
-  "generation_weight": 0.5,
-  "min_size": 8,
-  "max_size": 14,
   "type": "starry_skies:shell",
-  "type_data": {
+  "config": {
+    "decorators": {
+      "starry_skies:x_spot_pillager_outpost": 0.1
+    },
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 8,
+      "max_exclusive": 14
+    },
     "min_shell_size": 2,
     "max_shell_size": 4,
     "main_block": "blockus:white_oak_log",
-    "shell_block": "blockus:white_oak_leaves[distance=1]"
+    "shell_block": "blockus:white_oak_leaves[distance=1]",
+
+    "generation": {
+      "weight": 0.5,
+      "group": "starry_skies:overworld/wood"
+    }
   },
-  "decorators": {
-    "starry_skies:x_spot_pillager_outpost": 0.1
-  },
-  "spawns": [],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

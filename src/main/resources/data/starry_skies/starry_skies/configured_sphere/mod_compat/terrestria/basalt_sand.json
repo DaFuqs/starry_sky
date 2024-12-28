@@ -1,21 +1,27 @@
 {
-  "generation_group": "starry_skies:overworld/decorative",
-  "generation_weight": 0.3,
-  "min_size": 5,
-  "max_size": 15,
   "type": "starry_skies:modular",
-  "type_data": {
+  "config": {
+    "decorators": {
+      "starry_skies:mod_compat/terrestria/dead_grass": 0.75,
+      "starry_skies:mod_compat/terrestria/tiny_cactus": 0.75,
+      "starry_skies:mod_compat/terrestria/aloe_vera": 0.75,
+      "starry_skies:mod_compat/terrestria/agave": 0.75,
+      "starry_skies:mod_compat/terrestria/saguaro_cactus": 0.75
+    },
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 15
+    },
     "main_block": "terrestria:basalt_sand",
-    "bottom_block": "terrestria:basalt_cobblestone"
+    "bottom_block": "terrestria:basalt_cobblestone",
+
+    "generation": {
+      "weight": 0.3,
+      "group": "starry_skies:overworld/decorative"
+    }
   },
-  "decorators": {
-    "starry_skies:mod_compat/terrestria/dead_grass": 0.75,
-    "starry_skies:mod_compat/terrestria/tiny_cactus": 0.75,
-    "starry_skies:mod_compat/terrestria/aloe_vera": 0.75,
-    "starry_skies:mod_compat/terrestria/agave": 0.75,
-    "starry_skies:mod_compat/terrestria/saguaro_cactus": 0.75
-  },
-  "spawns": [],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

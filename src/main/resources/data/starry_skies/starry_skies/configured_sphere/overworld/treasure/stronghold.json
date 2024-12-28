@@ -1,13 +1,19 @@
 {
-  "generation_group": "starry_skies:overworld/treasure",
-  "generation_weight": 1.0,
-  "min_size": 25,
-  "max_size": 30,
   "type": "starry_skies:stronghold",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 25,
+      "max_exclusive": 30
+    },
     "min_shell_size": 3,
-    "max_shell_size": 5
-  },
-  "decorators": {},
-  "spawns": []
+    "max_shell_size": 5,
+
+    "generation": {
+      "weight": 1.0,
+      "group": "starry_skies:overworld/treasure"
+    }
+  }
 }

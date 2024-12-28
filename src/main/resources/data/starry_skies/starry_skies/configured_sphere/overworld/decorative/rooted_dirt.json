@@ -1,16 +1,22 @@
 {
-  "generation_group": "starry_skies:overworld/decorative",
-  "generation_weight": 1.0,
-  "min_size": 7,
-  "max_size": 12,
   "type": "starry_skies:simple",
-  "type_data": {
-    "block": "minecraft:rooted_dirt"
-  },
-  "decorators": {
-    "starry_skies:azalea": 0.75,
-    "starry_skies:flowering_azalea": 0.75,
-    "starry_skies:hanging_roots": 0.75
-  },
-  "spawns": []
+  "config": {
+    "decorators": {
+      "starry_skies:azalea": 0.75,
+      "starry_skies:flowering_azalea": 0.75,
+      "starry_skies:hanging_roots": 0.75
+    },
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 7,
+      "max_exclusive": 12
+    },
+    "block": "minecraft:rooted_dirt",
+
+    "generation": {
+      "weight": 1.0,
+      "group": "starry_skies:overworld/decorative"
+    }
+  }
 }

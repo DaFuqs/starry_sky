@@ -1,20 +1,26 @@
 {
-  "generation_group": "starry_skies:overworld/decorative",
-  "generation_weight": 0.5,
-  "min_size": 5,
-  "max_size": 8,
   "type": "starry_skies:modular",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [
+      {
+        "type": "minecraft:mooshroom",
+        "chance": 1.0,
+        "min_count": 2,
+        "max_count": 4
+      }
+    ],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 8
+    },
     "main_block": "minecraft:dirt",
-    "top_block": "minecraft:mycelium"
-  },
-  "decorators": {},
-  "spawns": [
-    {
-      "type": "minecraft:mooshroom",
-      "chance": 1.0,
-      "min_count": 2,
-      "max_count": 4
+    "top_block": "minecraft:mycelium",
+
+    "generation": {
+      "weight": 0.5,
+      "group": "starry_skies:overworld/decorative"
     }
-  ]
+  }
 }

@@ -1,17 +1,23 @@
 {
-  "generation_group": "starry_skies:end/ores",
-  "generation_weight": 0.4,
-  "min_size": 6,
-  "max_size": 13,
   "type": "starry_skies:core",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 6,
+      "max_exclusive": 13
+    },
     "main_block": "minecraft:end_stone",
     "core_block": "betterend:amber_ore",
     "min_core_size": 2,
-    "max_core_size": 4
+    "max_core_size": 4,
+
+    "generation": {
+      "weight": 0.4,
+      "group": "starry_skies:end/ores"
+    }
   },
-  "decorators": {},
-  "spawns": [],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

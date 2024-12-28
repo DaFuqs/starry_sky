@@ -1,10 +1,15 @@
 {
-  "generation_group": "starry_skies:overworld/fluid",
-  "generation_weight": 0.2,
-  "min_size": 5,
-  "max_size": 7,
   "type": "starry_skies:fluid_core",
-  "type_data": {
+  "config": {
+    "decorators": {
+      "starry_skies:sea_greens": 0.25
+    },
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 7
+    },
     "fluid": "minecraft:water",
     "min_shell_size": 1,
     "max_shell_size": 2,
@@ -14,10 +19,11 @@
     "shell_block": "$starry_skies:glasses",
     "core_block": "minecraft:slime_block",
     "min_core_size": 1,
-    "max_core_size": 3
-  },
-  "decorators": {
-    "starry_skies:sea_greens": 0.25
-  },
-  "spawns": []
+    "max_core_size": 3,
+
+    "generation": {
+      "weight": 0.2,
+      "group": "starry_skies:overworld/fluid"
+    }
+  }
 }

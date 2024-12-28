@@ -1,15 +1,21 @@
 {
-  "generation_group": "starry_skies:overworld/ores",
-  "generation_weight": 1.0,
-  "min_size": 5,
-  "max_size": 15,
   "type": "starry_skies:core",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 15
+    },
     "core_block": "minecraft:deepslate_coal_ore",
     "min_core_size": 4,
     "max_core_size": 8,
-    "main_block": "$starry_skies:deepslates"
-  },
-  "decorators": {},
-  "spawns": []
+    "main_block": "$starry_skies:deepslates",
+
+    "generation": {
+      "weight": 1.0,
+      "group": "starry_skies:overworld/ores"
+    }
+  }
 }

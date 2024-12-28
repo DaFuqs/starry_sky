@@ -1,10 +1,13 @@
 {
-  "generation_group": "starry_skies:nether/decorative",
-  "generation_weight": 0.5,
-  "min_size": 10,
-  "max_size": 16,
   "type": "starry_skies:shell",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 10,
+      "max_exclusive": 16
+    },
     "main_block": "byg:subzero_ash_block",
     "shell_block": "byg:subzero_ash_block",
     "min_shell_size": 2,
@@ -12,10 +15,13 @@
     "shell_speckles": {
       "block": "byg:frost_magma",
       "chance": 0.2
+    },
+
+    "generation": {
+      "weight": 0.5,
+      "group": "starry_skies:nether/decorative"
     }
   },
-  "decorators": {},
-  "spawns": [],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

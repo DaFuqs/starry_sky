@@ -1,16 +1,22 @@
 {
-  "generation_group": "starry_skies:overworld/treasure",
-  "generation_weight": 0.5,
-  "min_size": 2,
-  "max_size": 4,
   "type": "starry_skies:rainbow",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 2,
+      "max_exclusive": 4
+    },
     "blocks": [
       "pearlescent_froglight",
       "verdant_froglight",
       "ochre_froglight"
-    ]
-  },
-  "decorators": {},
-  "spawns": []
+    ],
+
+    "generation": {
+      "weight": 0.5,
+      "group": "starry_skies:overworld/treasure"
+    }
+  }
 }

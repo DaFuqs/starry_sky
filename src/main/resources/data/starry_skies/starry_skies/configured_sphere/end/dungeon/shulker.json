@@ -1,15 +1,21 @@
 {
-  "generation_group": "starry_skies:end/dungeon",
-  "generation_weight": 1,
-  "min_size": 6,
-  "max_size": 11,
   "type": "starry_skies:dungeon",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 6,
+      "max_exclusive": 11
+    },
     "entity_type": "minecraft:shulker",
     "min_shell_size": 2,
     "max_shell_size": 3,
-    "shell_block": "$starry_skies:end_dungeon_stones"
-  },
-  "decorators": {},
-  "spawns": []
+    "shell_block": "$starry_skies:end_dungeon_stones",
+
+    "generation": {
+      "weight": 1,
+      "group": "starry_skies:end/dungeon"
+    }
+  }
 }

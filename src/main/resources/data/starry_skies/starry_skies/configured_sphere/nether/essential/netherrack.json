@@ -1,35 +1,43 @@
 {
-  "generation_group": "starry_skies:nether/essential",
-  "generation_weight": 10.0,
-  "min_size": 7,
-  "max_size": 16,
   "type": "starry_skies:simple",
-  "type_data": {
-    "block": "minecraft:netherrack"
-  },
-  "decorators": {
-    "starry_skies:fire": 0.3,
-    "starry_skies:ruined_portal": 0.03,
-    "starry_skies:brown_mushrooms": 0.2,
-    "starry_skies:red_mushrooms": 0.2,
-    "starry_skies:center_pond_lava": 0.05,
-    "starry_skies:mod_compat/byg/death_caps": 0.1,
-    "starry_skies:mod_compat/betternether/geysers": 0.05,
-    "starry_skies:mod_compat/betternether/glowstone_stalactites": 0.2,
-    "starry_skies:mod_compat/betternether/netherrack_stalactites": 0.2
-  },
-  "spawns": [
-    {
-      "type": "minecraft:skeleton_horse",
-      "chance": 0.01,
-      "min_count": 1,
-      "max_count": 1
+  "config": {
+    "decorators": {
+      "starry_skies:fire": 0.3,
+      "starry_skies:ruined_portal": 0.03,
+      "starry_skies:brown_mushrooms": 0.2,
+      "starry_skies:red_mushrooms": 0.2,
+      "starry_skies:center_pond_lava": 0.05,
+      "starry_skies:mod_compat/byg/death_caps": 0.1,
+      "starry_skies:mod_compat/betternether/geysers": 0.05,
+      "starry_skies:mod_compat/betternether/glowstone_stalactites": 0.2,
+      "starry_skies:mod_compat/betternether/netherrack_stalactites": 0.2
     },
-    {
-      "type": "minecraft:zombie_horse",
-      "chance": 0.01,
-      "min_count": 1,
-      "max_count": 1
+    "spawns": [
+      {
+        "type": "minecraft:skeleton"
+        _horse,
+        "chance": 0.01,
+        "min_count": 1,
+        "max_count": 1
+      },
+      {
+        "type": "minecraft:zombie"
+        _horse,
+        "chance": 0.01,
+        "min_count": 1,
+        "max_count": 1
+      }
+    ],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 7,
+      "max_exclusive": 16
+    },
+    "block": "minecraft:netherrack",
+
+    "generation": {
+      "weight": 10.0,
+      "group": "starry_skies:nether/essential"
     }
-  ]
+  }
 }

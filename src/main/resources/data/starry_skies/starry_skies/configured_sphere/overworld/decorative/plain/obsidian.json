@@ -1,12 +1,18 @@
 {
-  "generation_group": "starry_skies:overworld/decorative",
-  "generation_weight": 0.5,
-  "min_size": 3,
-  "max_size": 6,
   "type": "starry_skies:simple",
-  "type_data": {
-    "block": "minecraft:obsidian"
-  },
-  "decorators": {},
-  "spawns": []
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 3,
+      "max_exclusive": 6
+    },
+    "block": "minecraft:obsidian",
+
+    "generation": {
+      "weight": 0.5,
+      "group": "starry_skies:overworld/decorative"
+    }
+  }
 }

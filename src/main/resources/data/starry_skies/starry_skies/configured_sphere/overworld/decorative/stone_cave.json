@@ -1,10 +1,16 @@
 {
-  "generation_group": "starry_skies:overworld/decorative",
-  "generation_weight": 2.0,
-  "min_size": 5,
-  "max_size": 20,
   "type": "starry_skies:cave",
-  "type_data": {
+  "config": {
+    "decorators": {
+      "starry_skies:red_mushrooms": 0.3,
+      "starry_skies:brown_mushrooms": 0.3
+    },
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 20
+    },
     "min_shell_size": 2,
     "max_shell_size": 3,
     "shell_block": {
@@ -19,11 +25,11 @@
     "treasure_chest": {
       "loot_table": "minecraft:chests/abandoned_mineshaft_chest",
       "chance": 0.5
+    },
+
+    "generation": {
+      "weight": 2.0,
+      "group": "starry_skies:overworld/decorative"
     }
-  },
-  "decorators": {
-    "starry_skies:red_mushrooms": 0.3,
-    "starry_skies:brown_mushrooms": 0.3
-  },
-  "spawns": []
+  }
 }

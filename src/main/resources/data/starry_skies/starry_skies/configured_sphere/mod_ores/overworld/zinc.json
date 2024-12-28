@@ -1,23 +1,28 @@
 {
-  "generation_group": "starry_skies:overworld/ores",
-  "generation_weight": 1.5,
-  "min_size": 8,
-  "max_size": 11,
   "type": "starry_skies:core",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "fabric:load_conditions": [
+      {
+        condition=starry_skies: unique_block_group_exist,
+        values=System.Object
+      []
+      }
+    ],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 8,
+      "max_exclusive": 11
+    },
     "core_block": "%starry_skies:zinc_ore",
     "min_core_size": 5,
     "max_core_size": 6,
-    "main_block": "$starry_skies:stones"
-  },
-  "decorators": {},
-  "spawns": [],
-  "fabric:load_conditions": [
-    {
-      "condition": "starry_skies:unique_block_group_exist",
-      "values": [
-        "starry_skies:zinc_ore"
-      ]
+    "main_block": "$starry_skies:stones",
+
+    "generation": {
+      "weight": 1.5,
+      "group": "starry_skies:overworld/ores"
     }
-  ]
+  }
 }

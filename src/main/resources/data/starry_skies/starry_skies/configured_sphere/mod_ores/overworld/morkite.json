@@ -1,23 +1,28 @@
 {
-  "generation_group": "starry_skies:overworld/ores",
-  "generation_weight": 0.2,
-  "min_size": 11,
-  "max_size": 14,
   "type": "starry_skies:core",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "fabric:load_conditions": [
+      {
+        condition=starry_skies: unique_block_group_exist,
+        values=System.Object
+      []
+      }
+    ],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 11,
+      "max_exclusive": 14
+    },
     "core_block": "%starry_skies:morkite_ore",
     "min_core_size": 6,
     "max_core_size": 8,
-    "main_block": "$starry_skies:deepslates"
-  },
-  "decorators": {},
-  "spawns": [],
-  "fabric:load_conditions": [
-    {
-      "condition": "starry_skies:unique_block_group_exist",
-      "values": [
-        "starry_skies:morkite_ore"
-      ]
+    "main_block": "$starry_skies:deepslates",
+
+    "generation": {
+      "weight": 0.2,
+      "group": "starry_skies:overworld/ores"
     }
-  ]
+  }
 }

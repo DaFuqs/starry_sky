@@ -1,10 +1,15 @@
 {
-  "generation_group": "starry_skies:end/wood",
-  "generation_weight": 0.4,
-  "min_size": 7,
-  "max_size": 10,
   "type": "starry_skies:shell",
-  "type_data": {
+  "config": {
+    "decorators": {
+      "starry_skies:mod_compat/byg/shulkren_vines": 0.9
+    },
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 7,
+      "max_exclusive": 10
+    },
     "min_shell_size": 1,
     "max_shell_size": 3,
     "main_block": "byg:white_mushroom_stem",
@@ -12,12 +17,13 @@
     "shell_speckles": {
       "block": "byg:purple_shroomlight",
       "chance": 0.1
+    },
+
+    "generation": {
+      "weight": 0.4,
+      "group": "starry_skies:end/wood"
     }
   },
-  "decorators": {
-    "starry_skies:mod_compat/byg/shulkren_vines": 0.9
-  },
-  "spawns": [],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

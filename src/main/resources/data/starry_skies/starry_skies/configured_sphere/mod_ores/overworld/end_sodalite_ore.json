@@ -1,23 +1,28 @@
 {
-  "generation_group": "starry_skies:end/ores",
-  "generation_weight": 0.4,
-  "min_size": 6,
-  "max_size": 12,
   "type": "starry_skies:core",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "fabric:load_conditions": [
+      {
+        condition=starry_skies: unique_block_group_exist,
+        values=System.Object
+      []
+      }
+    ],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 6,
+      "max_exclusive": 12
+    },
     "core_block": "%starry_skies:end_sodalite_ore",
     "min_core_size": 3,
     "max_core_size": 5,
-    "main_block": "$starry_skies:end_stones"
-  },
-  "decorators": {},
-  "spawns": [],
-  "fabric:load_conditions": [
-    {
-      "condition": "starry_skies:unique_block_group_exist",
-      "values": [
-        "starry_skies:end_sodalite_ore"
-      ]
+    "main_block": "$starry_skies:end_stones",
+
+    "generation": {
+      "weight": 0.4,
+      "group": "starry_skies:end/ores"
     }
-  ]
+  }
 }

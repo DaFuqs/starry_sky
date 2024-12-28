@@ -1,15 +1,21 @@
 {
-  "generation_group": "starry_skies:overworld/ores",
-  "generation_weight": 0.05,
-  "min_size": 5,
-  "max_size": 6,
   "type": "starry_skies:core",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 6
+    },
     "core_block": "minecraft:emerald_ore",
     "min_core_size": 1,
     "max_core_size": 3,
-    "main_block": "$starry_skies:mountain_stones"
-  },
-  "decorators": {},
-  "spawns": []
+    "main_block": "$starry_skies:mountain_stones",
+
+    "generation": {
+      "weight": 0.05,
+      "group": "starry_skies:overworld/ores"
+    }
+  }
 }

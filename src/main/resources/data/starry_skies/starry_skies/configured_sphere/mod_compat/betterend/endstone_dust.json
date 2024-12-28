@@ -1,15 +1,29 @@
 {
-  "generation_group": "starry_skies:end/decorative",
-  "generation_weight": 0.4,
-  "min_size": 9,
-  "max_size": 17,
   "type": "starry_skies:modular",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "betterend"
+      ]
+    }
+  ],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 9,
+      "max_exclusive": 17
+    },
     "main_block": "betterend:endstone_dust",
-    "bottom_block": "minecraft:end_stone"
+    "bottom_block": "minecraft:end_stone",
+
+    "generation": {
+      "weight": 0.4,
+      "group": "starry_skies:end/decorative"
+    }
   },
-  "decorators": {},
-  "spawns": [],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

@@ -1,16 +1,22 @@
 {
-  "generation_group": "starry_skies:overworld/decorative",
-  "generation_weight": 0.2,
-  "min_size": 6,
-  "max_size": 12,
   "type": "starry_skies:simple",
-  "type_data": {
-    "block": "biomemakeover:peat"
+  "config": {
+    "decorators": {
+      "starry_skies:mod_compat/biomemakeover/peat_pond": 0.7
+    },
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 6,
+      "max_exclusive": 12
+    },
+    "block": "biomemakeover:peat",
+
+    "generation": {
+      "weight": 0.2,
+      "group": "starry_skies:overworld/decorative"
+    }
   },
-  "decorators": {
-    "starry_skies:mod_compat/biomemakeover/peat_pond": 0.7
-  },
-  "spawns": [],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",

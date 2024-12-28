@@ -1,10 +1,16 @@
 {
-  "generation_group": "starry_skies:nether/treasure",
-  "generation_weight": 5.0,
-  "min_size": 10,
-  "max_size": 15,
   "type": "starry_skies:cave",
-  "type_data": {
+  "config": {
+    "decorators": {
+      "starry_skies:red_mushrooms": 0.3,
+      "starry_skies:brown_mushrooms": 0.3
+    },
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 10,
+      "max_exclusive": 15
+    },
     "min_shell_size": 2,
     "max_shell_size": 5,
     "cave_floor_block": "minecraft:crimson_nylium",
@@ -12,11 +18,11 @@
     "treasure_chest": {
       "loot_table": "minecraft/chests/ruined_portal",
       "chance": 0.5
+    },
+
+    "generation": {
+      "weight": 5.0,
+      "group": "starry_skies:nether/treasure"
     }
-  },
-  "decorators": {
-    "starry_skies:red_mushrooms": 0.3,
-    "starry_skies:brown_mushrooms": 0.3
-  },
-  "spawns": []
+  }
 }

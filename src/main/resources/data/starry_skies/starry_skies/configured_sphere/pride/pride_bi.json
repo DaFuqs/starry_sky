@@ -1,16 +1,22 @@
 {
-  "generation_group": "starry_skies:overworld/decorative",
-  "generation_weight": 0.1,
-  "min_size": 5,
-  "max_size": 16,
   "type": "starry_skies:stacked_horizontal",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 16
+    },
     "blocks": [
       "minecraft:magenta_wool",
       "minecraft:purple_wool",
       "minecraft:blue_wool"
-    ]
-  },
-  "decorators": {},
-  "spawns": []
+    ],
+
+    "generation": {
+      "weight": 0.1,
+      "group": "starry_skies:overworld/decorative"
+    }
+  }
 }

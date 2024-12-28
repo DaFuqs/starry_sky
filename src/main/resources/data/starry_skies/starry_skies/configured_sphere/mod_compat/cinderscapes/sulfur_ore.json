@@ -1,17 +1,31 @@
 {
-  "generation_group": "starry_skies:nether/ores",
-  "generation_weight": 0.5,
-  "min_size": 5,
-  "max_size": 10,
   "type": "starry_skies:core",
-  "type_data": {
+  "config": {
+    "decorators": {},
+    "spawns": [],
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 10
+    },
     "core_block": "cinderscapes:sulfur_ore",
     "min_core_size": 3,
     "max_core_size": 5,
-    "main_block": "$starry_skies:nether_stones"
+    "main_block": "$starry_skies:nether_stones",
+
+    "generation": {
+      "weight": 0.5,
+      "group": "starry_skies:nether/ores"
+    }
   },
-  "decorators": {},
-  "spawns": [],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "cinderscapes"
+      ]
+    }
+  ],
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",
