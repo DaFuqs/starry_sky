@@ -82,7 +82,8 @@ public class Support {
 			Point systemPos = getSystemCoordinateFromChunkCoordinate(position.getX() / 16, position.getZ() / 16);
 			
 			for (PlacedSphere<?> p : systemGenerator.getSystem(serverWorld, new Point(systemPos.x + currentPoint.x, systemPos.y + currentPoint.y))) {
-				if (sphereKey.equals(p.getRegistryKey(registryManager))) {
+				Optional<RegistryKey<ConfiguredSphere<?, ?>>> pKey = p.getRegistryKey(registryManager);
+				if (pKey.isPresent() && pKey.get().equals(sphereKey)) {
 					double currDist = position.getSquaredDistance(p.getPosition());
 					if (currDist < currentMinDistance) {
 						currentMinDistance = currDist;

@@ -1,7 +1,6 @@
 package de.dafuqs.starryskies.registries;
 
 import de.dafuqs.starryskies.data_loaders.*;
-import de.dafuqs.starryskies.worldgen.SphereDecorator;
 import de.dafuqs.starryskies.worldgen.*;
 import de.dafuqs.starryskies.worldgen.dimension.*;
 import net.fabricmc.fabric.api.event.registry.*;
@@ -16,7 +15,7 @@ public class StarryRegistries {
 		DynamicRegistries.register(StarryRegistryKeys.SYSTEM_GENERATOR, SystemGenerator.CODEC);
 		DynamicRegistries.register(StarryRegistryKeys.GENERATION_GROUP, GenerationGroup.CODEC);
 		DynamicRegistries.register(StarryRegistryKeys.STATE_PROVIDER, StarryStateProvider.CODEC);
-		DynamicRegistries.register(StarryRegistryKeys.CONFIGURED_SPHERE, ConfiguredSphere.CODEC);
+		DynamicRegistries.registerSynced(StarryRegistryKeys.CONFIGURED_SPHERE, ConfiguredSphere.CODEC); // Synched since it is used in the locate command
 		DynamicRegistries.register(StarryRegistryKeys.CONFIGURED_SPHERE_DECORATOR, ConfiguredSphereDecorator.CODEC);
 	}
 

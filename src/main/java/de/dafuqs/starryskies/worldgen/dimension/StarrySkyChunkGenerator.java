@@ -77,9 +77,9 @@ public class StarrySkyChunkGenerator extends ChunkGenerator {
 	public int getWorldHeight() {
 		return systemGenerator.value().getFloorHeight();
 	}
-
+	
 	@Override
-	public CompletableFuture<Chunk> populateNoise(Executor executor, Blender blender, NoiseConfig noiseConfig, StructureAccessor structureAccessor, Chunk chunk) {
+	public CompletableFuture<Chunk> populateNoise(Blender blender, NoiseConfig noiseConfig, StructureAccessor structureAccessor, Chunk chunk) {
 		return CompletableFuture.completedFuture(chunk);
 	}
 

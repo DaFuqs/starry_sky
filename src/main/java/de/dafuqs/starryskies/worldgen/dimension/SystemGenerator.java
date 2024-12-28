@@ -25,7 +25,6 @@ public class SystemGenerator {
 
 	public static final Codec<SystemGenerator> CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
-					Identifier.CODEC.fieldOf("id").forGetter(generator -> generator.id),
 					Codec.INT.fieldOf("spheres_per_system").forGetter(generator -> generator.spheresPerSystem),
 					Codec.INT.fieldOf("min_distance_between_spheres").forGetter(generator -> generator.minDistanceBetweenSpheres),
 					Codec.INT.fieldOf("floor_height").forGetter(generator -> generator.floorHeight),
@@ -35,7 +34,6 @@ public class SystemGenerator {
 			).apply(instance, SystemGenerator::new)
 	);
 	
-	private final Identifier id;
 	private final int spheresPerSystem;
 	private final int minDistanceBetweenSpheres;
 	private final int floorHeight;
@@ -46,8 +44,7 @@ public class SystemGenerator {
 	private final Map<Map<ConfiguredSphere<?, ?>, Float>, Float> generationGroups = new Object2FloatArrayMap<>();
 	private final Map<Point, System> systemCache = new Object2ObjectArrayMap<>();
 	
-	public SystemGenerator(Identifier id, int spheresPerSystem, int minDistanceBetweenSpheres, int floorHeight, BlockState floorState, BlockState bottomState, List<DefaultSphere> defaultSpheres) {
-		this.id = id;
+	public SystemGenerator(int spheresPerSystem, int minDistanceBetweenSpheres, int floorHeight, BlockState floorState, BlockState bottomState, List<DefaultSphere> defaultSpheres) {
 		this.spheresPerSystem = spheresPerSystem;
 		this.minDistanceBetweenSpheres = minDistanceBetweenSpheres;
 		this.floorHeight = floorHeight;
@@ -78,7 +75,7 @@ public class SystemGenerator {
 	 *
 	 * @param chunkX chunk chunkX location
 	 * @param chunkZ chunk chunkZ location
-	 * @return List of planetoids representing the system this chunk is in
+	 * @return The List of spheres representing the system this chunk is in
 	 */
 	public System getSystem(WorldAccess worldAccess, long seed, int chunkX, int chunkZ) {
 		Point systemPos = Support.getSystemCoordinateFromChunkCoordinate(chunkX, chunkZ);
