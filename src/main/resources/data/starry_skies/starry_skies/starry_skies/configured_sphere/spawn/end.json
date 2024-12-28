@@ -1,7 +1,10 @@
 {
   "type": "starry_skies:simple",
   "config": {
-    "block": "minecraft:end_stone",
+    "block": {
+      "Name": "minecraft:end_stone",
+      "Properties": {}
+    },
 
     "size": {
       "type": "minecraft:constant",

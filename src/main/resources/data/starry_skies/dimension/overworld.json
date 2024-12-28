@@ -2,26 +2,10 @@
   "type": "starry_skies:overworld",
   "generator": {
     "type": "starry_skies:starry_skies",
+    "system_generator": "starry_skies:overworld",
     "biome_source": {
       "type": "minecraft:fixed",
       "biome": "starry_skies:overworld"
-    },
-    "system_generator": {
-      "spheres_per_system": 2000,
-      "min_distance_between_spheres": 10,
-      "floor_height": 0,
-      "floor_state": "minecraft:water",
-      "bottom_state": "minecraft:bedrock",
-      "fixed_spheres": [
-        {
-          "system_x": 0,
-          "system_y": 0,
-          "x": 16,
-          "y": 70,
-          "z": 16,
-          "sphere_id": "starry_skies:spawn/overworld"
-        }
-      ]
     }
   }
 }

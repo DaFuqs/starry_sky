@@ -25,6 +25,7 @@ public class SystemGenerator {
 
 	public static final Codec<SystemGenerator> CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
+					Identifier.CODEC.fieldOf("id").forGetter(generator -> generator.id),
 					Codec.INT.fieldOf("spheres_per_system").forGetter(generator -> generator.spheresPerSystem),
 					Codec.INT.fieldOf("min_distance_between_spheres").forGetter(generator -> generator.minDistanceBetweenSpheres),
 					Codec.INT.fieldOf("floor_height").forGetter(generator -> generator.floorHeight),
@@ -34,36 +35,29 @@ public class SystemGenerator {
 			).apply(instance, SystemGenerator::new)
 	);
 	
-	protected static Map<Identifier, SystemGenerator> SYSTEM_GENERATOR_MAP = new HashMap<>();
-
-	// spawning probabilities
-	private final HashMap<Point, System> systemCache = new HashMap<>();
-
+	private final Identifier id;
 	private final int spheresPerSystem;
 	private final int minDistanceBetweenSpheres;
 	private final int floorHeight;
 	private final BlockState floorState;
 	private final BlockState bottomState;
 	private final List<DefaultSphere> defaultSpheres;
-	private final Map<Identifier, Float> generationGroups = new Object2FloatArrayMap<>();
+	
+	private final Map<Map<ConfiguredSphere<?, ?>, Float>, Float> generationGroups = new Object2FloatArrayMap<>();
+	private final Map<Point, System> systemCache = new Object2ObjectArrayMap<>();
 	
 	public SystemGenerator(Identifier id, int spheresPerSystem, int minDistanceBetweenSpheres, int floorHeight, BlockState floorState, BlockState bottomState, List<DefaultSphere> defaultSpheres) {
+		this.id = id;
 		this.spheresPerSystem = spheresPerSystem;
 		this.minDistanceBetweenSpheres = minDistanceBetweenSpheres;
 		this.floorHeight = floorHeight;
 		this.floorState = floorState;
 		this.bottomState = bottomState;
 		this.defaultSpheres = defaultSpheres;
-		
-		SYSTEM_GENERATOR_MAP.put(id, this);
 	}
 	
-	public static SystemGenerator get(Identifier id) {
-		return SYSTEM_GENERATOR_MAP.get(id);
-	}
-
-	public void addGenerationGroup(Identifier id, float weight) {
-		this.generationGroups.put(id, weight);
+	public void addGenerationGroup(Map<ConfiguredSphere<?, ?>, Float> weightedSpheres, float weight) {
+		this.generationGroups.put(weightedSpheres, weight);
 	}
 
 	public int getFloorHeight() {
@@ -231,26 +225,14 @@ public class SystemGenerator {
 		}
 
 		private static PlacedSphere<?> getRandomSphere(SystemGenerator systemGenerator, ChunkRandom systemRandom, DynamicRegistryManager registryManager) {
-			ConfiguredSphere<?, ?> template;
+			ConfiguredSphere<?, ?> selectedSphere;
 			do {
-				Identifier distributionTypeID = Support.getWeightedRandom(systemGenerator.generationGroups, systemRandom);
-				
-				// TODO: improve; iterating all spheres every time is very slow
-				Set<Map.Entry<RegistryKey<ConfiguredSphere<?, ?>>, ConfiguredSphere<?, ?>>> s = registryManager.get(StarryRegistryKeys.CONFIGURED_SPHERE).getEntrySet();
-				Map<ConfiguredSphere<?, ?>, Float> possibleEntries = new HashMap<>();
-				
-				for(Map.Entry<RegistryKey<ConfiguredSphere<?, ?>>, ConfiguredSphere<?, ?>> entry : s) {
-					Optional<SphereConfig.Generation> generationConfig = entry.getValue().config().generation;
-					if(generationConfig.isPresent() && generationConfig.get().group().equals(distributionTypeID)) {
-						possibleEntries.put(entry.getValue(), generationConfig.get().weight());
-					}
-				}
-				
-				template = Support.getWeightedRandom(possibleEntries, systemRandom);
-			} while (template == null);
-
-			StarrySkies.LOGGER.debug("Created a new sphere of type {} Next random: {}", template, systemRandom.nextInt());
-			return template.generate(systemRandom, registryManager);
+				Map<ConfiguredSphere<?, ?>, Float> spheresInSelectedGroup = getWeightedRandom(systemGenerator.generationGroups, systemRandom);
+				selectedSphere = getWeightedRandom(spheresInSelectedGroup, systemRandom);
+			} while (selectedSphere == null);
+			
+			StarrySkies.LOGGER.debug("Created a new sphere of type {} Next random: {}", selectedSphere, systemRandom.nextInt());
+			return selectedSphere.generate(systemRandom, registryManager);
 		}
 
 		@NotNull

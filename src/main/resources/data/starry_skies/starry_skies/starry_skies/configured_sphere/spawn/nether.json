@@ -1,7 +1,10 @@
 {
   "type": "starry_skies:simple",
   "config": {
-    "block": "minecraft:netherrack",
+    "block": {
+      "Name": "minecraft:netherrack",
+      "Properties": {}
+    },
 
     "size": {
       "type": "minecraft:uniform",

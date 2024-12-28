@@ -7,6 +7,7 @@ import de.dafuqs.starryskies.configs.*;
 import de.dafuqs.starryskies.registries.*;
 import de.dafuqs.starryskies.worldgen.*;
 import de.dafuqs.starryskies.worldgen.dimension.*;
+import it.unimi.dsi.fastutil.objects.*;
 import me.shedaniel.autoconfig.*;
 import me.shedaniel.autoconfig.serializer.*;
 import net.fabricmc.api.*;
@@ -22,6 +23,8 @@ import net.minecraft.util.*;
 import net.minecraft.world.gen.chunk.*;
 import org.jetbrains.annotations.*;
 import org.slf4j.*;
+
+import java.util.*;
 
 public class StarrySkies implements ModInitializer {
 
@@ -82,13 +85,30 @@ public class StarrySkies implements ModInitializer {
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> ClosestSphereCommand.register(dispatcher));
 		ServerTickEvents.END_SERVER_TICK.register(new ProximityAdvancementCheckEvent());
-
-		// TODO: Make not ugly. Can this be handled in the codec directly?
+		
+		// Build a final map of sphere generation data for each chunk generator
 		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+			Set<Map.Entry<RegistryKey<ConfiguredSphere<?, ?>>, ConfiguredSphere<?, ?>>> allSpheres = server.getRegistryManager().get(StarryRegistryKeys.CONFIGURED_SPHERE).getEntrySet();
+			
 			for(var generationGroup : server.getRegistryManager().get(StarryRegistryKeys.GENERATION_GROUP).getEntrySet()) {
-				var systemGenerator = server.getRegistryManager().get(StarryRegistryKeys.SYSTEM_GENERATOR).get(generationGroup.getValue().systemGenerator());
-				if(systemGenerator != null) {
-					systemGenerator.addGenerationGroup(generationGroup.getKey().getValue(), generationGroup.getValue().weight());
+				Identifier systemGeneratorId = generationGroup.getValue().systemGeneratorId();
+				
+				SystemGenerator systemGenerator = server.getRegistryManager().get(StarryRegistryKeys.SYSTEM_GENERATOR).get(systemGeneratorId);
+				if (systemGenerator == null) {
+					LOGGER.error("System generator with id {} referenced in generation group {} was not found", generationGroup.getKey().getValue(), generationGroup.getValue().systemGeneratorId());
+					continue;
+				}
+				
+				Map<ConfiguredSphere<?, ?>, Float> weightedSpheres = new Object2ObjectOpenHashMap<>();
+				for (Map.Entry<RegistryKey<ConfiguredSphere<?, ?>>, ConfiguredSphere<?, ?>> sphere : allSpheres) {
+					Optional<SphereConfig.Generation> sphereGenerationGroup = sphere.getValue().getGenerationGroup();
+					if (sphereGenerationGroup.isPresent() && sphereGenerationGroup.get().group().equals(generationGroup.getKey().getValue())) {
+						weightedSpheres.put(sphere.getValue(), sphereGenerationGroup.get().weight());
+					}
+				}
+				
+				if (!weightedSpheres.isEmpty()) {
+					systemGenerator.addGenerationGroup(weightedSpheres, generationGroup.getValue().weight());
 				}
 			}
 		});

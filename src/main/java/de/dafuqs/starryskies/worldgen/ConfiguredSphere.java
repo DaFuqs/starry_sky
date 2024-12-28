@@ -36,6 +36,10 @@ public class ConfiguredSphere<S extends Sphere<SC>, SC extends SphereConfig> {
 	public List<Pair<EntityType<?>, Integer>> getSpawns(ChunkRandom random) {
 		return config.selectSpawns(random);
 	}
+	
+	public Optional<SphereConfig.Generation> getGenerationGroup() {
+		return config.generation;
+	}
 
 	public PlacedSphere<?> generate(ChunkRandom systemRandom, DynamicRegistryManager registryManager) {
 		return this.sphere.generate(this, this.config, systemRandom, registryManager);

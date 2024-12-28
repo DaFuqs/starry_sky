@@ -28,11 +28,11 @@ public abstract class ServerWorldMixin {
 		ChunkGenerator chunkGenerator = thisWorld.getChunkManager().getChunkGenerator();
 		if (chunkGenerator instanceof StarrySkyChunkGenerator && locatableStarrySpheres.containsKey(structureTag)) {
 			Identifier sphereIdentifier = locatableStarrySpheres.get(structureTag);
-			Support.SphereDistance distance = Support.getClosestSphere3x3(thisWorld, pos, sphereIdentifier, thisWorld.getRegistryManager());
-			if (distance == null) {
+			Optional<Support.SphereDistance> distance = Support.getClosestSphere3x3(thisWorld, pos, sphereIdentifier, thisWorld.getRegistryManager());
+			if (distance.isEmpty()) {
 				cir.setReturnValue(null);
 			} else {
-				cir.setReturnValue(distance.sphere.getPosition());
+				cir.setReturnValue(distance.get().sphere.getPosition());
 			}
 		}
 	}

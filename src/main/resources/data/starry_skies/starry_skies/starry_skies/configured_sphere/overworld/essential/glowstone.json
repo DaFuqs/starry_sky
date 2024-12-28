@@ -1,7 +1,10 @@
 {
   "type": "starry_skies:simple",
   "config": {
-    "block": "minecraft:glowstone",
+    "block": {
+      "Name": "minecraft:glowstone",
+      "Properties": {}
+    },
 
     "size": {
       "type": "minecraft:uniform",

@@ -11,7 +11,7 @@
   "text.autoconfig.StarrySky.category.GENERAL": "General",
   "text.autoconfig.StarrySky.category.SYSTEM GENERATION": "System Generation",
   "text.autoconfig.StarrySky.category.WORLD FLOOR GENERATION": "World Floor",
-  "text.autoconfig.StarrySky.category.SPHEROIDS": "Available Spheroids",
+  "text.autoconfig.StarrySky.category.SPHERES": "Available Spheres",
 
   "text.autoconfig.StarrySky.option.packCreatorMode": "Log Datapack Errors",
   "text.autoconfig.StarrySky.option.registerStarryPortal": "Register Starry Portal",
@@ -25,7 +25,7 @@
   "text.autoconfig.StarrySky.option.enableNetherPortalsToStarryNether": "If true nether portals in Starry Sky lead to Scary Sky, if false portals do not form",
   "text.autoconfig.StarrySky.option.enableEndPortalsToStarryEnd": "If true end portals in Starry Sky lead to Scarcy Sky, if false to the vanilla end",
 
-  "text.autoconfig.StarrySky.option.systemSizeChunks.@PrefixText": "Spheroids are generated in systems. Each system consists out of x spheroids over y chunks. How big each system should be in chunks². Higher values make the very slight 'gaps' at the border between systems less common, but since systems are generating all at once high values can result in small lag spikes every time a new system is generated. (but less spikes in total)",
+  "text.autoconfig.StarrySky.option.systemSizeChunks.@PrefixText": "Spheres are generated in systems. Each system consists out of x spheres over y chunks. How big each system should be in chunks². Higher values make the very slight 'gaps' at the border between systems less common, but since systems are generating all at once high values can result in small lag spikes every time a new system is generated. (but less spikes in total)",
   "text.autoconfig.StarrySky.option.systemSizeChunks.@Tooltip": "How many big each system should be in chunks²",
   "text.autoconfig.StarrySky.option.systemSizeChunks": "System Size in Chunks",
   "text.autoconfig.StarrySky.option.sphereDensityOverworld.@Tooltip": "How many spheres a system can contain max. Some will fail because of distance restrictions so it's not an exact value",
@@ -51,6 +51,8 @@
   "text.autoconfig.StarrySky.option.bottomBlockOverworld": "Starry Sky Bottom Block",
   "text.autoconfig.StarrySky.option.bottomBlockNether": "Scary Sky Bottom Block",
   "text.autoconfig.StarrySky.option.bottomBlockEnd": "Scarcy Sky Bottom Block",
+
+  "commands.starry_skies.locate.fail": "Could not determine closest sphere. :(",
 
   "advancements.dafuqs.starry_skies.starry_skies.title": "Starry Skies",
   "advancements.dafuqs.starry_skies.starry_skies.description": "Enter the Starry Sky dimension",

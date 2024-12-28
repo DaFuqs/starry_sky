@@ -8,8 +8,8 @@ import de.dafuqs.starryskies.worldgen.*;
 import de.dafuqs.starryskies.worldgen.dimension.*;
 import net.minecraft.block.*;
 import net.minecraft.command.argument.*;
-import net.minecraft.entity.player.*;
 import net.minecraft.registry.*;
+import net.minecraft.server.network.*;
 import net.minecraft.server.world.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
@@ -43,11 +43,15 @@ public class Support {
 	}
 
 	@Contract("_ -> new")
-	public static Optional<SphereDistance> getClosestSphere(@NotNull PlayerEntity serverPlayerEntity) {
+	public static Optional<SphereDistance> getClosestSphere(@NotNull ServerPlayerEntity serverPlayerEntity) {
+		if (!(serverPlayerEntity.getServerWorld().getChunkManager().getChunkGenerator() instanceof StarrySkyChunkGenerator starrySkyChunkGenerator)) {
+			return Optional.empty();
+		}
+		
 		Vec3d playerPos = serverPlayerEntity.getPos();
 		BlockPos playerPosBlock = new BlockPos((int) playerPos.x, (int) playerPos.y, (int) playerPos.z);
-
-		SystemGenerator systemGenerator = SystemGenerator.get(serverPlayerEntity.getEntityWorld().getRegistryKey());
+		
+		SystemGenerator systemGenerator = starrySkyChunkGenerator.getSystemGenerator();
 		if (systemGenerator != null) {
 			PlacedSphere<?> closestSphere = null;
 			double currentMinDistance = Double.MAX_VALUE;
@@ -67,7 +71,11 @@ public class Support {
 	}
 	
 	public static Optional<SphereDistance> getClosestSphere3x3(@NotNull ServerWorld serverWorld, BlockPos position, Identifier sphereId, DynamicRegistryManager registryManager) {
-		SystemGenerator systemGenerator = SystemGenerator.get(serverWorld.getRegistryKey());
+		if (!(serverWorld.getChunkManager().getChunkGenerator() instanceof StarrySkyChunkGenerator starrySkyChunkGenerator)) {
+			return Optional.empty();
+		}
+		
+		SystemGenerator systemGenerator = starrySkyChunkGenerator.getSystemGenerator();
 		
 		PlacedSphere<?> closestSphere = null;
 		double currentMinDistance = Double.MAX_VALUE;

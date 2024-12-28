@@ -29,7 +29,7 @@ public class ClosestSphereCommand {
 		if (identifier == null) {
 			distance = Support.getClosestSphere(caller);
 		} else {
-			distance = Optional.ofNullable(Support.getClosestSphere3x3(source.getWorld(), BlockPos.ofFloored(source.getPosition()), identifier, source.getRegistryManager()));
+			distance = Support.getClosestSphere3x3(source.getWorld(), BlockPos.ofFloored(source.getPosition()), identifier, source.getRegistryManager());
 		}
 		
 		if (distance.isPresent()) {
