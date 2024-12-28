@@ -1,4 +1,4 @@
-package de.dafuqs.starryskies.state_provider;
+package de.dafuqs.starryskies.state_providers;
 
 import com.mojang.serialization.*;
 import de.dafuqs.starryskies.data_loaders.*;

@@ -6,7 +6,7 @@ import de.dafuqs.starryskies.commands.*;
 import de.dafuqs.starryskies.configs.*;
 import de.dafuqs.starryskies.data_loaders.*;
 import de.dafuqs.starryskies.registries.*;
-import de.dafuqs.starryskies.state_provider.*;
+import de.dafuqs.starryskies.state_providers.*;
 import de.dafuqs.starryskies.worldgen.*;
 import de.dafuqs.starryskies.worldgen.dimension.*;
 import it.unimi.dsi.fastutil.objects.*;
@@ -81,6 +81,9 @@ public class StarrySkies implements ModInitializer {
 		AutoConfig.register(StarrySkyConfig.class, JanksonConfigSerializer::new);
 		CONFIG = AutoConfig.getConfigHolder(StarrySkyConfig.class).getConfig();
 		
+		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(UniqueBlockGroupDataLoader.INSTANCE);
+		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(WeightedBlockGroupDataLoader.INSTANCE);
+		
 		// Register all the stuff
 		Registry.register(Registries.CHUNK_GENERATOR, StarrySkies.id("starry_skies"), StarrySkyChunkGenerator.CODEC);
 		
@@ -90,9 +93,6 @@ public class StarrySkies implements ModInitializer {
 		StarryFeatures.initialize();
 		SphereDecorators.initialize();
 		StarryAdvancementCriteria.register();
-		
-		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(UniqueBlockGroupDataLoader.INSTANCE);
-		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(WeightedBlockGroupDataLoader.INSTANCE);
 		
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> ClosestSphereCommand.register(dispatcher, registryAccess));
 		ServerTickEvents.END_SERVER_TICK.register(new ProximityAdvancementCheckEvent());
