@@ -8,6 +8,7 @@ import net.minecraft.block.*;
 import net.minecraft.registry.*;
 import net.minecraft.resource.*;
 import net.minecraft.util.*;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.profiler.*;
 
 import java.util.*;
@@ -18,7 +19,7 @@ public class UniqueBlockGroupDataLoader extends JsonDataLoader implements Identi
 	public static final Identifier ID = StarrySkies.id(LOCATION);
 	public static final UniqueBlockGroupDataLoader INSTANCE = new UniqueBlockGroupDataLoader();
 	
-	public static final Map<String, Block> GROUPS = new Object2ObjectOpenHashMap<>();
+	protected static final Map<String, Block> GROUPS = new Object2ObjectOpenHashMap<>();
 	
 	private UniqueBlockGroupDataLoader() {
 		super(new Gson(), LOCATION);
@@ -50,6 +51,16 @@ public class UniqueBlockGroupDataLoader extends JsonDataLoader implements Identi
 	
 	public Block get(String id) {
 		return GROUPS.get(id);
+	}
+	
+	public BlockState getEntry(String group, Random random) {
+		Block block = UniqueBlockGroupDataLoader.INSTANCE.get(group);
+		if (block == null) {
+			StarrySkies.LOGGER.warn("Trying to query a nonexistent UniqueBlockGroup: {}", group);
+			StarrySkies.LOGGER.error(Arrays.toString(Thread.currentThread().getStackTrace()));
+			return Blocks.AIR.getDefaultState();
+		}
+		return block.getDefaultState();
 	}
 	
 }

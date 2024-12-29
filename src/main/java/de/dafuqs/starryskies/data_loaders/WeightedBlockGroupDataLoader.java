@@ -8,6 +8,7 @@ import net.minecraft.block.*;
 import net.minecraft.registry.*;
 import net.minecraft.resource.*;
 import net.minecraft.util.*;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.profiler.*;
 
 import java.util.*;
@@ -18,7 +19,7 @@ public class WeightedBlockGroupDataLoader extends JsonDataLoader implements Iden
 	public static final Identifier ID = StarrySkies.id(LOCATION);
 	public static final WeightedBlockGroupDataLoader INSTANCE = new WeightedBlockGroupDataLoader();
 	
-	public static final Map<String, Map<Block, Float>> GROUPS = new Object2ObjectOpenHashMap<>();
+	protected static final Map<String, Map<Block, Float>> GROUPS = new Object2ObjectOpenHashMap<>();
 	
 	private WeightedBlockGroupDataLoader() {
 		super(new Gson(), LOCATION);
@@ -49,6 +50,20 @@ public class WeightedBlockGroupDataLoader extends JsonDataLoader implements Iden
 	
 	public Map<Block, Float> get(String blockGroup) {
 		return GROUPS.get(blockGroup);
+	}
+	
+	public BlockState getEntry(String group, Random random) {
+		Map<Block, Float> weightedBlocks = get(group);
+		if (weightedBlocks == null) {
+			StarrySkies.LOGGER.warn("Trying to query a nonexistent WeightedBlockGroup: {}", group);
+			StarrySkies.LOGGER.error(Arrays.toString(Thread.currentThread().getStackTrace()));
+			return Blocks.AIR.getDefaultState();
+		} else if (weightedBlocks.isEmpty()) {
+			StarrySkies.LOGGER.warn("Trying to query an empty WeightedBlockGroup: {}", group);
+			StarrySkies.LOGGER.error(Arrays.toString(Thread.currentThread().getStackTrace()));
+			return Blocks.AIR.getDefaultState();
+		}
+		return Support.getWeightedRandom(weightedBlocks, random).getDefaultState();
 	}
 	
 }
