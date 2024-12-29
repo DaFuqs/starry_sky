@@ -1,24 +1,59 @@
 {
-  "type": "starry_skies:rainbow",
+  "type": "starry_skies:simple",
   "config": {
-    "blocks": [
-      "white_wool",
-      "light_gray_wool",
-      "gray_wool",
-      "black_wool",
-      "brown_wool",
-      "red_wool",
-      "orange_wool",
-      "yellow_wool",
-      "lime_wool",
-      "green_wool",
-      "cyan_wool",
-      "light_blue_wool",
-      "blue_wool",
-      "purple_wool",
-      "magenta_wool",
-      "pink_wool"
-    ],
+    "block": {
+      "type": "starry_skies:alternating_state_provider",
+      "states": [
+        {
+          "Name": "minecraft:white_wool"
+        },
+        {
+          "Name": "minecraft:light_gray_wool"
+        },
+        {
+          "Name": "minecraft:gray_wool"
+        },
+        {
+          "Name": "minecraft:black_wool"
+        },
+        {
+          "Name": "minecraft:brown_wool"
+        },
+        {
+          "Name": "minecraft:red_wool"
+        },
+        {
+          "Name": "minecraft:orange_wool"
+        },
+        {
+          "Name": "minecraft:yellow_wool"
+        },
+        {
+          "Name": "minecraft:lime_wool"
+        },
+        {
+          "Name": "minecraft:green_wool"
+        },
+        {
+          "Name": "minecraft:cyan_wool"
+        },
+        {
+          "Name": "minecraft:light_blue_wool"
+        },
+        {
+          "Name": "minecraft:blue_wool"
+        },
+        {
+          "Name": "minecraft:purple_wool"
+        },
+        {
+          "Name": "minecraft:magenta_wool"
+        },
+        {
+          "Name": "minecraft:pink_wool"
+        }
+      ]
+    },
 
     "size": {
       "type": "minecraft:uniform",

@@ -1,10 +1,19 @@
 {
-  "type": "starry_skies:stacked_horizontal",
+  "type": "starry_skies:horizontal_stacked",
   "config": {
     "blocks": [
-      "minecraft:purple_wool",
-      "minecraft:white_wool",
-      "minecraft:green_wool"
+      {
+        "Name": "minecraft:black_wool"
+      },
+      {
+        "Name": "minecraft:gray_wool"
+      },
+      {
+        "Name": "minecraft:white_wool"
+      },
+      {
+        "Name": "minecraft:purple_wool"
+      }
     ],
 
     "size": {

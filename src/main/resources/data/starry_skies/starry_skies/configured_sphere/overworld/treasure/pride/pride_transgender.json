@@ -1,0 +1,35 @@
+{
+  "type": "starry_skies:horizontal_stacked",
+  "config": {
+    "blocks": [
+      {
+        "Name": "minecraft:light_blue_wool"
+      },
+      {
+        "Name": "minecraft:pink_wool"
+      },
+      {
+        "Name": "minecraft:white_wool"
+      },
+      {
+        "Name": "minecraft:pink_wool"
+      },
+      {
+        "Name": "minecraft:light_blue_wool"
+      }
+    ],
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 16
+    },
+
+    "decorators": {},
+    "spawns": [],
+    "generation": {
+      "weight": 0.1,
+      "group": "starry_skies:overworld/decorative"
+    }
+  }
+}

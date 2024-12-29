@@ -1,24 +1,59 @@
 {
-  "type": "starry_skies:rainbow",
+  "type": "starry_skies:simple",
   "config": {
-    "blocks": [
-      "white_concrete",
-      "light_gray_concrete",
-      "gray_concrete",
-      "black_concrete",
-      "brown_concrete",
-      "red_concrete",
-      "orange_concrete",
-      "yellow_concrete",
-      "lime_concrete",
-      "green_concrete",
-      "cyan_concrete",
-      "light_blue_concrete",
-      "blue_concrete",
-      "purple_concrete",
-      "magenta_concrete",
-      "pink_concrete"
-    ],
+    "block": {
+      "type": "starry_skies:alternating_state_provider",
+      "states": [
+        {
+          "Name": "minecraft:white_concrete"
+        },
+        {
+          "Name": "minecraft:light_gray_concrete"
+        },
+        {
+          "Name": "minecraft:gray_concrete"
+        },
+        {
+          "Name": "minecraft:black_concrete"
+        },
+        {
+          "Name": "minecraft:brown_concrete"
+        },
+        {
+          "Name": "minecraft:red_concrete"
+        },
+        {
+          "Name": "minecraft:orange_concrete"
+        },
+        {
+          "Name": "minecraft:yellow_concrete"
+        },
+        {
+          "Name": "minecraft:lime_concrete"
+        },
+        {
+          "Name": "minecraft:green_concrete"
+        },
+        {
+          "Name": "minecraft:cyan_concrete"
+        },
+        {
+          "Name": "minecraft:light_blue_concrete"
+        },
+        {
+          "Name": "minecraft:blue_concrete"
+        },
+        {
+          "Name": "minecraft:purple_concrete"
+        },
+        {
+          "Name": "minecraft:magenta_concrete"
+        },
+        {
+          "Name": "minecraft:pink_concrete"
+        }
+      ]
+    },
 
     "size": {
       "type": "minecraft:uniform",

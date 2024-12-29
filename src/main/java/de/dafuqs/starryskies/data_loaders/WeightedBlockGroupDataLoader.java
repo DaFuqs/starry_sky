@@ -15,7 +15,7 @@ import java.util.*;
 
 public class WeightedBlockGroupDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
 	
-	public static final String LOCATION = "starry_skies/starry_skies/weighted_block_group";
+	public static final String LOCATION = "starry_skies/weighted_block_group";
 	public static final Identifier ID = StarrySkies.id(LOCATION);
 	public static final WeightedBlockGroupDataLoader INSTANCE = new WeightedBlockGroupDataLoader();
 	

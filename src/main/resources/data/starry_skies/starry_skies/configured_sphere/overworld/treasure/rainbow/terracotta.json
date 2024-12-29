@@ -1,24 +1,59 @@
 {
-  "type": "starry_skies:rainbow",
+  "type": "starry_skies:simple",
   "config": {
-    "blocks": [
-      "white_terracotta",
-      "light_gray_terracotta",
-      "gray_terracotta",
-      "black_terracotta",
-      "brown_terracotta",
-      "red_terracotta",
-      "orange_terracotta",
-      "yellow_terracotta",
-      "lime_terracotta",
-      "green_terracotta",
-      "cyan_terracotta",
-      "light_blue_terracotta",
-      "blue_terracotta",
-      "purple_terracotta",
-      "magenta_terracotta",
-      "pink_terracotta"
-    ],
+    "block": {
+      "type": "starry_skies:alternating_state_provider",
+      "states": [
+        {
+          "Name": "minecraft:white_terracotta"
+        },
+        {
+          "Name": "minecraft:light_gray_terracotta"
+        },
+        {
+          "Name": "minecraft:gray_terracotta"
+        },
+        {
+          "Name": "minecraft:black_terracotta"
+        },
+        {
+          "Name": "minecraft:brown_terracotta"
+        },
+        {
+          "Name": "minecraft:red_terracotta"
+        },
+        {
+          "Name": "minecraft:orange_terracotta"
+        },
+        {
+          "Name": "minecraft:yellow_terracotta"
+        },
+        {
+          "Name": "minecraft:lime_terracotta"
+        },
+        {
+          "Name": "minecraft:green_terracotta"
+        },
+        {
+          "Name": "minecraft:cyan_terracotta"
+        },
+        {
+          "Name": "minecraft:light_blue_terracotta"
+        },
+        {
+          "Name": "minecraft:blue_terracotta"
+        },
+        {
+          "Name": "minecraft:purple_terracotta"
+        },
+        {
+          "Name": "minecraft:magenta_terracotta"
+        },
+        {
+          "Name": "minecraft:pink_terracotta"
+        }
+      ]
+    },
 
     "size": {
       "type": "minecraft:uniform",

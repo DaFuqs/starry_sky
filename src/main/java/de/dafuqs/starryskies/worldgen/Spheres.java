@@ -18,6 +18,7 @@ public class Spheres {
 	public static final Sphere<FluidCoreSphere.Config> FLUID_CORE = register("fluid_core", new FluidCoreSphere(FluidCoreSphere.Config.CODEC));
 	public static final Sphere<ShellCoreSphere.Config> SHELL_CORE = register("shell_core", new ShellCoreSphere(ShellCoreSphere.Config.CODEC));
 	public static final Sphere<MushroomSphere.Config> MUSHROOM = register("mushroom", new MushroomSphere(MushroomSphere.Config.CODEC));
+	public static final Sphere<HorizontalStackedSphere.Config> HORIZONTAL_STACKED = register("horizontal_stacked", new HorizontalStackedSphere(HorizontalStackedSphere.Config.CODEC));
 	
 	// Kind of specialized ones
 	public static final Sphere<GeodeSphere.Config> GEODE = register("geode", new GeodeSphere(GeodeSphere.Config.CODEC));
@@ -30,11 +31,6 @@ public class Spheres {
 	public static final Sphere<StrongholdSphere.Config> STRONGHOLD = register("stronghold", new StrongholdSphere(StrongholdSphere.Config.CODEC));
 	public static final Sphere<NetherFortressSphere.Config> NETHER_FORTRESS = register("nether_fortress", new NetherFortressSphere(NetherFortressSphere.Config.CODEC));
 	
-	/*
-	public static final Sphere<StackedHorizontalSphere.Config> STACKED_HORIZONTAL = register("stacked_horizontal", StackedHorizontalSphere.Config.CODEC);
-	public static final Sphere<RainbowSphere.Config> RAINBOW = register("rainbow", RainbowSphere.Config.CODEC);
-	public static final Sphere<ModularRainbowSphere.Config> MODULAR_RAINBOW = register("modular_rainbow", ModularRainbowSphere.Config.CODEC);*/
-
 	private static <C extends SphereConfig, F extends Sphere<C>> F register(String name, F feature) {
 		return Registry.register(StarryRegistries.SPHERE, StarrySkies.id(name), feature);
 	}

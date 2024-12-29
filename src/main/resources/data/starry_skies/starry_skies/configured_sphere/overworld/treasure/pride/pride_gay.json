@@ -1,0 +1,38 @@
+{
+  "type": "starry_skies:horizontal_stacked",
+  "config": {
+    "blocks": [
+      {
+        "Name": "minecraft:red_wool"
+      },
+      {
+        "Name": "minecraft:orange_wool"
+      },
+      {
+        "Name": "minecraft:yellow_wool"
+      },
+      {
+        "Name": "minecraft:green_wool"
+      },
+      {
+        "Name": "minecraft:cyan_wool"
+      },
+      {
+        "Name": "minecraft:purple_wool"
+      }
+    ],
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 16
+    },
+
+    "decorators": {},
+    "spawns": [],
+    "generation": {
+      "weight": 0.1,
+      "group": "starry_skies:overworld/decorative"
+    }
+  }
+}

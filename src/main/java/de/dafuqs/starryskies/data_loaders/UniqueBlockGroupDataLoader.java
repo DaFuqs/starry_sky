@@ -15,7 +15,7 @@ import java.util.*;
 
 public class UniqueBlockGroupDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
 	
-	public static final String LOCATION = "starry_skies/starry_skies/unique_block_group";
+	public static final String LOCATION = "starry_skies/unique_block_group";
 	public static final Identifier ID = StarrySkies.id(LOCATION);
 	public static final UniqueBlockGroupDataLoader INSTANCE = new UniqueBlockGroupDataLoader();
 	
