@@ -19,7 +19,7 @@
 
     "size": {
       "type": "minecraft:uniform",
-      "min_inclusive": 5,
+      "min_inclusive": 7,
       "max_exclusive": 15
     },
 
