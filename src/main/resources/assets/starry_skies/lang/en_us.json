@@ -25,6 +25,7 @@
   "text.autoconfig.StarrySky.option.systemSizeChunks": "System Size in Chunks",
 
   "commands.starry_skies.locate.sphere.success": "The nearest %s is at %s (%s blocks away)",
+  "commands.starry_skies.locate.sphere.noop": "Could not find a sphere within reasonable distance",
   "commands.starry_skies.locate.sphere.not_found": "Could not find a sphere of type \"%s\" within reasonable distance",
 
   "advancements.starry_skies.starry_skies.title": "Starry Skies",

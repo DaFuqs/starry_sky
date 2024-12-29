@@ -196,7 +196,7 @@ public class Support {
 			this.squaredDistance = squaredDistance;
 		}
 	}
-
+	
 	public record FailSoftMapCodec<K, V>(Codec<K> keyCodec,
 										 Codec<V> elementCodec) implements BaseMapCodec<K, V>, Codec<Map<K, V>> {
 

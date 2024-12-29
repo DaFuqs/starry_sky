@@ -26,16 +26,32 @@ public class ClosestSphereCommand {
 	public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess registryAccess) {
 		dispatcher.register(CommandManager.literal("starryskies_locate")
 				.requires((source) -> source.hasPermissionLevel(StarrySkies.CONFIG.sphereCommandRequiredPermissionLevel))
-				.executes((context -> execute(context.getSource(), null)))
+				.executes((context -> execute(context.getSource())))
 				.then(CommandManager.argument("sphere", RegistryEntryPredicateArgumentType.registryEntryPredicate(registryAccess, StarryRegistryKeys.CONFIGURED_SPHERE))
 						.executes(context -> execute(context.getSource(), RegistryEntryPredicateArgumentType.getRegistryEntryPredicate(context, "sphere", StarryRegistryKeys.CONFIGURED_SPHERE)))));
 	}
 	
+	private static int execute(ServerCommandSource source) {
+		BlockPos pos = BlockPos.ofFloored(source.getPosition());
+		Optional<Support.SphereDistance> result;
+		
+		result = Support.getClosestSphere(source.getWorld(), pos);
+		
+		if (result.isPresent()) {
+			source.sendFeedback(() -> Text.translatable(result.get().sphere.getDescription(source.getRegistryManager())), false);
+			return 0;
+		}
+		
+		source.sendFeedback(() -> Text.translatable("commands.starry_skies.locate.sphere.noop"), false);
+		return 1;
+	}
+	
 	private static int execute(ServerCommandSource source, RegistryEntryPredicateArgumentType.EntryPredicate<ConfiguredSphere<?, ?>> predicate) throws CommandSyntaxException {
 		BlockPos pos = BlockPos.ofFloored(source.getPosition());
+		Optional<Pair<BlockPos, RegistryEntry<ConfiguredSphere<?, ?>>>> result;
 		
 		Stopwatch stopwatch = Stopwatch.createStarted(Util.TICKER);
-		Optional<Pair<BlockPos, RegistryEntry<ConfiguredSphere<?, ?>>>> result = Support.getClosestSphere3x3(source.getWorld(), pos, predicate, source.getRegistryManager());
+		result = Support.getClosestSphere3x3(source.getWorld(), pos, predicate, source.getRegistryManager());
 		stopwatch.stop();
 		
 		if (result.isPresent()) {
@@ -44,6 +60,6 @@ public class ClosestSphereCommand {
 		
 		throw SPHERE_NOT_FOUND_EXCEPTION.create(predicate.asString());
 	}
-
-
+	
+	
 }
