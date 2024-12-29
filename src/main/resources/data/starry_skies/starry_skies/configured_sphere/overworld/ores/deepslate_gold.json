@@ -7,7 +7,10 @@
         "Name": "minecraft:deepslate_gold_ore"
       }
     },
-    "shell_block": "$starry_skies:deepslates",
+    "shell_block": {
+      "type": "starry_skies:weighted_block_group_state_provider",
+      "group": "deepslates"
+    },
     "core_radius": {
       "min_inclusive": 2,
       "max_exclusive": 4

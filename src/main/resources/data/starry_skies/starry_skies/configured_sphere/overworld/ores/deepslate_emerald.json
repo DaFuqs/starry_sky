@@ -12,7 +12,7 @@
       "state": {
         "Name": "minecraft:deepslate_emerald_ore"
       }
-    }
+    },
     "min_core_size": 1,
     "max_core_size": 3,
     "main_block": {

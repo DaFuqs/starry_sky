@@ -7,7 +7,10 @@
         "Name": "minecraft:emerald_ore"
       }
     },
-    "shell_block": "$starry_skies:mountain_stones",
+    "shell_block": {
+      "type": "starry_skies:weighted_block_group_state_provider",
+      "group": "mountain_stones"
+    },
     "core_radius": {
       "min_inclusive": 1,
       "max_exclusive": 3

@@ -1,7 +1,10 @@
 {
   "type": "starry_skies:core",
   "config": {
-    "core_block": "%starry_skies:calcite_starrite_ore",
+    "core_block": {
+      "type": "starry_skies:unique_block_group_state_provider",
+      "group": "calcite_starrite_ore"
+    },
     "shell_block": {
       "type": "minecraft:simple_state_provider",
       "state": {

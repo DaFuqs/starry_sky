@@ -7,7 +7,10 @@
         "Name": "minecraft:gold_ore"
       }
     },
-    "shell_block": "$starry_skies:stones",
+    "shell_block": {
+      "type": "starry_skies:weighted_block_group_state_provider",
+      "group": "stones"
+    },
     "core_radius": {
       "min_inclusive": 2,
       "max_exclusive": 4

@@ -8,8 +8,11 @@
       "state": {
         "Name": "minecraft:tnt"
       }
-    }
-    "main_block": "$starry_skies:stones",
+    },
+    "main_block": {
+      "type": "starry_skies:weighted_block_group_state_provider",
+      "group": "stones"
+    },
 
     "size": {
       "type": "minecraft:uniform",

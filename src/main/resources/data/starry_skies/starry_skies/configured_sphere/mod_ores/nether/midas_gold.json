@@ -1,8 +1,14 @@
 {
   "type": "starry_skies:core",
   "config": {
-    "core_block": "%starry_skies:midas_gold_ore",
-    "shell_block": "$starry_skies:nether_stones",
+    "core_block": {
+      "type": "starry_skies:unique_block_group_state_provider",
+      "group": "midas_gold_ore"
+    },
+    "shell_block": {
+      "type": "starry_skies:weighted_block_group_state_provider",
+      "group": "nether_stones"
+    },
     "core_radius": {
       "min_inclusive": 4,
       "max_exclusive": 7

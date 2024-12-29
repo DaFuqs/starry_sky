@@ -10,7 +10,10 @@
     "min_fill_amount": 0.25,
     "max_fill_amount": 0.9,
     "hole_in_bottom_chance": 0.5,
-    "shell_block": "$starry_skies:nether_glass",
+    "shell_block": {
+      "type": "starry_skies:weighted_block_group_state_provider",
+      "group": "nether_glass"
+    },
 
     "size": {
       "type": "minecraft:uniform",

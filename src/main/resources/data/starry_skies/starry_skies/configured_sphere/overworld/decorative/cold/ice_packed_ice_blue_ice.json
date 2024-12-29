@@ -24,7 +24,7 @@
       "state": {
         "Name": "minecraft:powder_snow"
       }
-    }
+    },
     "shell_thickness": {
       "type": "minecraft:uniform",
       "min_inclusive": 1,

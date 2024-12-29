@@ -24,7 +24,7 @@
       "state": {
         "Name": "cinderscapes:umbral_wart_block"
       }
-    }
+    },
     "shell_thickness": {
       "type": "minecraft:uniform",
       "min_inclusive": 2,

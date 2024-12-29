@@ -10,13 +10,16 @@
     "min_fill_amount": 0.5,
     "max_fill_amount": 1.0,
     "hole_in_bottom_chance": 0.25,
-    "shell_block": "$starry_skies:nether_stones",
+    "shell_block": {
+      "type": "starry_skies:weighted_block_group_state_provider",
+      "group": "nether_stones"
+    },
     "core_block": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "minecraft:bedrock"
       }
-    }
+    },
     "min_core_size": 2,
     "max_core_size": 5,
 

@@ -15,13 +15,13 @@
       "state": {
         "Name": "minecraft:ice"
       }
-    }
+    },
     "core_block": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "minecraft:packed_ice"
       }
-    }
+    },
     "min_core_size": 2,
     "max_core_size": 4,
 

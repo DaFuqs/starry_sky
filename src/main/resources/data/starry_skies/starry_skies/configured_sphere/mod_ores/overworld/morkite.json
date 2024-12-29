@@ -1,8 +1,14 @@
 {
   "type": "starry_skies:core",
   "config": {
-    "core_block": "%starry_skies:morkite_ore",
-    "shell_block": "$starry_skies:deepslates",
+    "core_block": {
+      "type": "starry_skies:unique_block_group_state_provider",
+      "group": "morkite_ore"
+    },
+    "shell_block": {
+      "type": "starry_skies:weighted_block_group_state_provider",
+      "group": "deepslates"
+    },
     "core_radius": {
       "min_inclusive": 6,
       "max_exclusive": 8
