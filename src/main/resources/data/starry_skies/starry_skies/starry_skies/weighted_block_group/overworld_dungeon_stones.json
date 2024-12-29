@@ -1,0 +1,17 @@
+{
+  "minecraft:mossy_cobblestone": 50,
+  "minecraft:infested_cobblestone": 5,
+  "minecraft:cobblestone": 5,
+  "minecraft:infested_stone": 5,
+  "minecraft:deepslate": 5,
+  "minecraft:cobbled_deepslate": 5,
+  "minecraft:infested_deepslate": 5,
+  "minecraft:stone": 2,
+  "minecraft:granite": 2,
+  "minecraft:diorite": 2,
+  "minecraft:andesite": 2,
+
+  "terrestria:mossy_basalt_cobblestone": 5,
+  "terrestria:basalt_cobblestone": 5,
+  "terrestria:basalt": 2
+}

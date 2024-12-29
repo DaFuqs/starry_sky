@@ -6,7 +6,7 @@ import net.minecraft.loot.*;
 import net.minecraft.registry.*;
 import net.minecraft.util.dynamic.*;
 
-record TreasureChestEntry(RegistryKey<LootTable> lootTable, Float chance) {
+public record TreasureChestEntry(RegistryKey<LootTable> lootTable, Float chance) {
 	public static final Codec<TreasureChestEntry> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 			RegistryKey.createCodec(RegistryKeys.LOOT_TABLE).fieldOf("loot_table").forGetter((t) -> t.lootTable),
 			Codecs.POSITIVE_FLOAT.fieldOf("chance").forGetter((t) -> t.chance)

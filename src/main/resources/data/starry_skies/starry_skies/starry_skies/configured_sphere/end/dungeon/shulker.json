@@ -1,13 +1,20 @@
 {
   "type": "starry_skies:dungeon",
   "config": {
-    "entity_type": "minecraft:enderman",
+    "entity_type": "minecraft:shulker",
+    "shell_block": {
+      "type": "starry_skies:weighted_block_group_state_provider",
+      "group": "end_dungeon_stones"
+    },
     "shell_thickness": {
       "type": "minecraft:uniform",
       "min_inclusive": 2,
-      "max_inclusive": 3
+      "max_exclusive": 3
     },
-    "shell_block": "$starry_skies:end_dungeon_stones",
+    "treasure_chest": {
+      "loot_table": "minecraft:chests/end_city_treasure",
+      "chance": 0.02
+    },
 
     "size": {
       "type": "minecraft:uniform",
@@ -18,7 +25,7 @@
     "decorators": {},
     "spawns": [],
     "generation": {
-      "weight": 20,
+      "weight": 1,
       "group": "starry_skies:end/dungeon"
     }
   }

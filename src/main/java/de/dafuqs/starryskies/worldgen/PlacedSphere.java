@@ -4,7 +4,6 @@ import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.registries.*;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
-import net.minecraft.command.argument.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.mob.*;
 import net.minecraft.loot.*;
@@ -109,21 +108,11 @@ public abstract class PlacedSphere<SC extends SphereConfig> /* implements Serial
 			return false;
 		}
 	}
-
+	
+	// TODO: this is not correct
 	protected boolean isAboveCaveFloorBlock(long d, double x, double y, double z, float shellRadius) {
 		int distance1 = (int) Math.round(Support.getDistance(this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ(), x, y - 1, z));
-		return d == (this.radius - shellRadius) && distance1 > (this.radius - shellRadius);
-	}
-
-	protected void setBlockResult(DynamicRegistryManager registryManager, Chunk chunk, BlockPos pos, BlockArgumentParser.BlockResult block) {
-		chunk.setBlockState(pos, block.blockState(), false);
-		if (block.blockState().getBlock() instanceof BlockEntityProvider blockEntityProvider) {
-			BlockEntity blockEntity = blockEntityProvider.createBlockEntity(pos, block.blockState());
-			if (blockEntity != null) {
-				chunk.setBlockEntity(blockEntity);
-				blockEntity.read(block.nbt(), registryManager);
-			}
-		}
+		return d < (this.radius - shellRadius) + 1 && distance1 > (this.radius - shellRadius);
 	}
 
 	protected void placeCenterChestWithLootTable(Chunk chunk, BlockPos blockPos, RegistryKey<LootTable> lootTable, Random random, boolean waterLogged) {

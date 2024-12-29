@@ -12,9 +12,5 @@
   "blockus:bluestone": 50,
   "terrestria:basalt": 50,
   "terrestria:basalt_cobblestone": 10,
-  "terrestria:mossy_basalt_cobblestone": 1,
-  "byg:red_rock": 25,
-  "byg:rocky_stone": 25,
-  "byg:scoria_stone": 25,
-  "byg:soapstone": 25
+  "terrestria:mossy_basalt_cobblestone": 1
 }

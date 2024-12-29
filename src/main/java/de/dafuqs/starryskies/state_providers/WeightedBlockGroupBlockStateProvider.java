@@ -25,6 +25,15 @@ public class WeightedBlockGroupBlockStateProvider extends BlockStateProvider {
 	
 	public BlockState get(Random random, BlockPos pos) {
 		Map<Block, Float> weightedBlocks = WeightedBlockGroupDataLoader.INSTANCE.get(group);
+		if (weightedBlocks == null) {
+			StarrySkies.LOGGER.warn("Trying to query a nonexistent WeightedBlockGroup: {}", group);
+			StarrySkies.LOGGER.error(Arrays.toString(Thread.currentThread().getStackTrace()));
+			return Blocks.AIR.getDefaultState();
+		} else if (weightedBlocks.isEmpty()) {
+			StarrySkies.LOGGER.warn("Trying to query an empty WeightedBlockGroup: {}", group);
+			StarrySkies.LOGGER.error(Arrays.toString(Thread.currentThread().getStackTrace()));
+			return Blocks.AIR.getDefaultState();
+		}
 		return Support.getWeightedRandom(weightedBlocks, random).getDefaultState();
 	}
 	

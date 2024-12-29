@@ -12,8 +12,9 @@ public class Spheres {
 	public static final Sphere<CoreSphere.Config> CORE = register("core", new CoreSphere(CoreSphere.Config.CODEC));
 	public static final Sphere<ModularSphere.Config> MODULAR = register("modular", new ModularSphere(ModularSphere.Config.CODEC));
 	public static final Sphere<CaveSphere.Config> CAVE = register("cave", new CaveSphere(CaveSphere.Config.CODEC));
+	public static final Sphere<DungeonSphere.Config> DUNGEON = register("dungeon", new DungeonSphere(DungeonSphere.Config.CODEC));
 	
-	/*public static final Sphere<DungeonSphere.Config> DUNGEON = register("dungeon", DungeonSphere.Config.CODEC);
+	/*
 	public static final Sphere<NetherFortressSphere.Config> NETHER_FORTRESS = register("nether_fortress", NetherFortressSphere.Config.CODEC);
 	public static final Sphere<GeodeSphere.Config> GEODE = register("geode", GeodeSphere.Config.CODEC);
 	public static final Sphere<CoralsSphere.Config> CORALS = register("corals", CoralsSphere.Config.CODEC);

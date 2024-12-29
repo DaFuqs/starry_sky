@@ -1,0 +1,32 @@
+{
+  "type": "starry_skies:dungeon",
+  "config": {
+    "entity_type": "minecraft:husk",
+    "shell_block": {
+      "type": "starry_skies:weighted_block_group_state_provider",
+      "group": "overworld_dungeon_stones"
+    },
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 2,
+      "max_exclusive": 3
+    },
+    "treasure_chest": {
+      "loot_table": "minecraft:chests/simple_dungeon",
+      "chance": 0.02
+    },
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 6,
+      "max_exclusive": 11
+    },
+
+    "decorators": {},
+    "spawns": [],
+    "generation": {
+      "weight": 1.5,
+      "group": "starry_skies:overworld/decorative"
+    }
+  }
+}

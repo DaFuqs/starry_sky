@@ -5,8 +5,8 @@ import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.worldgen.*;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.*;
 import net.minecraft.entity.*;
-import net.minecraft.loot.*;
 import net.minecraft.registry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
@@ -14,48 +14,44 @@ import net.minecraft.util.math.floatprovider.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.chunk.*;
 import net.minecraft.world.gen.stateprovider.*;
-import org.jetbrains.annotations.*;
 
 import java.util.*;
 
-public class CaveSphere extends Sphere<CaveSphere.Config> {
+public class DungeonSphere extends Sphere<DungeonSphere.Config> {
 	
-	public CaveSphere(Codec<CaveSphere.Config> codec) {
+	public DungeonSphere(Codec<DungeonSphere.Config> codec) {
 		super(codec);
 	}
 	
 	@Override
-	public PlacedSphere<?> generate(ConfiguredSphere<? extends Sphere<CaveSphere.Config>, Config> configuredSphere, Config config, ChunkRandom random, DynamicRegistryManager registryManager) {
-		@Nullable RegistryKey<LootTable> lootTable = null;
-		if (config.treasureEntry.isPresent() && random.nextLong() < config.treasureEntry.get().chance()) {
-			lootTable = config.treasureEntry.get().lootTable();
-		}
-		
-		return new CaveSphere.Placed(configuredSphere, configuredSphere.getSize(random), configuredSphere.getDecorators(random), configuredSphere.getSpawns(random), random,
-				config.shellBlock, config.topBlock.orElseGet(() -> config.shellBlock), config.bottomBlock.orElseGet(() -> config.shellBlock), config.caveFloorBlock.orElseGet(() -> config.shellBlock), config.shellThickness.get(random), lootTable);
+	public PlacedSphere<?> generate(ConfiguredSphere<? extends Sphere<DungeonSphere.Config>, Config> configuredSphere, Config config, ChunkRandom random, DynamicRegistryManager registryManager) {
+		return new DungeonSphere.Placed(configuredSphere, configuredSphere.getSize(random), configuredSphere.getDecorators(random), configuredSphere.getSpawns(random), random,
+				config.shellBlock, config.topBlock.orElseGet(() -> config.shellBlock), config.bottomBlock.orElseGet(() -> config.shellBlock), config.caveFloorBlock.orElseGet(() -> config.shellBlock), config.shellThickness.get(random), config.treasureEntry, Registries.ENTITY_TYPE.get(config.entityType));
 	}
 	
 	public static class Config extends SphereConfig {
 		
-		public static final Codec<CaveSphere.Config> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+		public static final Codec<DungeonSphere.Config> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 				SphereConfig.CONFIG_CODEC.forGetter((config) -> config),
 				BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter((config) -> config.shellBlock),
 				BlockStateProvider.TYPE_CODEC.optionalFieldOf("top_block").forGetter((config) -> config.topBlock),
 				BlockStateProvider.TYPE_CODEC.optionalFieldOf("bottom_block").forGetter((config) -> config.bottomBlock),
 				BlockStateProvider.TYPE_CODEC.optionalFieldOf("cave_floor_block").forGetter((config) -> config.bottomBlock),
 				FloatProvider.createValidatedCodec(1.0F, 32.0F).fieldOf("shell_thickness").forGetter((config) -> config.shellThickness),
-				TreasureChestEntry.CODEC.optionalFieldOf("treasure_chest").forGetter((config) -> config.treasureEntry)
-		).apply(instance, (sphereConfig, shellBlock, topBlock, bottomBlock, caveFloorBlock, shellRadius, treasureEntry) -> new Config(sphereConfig.size, sphereConfig.decorators, sphereConfig.spawns, sphereConfig.generation, shellBlock, topBlock, bottomBlock, caveFloorBlock, shellRadius, treasureEntry)));
+				TreasureChestEntry.CODEC.fieldOf("treasure_chest").forGetter((config) -> config.treasureEntry),
+				RegistryKey.createCodec(RegistryKeys.ENTITY_TYPE).fieldOf("entity_type").forGetter((config) -> config.entityType)
+		).apply(instance, (sphereConfig, shellBlock, topBlock, bottomBlock, caveFloorBlock, shellRadius, treasureEntry, entityType) -> new DungeonSphere.Config(sphereConfig.size, sphereConfig.decorators, sphereConfig.spawns, sphereConfig.generation, shellBlock, topBlock, bottomBlock, caveFloorBlock, shellRadius, treasureEntry, entityType)));
 		
 		private final BlockStateProvider shellBlock;
 		private final Optional<BlockStateProvider> topBlock;
 		private final Optional<BlockStateProvider> bottomBlock;
 		private final Optional<BlockStateProvider> caveFloorBlock;
 		private final FloatProvider shellThickness;
-		private final Optional<TreasureChestEntry> treasureEntry;
+		private final TreasureChestEntry treasureEntry;
+		private final RegistryKey<EntityType<?>> entityType;
 		
 		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, BlockStateProvider shellBlock,
-					  Optional<BlockStateProvider> topBlock, Optional<BlockStateProvider> bottomBlock, Optional<BlockStateProvider> caveFloorBlock, FloatProvider shellThickness, Optional<TreasureChestEntry> treasureEntry) {
+					  Optional<BlockStateProvider> topBlock, Optional<BlockStateProvider> bottomBlock, Optional<BlockStateProvider> caveFloorBlock, FloatProvider shellThickness, TreasureChestEntry treasureEntry, RegistryKey<EntityType<?>> entityType) {
 			super(size, decorators, spawns, generation);
 			
 			this.shellBlock = shellBlock;
@@ -64,12 +60,14 @@ public class CaveSphere extends Sphere<CaveSphere.Config> {
 			this.caveFloorBlock = caveFloorBlock;
 			this.shellThickness = shellThickness;
 			this.treasureEntry = treasureEntry;
+			this.entityType = entityType;
 		}
 		
 	}
 	
-	public static class Placed extends PlacedSphere<CaveSphere.Config> {
+	public static class Placed extends PlacedSphere<DungeonSphere.Config> {
 		
+		private static final BlockState CHEST_STATE = Blocks.CHEST.getDefaultState();
 		private static final BlockState CORE_STATE = Blocks.CAVE_AIR.getDefaultState();
 		
 		private final BlockStateProvider shellBlock;
@@ -77,17 +75,19 @@ public class CaveSphere extends Sphere<CaveSphere.Config> {
 		private final BlockStateProvider bottomBlock;
 		private final BlockStateProvider caveFloorBlock;
 		private final float shellThickness;
-		private final @Nullable RegistryKey<LootTable> chestLootTable;
+		private final EntityType<?> entityType;
+		private final TreasureChestEntry treasureEntry;
 		
 		public Placed(ConfiguredSphere<? extends Sphere<Config>, Config> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
-					  BlockStateProvider shellBlock, BlockStateProvider topBlock, BlockStateProvider bottomBlock, BlockStateProvider caveFloorBlock, float shellRadius, @Nullable RegistryKey<LootTable> chestLootTable) {
+					  BlockStateProvider shellBlock, BlockStateProvider topBlock, BlockStateProvider bottomBlock, BlockStateProvider caveFloorBlock, float shellRadius, TreasureChestEntry treasureEntry, EntityType<?> entityType) {
 			super(configuredSphere, radius, decorators, spawns, random);
 			this.shellBlock = shellBlock;
 			this.topBlock = topBlock;
 			this.bottomBlock = bottomBlock;
 			this.caveFloorBlock = caveFloorBlock;
 			this.shellThickness = shellRadius;
-			this.chestLootTable = chestLootTable;
+			this.treasureEntry = treasureEntry;
+			this.entityType = entityType;
 		}
 		
 		@Override
@@ -103,8 +103,6 @@ public class CaveSphere extends Sphere<CaveSphere.Config> {
 			int maxX = Math.min(chunkX * 16 + 15, x + ceiledRadius);
 			int maxZ = Math.min(chunkZ * 16 + 15, z + ceiledRadius);
 			
-			boolean hasChest = this.chestLootTable != null;
-			
 			BlockPos.Mutable currBlockPos = new BlockPos.Mutable();
 			for (int x2 = Math.max(chunkX * 16, x - ceiledRadius); x2 <= maxX; x2++) {
 				for (int y2 = y - ceiledRadius; y2 <= y + ceiledRadius; y2++) {
@@ -115,22 +113,28 @@ public class CaveSphere extends Sphere<CaveSphere.Config> {
 						}
 						currBlockPos.set(x2, y2, z2);
 						
-						if (d > this.radius - 1) {
-							if (bottomBlock != null && isBottomBlock(d, x2, y2, z2)) {
+						if (d == 0) {
+							chunk.setBlockState(currBlockPos, Blocks.SPAWNER.getDefaultState(), false);
+							chunk.setBlockEntity(new MobSpawnerBlockEntity(currBlockPos, Blocks.SPAWNER.getDefaultState()));
+							if (chunk.getBlockEntity(currBlockPos) instanceof MobSpawnerBlockEntity mobSpawnerBlockEntity) {
+								mobSpawnerBlockEntity.getLogic().setEntityId(this.entityType, null, random, currBlockPos);
+							}
+						} else if (isAboveCaveFloorBlock(d, x2, y2, z2, shellThickness)) {
+							if (random.nextFloat() < treasureEntry.chance()) {
+								chunk.setBlockState(currBlockPos, CHEST_STATE, false);
+								chunk.setBlockEntity(new ChestBlockEntity(currBlockPos, CHEST_STATE));
+								if (chunk.getBlockEntity(currBlockPos) instanceof ChestBlockEntity chestBlockEntity) {
+									chestBlockEntity.setLootTable(treasureEntry.lootTable(), random.nextLong());
+								}
+							}
+							chunk.setBlockState(currBlockPos.down(), this.caveFloorBlock.get(random, currBlockPos), false);
+						} else if (d > this.radius - 1) {
+							if (isBottomBlock(d, x2, y2, z2)) {
 								chunk.setBlockState(currBlockPos, this.bottomBlock.get(random, currBlockPos), false);
-							} else if (topBlock != null && isTopBlock(d, x2, y2, z2)) {
+							} else if (isTopBlock(d, x2, y2, z2)) {
 								chunk.setBlockState(currBlockPos, this.topBlock.get(random, currBlockPos), false);
 							} else {
 								chunk.setBlockState(currBlockPos, this.shellBlock.get(random, currBlockPos), false);
-							}
-						} else if (isAboveCaveFloorBlock(d, x2, y2, z2, shellThickness)) {
-							if (this.caveFloorBlock == null) {
-								chunk.setBlockState(currBlockPos.down(), this.shellBlock.get(random, currBlockPos), false);
-							} else {
-								chunk.setBlockState(currBlockPos.down(), this.caveFloorBlock.get(random, currBlockPos), false);
-							}
-							if (hasChest && x2 - x == 0 && z2 - z == 0) {
-								placeCenterChestWithLootTable(chunk, currBlockPos, chestLootTable, random, false);
 							}
 						} else if (d <= this.radius - this.shellThickness) {
 							chunk.setBlockState(currBlockPos, CORE_STATE, false);
@@ -144,15 +148,13 @@ public class CaveSphere extends Sphere<CaveSphere.Config> {
 		
 		@Override
 		public String getDescription(DynamicRegistryManager registryManager) {
-			return "+++ CaveSphere +++" +
+			return "+++ DungeonSphere +++" +
 					"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
 					"\nTemplateID: " + this.getID(registryManager) +
 					"\nRadius: " + this.radius +
 					"\nShellBlock: " + this.shellBlock +
-					"\nShellThickness: " + this.shellThickness +
-					"\nCaveFloorBlock: " + this.caveFloorBlock +
-					"\nTopBlock: " + this.topBlock +
-					"\nBottomBlock: " + this.bottomBlock;
+					"\nShellRadius: " + this.shellThickness +
+					"\nEntityType: " + this.entityType.getName();
 		}
 	}
 	
