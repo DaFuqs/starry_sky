@@ -24,7 +24,8 @@
   "text.autoconfig.StarrySky.option.systemSizeChunks.@Tooltip": "How many big each system should be in chunks²",
   "text.autoconfig.StarrySky.option.systemSizeChunks": "System Size in Chunks",
 
-  "commands.starry_skies.locate.fail": "Could not determine closest sphere. :(",
+  "commands.starry_skies.locate.sphere.success": "The nearest %s is at %s (%s blocks away)",
+  "commands.starry_skies.locate.sphere.not_found": "Could not find a sphere of type \"%s\" within reasonable distance",
 
   "advancements.starry_skies.starry_skies.title": "Starry Skies",
   "advancements.starry_skies.starry_skies.description": "Enter the Starry Sky dimension",

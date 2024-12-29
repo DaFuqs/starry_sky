@@ -8,6 +8,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.mob.*;
 import net.minecraft.loot.*;
 import net.minecraft.registry.*;
+import net.minecraft.registry.entry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
@@ -38,6 +39,10 @@ public abstract class PlacedSphere<SC extends SphereConfig> /* implements Serial
 	
 	public Optional<RegistryKey<ConfiguredSphere<?, ?>>> getRegistryKey(DynamicRegistryManager registryManager) {
 		return registryManager.get(StarryRegistryKeys.CONFIGURED_SPHERE).getKey(this.configuredSphere);
+	}
+	
+	public RegistryEntry<ConfiguredSphere<?, ?>> getRegistryEntry(DynamicRegistryManager registryManager) {
+		return registryManager.get(StarryRegistryKeys.CONFIGURED_SPHERE).getEntry(this.configuredSphere);
 	}
 
 	public Identifier getID(DynamicRegistryManager registryManager) {

@@ -90,7 +90,7 @@ public class StarrySkyChunkGenerator extends ChunkGenerator {
 		ChunkRandom chunkRandom = new ChunkRandom(new CheckedRandom(RandomSeed.getSeed()));
 		chunkRandom.setPopulationSeed(chunkRegion.getSeed(), chunkPos.getStartX(), chunkPos.getStartZ());
 		SpawnHelper.populateEntities(chunkRegion, biome, chunkPos, chunkRandom);
-
+		
 		for (PlacedSphere<?> sphere : systemGenerator.value().getSystem(chunkRegion.toServerWorld(), chunkRegion.getSeed(), chunkPos.x, chunkPos.z)) {
 			sphere.populateEntities(chunkPos, chunkRegion, chunkRandom);
 		}
