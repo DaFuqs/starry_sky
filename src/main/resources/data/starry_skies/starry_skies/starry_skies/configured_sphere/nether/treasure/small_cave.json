@@ -1,0 +1,42 @@
+{
+  "type": "starry_skies:cave",
+  "config": {
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 2,
+      "max_exclusive": 5
+    },
+    "cave_floor_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:crimson_nylium"
+      }
+    },
+    "shell_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:netherrack"
+      }
+    },
+    "treasure_chest": {
+      "loot_table": "minecraft/chests/ruined_portal",
+      "chance": 0.5
+    },
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 10,
+      "max_exclusive": 15
+    },
+
+    "decorators": {
+      "starry_skies:red_mushrooms": 0.3,
+      "starry_skies:brown_mushrooms": 0.3
+    },
+    "spawns": [],
+    "generation": {
+      "weight": 5.0,
+      "group": "starry_skies:nether/treasure"
+    }
+  }
+}

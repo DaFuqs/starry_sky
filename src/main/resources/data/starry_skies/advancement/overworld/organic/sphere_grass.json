@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "id": "minecraft:short_grass"
+      "id": "minecraft:grass_block"
     },
     "title": {
       "translate": "advancements.starry_skies.sphere_grass.title"
