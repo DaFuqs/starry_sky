@@ -1,28 +1,25 @@
 {
   "type": "starry_skies:corals",
   "config": {
-
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 10,
-      "max_exclusive": 20
+    "hole_in_bottom_chance": 0.5,
+    "shell_block": {
+      "type": "starry_skies:weighted_block_group_state_provider",
+      "group": "glasses"
     },
-    "hole_in_bottom_chance": 0.25,
     "shell_thickness": {
       "type": "minecraft:uniform",
       "min_inclusive": 1,
       "max_inclusive": 2
     },
-    "shell_block": {
-      "minecraft:stone": 5,
-      "minecraft:deepslate": 2,
-      "minecraft:granite": 1,
-      "minecraft:diorite": 1,
-      "minecraft:andesite": 1
-    },
     "treasure_chest": {
       "loot_table": "minecraft:chests/buried_treasure",
       "chance": 0.5
+    },
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 10,
+      "max_exclusive": 20
     },
 
     "decorators": {},

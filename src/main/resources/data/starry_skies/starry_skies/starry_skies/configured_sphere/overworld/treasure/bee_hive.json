@@ -6,10 +6,16 @@
       "min_inclusive": 3,
       "max_inclusive": 5
     },
-    "min_flower_ring_size": 2,
-    "max_flower_ring_size": 3,
-    "min_flower_ring_spacing": 2,
-    "max_flower_ring_spacing": 3,
+    "flower_ring_radius": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 2,
+      "max_inclusive": 3
+    },
+    "flower_ring_spacing": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 2,
+      "max_inclusive": 3
+    },
 
     "size": {
       "type": "minecraft:uniform",

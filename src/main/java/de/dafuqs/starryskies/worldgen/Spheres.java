@@ -19,6 +19,11 @@ public class Spheres {
 	public static final Sphere<ShellCoreSphere.Config> SHELL_CORE = register("shell_core", new ShellCoreSphere(ShellCoreSphere.Config.CODEC));
 	public static final Sphere<MushroomSphere.Config> MUSHROOM = register("mushroom", new MushroomSphere(MushroomSphere.Config.CODEC));
 	
+	// Kind of specialized ones
+	public static final Sphere<GeodeSphere.Config> GEODE = register("geode", new GeodeSphere(GeodeSphere.Config.CODEC));
+	public static final Sphere<CoralsSphere.Config> CORALS = register("corals", new CoralsSphere(CoralsSphere.Config.CODEC));
+	public static final Sphere<BeeHiveSphere.Config> BEE_HIVE = register("bee_hive", new BeeHiveSphere(BeeHiveSphere.Config.CODEC));
+	
 	// Structures
 	public static final Sphere<OceanMonumentSphere.Config> OCEAN_MONUMENT = register("ocean_monument", new OceanMonumentSphere(OceanMonumentSphere.Config.CODEC));
 	public static final Sphere<EndCitySphere.Config> END_CITY = register("end_city", new EndCitySphere(EndCitySphere.Config.CODEC));
@@ -26,10 +31,7 @@ public class Spheres {
 	public static final Sphere<NetherFortressSphere.Config> NETHER_FORTRESS = register("nether_fortress", new NetherFortressSphere(NetherFortressSphere.Config.CODEC));
 	
 	/*
-	public static final Sphere<GeodeSphere.Config> GEODE = register("geode", GeodeSphere.Config.CODEC);
-	public static final Sphere<CoralsSphere.Config> CORALS = register("corals", CoralsSphere.Config.CODEC);
 	public static final Sphere<StackedHorizontalSphere.Config> STACKED_HORIZONTAL = register("stacked_horizontal", StackedHorizontalSphere.Config.CODEC);
-	public static final Sphere<BeeHiveSphere.Config> BEE_HIVE = register("bee_hive", BeeHiveSphere.Config.CODEC);
 	public static final Sphere<RainbowSphere.Config> RAINBOW = register("rainbow", RainbowSphere.Config.CODEC);
 	public static final Sphere<ModularRainbowSphere.Config> MODULAR_RAINBOW = register("modular_rainbow", ModularRainbowSphere.Config.CODEC);*/
 

@@ -98,14 +98,12 @@ public class ShellSphere extends Sphere<ShellSphere.Config> {
 		
 		@Override
 		public String getDescription(DynamicRegistryManager registryManager) {
-			StringBuilder s = new StringBuilder("+++ ShellSphere +++" +
+			return "+++ ShellSphere +++" +
 					"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
 					"\nTemplateID: " + this.getID(registryManager) +
 					"\nRadius: " + this.radius +
 					"\nShell: " + this.shellBlock.toString() + " (Radius: " + this.shellRadius + ")" +
-					"\nCore: " + this.innerBlock.toString());
-			
-			return s.toString();
+					"\nCore: " + this.innerBlock.toString();
 		}
 	}
 	

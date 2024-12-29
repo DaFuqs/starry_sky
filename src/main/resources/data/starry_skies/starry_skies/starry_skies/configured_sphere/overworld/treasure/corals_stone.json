@@ -1,0 +1,32 @@
+{
+  "type": "starry_skies:corals",
+  "config": {
+    "hole_in_bottom_chance": 0.25,
+    "shell_block": {
+      "type": "starry_skies:weighted_block_group_state_provider",
+      "group": "stones"
+    },
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 1,
+      "max_inclusive": 2
+    },
+    "treasure_chest": {
+      "loot_table": "minecraft:chests/buried_treasure",
+      "chance": 0.5
+    },
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 10,
+      "max_exclusive": 20
+    },
+
+    "decorators": {},
+    "spawns": [],
+    "generation": {
+      "weight": 1.0,
+      "group": "starry_skies:overworld/treasure"
+    }
+  }
+}
