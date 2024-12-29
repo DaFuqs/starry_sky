@@ -1,10 +1,17 @@
 {
   "type": "starry_skies:core",
   "config": {
-    "core_block": "cinderscapes:smoky_quartz_ore",
-    "min_core_size": 2,
-    "max_core_size": 4,
-    "main_block": "$starry_skies:nether_stones",
+    "core_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "cinderscapes:smoky_quartz_ore"
+      }
+    },
+    "shell_block": "$starry_skies:nether_stones",
+    "core_radius": {
+      "min_inclusive": 2,
+      "max_exclusive": 4
+    },
 
     "size": {
       "type": "minecraft:uniform",

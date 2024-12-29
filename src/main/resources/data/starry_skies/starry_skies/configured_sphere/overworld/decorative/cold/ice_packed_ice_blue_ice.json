@@ -1,13 +1,35 @@
 {
   "type": "starry_skies:shell_core",
   "config": {
-    "main_block": "minecraft:ice",
-    "core_block": "minecraft:packed_ice",
-    "min_core_size": 2,
-    "max_core_size": 3,
-    "shell_block": "minecraft:powder_snow",
-    "min_shell_size": 1,
-    "max_shell_size": 3,
+    "core_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:packed_ice"
+      }
+    },
+    "shell_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:ice"
+      }
+    },
+    "core_radius": {
+      "min_inclusive": minecraft
+      :
+      packed_ice,
+      "max_exclusive": 2
+    },
+    "shell_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:powder_snow"
+      }
+    }
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 1,
+      "max_inclusive": 3
+    },
 
     "size": {
       "type": "minecraft:uniform",

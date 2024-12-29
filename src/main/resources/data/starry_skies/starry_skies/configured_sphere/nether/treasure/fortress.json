@@ -1,8 +1,11 @@
 {
   "type": "starry_skies:nether_fortress",
   "config": {
-    "min_shell_size": 4,
-    "max_shell_size": 6,
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 4,
+      "max_inclusive": 6
+    },
 
     "size": {
       "type": "minecraft:uniform",

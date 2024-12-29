@@ -2,9 +2,11 @@
   "type": "starry_skies:core",
   "config": {
     "core_block": "%starry_skies:deepslate_lead_ore",
-    "min_core_size": 4,
-    "max_core_size": 6,
-    "main_block": "$starry_skies:deepslates",
+    "shell_block": "$starry_skies:deepslates",
+    "core_radius": {
+      "min_inclusive": 4,
+      "max_exclusive": 6
+    },
 
     "size": {
       "type": "minecraft:uniform",

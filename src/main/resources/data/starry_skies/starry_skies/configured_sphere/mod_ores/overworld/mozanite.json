@@ -2,9 +2,11 @@
   "type": "starry_skies:core",
   "config": {
     "core_block": "%starry_skies:mozanite_ore",
-    "min_core_size": 1,
-    "max_core_size": 2,
-    "main_block": "$starry_skies:dungeon_stones",
+    "shell_block": "$starry_skies:dungeon_stones",
+    "core_radius": {
+      "min_inclusive": 1,
+      "max_exclusive": 2
+    },
 
     "size": {
       "type": "minecraft:uniform",

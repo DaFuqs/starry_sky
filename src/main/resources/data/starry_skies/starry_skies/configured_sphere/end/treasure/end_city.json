@@ -1,8 +1,11 @@
 {
   "type": "starry_skies:end_city",
   "config": {
-    "min_shell_size": 3,
-    "max_shell_size": 5,
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 3,
+      "max_inclusive": 5
+    },
 
     "size": {
       "type": "minecraft:uniform",

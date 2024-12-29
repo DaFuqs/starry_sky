@@ -3,8 +3,11 @@
   "config": {
     "min_core_size": 3,
     "max_core_size": 5,
-    "min_shell_size": 2,
-    "max_shell_size": 3,
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 2,
+      "max_inclusive": 3
+    },
 
     "size": {
       "type": "minecraft:uniform",

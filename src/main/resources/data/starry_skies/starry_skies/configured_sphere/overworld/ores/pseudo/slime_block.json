@@ -3,7 +3,12 @@
   "config": {
     "min_core_size": 2,
     "max_core_size": 4,
-    "core_block": "minecraft:slime_block",
+    "core_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:slime_block"
+      }
+    }
     "main_block": "$starry_skies:stones",
 
     "size": {

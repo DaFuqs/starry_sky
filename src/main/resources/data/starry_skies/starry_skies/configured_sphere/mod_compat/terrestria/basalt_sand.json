@@ -1,8 +1,18 @@
 {
   "type": "starry_skies:modular",
   "config": {
-    "main_block": "terrestria:basalt_sand",
-    "bottom_block": "terrestria:basalt_cobblestone",
+    "main_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "terrestria:basalt_sand"
+      }
+    },
+    "bottom_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "terrestria:basalt_cobblestone"
+      }
+    },
 
     "size": {
       "type": "minecraft:uniform",

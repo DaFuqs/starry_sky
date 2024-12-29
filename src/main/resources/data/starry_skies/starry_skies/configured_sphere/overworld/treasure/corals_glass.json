@@ -8,8 +8,11 @@
       "max_exclusive": 20
     },
     "hole_in_bottom_chance": 0.25,
-    "min_shell_size": 1,
-    "max_shell_size": 2,
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 1,
+      "max_inclusive": 2
+    },
     "shell_block": {
       "minecraft:glass": 100,
       "minecraft:black_stained_glass": 1,

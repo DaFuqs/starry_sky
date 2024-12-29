@@ -1,8 +1,18 @@
 {
   "type": "starry_skies:modular",
   "config": {
-    "main_block": "terrestria:basalt_dirt",
-    "top_block": "terrestria:basalt_grass_block",
+    "main_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "terrestria:basalt_dirt"
+      }
+    },
+    "top_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "terrestria:basalt_grass_block"
+      }
+    },
 
     "size": {
       "type": "minecraft:uniform",

@@ -8,8 +8,11 @@
       "max_exclusive": 11
     },
     "entity_type": "minecraft:spider",
-    "min_shell_size": 2,
-    "max_shell_size": 3,
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 2,
+      "max_inclusive": 3
+    },
     "shell_block": {
       "minecraft:mossy_cobblestone": 50,
       "minecraft:infested_cobblestone": 5,

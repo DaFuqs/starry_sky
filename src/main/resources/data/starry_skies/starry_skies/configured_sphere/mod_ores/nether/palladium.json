@@ -2,9 +2,11 @@
   "type": "starry_skies:core",
   "config": {
     "core_block": "%starry_skies:palladium_ore",
-    "min_core_size": 2,
-    "max_core_size": 3,
-    "main_block": "$starry_skies:nether_stones",
+    "shell_block": "$starry_skies:nether_stones",
+    "core_radius": {
+      "min_inclusive": 2,
+      "max_exclusive": 3
+    },
 
     "size": {
       "type": "minecraft:uniform",

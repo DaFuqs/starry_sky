@@ -1,13 +1,35 @@
 {
   "type": "starry_skies:shell_core",
   "config": {
-    "main_block": "cinderscapes:umbral_stem",
-    "core_block": "cinderscapes:umbral_flesh_block",
-    "min_core_size": 2,
-    "max_core_size": 4,
-    "shell_block": "cinderscapes:umbral_wart_block",
-    "min_shell_size": 2,
-    "max_shell_size": 4,
+    "core_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "cinderscapes:umbral_flesh_block"
+      }
+    },
+    "shell_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "cinderscapes:umbral_stem"
+      }
+    },
+    "core_radius": {
+      "min_inclusive": cinderscapes
+      :
+      umbral_flesh_block,
+      "max_exclusive": 2
+    },
+    "shell_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "cinderscapes:umbral_wart_block"
+      }
+    }
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 2,
+      "max_inclusive": 4
+    },
 
     "size": {
       "type": "minecraft:uniform",

@@ -2,13 +2,21 @@
   "type": "starry_skies:fluid_core",
   "config": {
     "fluid": "minecraft:lava",
-    "min_shell_size": 2,
-    "max_shell_size": 5,
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 2,
+      "max_inclusive": 5
+    },
     "min_fill_amount": 0.5,
     "max_fill_amount": 1.0,
     "hole_in_bottom_chance": 0.25,
     "shell_block": "$starry_skies:nether_stones",
-    "core_block": "minecraft:obsidian",
+    "core_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:obsidian"
+      }
+    }
     "min_core_size": 2,
     "max_core_size": 5,
 

@@ -2,9 +2,11 @@
   "type": "starry_skies:core",
   "config": {
     "core_block": "%starry_skies:stormyx_ore",
-    "min_core_size": 4,
-    "max_core_size": 7,
-    "main_block": "$starry_skies:nether_stones",
+    "shell_block": "$starry_skies:nether_stones",
+    "core_radius": {
+      "min_inclusive": 4,
+      "max_exclusive": 7
+    },
 
     "size": {
       "type": "minecraft:uniform",

@@ -2,8 +2,11 @@
   "type": "starry_skies:dungeon",
   "config": {
     "entity_type": "minecraft:magma_cube",
-    "min_shell_size": 2,
-    "max_shell_size": 4,
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 2,
+      "max_inclusive": 4
+    },
     "shell_block": "$starry_skies:nether_dungeon_stones",
 
     "size": {

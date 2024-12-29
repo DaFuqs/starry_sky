@@ -1,10 +1,17 @@
 {
   "type": "starry_skies:core",
   "config": {
-    "core_block": "minecraft:emerald_ore",
-    "min_core_size": 1,
-    "max_core_size": 3,
-    "main_block": "$starry_skies:mountain_stones",
+    "core_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:emerald_ore"
+      }
+    },
+    "shell_block": "$starry_skies:mountain_stones",
+    "core_radius": {
+      "min_inclusive": 1,
+      "max_exclusive": 3
+    },
 
     "size": {
       "type": "minecraft:uniform",

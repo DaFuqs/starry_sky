@@ -2,9 +2,11 @@
   "type": "starry_skies:core",
   "config": {
     "core_block": "%starry_skies:deepslate_sapphire_ore",
-    "min_core_size": 3,
-    "max_core_size": 4,
-    "main_block": "$starry_skies:deepslates",
+    "shell_block": "$starry_skies:deepslates",
+    "core_radius": {
+      "min_inclusive": 3,
+      "max_exclusive": 4
+    },
 
     "size": {
       "type": "minecraft:uniform",

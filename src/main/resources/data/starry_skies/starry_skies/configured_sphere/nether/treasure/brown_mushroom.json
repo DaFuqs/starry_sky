@@ -3,8 +3,11 @@
   "config": {
     "mushroom_block": "minecraft:brown_mushroom_block",
     "stem_block": "minecraft:mushroom_stem",
-    "min_shell_size": 2,
-    "max_shell_size": 3,
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 2,
+      "max_inclusive": 3
+    },
 
     "size": {
       "type": "minecraft:uniform",

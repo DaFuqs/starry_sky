@@ -2,9 +2,11 @@
   "type": "starry_skies:core",
   "config": {
     "core_block": "%starry_skies:zinc_ore",
-    "min_core_size": 5,
-    "max_core_size": 6,
-    "main_block": "$starry_skies:stones",
+    "shell_block": "$starry_skies:stones",
+    "core_radius": {
+      "min_inclusive": 5,
+      "max_exclusive": 6
+    },
 
     "size": {
       "type": "minecraft:uniform",

@@ -2,8 +2,11 @@
   "type": "starry_skies:fluid",
   "config": {
     "fluid": "minecraft:lava",
-    "min_shell_size": 1,
-    "max_shell_size": 3,
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 1,
+      "max_inclusive": 3
+    },
     "min_fill_amount": 0.25,
     "max_fill_amount": 0.9,
     "hole_in_bottom_chance": 0.25,

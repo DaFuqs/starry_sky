@@ -2,9 +2,16 @@
   "type": "starry_skies:core",
   "config": {
     "core_block": "%starry_skies:nether_banglum_ore",
-    "min_core_size": 1,
-    "max_core_size": 2,
-    "main_block": "minecraft:netherrack",
+    "shell_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:netherrack"
+      }
+    },
+    "core_radius": {
+      "min_inclusive": 1,
+      "max_exclusive": 2
+    },
 
     "size": {
       "type": "minecraft:uniform",

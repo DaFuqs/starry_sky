@@ -2,9 +2,11 @@
   "type": "starry_skies:core",
   "config": {
     "core_block": "%starry_skies:tungsten_ore",
-    "min_core_size": 3,
-    "max_core_size": 5,
-    "main_block": "$starry_skies:end_stones",
+    "shell_block": "$starry_skies:end_stones",
+    "core_radius": {
+      "min_inclusive": 3,
+      "max_exclusive": 5
+    },
 
     "size": {
       "type": "minecraft:uniform",

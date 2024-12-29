@@ -1,8 +1,11 @@
 {
   "type": "starry_skies:bee_hive",
   "config": {
-    "min_shell_size": 3,
-    "max_shell_size": 5,
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 3,
+      "max_inclusive": 5
+    },
     "min_flower_ring_size": 2,
     "max_flower_ring_size": 3,
     "min_flower_ring_spacing": 2,

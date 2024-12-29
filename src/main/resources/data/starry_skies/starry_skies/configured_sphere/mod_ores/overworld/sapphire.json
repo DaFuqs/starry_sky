@@ -2,9 +2,11 @@
   "type": "starry_skies:core",
   "config": {
     "core_block": "%starry_skies:sapphire_ore",
-    "min_core_size": 3,
-    "max_core_size": 4,
-    "main_block": "$starry_skies:dungeon_stones",
+    "shell_block": "$starry_skies:dungeon_stones",
+    "core_radius": {
+      "min_inclusive": 3,
+      "max_exclusive": 4
+    },
 
     "size": {
       "type": "minecraft:uniform",

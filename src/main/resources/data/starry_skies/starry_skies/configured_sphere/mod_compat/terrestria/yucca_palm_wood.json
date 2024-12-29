@@ -1,8 +1,11 @@
 {
   "type": "starry_skies:shell",
   "config": {
-    "min_shell_size": 1,
-    "max_shell_size": 2,
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 1,
+      "max_inclusive": 2
+    },
     "main_block": "terrestria:yucca_palm_log[down=true,east=true,has_leaves=false,north=true,south=true,up=true,waterlogged=false,west=true]",
     "shell_block": "terrestria:yucca_palm_leaves[distance=1]",
 

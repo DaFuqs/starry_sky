@@ -2,9 +2,11 @@
   "type": "starry_skies:core",
   "config": {
     "core_block": "%starry_skies:deepslate_unobtainium_ore",
-    "min_core_size": 1,
-    "max_core_size": 1,
-    "main_block": "$starry_skies:deepslates",
+    "shell_block": "$starry_skies:deepslates",
+    "core_radius": {
+      "min_inclusive": 1,
+      "max_exclusive": 1
+    },
 
     "size": {
       "type": "minecraft:uniform",
