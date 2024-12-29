@@ -1,8 +1,12 @@
 {
   "type": "starry_skies:mushroom",
   "config": {
-    "mushroom_block": "minecraft:red_mushroom_block",
-    "stem_block": "minecraft:mushroom_stem",
+    "mushroom_block": {
+      "Name": "minecraft:brown_mushroom_block"
+    },
+    "stem_block": {
+      "Name": "minecraft:mushroom_stem"
+    },
     "shell_thickness": {
       "type": "minecraft:uniform",
       "min_inclusive": 2,
@@ -25,7 +29,7 @@
       }
     ],
     "generation": {
-      "weight": 0.7,
+      "weight": 1.0,
       "group": "starry_skies:overworld/treasure"
     }
   }

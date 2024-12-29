@@ -1,8 +1,12 @@
 {
   "type": "starry_skies:mushroom",
   "config": {
-    "mushroom_block": "minecraft:brown_mushroom_block",
-    "stem_block": "minecraft:mushroom_stem",
+    "mushroom_block": {
+      "Name": "minecraft:brown_mushroom_block"
+    },
+    "stem_block": {
+      "Name": "minecraft:mushroom_stem"
+    },
     "shell_thickness": {
       "type": "minecraft:uniform",
       "min_inclusive": 2,
@@ -12,7 +16,7 @@
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 4,
-      "max_exclusive": 8
+      "max_exclusive": 10
     },
 
     "decorators": {},
@@ -25,8 +29,8 @@
       }
     ],
     "generation": {
-      "weight": 1.0,
-      "group": "starry_skies:overworld/treasure"
+      "weight": 5.0,
+      "group": "starry_skies:nether/treasure"
     }
   }
 }

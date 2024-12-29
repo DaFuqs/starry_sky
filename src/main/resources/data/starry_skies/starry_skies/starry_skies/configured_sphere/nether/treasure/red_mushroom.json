@@ -1,8 +1,12 @@
 {
   "type": "starry_skies:mushroom",
   "config": {
-    "mushroom_block": "minecraft:red_mushroom_block",
-    "stem_block": "minecraft:mushroom_stem",
+    "mushroom_block": {
+      "Name": "minecraft:red_mushroom_block"
+    },
+    "stem_block": {
+      "Name": "minecraft:mushroom_stem"
+    },
     "shell_thickness": {
       "type": "minecraft:uniform",
       "min_inclusive": 2,
