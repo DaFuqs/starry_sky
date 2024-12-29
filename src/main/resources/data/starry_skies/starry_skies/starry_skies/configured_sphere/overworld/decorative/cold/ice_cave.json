@@ -15,7 +15,7 @@
     "cave_floor_block": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:snow"
+        "Name": "minecraft:snow_block"
       }
     },
     "treasure_chest": {

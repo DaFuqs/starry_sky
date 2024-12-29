@@ -49,7 +49,7 @@ public class FluidCoreSphere extends Sphere<FluidCoreSphere.Config> {
 		protected final FloatProvider fillPercent;
 		protected final float holeInBottomChance;
 		private final BlockStateProvider coreBlock;
-		private FloatProvider coreRadius;
+		private final FloatProvider coreRadius;
 		
 		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, BlockStateProvider shellBlock, IntProvider shellThickness, BlockState fluidBlock, FloatProvider fillPercent, float holeInBottomChance, BlockStateProvider coreBlock, FloatProvider coreRadius) {
 			super(size, decorators, spawns, generation);
@@ -74,7 +74,7 @@ public class FluidCoreSphere extends Sphere<FluidCoreSphere.Config> {
 		private final float fillPercent;
 		private final boolean holeInBottom;
 		private final BlockStateProvider coreBlock;
-		private float coreRadius;
+		private final float coreRadius;
 		
 		public Placed(ConfiguredSphere<? extends Sphere<FluidCoreSphere.Config>, FluidCoreSphere.Config> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 					  BlockStateProvider shellBlock, float shellRadius, BlockState fluidBlock, float fillPercent, boolean holeInBottom, BlockStateProvider coreBlock, float coreRadius) {
