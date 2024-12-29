@@ -1,17 +1,21 @@
 {
   "type": "starry_skies:shell_core",
   "config": {
+    "main_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:gold_block"
+      }
+    },
     "core_block": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "minecraft:netherite_block"
       }
     },
-    "main_block": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:gold_block"
-      }
+    "core_radius": {
+      "min_inclusive": 1,
+      "max_exclusive": 3
     },
     "shell_block": {
       "type": "minecraft:simple_state_provider",
@@ -19,12 +23,10 @@
         "Name": "minecraft:glowstone"
       }
     },
-    "core_radius": {
-      "min_inclusive": 1,
-      "max_exclusive": 3
+    "shell_thickness": {
+      "min_inclusive": 45,
+      "max_exclusive": 45
     },
-    "min_shell_size": 45,
-    "max_shell_size": 45,
 
     "size": {
       "type": "minecraft:constant",

@@ -1,31 +1,32 @@
 {
   "type": "starry_skies:core",
   "config": {
+    "main_block": {
+      "type": "starry_skies:weighted_block_group_state_provider",
+      "group": "mountain_stones"
+    },
     "core_block": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:deepslate_gold_ore"
+        "Name": "minecraft:emerald_ore"
       }
     },
-    "shell_block": {
-      "type": "starry_skies:weighted_block_group_state_provider",
-      "group": "deepslates"
-    },
     "core_radius": {
-      "min_inclusive": 2,
-      "max_exclusive": 4
+      "type": "minecraft:uniform",
+      "min_inclusive": 1,
+      "max_exclusive": 3
     },
 
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 5,
-      "max_exclusive": 10
+      "max_exclusive": 6
     },
 
     "decorators": {},
     "spawns": [],
     "generation": {
-      "weight": 0.5,
+      "weight": 0.05,
       "group": "starry_skies:overworld/ores"
     }
   }

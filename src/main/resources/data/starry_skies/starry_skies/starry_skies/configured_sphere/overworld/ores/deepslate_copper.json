@@ -1,25 +1,26 @@
 {
   "type": "starry_skies:core",
   "config": {
-    "core_block": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:deepslate_diamond_ore"
-      }
-    },
-    "shell_block": {
+    "main_block": {
       "type": "starry_skies:weighted_block_group_state_provider",
       "group": "deepslates"
     },
+    "core_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:deepslate_copper_ore"
+      }
+    },
     "core_radius": {
-      "min_inclusive": 1,
-      "max_exclusive": 3
+      "type": "minecraft:uniform",
+      "min_inclusive": 3,
+      "max_exclusive": 5
     },
 
     "size": {
       "type": "minecraft:uniform",
-      "min_inclusive": 3,
-      "max_exclusive": 7
+      "min_inclusive": 4,
+      "max_exclusive": 6
     },
 
     "decorators": {},

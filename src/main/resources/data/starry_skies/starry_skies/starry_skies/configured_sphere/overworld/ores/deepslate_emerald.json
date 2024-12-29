@@ -1,0 +1,52 @@
+{
+  "type": "starry_skies:core",
+  "config": {
+    "main_block": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "weight": 10,
+          "data": {
+            "Name": "minecraft:infested_deepslate"
+          }
+        },
+        {
+          "weight": 5,
+          "data": {
+            "Name": "minecraft:deepslate"
+          }
+        },
+        {
+          "weight": 2,
+          "data": {
+            "Name": "minecraft:cobbled_deepslate"
+          }
+        }
+      ]
+    },
+    "core_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:deepslate_emerald_ore"
+      }
+    },
+    "core_radius": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 1,
+      "max_exclusive": 3
+    },
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 6
+    },
+
+    "decorators": {},
+    "spawns": [],
+    "generation": {
+      "weight": 0.03,
+      "group": "starry_skies:overworld/ores"
+    }
+  }
+}

@@ -1,29 +1,32 @@
 {
   "type": "starry_skies:core",
   "config": {
-    "min_core_size": 2,
-    "max_core_size": 4,
-    "core_block": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:slime_block"
-      }
-    },
     "main_block": {
       "type": "starry_skies:weighted_block_group_state_provider",
       "group": "stones"
+    },
+    "core_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:copper_ore"
+      }
+    },
+    "core_radius": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 3,
+      "max_exclusive": 5
     },
 
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 4,
-      "max_exclusive": 8
+      "max_exclusive": 6
     },
 
     "decorators": {},
     "spawns": [],
     "generation": {
-      "weight": 0.05,
+      "weight": 2.0,
       "group": "starry_skies:overworld/ores"
     }
   }

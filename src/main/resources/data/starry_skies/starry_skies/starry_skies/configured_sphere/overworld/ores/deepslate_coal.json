@@ -1,17 +1,18 @@
 {
   "type": "starry_skies:core",
   "config": {
+    "main_block": {
+      "type": "starry_skies:weighted_block_group_state_provider",
+      "group": "deepslates"
+    },
     "core_block": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:coal_ore"
+        "Name": "minecraft:deepslate_coal_ore"
       }
     },
-    "shell_block": {
-      "type": "starry_skies:weighted_block_group_state_provider",
-      "group": "stones"
-    },
     "core_radius": {
+      "type": "minecraft:uniform",
       "min_inclusive": 4,
       "max_exclusive": 8
     },
@@ -25,7 +26,7 @@
     "decorators": {},
     "spawns": [],
     "generation": {
-      "weight": 7.0,
+      "weight": 1.0,
       "group": "starry_skies:overworld/ores"
     }
   }

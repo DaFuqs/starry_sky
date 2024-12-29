@@ -23,26 +23,26 @@ public class CoreSphere extends Sphere<CoreSphere.Config> {
 	
 	@Override
 	public PlacedSphere<?> generate(ConfiguredSphere<? extends Sphere<CoreSphere.Config>, Config> configuredSphere, Config config, ChunkRandom random, DynamicRegistryManager registryManager) {
-		return new CoreSphere.Placed(configuredSphere, configuredSphere.getSize(random), configuredSphere.getDecorators(random), configuredSphere.getSpawns(random), random, config.coreBlock, config.shellBlock, config.coreRadius.get(random));
+		return new CoreSphere.Placed(configuredSphere, configuredSphere.getSize(random), configuredSphere.getDecorators(random), configuredSphere.getSpawns(random), random, config.mainBlock, config.coreBlock, config.coreRadius.get(random));
 	}
 	
 	public static class Config extends SphereConfig {
 		
 		public static final Codec<CoreSphere.Config> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 				SphereConfig.CONFIG_CODEC.forGetter((config) -> config),
+				BlockStateProvider.TYPE_CODEC.fieldOf("main_block").forGetter((config) -> config.mainBlock),
 				BlockStateProvider.TYPE_CODEC.fieldOf("core_block").forGetter((config) -> config.coreBlock),
-				BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter((config) -> config.shellBlock),
 				FloatProvider.createValidatedCodec(1.0F, 32.0F).fieldOf("core_radius").forGetter((config) -> config.coreRadius)
-		).apply(instance, (sphereConfig, innerBlock, shellBlock, shellThickness) -> new Config(sphereConfig.size, sphereConfig.decorators, sphereConfig.spawns, sphereConfig.generation, innerBlock, shellBlock, shellThickness)));
+		).apply(instance, (sphereConfig, mainBlock, coreBlock, shellThickness) -> new Config(sphereConfig.size, sphereConfig.decorators, sphereConfig.spawns, sphereConfig.generation, mainBlock, coreBlock, shellThickness)));
 		
+		protected final BlockStateProvider mainBlock;
 		protected final BlockStateProvider coreBlock;
-		protected final BlockStateProvider shellBlock;
 		protected final FloatProvider coreRadius;
 		
-		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, BlockStateProvider coreBlock, BlockStateProvider shellBlock, FloatProvider coreRadius) {
+		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, BlockStateProvider coreBlock, BlockStateProvider mainBlock, FloatProvider coreRadius) {
 			super(size, decorators, spawns, generation);
 			this.coreBlock = coreBlock;
-			this.shellBlock = shellBlock;
+			this.mainBlock = mainBlock;
 			this.coreRadius = coreRadius;
 		}
 		
@@ -50,15 +50,15 @@ public class CoreSphere extends Sphere<CoreSphere.Config> {
 	
 	public static class Placed extends PlacedSphere<CoreSphere.Config> {
 		
+		private final BlockStateProvider mainBlock;
 		private final BlockStateProvider coreBlock;
-		private final BlockStateProvider shellBlock;
 		private final float coreRadius;
 		
 		public Placed(ConfiguredSphere<? extends Sphere<CoreSphere.Config>, CoreSphere.Config> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
-					  BlockStateProvider coreBlock, BlockStateProvider shellBlock, float coreRadius) {
+					  BlockStateProvider coreBlock, BlockStateProvider mainBlock, float coreRadius) {
 			super(configuredSphere, radius, decorators, spawns, random);
 			this.coreBlock = coreBlock;
-			this.shellBlock = shellBlock;
+			this.mainBlock = mainBlock;
 			this.coreRadius = coreRadius;
 		}
 		
@@ -85,10 +85,10 @@ public class CoreSphere extends Sphere<CoreSphere.Config> {
 						}
 						currBlockPos.set(x2, y2, z2);
 						
-						if (d <= this.coreRadius) {
+						if (d < this.coreRadius) {
 							chunk.setBlockState(currBlockPos, this.coreBlock.get(random, currBlockPos), false);
 						} else {
-							chunk.setBlockState(currBlockPos, this.shellBlock.get(random, currBlockPos), false);
+							chunk.setBlockState(currBlockPos, this.mainBlock.get(random, currBlockPos), false);
 						}
 					}
 				}
@@ -101,7 +101,7 @@ public class CoreSphere extends Sphere<CoreSphere.Config> {
 					"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
 					"\nTemplateID: " + this.getID(registryManager) +
 					"\nRadius: " + this.radius +
-					"\nShell: " + this.shellBlock.toString() +
+					"\nMain: " + this.mainBlock.toString() +
 					"\nCore: " + this.coreBlock.toString() + " (Radius: " + this.coreRadius + ")";
 		}
 	}

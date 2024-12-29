@@ -1,15 +1,15 @@
 {
   "type": "starry_skies:core",
   "config": {
+    "main_block": {
+      "type": "starry_skies:weighted_block_group_state_provider",
+      "group": "nether_stones"
+    },
     "core_block": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "minecraft:ancient_debris"
       }
-    },
-    "shell_block": {
-      "type": "starry_skies:weighted_block_group_state_provider",
-      "group": "nether_stones"
     },
     "core_radius": {
       "type": "minecraft:uniform",
