@@ -151,45 +151,18 @@ public class SystemGenerator {
 			
 			// Places a log/leaf planet at 16, 16 in the overworld etc.
 			List<PlacedSphere<?>> defaultSpheres = getDefaultSpheres(systemGenerator, systemPointX, systemPointZ, systemRandom, registryManager);
-			ArrayList<PlacedSphere<?>> spheresInSystem = new ArrayList<>(defaultSpheres);
-			
-			int systemSizeChunks = StarrySkies.CONFIG.systemSizeChunks;
+			List<PlacedSphere<?>> spheresInSystem = new ArrayList<>(defaultSpheres);
 			
 			// try to create DENSITY spheresInSystem in this system
 			for (int currentDensity = 0; currentDensity < systemGenerator.spheresPerSystem; currentDensity++) {
 				
 				// create new planets
-				@Nullable PlacedSphere<?> currentSphere = getRandomSphere(systemGenerator, systemRandom, registryManager);
+				@Nullable PlacedSphere<?> currentSphere = getRandomSphere(systemGenerator, systemRandom, systemPoint, registryManager, bottomY, worldHeight, spheresInSystem);
 				if (currentSphere == null) {
 					continue;
 				}
 				
-				// set position, check bounds with system edges on x and z
-				int xPos = Support.getRandomBetween(systemRandom, currentSphere.getRadius(), (systemSizeChunks * 16 - currentSphere.getRadius()));
-				xPos += systemSizeChunks * 16 * systemPointX;
-				int zPos = Support.getRandomBetween(systemRandom, currentSphere.getRadius(), (systemSizeChunks * 16 - currentSphere.getRadius()));
-				zPos += systemSizeChunks * 16 * systemPointZ;
-				int yPos = bottomY + systemGenerator.floorHeight + currentSphere.getRadius() + systemRandom.nextInt(((worldHeight - currentSphere.getRadius() * 2 - systemGenerator.floorHeight)));
-				BlockPos spherePos = new BlockPos(xPos, yPos, zPos);
-				
-				// check for collisions with existing spheresInSystem
-				// if any collision, discard it
-				boolean discard = false;
-				for (PlacedSphere<?> sphere : spheresInSystem) {
-					//each sphere has to be at least pl1.radius + pl2.radius + min distance apart
-					int distMin = (sphere.getRadius() + currentSphere.getRadius() + systemGenerator.minDistanceBetweenSpheres);
-					double distSquared = spherePos.getSquaredDistance(sphere.getPosition());
-					if (distSquared < distMin * distMin) {
-						discard = true;
-						break;
-					}
-				}
-				
-				if (!discard) {
-					// no intersections with other spheres => add it to the list
-					currentSphere.setPosition(spherePos);
-					spheresInSystem.add(currentSphere);
-				}
+				spheresInSystem.add(currentSphere);
 			}
 			
 			StarrySkies.LOGGER.debug("Created a new system with {} spheres at system position {},{}", spheresInSystem.size(), systemPointX, systemPointZ);
@@ -214,7 +187,8 @@ public class SystemGenerator {
 				if (systemPointX == defaultSphere.systemX && systemPointZ == defaultSphere.systemZ) {
 					ConfiguredSphere<?, ?> template = templateRegistry.get(defaultSphere.sphereId);
 					if (template != null) {
-						PlacedSphere<?> sphere = template.generate(systemRandom, registryManager);
+						BlockPos pos = new BlockPos(defaultSphere.x, defaultSphere.y, defaultSphere.z);
+						PlacedSphere<?> sphere = template.generate(systemRandom, registryManager, pos, template.getSize(systemRandom));
 						sphere.setPosition(new BlockPos(defaultSphere.x, defaultSphere.y, defaultSphere.z));
 						defaultSpheres.add(sphere);
 					}
@@ -224,18 +198,50 @@ public class SystemGenerator {
 			return defaultSpheres;
 		}
 		
-		private static @Nullable PlacedSphere<?> getRandomSphere(SystemGenerator systemGenerator, ChunkRandom systemRandom, DynamicRegistryManager registryManager) {
+		private static @Nullable PlacedSphere<?> getRandomSphere(SystemGenerator systemGenerator, ChunkRandom systemRandom, @NotNull Point systemPoint, DynamicRegistryManager registryManager, int bottomY, int worldHeight, List<PlacedSphere<?>> spheresInSystem) {
 			ConfiguredSphere<?, ?> selectedSphere;
-			do {
-				Map<ConfiguredSphere<?, ?>, Float> spheresInSelectedGroup = getWeightedRandom(systemGenerator.generationGroups, systemRandom);
-				if (spheresInSelectedGroup.isEmpty()) {
-					return null;
-				}
-				selectedSphere = getWeightedRandom(spheresInSelectedGroup, systemRandom);
-			} while (selectedSphere == null);
+			PlacedSphere<?> placed;
 			
-			StarrySkies.LOGGER.debug("Created a new sphere of type {} Next random: {}", selectedSphere, systemRandom.nextInt());
-			return selectedSphere.generate(systemRandom, registryManager);
+			int systemSizeChunks = StarrySkies.CONFIG.systemSizeChunks;
+			
+			do {
+				do {
+					Map<ConfiguredSphere<?, ?>, Float> spheresInSelectedGroup = getWeightedRandom(systemGenerator.generationGroups, systemRandom);
+					if (spheresInSelectedGroup.isEmpty()) {
+						return null;
+					}
+					selectedSphere = getWeightedRandom(spheresInSelectedGroup, systemRandom);
+				} while (selectedSphere == null);
+				
+				StarrySkies.LOGGER.debug("Created a new sphere of type {} Next random: {}", selectedSphere, systemRandom.nextInt());
+				
+				// set position, check bounds with system edges on x and z
+				float radius = selectedSphere.getSize(systemRandom);
+				int iRadius = (int) radius;
+				int xPos = Support.getRandomBetween(systemRandom, iRadius, (systemSizeChunks * 16 - iRadius));
+				xPos += systemSizeChunks * 16 * systemPoint.x;
+				int zPos = Support.getRandomBetween(systemRandom, iRadius, (systemSizeChunks * 16 - iRadius));
+				zPos += systemSizeChunks * 16 * systemPoint.y;
+				int yPos = bottomY + systemGenerator.floorHeight + iRadius + systemRandom.nextInt(((worldHeight - iRadius * 2 - systemGenerator.floorHeight)));
+				BlockPos spherePos = new BlockPos(xPos, yPos, zPos);
+				
+				placed = selectedSphere.generate(systemRandom, registryManager, spherePos, radius);
+				placed.setPosition(spherePos);
+				
+				// Check for intersections with other spheres in this system
+				// if any collision, discard it
+				for (PlacedSphere<?> sphere : spheresInSystem) {
+					//each sphere has to be at least pl1.radius + pl2.radius + min distance apart
+					int distMin = (sphere.getRadius() + iRadius + systemGenerator.minDistanceBetweenSpheres);
+					double distSquared = spherePos.getSquaredDistance(sphere.getPosition());
+					if (distSquared < distMin * distMin) {
+						placed = null;
+						break;
+					}
+				}
+			} while (placed == null);
+			
+			return placed;
 		}
 		
 		@NotNull

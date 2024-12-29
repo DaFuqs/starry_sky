@@ -3,6 +3,7 @@ package de.dafuqs.starryskies.worldgen.spheres;
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.state_providers.*;
 import de.dafuqs.starryskies.worldgen.*;
 import net.minecraft.entity.*;
 import net.minecraft.registry.*;
@@ -22,24 +23,30 @@ public class ModularSphere extends Sphere<ModularSphere.Config> {
 	}
 	
 	@Override
-	public PlacedSphere<?> generate(ConfiguredSphere<? extends Sphere<ModularSphere.Config>, Config> configuredSphere, Config config, ChunkRandom random, DynamicRegistryManager registryManager) {
-		return new ModularSphere.Placed(configuredSphere, configuredSphere.getSize(random), configuredSphere.getDecorators(random), configuredSphere.getSpawns(random), random, config.mainBlock, config.topBlock.orElseGet(() -> config.mainBlock), config.bottomBlock.orElseGet(() -> config.mainBlock));
+	public PlacedSphere<?> generate(ConfiguredSphere<? extends Sphere<ModularSphere.Config>, Config> configuredSphere, Config config, ChunkRandom random, DynamicRegistryManager registryManager, BlockPos pos, float radius) {
+		BlockStateProvider mainProvider = config.mainBlock.getForSphere(random, pos);
+		
+		return new ModularSphere.Placed(configuredSphere, radius, configuredSphere.getDecorators(random), configuredSphere.getSpawns(random), random,
+				mainProvider,
+				config.topBlock.isPresent() ? config.topBlock.get().getForSphere(random, pos) : mainProvider,
+				config.bottomBlock.isPresent() ? config.bottomBlock.get().getForSphere(random, pos) : mainProvider
+		);
 	}
 	
 	public static class Config extends SphereConfig {
 		
 		public static final Codec<ModularSphere.Config> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 				SphereConfig.CONFIG_CODEC.forGetter((config) -> config),
-				BlockStateProvider.TYPE_CODEC.fieldOf("main_block").forGetter((config) -> config.mainBlock),
-				BlockStateProvider.TYPE_CODEC.optionalFieldOf("top_block").forGetter((config) -> config.topBlock),
-				BlockStateProvider.TYPE_CODEC.optionalFieldOf("bottom_block").forGetter((config) -> config.bottomBlock)
+				SphereStateProvider.CODEC.fieldOf("main_block").forGetter((config) -> config.mainBlock),
+				SphereStateProvider.CODEC.optionalFieldOf("top_block").forGetter((config) -> config.topBlock),
+				SphereStateProvider.CODEC.optionalFieldOf("bottom_block").forGetter((config) -> config.bottomBlock)
 		).apply(instance, (sphereConfig, mainBlock, topBlock, bottomBlock) -> new Config(sphereConfig.size, sphereConfig.decorators, sphereConfig.spawns, sphereConfig.generation, mainBlock, topBlock, bottomBlock)));
 		
-		protected final BlockStateProvider mainBlock;
-		protected final Optional<BlockStateProvider> topBlock;
-		protected final Optional<BlockStateProvider> bottomBlock;
+		protected final SphereStateProvider mainBlock;
+		protected final Optional<SphereStateProvider> topBlock;
+		protected final Optional<SphereStateProvider> bottomBlock;
 		
-		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, BlockStateProvider mainBlock, Optional<BlockStateProvider> topBlock, Optional<BlockStateProvider> bottomBlock) {
+		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, SphereStateProvider mainBlock, Optional<SphereStateProvider> topBlock, Optional<SphereStateProvider> bottomBlock) {
 			super(size, decorators, spawns, generation);
 			this.mainBlock = mainBlock;
 			this.topBlock = topBlock;
@@ -67,9 +74,10 @@ public class ModularSphere extends Sphere<ModularSphere.Config> {
 			int chunkX = chunk.getPos().x;
 			int chunkZ = chunk.getPos().z;
 			random.setSeed(chunkX * 341873128712L + chunkZ * 132897987541L);
-			int x = this.getPosition().getX();
-			int y = this.getPosition().getY();
-			int z = this.getPosition().getZ();
+			BlockPos spherePos = this.getPosition();
+			int x = spherePos.getX();
+			int y = spherePos.getY();
+			int z = spherePos.getZ();
 			
 			int ceiledRadius = (int) Math.ceil(this.radius);
 			int maxX = Math.min(chunkX * 16 + 15, x + ceiledRadius);

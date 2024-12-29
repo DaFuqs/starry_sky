@@ -22,8 +22,8 @@ public class HorizontalStackedSphere extends Sphere<HorizontalStackedSphere.Conf
 	}
 	
 	@Override
-	public PlacedSphere<?> generate(ConfiguredSphere<? extends Sphere<HorizontalStackedSphere.Config>, HorizontalStackedSphere.Config> configuredSphere, HorizontalStackedSphere.Config config, ChunkRandom random, DynamicRegistryManager registryManager) {
-		return new Placed(configuredSphere, configuredSphere.getSize(random), configuredSphere.getDecorators(random), configuredSphere.getSpawns(random), random, config.states);
+	public PlacedSphere<?> generate(ConfiguredSphere<? extends Sphere<HorizontalStackedSphere.Config>, HorizontalStackedSphere.Config> configuredSphere, HorizontalStackedSphere.Config config, ChunkRandom random, DynamicRegistryManager registryManager, BlockPos pos, float radius) {
+		return new Placed(configuredSphere, radius, configuredSphere.getDecorators(random), configuredSphere.getSpawns(random), random, config.states);
 	}
 	
 	public static class Config extends SphereConfig {
@@ -65,9 +65,10 @@ public class HorizontalStackedSphere extends Sphere<HorizontalStackedSphere.Conf
 			int chunkX = chunk.getPos().x;
 			int chunkZ = chunk.getPos().z;
 			random.setSeed(chunkX * 341873128712L + chunkZ * 132897987541L);
-			int x = this.getPosition().getX();
-			int y = this.getPosition().getY();
-			int z = this.getPosition().getZ();
+			BlockPos spherePos = this.getPosition();
+			int x = spherePos.getX();
+			int y = spherePos.getY();
+			int z = spherePos.getZ();
 			
 			int ceiledRadius = (int) Math.ceil(this.radius);
 			int maxX = Math.min(chunkX * 16 + 15, x + ceiledRadius);

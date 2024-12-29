@@ -17,7 +17,7 @@ public class AlternatingBockStateProvider extends BlockStateProvider {
 		this.states = states;
 	}
 	
-	protected BlockStateProviderType<?> getType() {
+	public BlockStateProviderType<?> getType() {
 		return StarryStateProviders.ALTERNATING_STATE_PROVIDER;
 	}
 	

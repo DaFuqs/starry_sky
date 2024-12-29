@@ -5,6 +5,7 @@ import de.dafuqs.starryskies.registries.*;
 import net.minecraft.entity.*;
 import net.minecraft.registry.*;
 import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
 
 import java.util.*;
@@ -40,8 +41,8 @@ public class ConfiguredSphere<S extends Sphere<SC>, SC extends SphereConfig> {
 	public Optional<SphereConfig.Generation> getGenerationGroup() {
 		return config.generation;
 	}
-
-	public PlacedSphere<?> generate(ChunkRandom systemRandom, DynamicRegistryManager registryManager) {
-		return this.sphere.generate(this, this.config, systemRandom, registryManager);
+	
+	public PlacedSphere<?> generate(ChunkRandom systemRandom, DynamicRegistryManager registryManager, BlockPos pos, float radius) {
+		return this.sphere.generate(this, this.config, systemRandom, registryManager, pos, radius);
 	}
 }

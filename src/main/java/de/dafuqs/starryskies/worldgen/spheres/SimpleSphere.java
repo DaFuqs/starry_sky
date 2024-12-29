@@ -3,6 +3,7 @@ package de.dafuqs.starryskies.worldgen.spheres;
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.state_providers.*;
 import de.dafuqs.starryskies.worldgen.*;
 import net.minecraft.entity.*;
 import net.minecraft.registry.*;
@@ -22,20 +23,20 @@ public class SimpleSphere extends Sphere<SimpleSphere.Config> {
 	}
 	
 	@Override
-	public PlacedSphere<?> generate(ConfiguredSphere<? extends Sphere<SimpleSphere.Config>, SimpleSphere.Config> configuredSphere, SimpleSphere.Config config, ChunkRandom random, DynamicRegistryManager registryManager) {
-		return new Placed(configuredSphere, configuredSphere.getSize(random), configuredSphere.getDecorators(random), configuredSphere.getSpawns(random), random, config.state);
+	public PlacedSphere<?> generate(ConfiguredSphere<? extends Sphere<SimpleSphere.Config>, SimpleSphere.Config> configuredSphere, SimpleSphere.Config config, ChunkRandom random, DynamicRegistryManager registryManager, BlockPos pos, float radius) {
+		return new Placed(configuredSphere, radius, configuredSphere.getDecorators(random), configuredSphere.getSpawns(random), random, config.state.getForSphere(random, pos));
 	}
 	
 	public static class Config extends SphereConfig {
 		
 		public static final Codec<SimpleSphere.Config> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 				SphereConfig.CONFIG_CODEC.forGetter((config) -> config),
-				BlockStateProvider.TYPE_CODEC.fieldOf("block").forGetter((config) -> config.state)
+				SphereStateProvider.CODEC.fieldOf("block").forGetter((config) -> config.state)
 		).apply(instance, (sphereConfig, state) -> new Config(sphereConfig.size, sphereConfig.decorators, sphereConfig.spawns, sphereConfig.generation, state)));
 		
-		protected final BlockStateProvider state;
+		protected final SphereStateProvider state;
 		
-		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, BlockStateProvider state) {
+		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, SphereStateProvider state) {
 			super(size, decorators, spawns, generation);
 			this.state = state;
 		}
@@ -44,12 +45,12 @@ public class SimpleSphere extends Sphere<SimpleSphere.Config> {
 	
 	public static class Placed extends PlacedSphere<SimpleSphere.Config> {
 		
-		private final BlockStateProvider blockState;
+		private final BlockStateProvider state;
 		
 		public Placed(ConfiguredSphere<? extends Sphere<SimpleSphere.Config>, SimpleSphere.Config> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators,
-					  List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random, BlockStateProvider blockState) {
+					  List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random, BlockStateProvider state) {
 			super(configuredSphere, radius, decorators, spawns, random);
-			this.blockState = blockState;
+			this.state = state;
 		}
 		
 		@Override
@@ -58,7 +59,7 @@ public class SimpleSphere extends Sphere<SimpleSphere.Config> {
 					"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
 					"\nTemplateID: " + this.getID(registryManager) +
 					"\nRadius: " + this.radius +
-					"\nBlock: " + this.blockState.toString();
+					"\nBlock: " + this.state.toString();
 		}
 		
 		@Override
@@ -66,9 +67,10 @@ public class SimpleSphere extends Sphere<SimpleSphere.Config> {
 			int chunkX = chunk.getPos().x;
 			int chunkZ = chunk.getPos().z;
 			random.setSeed(chunkX * 341873128712L + chunkZ * 132897987541L);
-			int x = this.getPosition().getX();
-			int y = this.getPosition().getY();
-			int z = this.getPosition().getZ();
+			BlockPos spherePos = this.getPosition();
+			int x = spherePos.getX();
+			int y = spherePos.getY();
+			int z = spherePos.getZ();
 			
 			int ceiledRadius = (int) Math.ceil(this.radius);
 			int maxX = Math.min(chunkX * 16 + 15, x + ceiledRadius);
@@ -84,7 +86,7 @@ public class SimpleSphere extends Sphere<SimpleSphere.Config> {
 						}
 						
 						currBlockPos.set(x2, y2, z2);
-						chunk.setBlockState(currBlockPos, this.blockState.get(random, currBlockPos), false);
+						chunk.setBlockState(currBlockPos, this.state.get(random, currBlockPos), false);
 					}
 				}
 			}

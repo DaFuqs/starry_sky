@@ -16,7 +16,7 @@ public class UniqueBlockGroupBlockStateProvider extends BlockStateProvider {
 		this.group = group;
 	}
 	
-	protected BlockStateProviderType<?> getType() {
+	public BlockStateProviderType<?> getType() {
 		return StarryStateProviders.UNIQUE_BLOCK_GROUP_STATE_PROVIDER;
 	}
 	

@@ -3,6 +3,7 @@ package de.dafuqs.starryskies.worldgen.spheres;
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.state_providers.*;
 import de.dafuqs.starryskies.worldgen.*;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
@@ -24,34 +25,40 @@ public class DungeonSphere extends Sphere<DungeonSphere.Config> {
 	}
 	
 	@Override
-	public PlacedSphere<?> generate(ConfiguredSphere<? extends Sphere<DungeonSphere.Config>, Config> configuredSphere, Config config, ChunkRandom random, DynamicRegistryManager registryManager) {
-		return new DungeonSphere.Placed(configuredSphere, configuredSphere.getSize(random), configuredSphere.getDecorators(random), configuredSphere.getSpawns(random), random,
-				config.shellBlock, config.topBlock.orElseGet(() -> config.shellBlock), config.bottomBlock.orElseGet(() -> config.shellBlock), config.caveFloorBlock.orElseGet(() -> config.shellBlock), config.shellThickness.get(random), config.treasureEntry, Registries.ENTITY_TYPE.get(config.entityType));
+	public PlacedSphere<?> generate(ConfiguredSphere<? extends Sphere<DungeonSphere.Config>, Config> configuredSphere, Config config, ChunkRandom random, DynamicRegistryManager registryManager, BlockPos pos, float radius) {
+		BlockStateProvider shellProvider = config.shellBlock.getForSphere(random, pos);
+		
+		return new DungeonSphere.Placed(configuredSphere, radius, configuredSphere.getDecorators(random), configuredSphere.getSpawns(random), random,
+				shellProvider,
+				config.topBlock.isPresent() ? config.topBlock.get().getForSphere(random, pos) : shellProvider,
+				config.bottomBlock.isPresent() ? config.bottomBlock.get().getForSphere(random, pos) : shellProvider,
+				config.caveFloorBlock.isPresent() ? config.caveFloorBlock.get().getForSphere(random, pos) : shellProvider,
+				config.shellThickness.get(random), config.treasureEntry, Registries.ENTITY_TYPE.get(config.entityType));
 	}
 	
 	public static class Config extends SphereConfig {
 		
 		public static final Codec<DungeonSphere.Config> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 				SphereConfig.CONFIG_CODEC.forGetter((config) -> config),
-				BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter((config) -> config.shellBlock),
-				BlockStateProvider.TYPE_CODEC.optionalFieldOf("top_block").forGetter((config) -> config.topBlock),
-				BlockStateProvider.TYPE_CODEC.optionalFieldOf("bottom_block").forGetter((config) -> config.bottomBlock),
-				BlockStateProvider.TYPE_CODEC.optionalFieldOf("cave_floor_block").forGetter((config) -> config.bottomBlock),
+				SphereStateProvider.CODEC.fieldOf("shell_block").forGetter((config) -> config.shellBlock),
+				SphereStateProvider.CODEC.optionalFieldOf("top_block").forGetter((config) -> config.topBlock),
+				SphereStateProvider.CODEC.optionalFieldOf("bottom_block").forGetter((config) -> config.bottomBlock),
+				SphereStateProvider.CODEC.optionalFieldOf("cave_floor_block").forGetter((config) -> config.bottomBlock),
 				FloatProvider.createValidatedCodec(1.0F, 32.0F).fieldOf("shell_thickness").forGetter((config) -> config.shellThickness),
 				TreasureChestEntry.CODEC.fieldOf("treasure_chest").forGetter((config) -> config.treasureEntry),
 				RegistryKey.createCodec(RegistryKeys.ENTITY_TYPE).fieldOf("entity_type").forGetter((config) -> config.entityType)
 		).apply(instance, (sphereConfig, shellBlock, topBlock, bottomBlock, caveFloorBlock, shellRadius, treasureEntry, entityType) -> new DungeonSphere.Config(sphereConfig.size, sphereConfig.decorators, sphereConfig.spawns, sphereConfig.generation, shellBlock, topBlock, bottomBlock, caveFloorBlock, shellRadius, treasureEntry, entityType)));
 		
-		private final BlockStateProvider shellBlock;
-		private final Optional<BlockStateProvider> topBlock;
-		private final Optional<BlockStateProvider> bottomBlock;
-		private final Optional<BlockStateProvider> caveFloorBlock;
+		private final SphereStateProvider shellBlock;
+		private final Optional<SphereStateProvider> topBlock;
+		private final Optional<SphereStateProvider> bottomBlock;
+		private final Optional<SphereStateProvider> caveFloorBlock;
 		private final FloatProvider shellThickness;
 		private final TreasureChestEntry treasureEntry;
 		private final RegistryKey<EntityType<?>> entityType;
 		
-		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, BlockStateProvider shellBlock,
-					  Optional<BlockStateProvider> topBlock, Optional<BlockStateProvider> bottomBlock, Optional<BlockStateProvider> caveFloorBlock, FloatProvider shellThickness, TreasureChestEntry treasureEntry, RegistryKey<EntityType<?>> entityType) {
+		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, SphereStateProvider shellBlock,
+					  Optional<SphereStateProvider> topBlock, Optional<SphereStateProvider> bottomBlock, Optional<SphereStateProvider> caveFloorBlock, FloatProvider shellThickness, TreasureChestEntry treasureEntry, RegistryKey<EntityType<?>> entityType) {
 			super(size, decorators, spawns, generation);
 			
 			this.shellBlock = shellBlock;
@@ -95,9 +102,10 @@ public class DungeonSphere extends Sphere<DungeonSphere.Config> {
 			int chunkX = chunk.getPos().x;
 			int chunkZ = chunk.getPos().z;
 			random.setSeed(chunkX * 341873128712L + chunkZ * 132897987541L);
-			int x = this.getPosition().getX();
-			int y = this.getPosition().getY();
-			int z = this.getPosition().getZ();
+			BlockPos spherePos = this.getPosition();
+			int x = spherePos.getX();
+			int y = spherePos.getY();
+			int z = spherePos.getZ();
 			
 			int ceiledRadius = (int) Math.ceil(this.radius);
 			int maxX = Math.min(chunkX * 16 + 15, x + ceiledRadius);
@@ -154,7 +162,7 @@ public class DungeonSphere extends Sphere<DungeonSphere.Config> {
 					"\nRadius: " + this.radius +
 					"\nShellBlock: " + this.shellBlock +
 					"\nShellRadius: " + this.shellThickness +
-					"\nEntityType: " + this.entityType.getName();
+					"\nEntityType: " + this.entityType.getUntranslatedName();
 		}
 	}
 	

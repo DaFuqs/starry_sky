@@ -16,7 +16,7 @@ public class WeightedBlockGroupBlockStateProvider extends BlockStateProvider {
 		this.group = group;
 	}
 	
-	protected BlockStateProviderType<?> getType() {
+	public BlockStateProviderType<?> getType() {
 		return StarryStateProviders.WEIGHTED_BLOCK_GROUP_STATE_PROVIDER;
 	}
 	

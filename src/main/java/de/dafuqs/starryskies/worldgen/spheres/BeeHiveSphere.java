@@ -30,8 +30,8 @@ public class BeeHiveSphere extends Sphere<BeeHiveSphere.Config> {
 	}
 	
 	@Override
-	public PlacedSphere<?> generate(ConfiguredSphere<? extends Sphere<BeeHiveSphere.Config>, Config> configuredSphere, Config config, ChunkRandom random, DynamicRegistryManager registryManager) {
-		return new BeeHiveSphere.Placed(configuredSphere, configuredSphere.getSize(random), configuredSphere.getDecorators(random), configuredSphere.getSpawns(random), random, config.shellThickness.get(random), config.flowerRingRadius.get(random), config.flowerRingSpacing.get(random));
+	public PlacedSphere<?> generate(ConfiguredSphere<? extends Sphere<BeeHiveSphere.Config>, Config> configuredSphere, Config config, ChunkRandom random, DynamicRegistryManager registryManager, BlockPos pos, float radius) {
+		return new BeeHiveSphere.Placed(configuredSphere, radius, configuredSphere.getDecorators(random), configuredSphere.getSpawns(random), random, config.shellThickness.get(random), config.flowerRingRadius.get(random), config.flowerRingSpacing.get(random));
 	}
 	
 	public static class Config extends SphereConfig {
@@ -62,7 +62,7 @@ public class BeeHiveSphere extends Sphere<BeeHiveSphere.Config> {
 		private final int flowerRingRadius;
 		private final int flowerRingSpacing;
 		
-		private List<BeehiveBlockEntity> outerBeehiveBlockEntities = new ArrayList<>();
+		private final List<BeehiveBlockEntity> outerBeehiveBlockEntities = new ArrayList<>();
 		private BeehiveBlockEntity queenBeehiveBlockEntity;
 		
 		public Placed(ConfiguredSphere<? extends Sphere<BeeHiveSphere.Config>, BeeHiveSphere.Config> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
@@ -78,9 +78,10 @@ public class BeeHiveSphere extends Sphere<BeeHiveSphere.Config> {
 			int chunkX = chunk.getPos().x;
 			int chunkZ = chunk.getPos().z;
 			random.setSeed(chunkX * 341873128712L + chunkZ * 132897987541L);
-			int x = this.getPosition().getX();
-			int y = this.getPosition().getY();
-			int z = this.getPosition().getZ();
+			BlockPos spherePos = this.getPosition();
+			int x = spherePos.getX();
+			int y = spherePos.getY();
+			int z = spherePos.getZ();
 			
 			int ceiledRadius = (int) Math.ceil(this.radius);
 			int maxX = Math.min(chunkX * 16 + 15, x + ceiledRadius);

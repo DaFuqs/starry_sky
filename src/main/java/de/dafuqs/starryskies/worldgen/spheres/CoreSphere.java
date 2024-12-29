@@ -3,6 +3,7 @@ package de.dafuqs.starryskies.worldgen.spheres;
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.state_providers.*;
 import de.dafuqs.starryskies.worldgen.*;
 import net.minecraft.entity.*;
 import net.minecraft.registry.*;
@@ -22,24 +23,24 @@ public class CoreSphere extends Sphere<CoreSphere.Config> {
 	}
 	
 	@Override
-	public PlacedSphere<?> generate(ConfiguredSphere<? extends Sphere<CoreSphere.Config>, Config> configuredSphere, Config config, ChunkRandom random, DynamicRegistryManager registryManager) {
-		return new CoreSphere.Placed(configuredSphere, configuredSphere.getSize(random), configuredSphere.getDecorators(random), configuredSphere.getSpawns(random), random, config.mainBlock, config.coreBlock, config.coreRadius.get(random));
+	public PlacedSphere<?> generate(ConfiguredSphere<? extends Sphere<CoreSphere.Config>, Config> configuredSphere, Config config, ChunkRandom random, DynamicRegistryManager registryManager, BlockPos pos, float radius) {
+		return new CoreSphere.Placed(configuredSphere, radius, configuredSphere.getDecorators(random), configuredSphere.getSpawns(random), random, config.mainBlock.getForSphere(random, pos), config.coreBlock.getForSphere(random, pos), config.coreRadius.get(random));
 	}
 	
 	public static class Config extends SphereConfig {
 		
 		public static final Codec<CoreSphere.Config> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 				SphereConfig.CONFIG_CODEC.forGetter((config) -> config),
-				BlockStateProvider.TYPE_CODEC.fieldOf("main_block").forGetter((config) -> config.mainBlock),
-				BlockStateProvider.TYPE_CODEC.fieldOf("core_block").forGetter((config) -> config.coreBlock),
+				SphereStateProvider.CODEC.fieldOf("main_block").forGetter((config) -> config.mainBlock),
+				SphereStateProvider.CODEC.fieldOf("core_block").forGetter((config) -> config.coreBlock),
 				FloatProvider.createValidatedCodec(1.0F, 32.0F).fieldOf("core_radius").forGetter((config) -> config.coreRadius)
 		).apply(instance, (sphereConfig, mainBlock, coreBlock, shellThickness) -> new Config(sphereConfig.size, sphereConfig.decorators, sphereConfig.spawns, sphereConfig.generation, mainBlock, coreBlock, shellThickness)));
 		
-		protected final BlockStateProvider mainBlock;
-		protected final BlockStateProvider coreBlock;
+		protected final SphereStateProvider mainBlock;
+		protected final SphereStateProvider coreBlock;
 		protected final FloatProvider coreRadius;
 		
-		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, BlockStateProvider coreBlock, BlockStateProvider mainBlock, FloatProvider coreRadius) {
+		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, SphereStateProvider coreBlock, SphereStateProvider mainBlock, FloatProvider coreRadius) {
 			super(size, decorators, spawns, generation);
 			this.coreBlock = coreBlock;
 			this.mainBlock = mainBlock;
@@ -67,9 +68,10 @@ public class CoreSphere extends Sphere<CoreSphere.Config> {
 			int chunkX = chunk.getPos().x;
 			int chunkZ = chunk.getPos().z;
 			random.setSeed(chunkX * 341873128712L + chunkZ * 132897987541L);
-			int x = this.getPosition().getX();
-			int y = this.getPosition().getY();
-			int z = this.getPosition().getZ();
+			BlockPos spherePos = this.getPosition();
+			int x = spherePos.getX();
+			int y = spherePos.getY();
+			int z = spherePos.getZ();
 			
 			int ceiledRadius = (int) Math.ceil(this.radius);
 			int maxX = Math.min(chunkX * 16 + 15, x + ceiledRadius);

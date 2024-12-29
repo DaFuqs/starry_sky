@@ -3,6 +3,7 @@
   "config": {
     "main_block": {
       "type": "starry_skies:alternating_state_provider",
+      "reroll_for_every_pos": true,
       "states": [
         {
           "Name": "minecraft:white_concrete_powder"
@@ -56,6 +57,7 @@
     },
     "bottom_block": {
       "type": "starry_skies:alternating_state_provider",
+      "reroll_for_every_pos": true,
       "states": [
         {
           "Name": "minecraft:white_concrete"

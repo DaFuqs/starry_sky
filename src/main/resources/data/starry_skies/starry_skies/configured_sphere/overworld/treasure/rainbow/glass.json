@@ -3,6 +3,7 @@
   "config": {
     "block": {
       "type": "starry_skies:alternating_state_provider",
+      "reroll_for_every_pos": true,
       "states": [
         {
           "Name": "minecraft:white_stained_glass"

@@ -3,6 +3,7 @@ package de.dafuqs.starryskies.worldgen.spheres;
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
+import de.dafuqs.starryskies.state_providers.*;
 import de.dafuqs.starryskies.worldgen.*;
 import net.minecraft.entity.*;
 import net.minecraft.registry.*;
@@ -23,24 +24,24 @@ public class ShellSphere extends Sphere<ShellSphere.Config> {
 	}
 	
 	@Override
-	public PlacedSphere<?> generate(ConfiguredSphere<? extends Sphere<ShellSphere.Config>, Config> configuredSphere, Config config, ChunkRandom random, DynamicRegistryManager registryManager) {
-		return new ShellSphere.Placed(configuredSphere, configuredSphere.getSize(random), configuredSphere.getDecorators(random), configuredSphere.getSpawns(random), random, config.innerBlock, config.shellBlock, config.shellThickness.get(random));
+	public PlacedSphere<?> generate(ConfiguredSphere<? extends Sphere<ShellSphere.Config>, Config> configuredSphere, Config config, ChunkRandom random, DynamicRegistryManager registryManager, BlockPos pos, float radius) {
+		return new ShellSphere.Placed(configuredSphere, radius, configuredSphere.getDecorators(random), configuredSphere.getSpawns(random), random, config.innerBlock.getForSphere(random, pos), config.shellBlock.getForSphere(random, pos), config.shellThickness.get(random));
 	}
 	
 	public static class Config extends SphereConfig {
 		
 		public static final Codec<ShellSphere.Config> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 				SphereConfig.CONFIG_CODEC.forGetter((config) -> config),
-				BlockStateProvider.TYPE_CODEC.fieldOf("main_block").forGetter((config) -> config.innerBlock),
-				BlockStateProvider.TYPE_CODEC.fieldOf("shell_block").forGetter((config) -> config.shellBlock),
+				SphereStateProvider.CODEC.fieldOf("main_block").forGetter((config) -> config.innerBlock),
+				SphereStateProvider.CODEC.fieldOf("shell_block").forGetter((config) -> config.shellBlock),
 				IntProvider.POSITIVE_CODEC.fieldOf("shell_thickness").forGetter((config) -> config.shellThickness)
 		).apply(instance, (sphereConfig, innerBlock, shellBlock, shellThickness) -> new Config(sphereConfig.size, sphereConfig.decorators, sphereConfig.spawns, sphereConfig.generation, innerBlock, shellBlock, shellThickness)));
 		
-		protected final BlockStateProvider innerBlock;
-		protected final BlockStateProvider shellBlock;
+		protected final SphereStateProvider innerBlock;
+		protected final SphereStateProvider shellBlock;
 		protected final IntProvider shellThickness;
 		
-		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, BlockStateProvider innerBlock, BlockStateProvider shellBlock, IntProvider shellThickness) {
+		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, SphereStateProvider innerBlock, SphereStateProvider shellBlock, IntProvider shellThickness) {
 			super(size, decorators, spawns, generation);
 			this.innerBlock = innerBlock;
 			this.shellBlock = shellBlock;
@@ -68,9 +69,10 @@ public class ShellSphere extends Sphere<ShellSphere.Config> {
 			int chunkX = chunk.getPos().x;
 			int chunkZ = chunk.getPos().z;
 			random.setSeed(chunkX * 341873128712L + chunkZ * 132897987541L);
-			int x = this.getPosition().getX();
-			int y = this.getPosition().getY();
-			int z = this.getPosition().getZ();
+			BlockPos spherePos = this.getPosition();
+			int x = spherePos.getX();
+			int y = spherePos.getY();
+			int z = spherePos.getZ();
 			
 			int ceiledRadius = (int) Math.ceil(this.radius);
 			int maxX = Math.min(chunkX * 16 + 15, x + ceiledRadius);
