@@ -3,27 +3,18 @@ package de.dafuqs.starryskies.worldgen;
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
-import net.minecraft.block.*;
 import net.minecraft.entity.*;
-import net.minecraft.registry.*;
-import net.minecraft.registry.entry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.floatprovider.*;
-import net.minecraft.util.math.intprovider.*;
-import net.minecraft.util.math.random.*;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.gen.*;
-import net.minecraft.world.gen.carver.*;
-import net.minecraft.world.gen.heightprovider.*;
 
 import java.util.*;
-import java.util.function.*;
 
 public class SphereConfig {
 	
 	public static final MapCodec<SphereConfig> CONFIG_CODEC = RecordCodecBuilder.mapCodec((instance) -> {
 		return instance.group(
-				FloatProvider.createValidatedCodec(1.0F, 36.0F).fieldOf("size").forGetter(sphereConfig -> sphereConfig.size),
+				FloatProvider.createValidatedCodec(1.0F, 48.0F).fieldOf("size").forGetter(sphereConfig -> sphereConfig.size),
 				new Support.FailSoftMapCodec<>(ConfiguredSphereDecorator.CODEC, Codec.FLOAT).fieldOf("decorators").forGetter(sphereConfig -> sphereConfig.decorators),
 				SphereEntitySpawnDefinition.CODEC.listOf().fieldOf("spawns").forGetter(sphereConfig -> sphereConfig.spawns),
 				Generation.CODEC.optionalFieldOf("generation").forGetter(sphereConfig -> sphereConfig.generation)
