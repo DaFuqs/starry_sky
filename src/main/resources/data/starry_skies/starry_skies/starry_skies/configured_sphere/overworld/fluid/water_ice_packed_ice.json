@@ -1,14 +1,14 @@
 {
   "type": "starry_skies:fluid_core",
   "config": {
-    "fluid": "minecraft:water",
-    "shell_thickness": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 1,
-      "max_inclusive": 3
+    "fluid_block": {
+      "Name": "minecraft:water"
     },
-    "min_fill_amount": 0.7,
-    "max_fill_amount": 1.0,
+    "fluid_fill_percent": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 0.7,
+      "max_exclusive": 1.0
+    },
     "hole_in_bottom_chance": 0.25,
     "shell_block": {
       "type": "minecraft:simple_state_provider",
@@ -16,14 +16,22 @@
         "Name": "minecraft:ice"
       }
     },
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 1,
+      "max_inclusive": 3
+    },
     "core_block": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "minecraft:packed_ice"
       }
     },
-    "min_core_size": 2,
-    "max_core_size": 4,
+    "core_radius": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 2,
+      "max_exclusive": 4
+    },
 
     "size": {
       "type": "minecraft:uniform",
