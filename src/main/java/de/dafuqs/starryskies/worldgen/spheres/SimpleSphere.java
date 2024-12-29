@@ -4,7 +4,6 @@ import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.worldgen.*;
-import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.registry.*;
 import net.minecraft.util.*;
@@ -12,6 +11,7 @@ import net.minecraft.util.math.*;
 import net.minecraft.util.math.floatprovider.*;
 import net.minecraft.util.math.random.*;
 import net.minecraft.world.chunk.*;
+import net.minecraft.world.gen.stateprovider.*;
 
 import java.util.*;
 
@@ -30,28 +30,24 @@ public class SimpleSphere extends Sphere<SimpleSphere.Config> {
 		
 		public static final Codec<SimpleSphere.Config> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 				SphereConfig.CONFIG_CODEC.forGetter((config) -> config),
-				BlockState.CODEC.fieldOf("block").forGetter((config) -> config.state)
+				BlockStateProvider.TYPE_CODEC.fieldOf("block").forGetter((config) -> config.state)
 		).apply(instance, (sphereConfig, state) -> new Config(sphereConfig.size, sphereConfig.decorators, sphereConfig.spawns, sphereConfig.generation, state)));
 		
-		protected final BlockState state;
+		protected final BlockStateProvider state;
 		
-		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, BlockState state) {
+		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, BlockStateProvider state) {
 			super(size, decorators, spawns, generation);
 			this.state = state;
-		}
-		
-		public BlockState state() {
-			return this.state;
 		}
 		
 	}
 	
 	public static class Placed extends PlacedSphere<SimpleSphere.Config> {
 		
-		private final BlockState blockState;
+		private final BlockStateProvider blockState;
 		
 		public Placed(ConfiguredSphere<? extends Sphere<SimpleSphere.Config>, SimpleSphere.Config> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators,
-					  List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random, BlockState blockState) {
+					  List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random, BlockStateProvider blockState) {
 			super(configuredSphere, radius, decorators, spawns, random);
 			this.blockState = blockState;
 		}
@@ -86,9 +82,9 @@ public class SimpleSphere extends Sphere<SimpleSphere.Config> {
 						if (d > this.radius) {
 							continue;
 						}
-						currBlockPos.set(x2, y2, z2);
 						
-						chunk.setBlockState(currBlockPos, this.blockState, false);
+						currBlockPos.set(x2, y2, z2);
+						chunk.setBlockState(currBlockPos, this.blockState.get(random, currBlockPos), false);
 					}
 				}
 			}

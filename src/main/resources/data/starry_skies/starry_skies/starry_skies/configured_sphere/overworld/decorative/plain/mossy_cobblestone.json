@@ -2,8 +2,10 @@
   "type": "starry_skies:simple",
   "config": {
     "block": {
-      "Name": "minecraft:mossy_cobblestone",
-      "Properties": {}
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:mossy_cobblestone"
+      }
     },
 
     "size": {

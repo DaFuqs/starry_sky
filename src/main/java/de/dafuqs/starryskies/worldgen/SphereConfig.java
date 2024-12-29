@@ -12,14 +12,12 @@ import java.util.*;
 
 public class SphereConfig {
 	
-	public static final MapCodec<SphereConfig> CONFIG_CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-		return instance.group(
-				FloatProvider.createValidatedCodec(1.0F, 64.0F).fieldOf("size").forGetter(sphereConfig -> sphereConfig.size),
-				new Support.FailSoftMapCodec<>(ConfiguredSphereDecorator.CODEC, Codec.FLOAT).fieldOf("decorators").forGetter(sphereConfig -> sphereConfig.decorators),
-				SphereEntitySpawnDefinition.CODEC.listOf().fieldOf("spawns").forGetter(sphereConfig -> sphereConfig.spawns),
-				Generation.CODEC.optionalFieldOf("generation").forGetter(sphereConfig -> sphereConfig.generation)
-		).apply(instance, SphereConfig::new);
-	});
+	public static final MapCodec<SphereConfig> CONFIG_CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
+			FloatProvider.createValidatedCodec(1.0F, 64.0F).fieldOf("size").forGetter(sphereConfig -> sphereConfig.size),
+			new Support.FailSoftMapCodec<>(ConfiguredSphereDecorator.CODEC, Codec.FLOAT).fieldOf("decorators").forGetter(sphereConfig -> sphereConfig.decorators),
+			SphereEntitySpawnDefinition.CODEC.listOf().fieldOf("spawns").forGetter(sphereConfig -> sphereConfig.spawns),
+			Generation.CODEC.optionalFieldOf("generation").forGetter(sphereConfig -> sphereConfig.generation)
+	).apply(instance, SphereConfig::new));
 	
 	public record Generation(Identifier group, float weight) {
 		public static final Codec<Generation> CODEC = RecordCodecBuilder.create(

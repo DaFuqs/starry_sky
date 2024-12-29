@@ -1,0 +1,71 @@
+{
+  "type": "starry_skies:simple",
+  "config": {
+    "block": {
+      "type": "starry_skies:alternating_state_provider",
+      "states": [
+        {
+          "Name": "minecraft:white_concrete"
+        },
+        {
+          "Name": "minecraft:light_gray_concrete"
+        },
+        {
+          "Name": "minecraft:gray_concrete"
+        },
+        {
+          "Name": "minecraft:black_concrete"
+        },
+        {
+          "Name": "minecraft:brown_concrete"
+        },
+        {
+          "Name": "minecraft:red_concrete"
+        },
+        {
+          "Name": "minecraft:orange_concrete"
+        },
+        {
+          "Name": "minecraft:yellow_concrete"
+        },
+        {
+          "Name": "minecraft:lime_concrete"
+        },
+        {
+          "Name": "minecraft:green_concrete"
+        },
+        {
+          "Name": "minecraft:cyan_concrete"
+        },
+        {
+          "Name": "minecraft:light_blue_concrete"
+        },
+        {
+          "Name": "minecraft:blue_concrete"
+        },
+        {
+          "Name": "minecraft:purple_concrete"
+        },
+        {
+          "Name": "minecraft:magenta_concrete"
+        },
+        {
+          "Name": "minecraft:pink_concrete"
+        }
+      ]
+    },
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 16
+    },
+
+    "decorators": {},
+    "spawns": [],
+    "generation": {
+      "weight": 1.0,
+      "group": "starry_skies:overworld/treasure"
+    }
+  }
+}
