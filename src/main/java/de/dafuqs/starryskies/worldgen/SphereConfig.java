@@ -14,7 +14,7 @@ public class SphereConfig {
 	
 	public static final MapCodec<SphereConfig> CONFIG_CODEC = RecordCodecBuilder.mapCodec((instance) -> {
 		return instance.group(
-				FloatProvider.createValidatedCodec(1.0F, 48.0F).fieldOf("size").forGetter(sphereConfig -> sphereConfig.size),
+				FloatProvider.createValidatedCodec(1.0F, 64.0F).fieldOf("size").forGetter(sphereConfig -> sphereConfig.size),
 				new Support.FailSoftMapCodec<>(ConfiguredSphereDecorator.CODEC, Codec.FLOAT).fieldOf("decorators").forGetter(sphereConfig -> sphereConfig.decorators),
 				SphereEntitySpawnDefinition.CODEC.listOf().fieldOf("spawns").forGetter(sphereConfig -> sphereConfig.spawns),
 				Generation.CODEC.optionalFieldOf("generation").forGetter(sphereConfig -> sphereConfig.generation)
