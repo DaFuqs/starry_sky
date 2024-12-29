@@ -21,9 +21,6 @@
     },
 
     "decorators": {
-      "starry_skies:mod_compat/betternether/agave": 0.3,
-      "starry_skies:mod_compat/betternether/barrel_cacti": 0.15,
-      "starry_skies:mod_compat/betternether/nether_cacti": 0.15
     },
     "spawns": [],
     "generation": {

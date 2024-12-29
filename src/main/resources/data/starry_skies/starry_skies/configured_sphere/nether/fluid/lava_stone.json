@@ -27,7 +27,6 @@
     },
 
     "decorators": {
-      "starry_skies:mod_compat/betternether/geysers": 0.3
     },
     "spawns": [],
     "generation": {

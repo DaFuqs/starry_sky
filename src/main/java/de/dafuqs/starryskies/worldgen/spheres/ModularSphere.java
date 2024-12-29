@@ -7,6 +7,7 @@ import de.dafuqs.starryskies.state_providers.*;
 import de.dafuqs.starryskies.worldgen.*;
 import net.minecraft.entity.*;
 import net.minecraft.registry.*;
+import net.minecraft.registry.entry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.floatprovider.*;
@@ -46,7 +47,7 @@ public class ModularSphere extends Sphere<ModularSphere.Config> {
 		protected final Optional<SphereStateProvider> topBlock;
 		protected final Optional<SphereStateProvider> bottomBlock;
 		
-		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, SphereStateProvider mainBlock, Optional<SphereStateProvider> topBlock, Optional<SphereStateProvider> bottomBlock) {
+		public Config(FloatProvider size, Map<RegistryEntry<ConfiguredSphereDecorator<?, ?>>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, SphereStateProvider mainBlock, Optional<SphereStateProvider> topBlock, Optional<SphereStateProvider> bottomBlock) {
 			super(size, decorators, spawns, generation);
 			this.mainBlock = mainBlock;
 			this.topBlock = topBlock;
@@ -61,7 +62,7 @@ public class ModularSphere extends Sphere<ModularSphere.Config> {
 		private final BlockStateProvider topBlock;
 		private final BlockStateProvider bottomBlock;
 		
-		public Placed(ConfiguredSphere<? extends Sphere<ModularSphere.Config>, ModularSphere.Config> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+		public Placed(ConfiguredSphere<? extends Sphere<ModularSphere.Config>, ModularSphere.Config> configuredSphere, float radius, List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 					  BlockStateProvider mainBlock, BlockStateProvider topBlock, BlockStateProvider bottomBlock) {
 			super(configuredSphere, radius, decorators, spawns, random);
 			this.mainBlock = mainBlock;

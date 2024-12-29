@@ -8,6 +8,7 @@ import de.dafuqs.starryskies.worldgen.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.registry.*;
+import net.minecraft.registry.entry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.dynamic.*;
 import net.minecraft.util.math.*;
@@ -52,7 +53,7 @@ public class FluidCoreSphere extends Sphere<FluidCoreSphere.Config> {
 		private final SphereStateProvider coreBlock;
 		private final FloatProvider coreRadius;
 		
-		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation,
+		public Config(FloatProvider size, Map<RegistryEntry<ConfiguredSphereDecorator<?, ?>>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation,
 					  SphereStateProvider shellBlock, IntProvider shellThickness, BlockState fluidBlock, FloatProvider fillPercent, float holeInBottomChance, SphereStateProvider coreBlock, FloatProvider coreRadius) {
 			super(size, decorators, spawns, generation);
 			this.shellBlock = shellBlock;
@@ -78,7 +79,7 @@ public class FluidCoreSphere extends Sphere<FluidCoreSphere.Config> {
 		private final BlockStateProvider coreBlock;
 		private final float coreRadius;
 		
-		public Placed(ConfiguredSphere<? extends Sphere<FluidCoreSphere.Config>, FluidCoreSphere.Config> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+		public Placed(ConfiguredSphere<? extends Sphere<FluidCoreSphere.Config>, FluidCoreSphere.Config> configuredSphere, float radius, List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 					  BlockStateProvider shellBlock, float shellRadius, BlockState fluidBlock, float fillPercent, boolean holeInBottom, BlockStateProvider coreBlock, float coreRadius) {
 			super(configuredSphere, radius, decorators, spawns, random);
 			this.shellBlock = shellBlock;

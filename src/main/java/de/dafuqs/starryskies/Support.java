@@ -1,9 +1,7 @@
 package de.dafuqs.starryskies;
 
-import com.google.common.collect.*;
 import com.mojang.datafixers.util.*;
 import com.mojang.serialization.*;
-import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.worldgen.*;
 import de.dafuqs.starryskies.worldgen.dimension.*;
 import net.minecraft.block.*;
@@ -197,46 +195,4 @@ public class Support {
 		}
 	}
 	
-	public record FailSoftMapCodec<K, V>(Codec<K> keyCodec,
-										 Codec<V> elementCodec) implements BaseMapCodec<K, V>, Codec<Map<K, V>> {
-
-		@Override
-		public <T> DataResult<Pair<Map<K, V>, T>> decode(final DynamicOps<T> ops, final T input) {
-			return ops.getMap(input).setLifecycle(Lifecycle.stable()).flatMap(map -> decode(ops, map)).map(r -> Pair.of(r, input));
-		}
-
-		@Override
-		public <T> DataResult<T> encode(final Map<K, V> input, final DynamicOps<T> ops, final T prefix) {
-			return encode(input, ops, ops.mapBuilder()).build(prefix);
-		}
-
-		@Override
-		public <T> DataResult<Map<K, V>> decode(final DynamicOps<T> ops, final MapLike<T> input) {
-			final ImmutableMap.Builder<K, V> builder = ImmutableMap.builder();
-
-			input.entries().forEach(pair -> {
-				try {
-					final DataResult<K> k = keyCodec().parse(ops, pair.getFirst());
-					final DataResult<V> v = elementCodec().parse(ops, pair.getSecond());
-
-					Optional<K> optionalK = k.result();
-					Optional<V> optionalV = v.result();
-
-					if (optionalK.isPresent() && optionalV.isPresent()) {
-						builder.put(optionalK.get(), optionalV.get());
-					}
-				} catch (Throwable ignored) {
-				}
-			});
-
-			final Map<K, V> elements = builder.build();
-
-			return DataResult.success(elements);
-		}
-
-		@Override
-		public String toString() {
-			return "FailSoftMapCodec[" + keyCodec + " -> " + elementCodec + ']';
-		}
-	}
 }

@@ -15,8 +15,7 @@
     },
 
     "decorators": {
-      "starry_skies:center_pond_lava": 0.08,
-      "starry_skies:mod_compat/betternether/blackstone_stalactites": 0.2
+      "starry_skies:center_pond_lava": 0.08
     },
     "spawns": [],
     "generation": {

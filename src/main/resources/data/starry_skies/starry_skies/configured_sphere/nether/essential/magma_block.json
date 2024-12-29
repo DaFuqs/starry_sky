@@ -16,11 +16,7 @@
 
     "decorators": {
       "starry_skies:fire": 0.5,
-      "starry_skies:center_pond_lava": 0.15,
-      "starry_skies:mod_compat/betternether/geysers": 0.2,
-      "starry_skies:mod_compat/betternether/glowstone_stalactites": 0.2,
-      "starry_skies:mod_compat/betternether/magma_flowers": 0.1,
-      "starry_skies:mod_compat/betternether/netherrack_stalactites": 0.2
+      "starry_skies:center_pond_lava": 0.15
     },
     "spawns": [],
     "generation": {

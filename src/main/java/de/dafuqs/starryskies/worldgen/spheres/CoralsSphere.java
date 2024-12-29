@@ -9,6 +9,7 @@ import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.loot.*;
 import net.minecraft.registry.*;
+import net.minecraft.registry.entry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.dynamic.*;
 import net.minecraft.util.math.*;
@@ -79,7 +80,7 @@ public class CoralsSphere extends Sphere<CoralsSphere.Config> {
 		protected final float holeInBottomChance;
 		private final Optional<TreasureChestEntry> treasureEntry;
 		
-		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, SphereStateProvider shellBlock, IntProvider shellThickness, float holeInBottomChance, Optional<TreasureChestEntry> treasureEntry) {
+		public Config(FloatProvider size, Map<RegistryEntry<ConfiguredSphereDecorator<?, ?>>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, SphereStateProvider shellBlock, IntProvider shellThickness, float holeInBottomChance, Optional<TreasureChestEntry> treasureEntry) {
 			super(size, decorators, spawns, generation);
 			this.shellBlock = shellBlock;
 			this.shellThickness = shellThickness;
@@ -96,7 +97,7 @@ public class CoralsSphere extends Sphere<CoralsSphere.Config> {
 		@Nullable
 		private final RegistryKey<LootTable> chestLootTable;
 		
-		public Placed(ConfiguredSphere<? extends Sphere<CoralsSphere.Config>, CoralsSphere.Config> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+		public Placed(ConfiguredSphere<? extends Sphere<CoralsSphere.Config>, CoralsSphere.Config> configuredSphere, float radius, List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 					  BlockStateProvider shellBlock, float shellRadius, @Nullable RegistryKey<LootTable> chestLootTable) {
 			super(configuredSphere, radius, decorators, spawns, random);
 			this.shellBlock = shellBlock;

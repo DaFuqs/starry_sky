@@ -23,15 +23,7 @@
     "decorators": {
       "starry_skies:cactus": 0.3,
       "starry_skies:dead_grass": 0.3,
-      "starry_skies:x_spot_desert_pyramid": 0.1,
-      "starry_skies:mod_compat/sandwichable/salty_sand": 0.25,
-      "starry_skies:mod_compat/biomemakeover/saguaro_cactus": 0.8,
-      "starry_skies:mod_compat/biomemakeover/barrel_cactus": 0.8,
-      "starry_skies:mod_compat/biomemakeover/barrel_cactus_flowered": 0.8,
-      "starry_skies:mod_compat/byg/mini_cactus": 0.1,
-      "starry_skies:mod_compat/byg/golden_spined_cactus": 0.1,
-      "starry_skies:mod_compat/byg/prickly_pear_cactus": 0.1,
-      "starry_skies:mod_compat/byg/prairie_grass": 0.1
+      "starry_skies:x_spot_desert_pyramid": 0.1
     },
     "spawns": [
       {

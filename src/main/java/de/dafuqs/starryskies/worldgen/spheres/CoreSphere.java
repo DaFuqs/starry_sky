@@ -7,6 +7,7 @@ import de.dafuqs.starryskies.state_providers.*;
 import de.dafuqs.starryskies.worldgen.*;
 import net.minecraft.entity.*;
 import net.minecraft.registry.*;
+import net.minecraft.registry.entry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.floatprovider.*;
@@ -40,7 +41,7 @@ public class CoreSphere extends Sphere<CoreSphere.Config> {
 		protected final SphereStateProvider coreBlock;
 		protected final FloatProvider coreRadius;
 		
-		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, SphereStateProvider coreBlock, SphereStateProvider mainBlock, FloatProvider coreRadius) {
+		public Config(FloatProvider size, Map<RegistryEntry<ConfiguredSphereDecorator<?, ?>>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, SphereStateProvider coreBlock, SphereStateProvider mainBlock, FloatProvider coreRadius) {
 			super(size, decorators, spawns, generation);
 			this.coreBlock = coreBlock;
 			this.mainBlock = mainBlock;
@@ -55,7 +56,7 @@ public class CoreSphere extends Sphere<CoreSphere.Config> {
 		private final BlockStateProvider coreBlock;
 		private final float coreRadius;
 		
-		public Placed(ConfiguredSphere<? extends Sphere<CoreSphere.Config>, CoreSphere.Config> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+		public Placed(ConfiguredSphere<? extends Sphere<CoreSphere.Config>, CoreSphere.Config> configuredSphere, float radius, List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 					  BlockStateProvider coreBlock, BlockStateProvider mainBlock, float coreRadius) {
 			super(configuredSphere, radius, decorators, spawns, random);
 			this.coreBlock = coreBlock;

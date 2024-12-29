@@ -23,13 +23,13 @@ public abstract class PlacedSphere<SC extends SphereConfig> /* implements Serial
 
 	protected ConfiguredSphere<? extends Sphere<SC>, SC> configuredSphere;
 	protected float radius;
-	protected List<ConfiguredSphereDecorator<?, ?>> decorators;
+	protected List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> decorators;
 	protected List<Pair<EntityType<?>, Integer>> spawns;
 
 	protected BlockPos position;
 	protected ChunkRandom random;
-
-	public PlacedSphere(ConfiguredSphere<? extends Sphere<SC>, SC> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random) {
+	
+	public PlacedSphere(ConfiguredSphere<? extends Sphere<SC>, SC> configuredSphere, float radius, List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random) {
 		this.configuredSphere = configuredSphere;
 		this.radius = radius;
 		this.decorators = decorators;
@@ -84,10 +84,10 @@ public abstract class PlacedSphere<SC extends SphereConfig> /* implements Serial
 
 	public void decorate(StructureWorldAccess world, BlockPos origin, Random random) {
 		if (!this.decorators.isEmpty()) {
-			for (ConfiguredSphereDecorator<?, ?> decorator : this.decorators) {
+			for (RegistryEntry<ConfiguredSphereDecorator<?, ?>> decorator : this.decorators) {
 				StarrySkies.LOGGER.debug("Decorator: {}", decorator.getClass());
 				try {
-					decorator.generate(world, random, origin, this);
+					decorator.value().generate(world, random, origin, this);
 				} catch (RuntimeException e) {
 					// Are we asking a region for a chunk out of bounds? ಠ_ಠ
 				}

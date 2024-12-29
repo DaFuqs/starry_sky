@@ -23,8 +23,7 @@
     "decorators": {
       "starry_skies:crimson_roots": 0.8,
       "starry_skies:weeping_vines": 0.8,
-      "starry_skies:crimson_fungus": 0.3,
-      "starry_skies:mod_compat/betternether/golden_vines": 0.2
+      "starry_skies:crimson_fungus": 0.3
     },
     "spawns": [
       {

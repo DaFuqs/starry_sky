@@ -7,6 +7,7 @@ import de.dafuqs.starryskies.state_providers.*;
 import de.dafuqs.starryskies.worldgen.*;
 import net.minecraft.entity.*;
 import net.minecraft.registry.*;
+import net.minecraft.registry.entry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.floatprovider.*;
@@ -46,7 +47,7 @@ public class ShellCoreSphere extends Sphere<ShellCoreSphere.Config> {
 		private final SphereStateProvider coreBlock;
 		private final FloatProvider coreRadius;
 		
-		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, SphereStateProvider mainBlock, SphereStateProvider shellBlock, IntProvider shellThickness, SphereStateProvider coreBlock, FloatProvider coreRadius) {
+		public Config(FloatProvider size, Map<RegistryEntry<ConfiguredSphereDecorator<?, ?>>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, SphereStateProvider mainBlock, SphereStateProvider shellBlock, IntProvider shellThickness, SphereStateProvider coreBlock, FloatProvider coreRadius) {
 			super(size, decorators, spawns, generation);
 			this.mainBlock = mainBlock;
 			this.shellBlock = shellBlock;
@@ -65,7 +66,7 @@ public class ShellCoreSphere extends Sphere<ShellCoreSphere.Config> {
 		private final BlockStateProvider coreBlock;
 		private final float coreRadius;
 		
-		public Placed(ConfiguredSphere<? extends Sphere<ShellCoreSphere.Config>, ShellCoreSphere.Config> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+		public Placed(ConfiguredSphere<? extends Sphere<ShellCoreSphere.Config>, ShellCoreSphere.Config> configuredSphere, float radius, List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 					  BlockStateProvider mainBlock, BlockStateProvider shellBlock, float shellRadius, BlockStateProvider coreBlock, float coreRadius) {
 			super(configuredSphere, radius, decorators, spawns, random);
 			this.shellBlock = shellBlock;

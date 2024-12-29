@@ -9,6 +9,7 @@ import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.loot.*;
 import net.minecraft.registry.*;
+import net.minecraft.registry.entry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.floatprovider.*;
@@ -61,7 +62,7 @@ public class CaveSphere extends Sphere<CaveSphere.Config> {
 		private final FloatProvider shellThickness;
 		private final Optional<TreasureChestEntry> treasureEntry;
 		
-		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, SphereStateProvider shellBlock,
+		public Config(FloatProvider size, Map<RegistryEntry<ConfiguredSphereDecorator<?, ?>>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, SphereStateProvider shellBlock,
 					  Optional<SphereStateProvider> topBlock, Optional<SphereStateProvider> bottomBlock, Optional<SphereStateProvider> caveFloorBlock, FloatProvider shellThickness, Optional<TreasureChestEntry> treasureEntry) {
 			super(size, decorators, spawns, generation);
 			
@@ -86,7 +87,7 @@ public class CaveSphere extends Sphere<CaveSphere.Config> {
 		private final float shellThickness;
 		private final @Nullable RegistryKey<LootTable> chestLootTable;
 		
-		public Placed(ConfiguredSphere<? extends Sphere<Config>, Config> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+		public Placed(ConfiguredSphere<? extends Sphere<Config>, Config> configuredSphere, float radius, List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 					  BlockStateProvider shellBlock, BlockStateProvider topBlock, BlockStateProvider bottomBlock, BlockStateProvider caveFloorBlock, float shellRadius, @Nullable RegistryKey<LootTable> chestLootTable) {
 			super(configuredSphere, radius, decorators, spawns, random);
 			this.shellBlock = shellBlock;

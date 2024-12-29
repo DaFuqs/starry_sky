@@ -7,6 +7,7 @@ import de.dafuqs.starryskies.state_providers.*;
 import de.dafuqs.starryskies.worldgen.*;
 import net.minecraft.entity.*;
 import net.minecraft.registry.*;
+import net.minecraft.registry.entry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.floatprovider.*;
@@ -36,7 +37,7 @@ public class SimpleSphere extends Sphere<SimpleSphere.Config> {
 		
 		protected final SphereStateProvider state;
 		
-		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, SphereStateProvider state) {
+		public Config(FloatProvider size, Map<RegistryEntry<ConfiguredSphereDecorator<?, ?>>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, SphereStateProvider state) {
 			super(size, decorators, spawns, generation);
 			this.state = state;
 		}
@@ -47,7 +48,7 @@ public class SimpleSphere extends Sphere<SimpleSphere.Config> {
 		
 		private final BlockStateProvider state;
 		
-		public Placed(ConfiguredSphere<? extends Sphere<SimpleSphere.Config>, SimpleSphere.Config> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators,
+		public Placed(ConfiguredSphere<? extends Sphere<SimpleSphere.Config>, SimpleSphere.Config> configuredSphere, float radius, List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> decorators,
 					  List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random, BlockStateProvider state) {
 			super(configuredSphere, radius, decorators, spawns, random);
 			this.state = state;

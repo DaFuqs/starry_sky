@@ -21,9 +21,7 @@
     },
 
     "decorators": {
-      "starry_skies:center_pond_underwater_ruin_small_chest": 1.0,
-      "starry_skies:mod_compat/byg/beach_grass": 0.25,
-      "starry_skies:mod_compat/byg/prairie_grass": 0.25
+      "starry_skies:center_pond_underwater_ruin_small_chest": 1.0
     },
     "spawns": [
       {

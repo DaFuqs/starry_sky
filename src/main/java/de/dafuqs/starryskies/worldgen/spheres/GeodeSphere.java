@@ -7,6 +7,7 @@ import de.dafuqs.starryskies.worldgen.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.registry.*;
+import net.minecraft.registry.entry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.dynamic.*;
 import net.minecraft.util.math.*;
@@ -44,7 +45,7 @@ public class GeodeSphere extends Sphere<GeodeSphere.Config> {
 		private final BlockState middleBlockState;
 		private final BlockState outerBlockState;
 		
-		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation,
+		public Config(FloatProvider size, Map<RegistryEntry<ConfiguredSphereDecorator<?, ?>>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation,
 					  BlockState innerBlockState, BlockState innerSpecklesBlockState, float speckleChance, BlockState middleBlockState, BlockState outerBlockState) {
 			super(size, decorators, spawns, generation);
 			this.innerBlockState = innerBlockState;
@@ -64,7 +65,7 @@ public class GeodeSphere extends Sphere<GeodeSphere.Config> {
 		private final BlockState middleBlockState;
 		private final BlockState outerBlockState;
 		
-		public Placed(ConfiguredSphere<? extends Sphere<GeodeSphere.Config>, GeodeSphere.Config> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+		public Placed(ConfiguredSphere<? extends Sphere<GeodeSphere.Config>, GeodeSphere.Config> configuredSphere, float radius, List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 					  BlockState innerBlockState, BlockState innerSpecklesBlockState, float speckleChance, BlockState middleBlockState, BlockState outerBlockState) {
 			super(configuredSphere, radius, decorators, spawns, random);
 			this.innerBlockState = innerBlockState;

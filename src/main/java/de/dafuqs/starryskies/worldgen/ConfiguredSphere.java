@@ -4,6 +4,7 @@ import com.mojang.serialization.*;
 import de.dafuqs.starryskies.registries.*;
 import net.minecraft.entity.*;
 import net.minecraft.registry.*;
+import net.minecraft.registry.entry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.*;
@@ -30,7 +31,7 @@ public class ConfiguredSphere<S extends Sphere<SC>, SC extends SphereConfig> {
 		return config.size.get(random);
 	}
 	
-	public List<ConfiguredSphereDecorator<?, ?>> getDecorators(ChunkRandom random) {
+	public List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> getDecorators(ChunkRandom random) {
 		return config.selectDecorators(random);
 	}
 	

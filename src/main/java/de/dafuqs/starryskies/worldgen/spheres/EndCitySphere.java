@@ -13,6 +13,7 @@ import net.minecraft.item.*;
 import net.minecraft.loot.*;
 import net.minecraft.potion.*;
 import net.minecraft.registry.*;
+import net.minecraft.registry.entry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.floatprovider.*;
@@ -51,7 +52,7 @@ public class EndCitySphere extends Sphere<EndCitySphere.Config> {
 		
 		protected final IntProvider shellThickness;
 		
-		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, IntProvider shellThickness) {
+		public Config(FloatProvider size, Map<RegistryEntry<ConfiguredSphereDecorator<?, ?>>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, IntProvider shellThickness) {
 			super(size, decorators, spawns, generation);
 			this.shellThickness = shellThickness;
 		}
@@ -64,7 +65,7 @@ public class EndCitySphere extends Sphere<EndCitySphere.Config> {
 		
 		private final List<BlockPos> interiorDecoratorPositions = new ArrayList<>();
 		
-		public Placed(ConfiguredSphere<? extends Sphere<EndCitySphere.Config>, EndCitySphere.Config> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random, float shellRadius) {
+		public Placed(ConfiguredSphere<? extends Sphere<EndCitySphere.Config>, EndCitySphere.Config> configuredSphere, float radius, List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random, float shellRadius) {
 			super(configuredSphere, radius, decorators, spawns, random);
 			this.shellRadius = shellRadius;
 		}

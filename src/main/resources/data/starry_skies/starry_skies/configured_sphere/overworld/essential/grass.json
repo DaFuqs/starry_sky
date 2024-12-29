@@ -23,8 +23,7 @@
     "decorators": {
       "starry_skies:ruined_portal": 0.03,
       "starry_skies:sugar_cane_pond": 0.15,
-      "starry_skies:pink_petals": 0.1,
-      "starry_skies:mod_compat/sandwichable/shrub": 0.2
+      "starry_skies:pink_petals": 0.1
     },
     "spawns": [
       {

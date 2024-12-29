@@ -7,6 +7,7 @@ import de.dafuqs.starryskies.worldgen.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.registry.*;
+import net.minecraft.registry.entry.*;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
@@ -41,7 +42,7 @@ public class MushroomSphere extends Sphere<MushroomSphere.Config> {
 		protected final BlockState mushroomBlock;
 		protected final IntProvider shellThickness;
 		
-		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, BlockState stemBlock, BlockState mushroomBlock, IntProvider shellThickness) {
+		public Config(FloatProvider size, Map<RegistryEntry<ConfiguredSphereDecorator<?, ?>>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, BlockState stemBlock, BlockState mushroomBlock, IntProvider shellThickness) {
 			super(size, decorators, spawns, generation);
 			this.stemBlock = stemBlock;
 			this.mushroomBlock = mushroomBlock;
@@ -56,7 +57,7 @@ public class MushroomSphere extends Sphere<MushroomSphere.Config> {
 		private final BlockState mushroomBlock;
 		private final float shellRadius;
 		
-		public Placed(ConfiguredSphere<? extends Sphere<MushroomSphere.Config>, MushroomSphere.Config> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+		public Placed(ConfiguredSphere<? extends Sphere<MushroomSphere.Config>, MushroomSphere.Config> configuredSphere, float radius, List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 					  BlockState stemBlock, BlockState mushroomBlock, float shellRadius) {
 			super(configuredSphere, radius, decorators, spawns, random);
 			this.stemBlock = stemBlock;

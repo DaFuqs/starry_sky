@@ -8,6 +8,7 @@ import de.dafuqs.starryskies.worldgen.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.registry.*;
+import net.minecraft.registry.entry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.dynamic.*;
 import net.minecraft.util.math.*;
@@ -47,7 +48,7 @@ public class FluidSphere extends Sphere<FluidSphere.Config> {
 		protected final FloatProvider fillPercent;
 		protected final float holeInBottomChance;
 		
-		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, SphereStateProvider shellBlock, IntProvider shellThickness, BlockState fluidBlock, FloatProvider fillPercent, float holeInBottomChance) {
+		public Config(FloatProvider size, Map<RegistryEntry<ConfiguredSphereDecorator<?, ?>>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, SphereStateProvider shellBlock, IntProvider shellThickness, BlockState fluidBlock, FloatProvider fillPercent, float holeInBottomChance) {
 			super(size, decorators, spawns, generation);
 			this.shellBlock = shellBlock;
 			this.shellThickness = shellThickness;
@@ -68,7 +69,7 @@ public class FluidSphere extends Sphere<FluidSphere.Config> {
 		private final float fillPercent;
 		private final boolean holeInBottom;
 		
-		public Placed(ConfiguredSphere<? extends Sphere<FluidSphere.Config>, FluidSphere.Config> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+		public Placed(ConfiguredSphere<? extends Sphere<FluidSphere.Config>, FluidSphere.Config> configuredSphere, float radius, List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 					  BlockStateProvider shellBlock, float shellRadius, BlockState fluidBlock, float fillPercent, boolean holeInBottom) {
 			super(configuredSphere, radius, decorators, spawns, random);
 			this.shellBlock = shellBlock;

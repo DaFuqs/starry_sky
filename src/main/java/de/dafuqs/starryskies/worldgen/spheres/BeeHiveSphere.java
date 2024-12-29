@@ -10,6 +10,7 @@ import net.minecraft.block.entity.*;
 import net.minecraft.block.enums.*;
 import net.minecraft.entity.*;
 import net.minecraft.registry.*;
+import net.minecraft.registry.entry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.floatprovider.*;
@@ -47,7 +48,7 @@ public class BeeHiveSphere extends Sphere<BeeHiveSphere.Config> {
 		protected final IntProvider flowerRingRadius;
 		protected final IntProvider flowerRingSpacing;
 		
-		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, IntProvider shellThickness, IntProvider flowerRingRadius, IntProvider flowerRingSpacing) {
+		public Config(FloatProvider size, Map<RegistryEntry<ConfiguredSphereDecorator<?, ?>>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, IntProvider shellThickness, IntProvider flowerRingRadius, IntProvider flowerRingSpacing) {
 			super(size, decorators, spawns, generation);
 			this.shellThickness = shellThickness;
 			this.flowerRingRadius = flowerRingRadius;
@@ -65,7 +66,7 @@ public class BeeHiveSphere extends Sphere<BeeHiveSphere.Config> {
 		private final List<BeehiveBlockEntity> outerBeehiveBlockEntities = new ArrayList<>();
 		private BeehiveBlockEntity queenBeehiveBlockEntity;
 		
-		public Placed(ConfiguredSphere<? extends Sphere<BeeHiveSphere.Config>, BeeHiveSphere.Config> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
+		public Placed(ConfiguredSphere<? extends Sphere<BeeHiveSphere.Config>, BeeHiveSphere.Config> configuredSphere, float radius, List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
 					  int shellThickness, int flowerRingRadius, int flowerRingSpacing) {
 			super(configuredSphere, radius, decorators, spawns, random);
 			this.shellThickness = shellThickness;

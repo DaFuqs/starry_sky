@@ -7,6 +7,7 @@ import de.dafuqs.starryskies.worldgen.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.registry.*;
+import net.minecraft.registry.entry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.floatprovider.*;
@@ -35,7 +36,7 @@ public class HorizontalStackedSphere extends Sphere<HorizontalStackedSphere.Conf
 		
 		protected final List<BlockState> states;
 		
-		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, List<BlockState> states) {
+		public Config(FloatProvider size, Map<RegistryEntry<ConfiguredSphereDecorator<?, ?>>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, List<BlockState> states) {
 			super(size, decorators, spawns, generation);
 			this.states = states;
 		}
@@ -46,7 +47,7 @@ public class HorizontalStackedSphere extends Sphere<HorizontalStackedSphere.Conf
 		
 		private final List<BlockState> states;
 		
-		public Placed(ConfiguredSphere<? extends Sphere<HorizontalStackedSphere.Config>, HorizontalStackedSphere.Config> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators,
+		public Placed(ConfiguredSphere<? extends Sphere<HorizontalStackedSphere.Config>, HorizontalStackedSphere.Config> configuredSphere, float radius, List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> decorators,
 					  List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random, List<BlockState> states) {
 			super(configuredSphere, radius, decorators, spawns, random);
 			this.states = states;

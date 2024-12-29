@@ -8,6 +8,7 @@ import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.mob.*;
 import net.minecraft.registry.*;
+import net.minecraft.registry.entry.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.floatprovider.*;
@@ -47,7 +48,7 @@ public class OceanMonumentSphere extends Sphere<OceanMonumentSphere.Config> {
 		protected final FloatProvider coreRadius;
 		protected final IntProvider shellThickness;
 		
-		public Config(FloatProvider size, Map<ConfiguredSphereDecorator<?, ?>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, FloatProvider coreRadius, IntProvider shellThickness) {
+		public Config(FloatProvider size, Map<RegistryEntry<ConfiguredSphereDecorator<?, ?>>, Float> decorators, List<SphereEntitySpawnDefinition> spawns, Optional<Generation> generation, FloatProvider coreRadius, IntProvider shellThickness) {
 			super(size, decorators, spawns, generation);
 			this.coreRadius = coreRadius;
 			this.shellThickness = shellThickness;
@@ -62,7 +63,7 @@ public class OceanMonumentSphere extends Sphere<OceanMonumentSphere.Config> {
 		
 		private final ArrayList<BlockPos> guardianPositions = new ArrayList<>();
 		
-		public Placed(ConfiguredSphere<? extends Sphere<OceanMonumentSphere.Config>, OceanMonumentSphere.Config> configuredSphere, float radius, List<ConfiguredSphereDecorator<?, ?>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random, float coreRadius, float shellRadius) {
+		public Placed(ConfiguredSphere<? extends Sphere<OceanMonumentSphere.Config>, OceanMonumentSphere.Config> configuredSphere, float radius, List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random, float coreRadius, float shellRadius) {
 			super(configuredSphere, radius, decorators, spawns, random);
 			this.coreRadius = coreRadius;
 			this.shellRadius = shellRadius;
