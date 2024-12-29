@@ -1,32 +1,35 @@
 {
   "type": "starry_skies:fluid",
   "config": {
-    "fluid": "minecraft:water",
-    "shell_thickness": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 1,
-      "max_inclusive": 2
+    "fluid_block": {
+      "Name": "minecraft:lava"
     },
-    "min_fill_amount": 0.25,
-    "max_fill_amount": 0.9,
+    "fluid_fill_percent": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 0.25,
+      "max_exclusive": 0.9
+    },
     "hole_in_bottom_chance": 0.25,
     "shell_block": {
       "type": "starry_skies:weighted_block_group_state_provider",
       "group": "glasses"
     },
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 1,
+      "max_inclusive": 3
+    },
 
     "size": {
       "type": "minecraft:uniform",
       "min_inclusive": 5,
-      "max_exclusive": 15
+      "max_exclusive": 20
     },
 
-    "decorators": {
-      "starry_skies:sea_greens": 0.5
-    },
+    "decorators": {},
     "spawns": [],
     "generation": {
-      "weight": 5.0,
+      "weight": 3.0,
       "group": "starry_skies:overworld/fluid"
     }
   }

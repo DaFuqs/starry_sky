@@ -1,18 +1,23 @@
 {
   "type": "starry_skies:fluid",
   "config": {
-    "fluid": "minecraft:lava",
-    "shell_thickness": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 1,
-      "max_inclusive": 3
+    "fluid_block": {
+      "Name": "minecraft:lava"
     },
-    "min_fill_amount": 0.25,
-    "max_fill_amount": 0.9,
+    "fluid_fill_percent": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 0.25,
+      "max_exclusive": 0.9
+    },
     "hole_in_bottom_chance": 0.5,
     "shell_block": {
       "type": "starry_skies:weighted_block_group_state_provider",
       "group": "nether_glass"
+    },
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 1,
+      "max_inclusive": 3
     },
 
     "size": {
