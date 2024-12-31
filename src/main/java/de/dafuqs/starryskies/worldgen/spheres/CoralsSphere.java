@@ -132,7 +132,7 @@ public class CoralsSphere extends Sphere<CoralsSphere.Config> {
 						currBlockPos.set(x2, y2, z2);
 						
 						if (d == 0 && hasChest) {
-							placeCenterChestWithLootTable(chunk, currBlockPos, this.chestLootTable, random, true);
+							placeCenterChestWithLootTable(chunk, currBlockPos.toImmutable(), this.chestLootTable, random, true);
 						} else if (d <= (this.radius - this.shellRadius - 1)) {
 							int rand = random.nextInt(7);
 							if (rand < 2) {

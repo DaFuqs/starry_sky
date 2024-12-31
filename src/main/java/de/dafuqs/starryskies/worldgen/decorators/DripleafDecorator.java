@@ -27,8 +27,8 @@ public class DripleafDecorator extends SphereDecorator<DripleafDecoratorConfig> 
 		ChunkPos origin = context.getChunkPos();
 		Random random = context.getRandom();
 		DripleafDecoratorConfig config = context.getConfig();
-
-		for (BlockPos bp : getCaveBottomBlocks(world, origin, sphere, random, config.tries())) {
+		
+		for (BlockPos bp : getRandomCaveBottomBlocks(world, origin, sphere, random, config.tries())) {
 			boolean canGenerate;
 
 			// check if all 4 sides of the future water pond are solid

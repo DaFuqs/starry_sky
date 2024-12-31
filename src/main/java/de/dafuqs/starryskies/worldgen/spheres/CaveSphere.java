@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.state_providers.*;
 import de.dafuqs.starryskies.worldgen.*;
+import it.unimi.dsi.fastutil.objects.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.loot.*;
@@ -18,6 +19,8 @@ import net.minecraft.world.chunk.*;
 import net.minecraft.world.gen.stateprovider.*;
 import org.jetbrains.annotations.*;
 
+import java.awt.*;
+import java.util.List;
 import java.util.*;
 
 public class CaveSphere extends Sphere<CaveSphere.Config> {
@@ -78,7 +81,7 @@ public class CaveSphere extends Sphere<CaveSphere.Config> {
 	
 	public static class Placed extends PlacedSphere<CaveSphere.Config> {
 		
-		private static final BlockState CORE_STATE = Blocks.CAVE_AIR.getDefaultState();
+		private static final BlockState AIR = Blocks.CAVE_AIR.getDefaultState();
 		
 		private final BlockStateProvider shellBlock;
 		private final BlockStateProvider topBlock;
@@ -113,6 +116,7 @@ public class CaveSphere extends Sphere<CaveSphere.Config> {
 			int maxZ = Math.min(chunkZ * 16 + 15, z + ceiledRadius);
 			
 			boolean hasChest = this.chestLootTable != null;
+			Map<Point, Integer> floorBlocks = new Object2ObjectArrayMap<>();
 			
 			BlockPos.Mutable currBlockPos = new BlockPos.Mutable();
 			for (int x2 = Math.max(chunkX * 16, x - ceiledRadius); x2 <= maxX; x2++) {
@@ -125,24 +129,23 @@ public class CaveSphere extends Sphere<CaveSphere.Config> {
 						currBlockPos.set(x2, y2, z2);
 						
 						if (d > this.radius - 1) {
-							if (bottomBlock != null && isBottomBlock(d, x2, y2, z2)) {
+							if (isBottomBlock(d, x2, y2, z2)) {
 								chunk.setBlockState(currBlockPos, this.bottomBlock.get(random, currBlockPos), false);
-							} else if (topBlock != null && isTopBlock(d, x2, y2, z2)) {
+							} else if (isTopBlock(d, x2, y2, z2)) {
 								chunk.setBlockState(currBlockPos, this.topBlock.get(random, currBlockPos), false);
 							} else {
 								chunk.setBlockState(currBlockPos, this.shellBlock.get(random, currBlockPos), false);
 							}
-						} else if (isAboveCaveFloorBlock(d, x2, y2, z2, shellThickness)) {
-							if (this.caveFloorBlock == null) {
-								chunk.setBlockState(currBlockPos.down(), this.shellBlock.get(random, currBlockPos), false);
-							} else {
-								chunk.setBlockState(currBlockPos.down(), this.caveFloorBlock.get(random, currBlockPos), false);
-							}
-							if (hasChest && x2 - x == 0 && z2 - z == 0) {
-								placeCenterChestWithLootTable(chunk, currBlockPos, chestLootTable, random, false);
-							}
 						} else if (d <= this.radius - this.shellThickness) {
-							chunk.setBlockState(currBlockPos, CORE_STATE, false);
+							Point point = new Point(x2, z2);
+							if (!floorBlocks.containsKey(point)) {
+								floorBlocks.put(new Point(x2, z2), y2);
+								chunk.setBlockState(currBlockPos.down(), this.caveFloorBlock.get(random, currBlockPos), false);
+								if (hasChest && x2 - x == 0 && z2 - z == 0) {
+									placeCenterChestWithLootTable(chunk, currBlockPos.toImmutable(), chestLootTable, random, false);
+								}
+								
+							}
 						} else if (d < this.radius) {
 							chunk.setBlockState(currBlockPos, this.shellBlock.get(random, currBlockPos), false);
 						}

@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
 import de.dafuqs.starryskies.state_providers.*;
 import de.dafuqs.starryskies.worldgen.*;
+import it.unimi.dsi.fastutil.objects.*;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
 import net.minecraft.entity.*;
@@ -17,6 +18,8 @@ import net.minecraft.util.math.random.*;
 import net.minecraft.world.chunk.*;
 import net.minecraft.world.gen.stateprovider.*;
 
+import java.awt.*;
+import java.util.List;
 import java.util.*;
 
 public class DungeonSphere extends Sphere<DungeonSphere.Config> {
@@ -76,7 +79,6 @@ public class DungeonSphere extends Sphere<DungeonSphere.Config> {
 	public static class Placed extends PlacedSphere<DungeonSphere.Config> {
 		
 		private static final BlockState CHEST_STATE = Blocks.CHEST.getDefaultState();
-		private static final BlockState CORE_STATE = Blocks.CAVE_AIR.getDefaultState();
 		
 		private final BlockStateProvider shellBlock;
 		private final BlockStateProvider topBlock;
@@ -112,6 +114,8 @@ public class DungeonSphere extends Sphere<DungeonSphere.Config> {
 			int maxX = Math.min(chunkX * 16 + 15, x + ceiledRadius);
 			int maxZ = Math.min(chunkZ * 16 + 15, z + ceiledRadius);
 			
+			Map<Point, Integer> floorBlocks = new Object2ObjectArrayMap<>();
+			
 			BlockPos.Mutable currBlockPos = new BlockPos.Mutable();
 			for (int x2 = Math.max(chunkX * 16, x - ceiledRadius); x2 <= maxX; x2++) {
 				for (int y2 = y - ceiledRadius; y2 <= y + ceiledRadius; y2++) {
@@ -128,15 +132,6 @@ public class DungeonSphere extends Sphere<DungeonSphere.Config> {
 							if (chunk.getBlockEntity(currBlockPos) instanceof MobSpawnerBlockEntity mobSpawnerBlockEntity) {
 								mobSpawnerBlockEntity.getLogic().setEntityId(this.entityType, null, random, currBlockPos);
 							}
-						} else if (isAboveCaveFloorBlock(d, x2, y2, z2, shellThickness)) {
-							if (random.nextFloat() < treasureEntry.chance()) {
-								chunk.setBlockState(currBlockPos, CHEST_STATE, false);
-								chunk.setBlockEntity(new ChestBlockEntity(currBlockPos, CHEST_STATE));
-								if (chunk.getBlockEntity(currBlockPos) instanceof ChestBlockEntity chestBlockEntity) {
-									chestBlockEntity.setLootTable(treasureEntry.lootTable(), random.nextLong());
-								}
-							}
-							chunk.setBlockState(currBlockPos.down(), this.caveFloorBlock.get(random, currBlockPos), false);
 						} else if (d > this.radius - 1) {
 							if (isBottomBlock(d, x2, y2, z2)) {
 								chunk.setBlockState(currBlockPos, this.bottomBlock.get(random, currBlockPos), false);
@@ -146,7 +141,19 @@ public class DungeonSphere extends Sphere<DungeonSphere.Config> {
 								chunk.setBlockState(currBlockPos, this.shellBlock.get(random, currBlockPos), false);
 							}
 						} else if (d <= this.radius - this.shellThickness) {
-							chunk.setBlockState(currBlockPos, CORE_STATE, false);
+							Point point = new Point(x2, z2);
+							if (!floorBlocks.containsKey(point)) {
+								floorBlocks.put(new Point(x2, z2), y2);
+								chunk.setBlockState(currBlockPos.down(), this.caveFloorBlock.get(random, currBlockPos), false);
+								if (random.nextFloat() < treasureEntry.chance()) {
+									BlockPos immutable = currBlockPos.toImmutable();
+									chunk.setBlockState(immutable, CHEST_STATE, false);
+									chunk.setBlockEntity(new ChestBlockEntity(immutable, CHEST_STATE));
+									if (chunk.getBlockEntity(immutable) instanceof ChestBlockEntity chestBlockEntity) {
+										chestBlockEntity.setLootTable(treasureEntry.lootTable(), random.nextLong());
+									}
+								}
+							}
 						} else if (d < this.radius) {
 							chunk.setBlockState(currBlockPos, this.shellBlock.get(random, currBlockPos), false);
 						}

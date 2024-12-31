@@ -95,29 +95,23 @@ public abstract class PlacedSphere<SC extends SphereConfig> {
 			}
 		}
 	}
-
-	protected boolean isTopBlock(long d, double x, double y, double z) {
-		if (d > this.radius - 1) {
+	
+	protected boolean isTopBlock(long distanceFromSphereCenter, double x, double y, double z) {
+		if (distanceFromSphereCenter > this.radius - 1) {
 			long dist2 = Math.round(Support.getDistance(this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ(), x, y + 1, z));
 			return dist2 > this.radius;
 		} else {
 			return false;
 		}
 	}
-
-	protected boolean isBottomBlock(long d, double x, double y, double z) {
-		if (d > this.radius - 1) {
+	
+	protected boolean isBottomBlock(long distanceFromSphereCenter, double x, double y, double z) {
+		if (distanceFromSphereCenter > this.radius - 1) {
 			long dist2 = Math.round(Support.getDistance(this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ(), x, y - 1, z));
 			return dist2 > this.radius;
 		} else {
 			return false;
 		}
-	}
-	
-	// TODO: this is not correct
-	protected boolean isAboveCaveFloorBlock(long d, double x, double y, double z, float shellRadius) {
-		int distance1 = (int) Math.round(Support.getDistance(this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ(), x, y - 1, z));
-		return d < (this.radius - shellRadius) + 1 && distance1 > (this.radius - shellRadius);
 	}
 
 	protected void placeCenterChestWithLootTable(Chunk chunk, BlockPos blockPos, RegistryKey<LootTable> lootTable, Random random, boolean waterLogged) {

@@ -9,13 +9,13 @@
     "cave_floor_block": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:end_stone"
+        "Name": "minecraft:end_stone_bricks"
       }
     },
     "shell_block": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:end_stone_bricks"
+        "Name": "minecraft:end_stone"
       }
     },
     "treasure_chest": {

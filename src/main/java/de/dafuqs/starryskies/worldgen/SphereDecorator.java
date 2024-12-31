@@ -178,7 +178,7 @@ public abstract class SphereDecorator<FC extends SphereDecoratorConfig> {
 		return list;
 	}
 	
-	protected List<BlockPos> getCaveBottomBlocks(StructureWorldAccess world, ChunkPos chunkPos, PlacedSphere<?> sphere, Random random, int amount) {
+	protected List<BlockPos> getRandomCaveBottomBlocks(StructureWorldAccess world, ChunkPos chunkPos, PlacedSphere<?> sphere, Random random, int amount) {
 		List<BlockPos> list = new ArrayList<>();
 		
 		int x = sphere.getPosition().getX();
