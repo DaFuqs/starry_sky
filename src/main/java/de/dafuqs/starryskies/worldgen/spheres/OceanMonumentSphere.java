@@ -61,8 +61,6 @@ public class OceanMonumentSphere extends Sphere<OceanMonumentSphere.Config> {
 		private final float coreRadius;
 		private final float shellRadius;
 		
-		private final ArrayList<BlockPos> guardianPositions = new ArrayList<>();
-		
 		public Placed(ConfiguredSphere<? extends Sphere<OceanMonumentSphere.Config>, OceanMonumentSphere.Config> configuredSphere, float radius, List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random, float coreRadius, float shellRadius) {
 			super(configuredSphere, radius, decorators, spawns, random);
 			this.coreRadius = coreRadius;
@@ -113,9 +111,6 @@ public class OceanMonumentSphere extends Sphere<OceanMonumentSphere.Config> {
 									chunk.setBlockState(currBlockPos, PRISMARINE_BRICKS, false);
 								}
 							} else {
-								if (y2 % 10 == 5 && x2 % 10 == 5 && z2 % 10 == 5) {
-									guardianPositions.add(currBlockPos);
-								}
 								chunk.setBlockState(currBlockPos, WATER, false);
 							}
 						} else {
@@ -142,37 +137,53 @@ public class OceanMonumentSphere extends Sphere<OceanMonumentSphere.Config> {
 		
 		@Override
 		public void populateEntities(ChunkPos chunkPos, ChunkRegion chunkRegion, ChunkRandom chunkRandom) {
-			for (BlockPos guardianPosition : guardianPositions) {
-				if (Support.isBlockPosInChunkPos(chunkPos, guardianPosition)) {
-					
-					MobEntity mobentity;
-					if (random.nextFloat() < 0.08) {
-						mobentity = EntityType.ELDER_GUARDIAN.create(chunkRegion.toServerWorld());
-					} else {
-						mobentity = EntityType.GUARDIAN.create(chunkRegion.toServerWorld());
-					}
-					
-					if (mobentity != null) {
-						float width = mobentity.getWidth();
-						double xLength = MathHelper.clamp(guardianPosition.getX(), (double) chunkPos.getStartX() + (double) width, (double) chunkPos.getStartX() + 16.0D - (double) width);
-						double zLength = MathHelper.clamp(guardianPosition.getZ(), (double) chunkPos.getStartZ() + (double) width, (double) chunkPos.getStartZ() + 16.0D - (double) width);
-						
-						try {
-							mobentity.refreshPositionAndAngles(xLength, guardianPosition.getY(), zLength, random.nextFloat() * 360.0F, 0.0F);
-							mobentity.setPersistent();
-							if (mobentity.canSpawn(chunkRegion, SpawnReason.CHUNK_GENERATION) && mobentity.canSpawn(chunkRegion)) {
-								mobentity.initialize(chunkRegion, chunkRegion.getLocalDifficulty(mobentity.getBlockPos()), SpawnReason.CHUNK_GENERATION, null);
-								boolean success = chunkRegion.spawnEntity(mobentity);
-								if (!success) {
-									return;
-								}
+			super.populateEntities(chunkPos, chunkRegion, chunkRandom);
+			
+			BlockPos.Mutable mutable = new BlockPos.Mutable();
+			int iRadius = (int) radius - 5;
+			for (int x2 = position.getX() - iRadius; x2 <= position.getX() + iRadius; x2 += 10) {
+				for (int y2 = position.getY() - iRadius; y2 <= position.getY() + iRadius; y2 += 10) {
+					for (int z2 = position.getZ() - iRadius; z2 <= position.getZ() + iRadius; z2 += 10) {
+						long d = Math.round(Support.getDistance(position.getX(), position.getY(), position.getZ(), x2, y2, z2));
+						if (d < this.radius - this.shellRadius) {
+							mutable.set(x2, y2, z2);
+							if (Support.isBlockPosInChunkPos(chunkPos, mutable)) {
+								if (spawnGuardian(chunkPos, chunkRegion, mutable)) return;
 							}
-						} catch (Exception exception) {
-							StarrySkies.LOGGER.warn("Failed to spawn mob on sphere {}\nException: {}", this.getDescription(chunkRegion.getRegistryManager()), exception);
 						}
 					}
 				}
 			}
+		}
+		
+		private boolean spawnGuardian(ChunkPos chunkPos, ChunkRegion chunkRegion, BlockPos guardianPosition) {
+			MobEntity mobentity;
+			if (random.nextFloat() < 0.08) {
+				mobentity = EntityType.ELDER_GUARDIAN.create(chunkRegion.toServerWorld());
+			} else {
+				mobentity = EntityType.GUARDIAN.create(chunkRegion.toServerWorld());
+			}
+			
+			if (mobentity != null) {
+				float width = mobentity.getWidth();
+				double xLength = MathHelper.clamp(guardianPosition.getX(), (double) chunkPos.getStartX() + (double) width, (double) chunkPos.getStartX() + 16.0D - (double) width);
+				double zLength = MathHelper.clamp(guardianPosition.getZ(), (double) chunkPos.getStartZ() + (double) width, (double) chunkPos.getStartZ() + 16.0D - (double) width);
+				
+				try {
+					mobentity.refreshPositionAndAngles(xLength, guardianPosition.getY(), zLength, random.nextFloat() * 360.0F, 0.0F);
+					mobentity.setPersistent();
+					if (mobentity.canSpawn(chunkRegion, SpawnReason.CHUNK_GENERATION) && mobentity.canSpawn(chunkRegion)) {
+						mobentity.initialize(chunkRegion, chunkRegion.getLocalDifficulty(mobentity.getBlockPos()), SpawnReason.CHUNK_GENERATION, null);
+						boolean success = chunkRegion.spawnEntity(mobentity);
+						if (!success) {
+							return true;
+						}
+					}
+				} catch (Exception exception) {
+					StarrySkies.LOGGER.warn("Failed to spawn mob on sphere {}\nException: {}", this.getDescription(chunkRegion.getRegistryManager()), exception);
+				}
+			}
+			return false;
 		}
 		
 	}
