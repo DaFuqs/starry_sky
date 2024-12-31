@@ -110,40 +110,6 @@ public class BeeHiveSphere extends Sphere<BeeHiveSphere.Config> {
 							chunk.setBlockState(currBlockPos, beeHiveBlockState, false);
 							this.queenBeehiveBlockEntity = new BeehiveBlockEntity(currBlockPos, beeHiveBlockState);
 							chunk.setBlockEntity(queenBeehiveBlockEntity);
-						} else if (d == shellThickness && y2 - y == 0 && random.nextInt(10) == 0) {
-							// middle outer shell: random hives
-							Direction direction;
-							float xDist = x2 - x;
-							float zDist = z2 - z;
-							if (xDist > 0) {
-								if (Math.abs(xDist) > Math.abs(zDist)) {
-									direction = Direction.EAST;
-								} else {
-									if (zDist > 0) {
-										direction = Direction.SOUTH;
-									} else {
-										direction = Direction.NORTH;
-									}
-								}
-							} else {
-								if (Math.abs(xDist) < Math.abs(zDist)) {
-									if (zDist > 0) {
-										direction = Direction.SOUTH;
-									} else {
-										direction = Direction.NORTH;
-									}
-								} else {
-									direction = Direction.WEST;
-								}
-							}
-							// set the block
-							BlockState blockState = Blocks.BEE_NEST.getDefaultState().with(BeehiveBlock.FACING, direction);
-							chunk.setBlockState(currBlockPos, blockState, false);
-							
-							// set and save the blockentity
-							BeehiveBlockEntity outerBeehiveBlockEntity = new BeehiveBlockEntity(currBlockPos, blockState);
-							chunk.setBlockEntity(outerBeehiveBlockEntity);
-							this.outerBeehiveBlockEntities.add(outerBeehiveBlockEntity);
 						} else if (d <= coreDistance) {
 							// core
 							int r = random.nextInt((int) Math.ceil(coreDistance / 3F)); // way more honey in the middle
@@ -153,11 +119,48 @@ public class BeeHiveSphere extends Sphere<BeeHiveSphere.Config> {
 								chunk.setBlockState(currBlockPos, Blocks.AIR.getDefaultState(), false);
 							}
 						} else if (d <= shellDistance) {
-							// shell
-							if (random.nextInt(10) == 0) {
-								chunk.setBlockState(currBlockPos, Blocks.HONEY_BLOCK.getDefaultState(), false);
+							if (y2 - y == 0 && d - shellDistance < -0.5 && random.nextInt(10) == 0) {
+								// middle outer shell: random hives
+								Direction direction;
+								float xDist = x2 - x;
+								float zDist = z2 - z;
+								if (xDist > 0) {
+									if (Math.abs(xDist) > Math.abs(zDist)) {
+										direction = Direction.EAST;
+									} else {
+										if (zDist > 0) {
+											direction = Direction.SOUTH;
+										} else {
+											direction = Direction.NORTH;
+										}
+									}
+								} else {
+									if (Math.abs(xDist) < Math.abs(zDist)) {
+										if (zDist > 0) {
+											direction = Direction.SOUTH;
+										} else {
+											direction = Direction.NORTH;
+										}
+									} else {
+										direction = Direction.WEST;
+									}
+								}
+								// set the block
+								BlockState blockState = Blocks.BEE_NEST.getDefaultState().with(BeehiveBlock.FACING, direction);
+								chunk.setBlockState(currBlockPos, blockState, false);
+								
+								// set and save the blockentity
+								BeehiveBlockEntity outerBeehiveBlockEntity = new BeehiveBlockEntity(currBlockPos, blockState);
+								chunk.setBlockEntity(outerBeehiveBlockEntity);
+								this.outerBeehiveBlockEntities.add(outerBeehiveBlockEntity);
 							} else {
-								chunk.setBlockState(currBlockPos, Blocks.HONEYCOMB_BLOCK.getDefaultState(), false);
+								
+								// shell
+								if (random.nextInt(10) == 0) {
+									chunk.setBlockState(currBlockPos, Blocks.HONEY_BLOCK.getDefaultState(), false);
+								} else {
+									chunk.setBlockState(currBlockPos, Blocks.HONEYCOMB_BLOCK.getDefaultState(), false);
+								}
 							}
 						} else if (y - y2 == 0 && d > startRingDistance && d <= endRingDistance) {
 							chunk.setBlockState(currBlockPos, Blocks.GRASS_BLOCK.getDefaultState(), false);
@@ -185,6 +188,8 @@ public class BeeHiveSphere extends Sphere<BeeHiveSphere.Config> {
 		
 		@Override
 		public void populateEntities(ChunkPos chunkPos, ChunkRegion chunkRegion, ChunkRandom chunkRandom) {
+			super.populateEntities(chunkPos, chunkRegion, chunkRandom);
+			
 			if (isCenterInChunk(chunkPos)) {
 				if (queenBeehiveBlockEntity != null) {
 					queenBeehiveBlockEntity.addBee(getBee());
@@ -216,4 +221,4 @@ public class BeeHiveSphere extends Sphere<BeeHiveSphere.Config> {
 	}
 	
 }
-	
+
