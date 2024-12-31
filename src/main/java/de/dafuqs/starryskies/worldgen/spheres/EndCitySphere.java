@@ -130,6 +130,8 @@ public class EndCitySphere extends Sphere<EndCitySphere.Config> {
 		 */
 		@Override
 		public void decorate(StructureWorldAccess world, BlockPos origin, Random random) {
+			super.decorate(world, origin, random);
+			
 			ChunkPos originChunkPos = new ChunkPos(origin);
 			for (BlockPos interiorDecoratorPosition : interiorDecoratorPositions) {
 				if (Support.isBlockPosInChunkPos(originChunkPos, interiorDecoratorPosition)) {
