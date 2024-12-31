@@ -50,7 +50,7 @@ public class StarrySkyChunkGenerator extends ChunkGenerator {
 
 		// Generate floor if set
 		if (systemGenerator.value().getFloorHeight() > 0) {
-			for (int y = 0; y <= getSeaLevel(); y++) {
+			for (int y = 0; y < getSeaLevel(); y++) {
 				for (int x = 0; x < 16; x++) {
 					for (int z = 0; z < 16; z++) {
 						chunk.setBlockState(new BlockPos(chunkPosStartX + x, y, chunkPosStartZ + z), systemGenerator.value().getSeaBlock(y), false);
