@@ -1,12 +1,6 @@
 {
   "type": "starry_skies:shell",
   "config": {
-
-    "size": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 5,
-      "max_exclusive": 12
-    },
     "main_block": {
       "type": "minecraft:simple_state_provider",
       "state": {
@@ -40,6 +34,12 @@
       "type": "minecraft:uniform",
       "min_inclusive": 2,
       "max_inclusive": 3
+    },
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 12
     },
 
     "decorators": {},

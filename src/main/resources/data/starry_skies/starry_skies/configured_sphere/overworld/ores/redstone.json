@@ -19,8 +19,8 @@
 
     "size": {
       "type": "minecraft:uniform",
-      "min_inclusive": 8,
-      "max_exclusive": 12
+      "min_inclusive": 9,
+      "max_exclusive": 15
     },
 
     "decorators": {},
