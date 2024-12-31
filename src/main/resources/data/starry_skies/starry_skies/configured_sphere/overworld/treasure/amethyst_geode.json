@@ -2,17 +2,35 @@
   "type": "starry_skies:geode",
   "config": {
     "inner_block": {
-      "Name": "minecraft:amethyst_block"
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:amethyst_block"
+      }
     },
     "inner_speckles_block": {
-      "Name": "minecraft:budding_amethyst"
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:budding_amethyst"
+      }
     },
     "inner_speckles_block_chance": 0.08,
+    "inner_speckles_attached_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:amethyst_cluster"
+      }
+    },
     "middle_block": {
-      "Name": "minecraft:calcite"
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:calcite"
+      }
     },
     "outer_block": {
-      "Name": "minecraft:basalt"
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:basalt"
+      }
     },
 
     "size": {
