@@ -30,7 +30,7 @@
       }
     ],
     "generation": {
-      "weight": 0.02,
+      "weight": 0.005,
       "group": "starry_skies:overworld/ores"
     }
   }
