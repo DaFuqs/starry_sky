@@ -63,8 +63,6 @@ public class EndCitySphere extends Sphere<EndCitySphere.Config> {
 		
 		private final float shellRadius;
 		
-		private final List<BlockPos> interiorDecoratorPositions = new ArrayList<>();
-		
 		public Placed(ConfiguredSphere<? extends Sphere<EndCitySphere.Config>, EndCitySphere.Config> configuredSphere, float radius, List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random, float shellRadius) {
 			super(configuredSphere, radius, decorators, spawns, random);
 			this.shellRadius = shellRadius;
@@ -103,10 +101,6 @@ public class EndCitySphere extends Sphere<EndCitySphere.Config> {
 								chunk.setBlockState(currBlockPos, PURPUR_BLOCK, false);
 							}
 						}
-						
-						if (d < this.getRadius() - 9 && (y2 % 10 == (this.position.getY() + 9) % 10 && x2 % 10 == (this.position.getX()) % 10 && z2 % 10 == (this.position.getZ()) % 10)) {
-							interiorDecoratorPositions.add(currBlockPos);
-						}
 					}
 				}
 			}
@@ -132,6 +126,15 @@ public class EndCitySphere extends Sphere<EndCitySphere.Config> {
 		public void decorate(StructureWorldAccess world, BlockPos origin, Random random) {
 			super.decorate(world, origin, random);
 			
+			placeSolid(world, position);
+			placeEmpty(world, position.add(0, 12, 0));
+			placeElytra(world, position.add(0, 24, 0));
+			placeTreasure(world, position.add(0, 36, 0));
+			placeBrewingStand(world, position.add(0, 48, 0));
+			placeDragonHead(world, position.add(0, 64, 0));
+			placeShulkerSpawner(world, position.add(0, 72, 0));
+			
+			/*
 			ChunkPos originChunkPos = new ChunkPos(origin);
 			for (BlockPos interiorDecoratorPosition : interiorDecoratorPositions) {
 				if (Support.isBlockPosInChunkPos(originChunkPos, interiorDecoratorPosition)) {
@@ -147,7 +150,7 @@ public class EndCitySphere extends Sphere<EndCitySphere.Config> {
 								placeShulkerSpawner(world, interiorDecoratorPosition);
 					}
 				}
-			}
+			}*/
 		}
 		
 		

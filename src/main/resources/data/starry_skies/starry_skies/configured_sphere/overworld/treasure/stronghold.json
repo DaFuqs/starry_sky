@@ -1,11 +1,133 @@
 {
-  "type": "starry_skies:stronghold",
+  "type": "starry_skies:structure_interior",
   "config": {
+    "main_block": {
+      "reroll_for_every_pos": true,
+      "type": "minecraft:noise_provider",
+      "noise": {
+        "amplitudes": [
+          1
+        ],
+        "firstOctave": 0
+      },
+      "scale": 0.020833334,
+      "seed": 2345,
+      "states": [
+        {
+          "Name": "minecraft:infested_stone_bricks"
+        },
+        {
+          "Name": "minecraft:mossy_stone_bricks"
+        },
+        {
+          "Name": "minecraft:stone_bricks"
+        },
+        {
+          "Name": "minecraft:mossy_stone_bricks"
+        },
+        {
+          "Name": "minecraft:stone_bricks"
+        },
+        {
+          "Name": "minecraft:mossy_stone_bricks"
+        },
+        {
+          "Name": "minecraft:stone_bricks"
+        },
+        {
+          "Name": "minecraft:mossy_stone_bricks"
+        },
+        {
+          "Name": "minecraft:stone_bricks"
+        },
+        {
+          "Name": "minecraft:mossy_stone_bricks"
+        },
+        {
+          "Name": "minecraft:infested_stone_bricks"
+        }
+      ]
+    },
+    "shell_block": {
+      "reroll_for_every_pos": true,
+      "type": "minecraft:noise_provider",
+      "noise": {
+        "amplitudes": [
+          1
+        ],
+        "firstOctave": 0
+      },
+      "scale": 0.020833334,
+      "seed": 2345,
+      "states": [
+        {
+          "Name": "minecraft:stone_bricks"
+        },
+        {
+          "Name": "minecraft:mossy_stone_bricks"
+        },
+        {
+          "Name": "minecraft:stone_bricks"
+        },
+        {
+          "Name": "minecraft:mossy_stone_bricks"
+        },
+        {
+          "Name": "minecraft:stone_bricks"
+        },
+        {
+          "Name": "minecraft:mossy_stone_bricks"
+        },
+        {
+          "Name": "minecraft:stone_bricks"
+        },
+        {
+          "Name": "minecraft:mossy_stone_bricks"
+        },
+        {
+          "Name": "minecraft:stone_bricks"
+        },
+        {
+          "Name": "minecraft:mossy_stone_bricks"
+        },
+        {
+          "Name": "minecraft:stone_bricks"
+        }
+      ]
+    },
     "shell_thickness": {
       "type": "minecraft:uniform",
       "min_inclusive": 3,
       "max_inclusive": 5
     },
+    "center_structures": [
+      {
+        "weight": 1,
+        "data": "starry_skies:stronghold/portal"
+      }
+    ],
+    "structures": [
+      {
+        "weight": 1,
+        "data": "starry_skies:stronghold/library"
+      },
+      {
+        "weight": 1,
+        "data": "starry_skies:stronghold/mossy_chest"
+      },
+      {
+        "weight": 1,
+        "data": "starry_skies:stronghold/pillar"
+      },
+      {
+        "weight": 1,
+        "data": "starry_skies:stronghold/prison"
+      },
+      {
+        "weight": 1,
+        "data": "starry_skies:stronghold/stone_bricks"
+      }
+    ],
 
     "size": {
       "type": "minecraft:uniform",

@@ -58,8 +58,6 @@ public class NetherFortressSphere extends Sphere<NetherFortressSphere.Config> {
 		
 		private final float shellRadius;
 		
-		private final List<BlockPos> interiorDecoratorPositions = new ArrayList<>();
-		
 		public Placed(ConfiguredSphere<? extends Sphere<NetherFortressSphere.Config>, NetherFortressSphere.Config> configuredSphere, float radius, List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random, float shellRadius) {
 			super(configuredSphere, radius, decorators, spawns, random);
 			this.shellRadius = shellRadius;
@@ -93,9 +91,6 @@ public class NetherFortressSphere extends Sphere<NetherFortressSphere.Config> {
 						if (d <= shellRadius) {
 							chunk.setBlockState(currBlockPos, NETHER_BRICKS, false);
 						}
-						if (d < this.getRadius() - 10 && (y2 % 10 == (this.position.getY() + 9) % 10 && x2 % 10 == (this.position.getX()) % 10 && z2 % 10 == (this.position.getZ()) % 10)) {
-							interiorDecoratorPositions.add(currBlockPos);
-						}
 					}
 				}
 			}
@@ -121,6 +116,16 @@ public class NetherFortressSphere extends Sphere<NetherFortressSphere.Config> {
 		public void decorate(StructureWorldAccess world, BlockPos origin, Random random) {
 			super.decorate(world, origin, random);
 			
+			placeBlazeSpawnerRoom(world, position);
+			
+			placeWitherSkeletonRoom(world, position.add(0, 12, 0));
+			placeNetherWartRoom(world, position.add(0, 24, 0));
+			placeSolid(world, position.add(0, 36, 0));
+			placeEmpty(world, position.add(0, 48, 0));
+			placeLava(world, position.add(0, 64, 0));
+			placeChestRoom(world, position.add(0, 76, 0));
+			
+			/*
 			ChunkPos originChunkPos = new ChunkPos(origin);
 			for (BlockPos interiorDecoratorPosition : interiorDecoratorPositions) {
 				if (Support.isBlockPosInChunkPos(originChunkPos, interiorDecoratorPosition)) {
@@ -135,7 +140,7 @@ public class NetherFortressSphere extends Sphere<NetherFortressSphere.Config> {
 						default -> placeChestRoom(world, interiorDecoratorPosition);
 					}
 				}
-			}
+			}*/
 		}
 		
 		private void placeSolid(WorldAccess worldAccess, BlockPos blockPos) {

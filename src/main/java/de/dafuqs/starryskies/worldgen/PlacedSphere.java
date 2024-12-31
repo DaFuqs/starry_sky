@@ -19,7 +19,7 @@ import org.jetbrains.annotations.*;
 
 import java.util.*;
 
-public abstract class PlacedSphere<SC extends SphereConfig> /* implements Serializable */ {
+public abstract class PlacedSphere<SC extends SphereConfig> {
 
 	protected ConfiguredSphere<? extends Sphere<SC>, SC> configuredSphere;
 	protected float radius;

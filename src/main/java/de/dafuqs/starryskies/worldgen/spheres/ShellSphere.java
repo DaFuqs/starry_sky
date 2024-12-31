@@ -18,15 +18,24 @@ import net.minecraft.world.gen.stateprovider.*;
 
 import java.util.*;
 
-public class ShellSphere extends Sphere<ShellSphere.Config> {
+public class ShellSphere<SC extends ShellSphere.Config> extends Sphere<SC> {
 	
-	public ShellSphere(Codec<ShellSphere.Config> codec) {
+	public ShellSphere(Codec<SC> configCodec) {
+		super(configCodec);
+	}
+	
+	/*public ShellSphere(Codec<ShellSphere.Config> codec) {
 		super(codec);
 	}
 	
 	@Override
 	public PlacedSphere<?> generate(ConfiguredSphere<? extends Sphere<ShellSphere.Config>, Config> configuredSphere, Config config, ChunkRandom random, DynamicRegistryManager registryManager, BlockPos pos, float radius) {
-		return new ShellSphere.Placed(configuredSphere, radius, configuredSphere.getDecorators(random), configuredSphere.getSpawns(random), random, config.innerBlock.getForSphere(random, pos), config.shellBlock.getForSphere(random, pos), config.shellThickness.get(random));
+	
+	}*/
+	
+	@Override
+	public PlacedSphere<?> generate(ConfiguredSphere<? extends Sphere<SC>, SC> configuredSphere, SC config, ChunkRandom random, DynamicRegistryManager registryManager, BlockPos pos, float radius) {
+		return new ShellSphere.Placed<>(configuredSphere, radius, configuredSphere.getDecorators(random), configuredSphere.getSpawns(random), random, config.innerBlock.getForSphere(random, pos), config.shellBlock.getForSphere(random, pos), config.shellThickness.get(random));
 	}
 	
 	public static class Config extends SphereConfig {
@@ -51,14 +60,13 @@ public class ShellSphere extends Sphere<ShellSphere.Config> {
 		
 	}
 	
-	public static class Placed extends PlacedSphere<ShellSphere.Config> {
+	public static class Placed<SC extends SphereConfig> extends PlacedSphere<SC> {
 		
 		private final BlockStateProvider innerBlock;
 		private final BlockStateProvider shellBlock;
 		private final float shellRadius;
 		
-		public Placed(ConfiguredSphere<? extends Sphere<ShellSphere.Config>, ShellSphere.Config> configuredSphere, float radius, List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random,
-					  BlockStateProvider innerBlock, BlockStateProvider shellBlock, float shellRadius) {
+		public Placed(ConfiguredSphere<? extends Sphere<SC>, SC> configuredSphere, float radius, List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random, BlockStateProvider innerBlock, BlockStateProvider shellBlock, int shellRadius) {
 			super(configuredSphere, radius, decorators, spawns, random);
 			this.innerBlock = innerBlock;
 			this.shellBlock = shellBlock;

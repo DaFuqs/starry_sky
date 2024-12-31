@@ -26,9 +26,9 @@ public class Spheres {
 	public static final Sphere<BeeHiveSphere.Config> BEE_HIVE = register("bee_hive", new BeeHiveSphere(BeeHiveSphere.Config.CODEC));
 	
 	// Structures
+	public static final Sphere<StructureInteriorSphere.Config> STRUCTURE_INTERIOR = register("structure_interior", new StructureInteriorSphere(StructureInteriorSphere.Config.CODEC));
 	public static final Sphere<OceanMonumentSphere.Config> OCEAN_MONUMENT = register("ocean_monument", new OceanMonumentSphere(OceanMonumentSphere.Config.CODEC));
 	public static final Sphere<EndCitySphere.Config> END_CITY = register("end_city", new EndCitySphere(EndCitySphere.Config.CODEC));
-	public static final Sphere<StrongholdSphere.Config> STRONGHOLD = register("stronghold", new StrongholdSphere(StrongholdSphere.Config.CODEC));
 	public static final Sphere<NetherFortressSphere.Config> NETHER_FORTRESS = register("nether_fortress", new NetherFortressSphere(NetherFortressSphere.Config.CODEC));
 	
 	private static <C extends SphereConfig, F extends Sphere<C>> F register(String name, F feature) {
