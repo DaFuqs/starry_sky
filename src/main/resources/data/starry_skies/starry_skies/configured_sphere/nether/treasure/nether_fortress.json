@@ -1,11 +1,55 @@
 {
-  "type": "starry_skies:nether_fortress",
+  "type": "starry_skies:structure_interior",
   "config": {
+    "main_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:nether_bricks"
+      }
+    },
+    "shell_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:nether_bricks"
+      }
+    },
     "shell_thickness": {
       "type": "minecraft:uniform",
       "min_inclusive": 4,
       "max_inclusive": 6
     },
+    "center_structures": [
+      {
+        "weight": 1,
+        "data": "starry_skies:nether_fortress/blaze_spawner"
+      }
+    ],
+    "structures": [
+      {
+        "weight": 1,
+        "data": "starry_skies:nether_fortress/chest"
+      },
+      {
+        "weight": 1,
+        "data": "starry_skies:nether_fortress/lava"
+      },
+      {
+        "weight": 1,
+        "data": "starry_skies:nether_fortress/nether_bricks"
+      },
+      {
+        "weight": 1,
+        "data": "starry_skies:nether_fortress/nether_wart"
+      },
+      {
+        "weight": 1,
+        "data": "starry_skies:nether_fortress/wither_skeleton_spawner"
+      },
+      {
+        "weight": 1,
+        "data": "starry_skies:empty"
+      }
+    ],
 
     "size": {
       "type": "minecraft:uniform",

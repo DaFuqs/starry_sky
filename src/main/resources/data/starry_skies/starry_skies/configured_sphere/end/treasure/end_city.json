@@ -1,11 +1,137 @@
 {
-  "type": "starry_skies:end_city",
+  "type": "starry_skies:structure_interior",
   "config": {
+    "main_block": {
+      "reroll_for_every_pos": true,
+      "type": "minecraft:noise_provider",
+      "noise": {
+        "amplitudes": [
+          1
+        ],
+        "firstOctave": 0
+      },
+      "scale": 0.020833334,
+      "seed": 2345,
+      "states": [
+        {
+          "Name": "minecraft:magenta_stained_glass"
+        },
+        {
+          "Name": "minecraft:purpur_block"
+        },
+        {
+          "Name": "minecraft:end_stone_bricks"
+        },
+        {
+          "Name": "minecraft:purpur_block"
+        },
+        {
+          "Name": "minecraft:end_stone_bricks"
+        },
+        {
+          "Name": "minecraft:purpur_block"
+        },
+        {
+          "Name": "minecraft:end_stone_bricks"
+        },
+        {
+          "Name": "minecraft:purpur_block"
+        },
+        {
+          "Name": "minecraft:end_stone_bricks"
+        },
+        {
+          "Name": "minecraft:purpur_block"
+        },
+        {
+          "Name": "minecraft:magenta_stained_glass"
+        }
+      ]
+    },
+    "shell_block": {
+      "reroll_for_every_pos": true,
+      "type": "minecraft:noise_provider",
+      "noise": {
+        "amplitudes": [
+          1
+        ],
+        "firstOctave": 0
+      },
+      "scale": 0.020833334,
+      "seed": 2345,
+      "states": [
+        {
+          "Name": "minecraft:end_stone_bricks"
+        },
+        {
+          "Name": "minecraft:purpur_block"
+        },
+        {
+          "Name": "minecraft:end_stone_bricks"
+        },
+        {
+          "Name": "minecraft:purpur_block"
+        },
+        {
+          "Name": "minecraft:end_stone_bricks"
+        },
+        {
+          "Name": "minecraft:purpur_block"
+        },
+        {
+          "Name": "minecraft:end_stone_bricks"
+        },
+        {
+          "Name": "minecraft:purpur_block"
+        },
+        {
+          "Name": "minecraft:end_stone_bricks"
+        },
+        {
+          "Name": "minecraft:purpur_block"
+        },
+        {
+          "Name": "minecraft:end_stone_bricks"
+        }
+      ]
+    },
     "shell_thickness": {
       "type": "minecraft:uniform",
       "min_inclusive": 3,
       "max_inclusive": 5
     },
+    "center_structures": [
+      {
+        "weight": 1,
+        "data": "starry_skies:end_city/elytra_chest"
+      }
+    ],
+    "structures": [
+      {
+        "weight": 1,
+        "data": "starry_skies:end_city/brewing_stand"
+      },
+      {
+        "weight": 1,
+        "data": "starry_skies:end_city/dragon_head"
+      },
+      {
+        "weight": 1,
+        "data": "starry_skies:end_city/end_city_loot_chest"
+      },
+      {
+        "weight": 1,
+        "data": "starry_skies:end_city/ender_chest"
+      },
+      {
+        "weight": 1,
+        "data": "starry_skies:end_city/purpur_blocks"
+      },
+      {
+        "weight": 3,
+        "data": "starry_skies:end_city/shulker_spawner"
+      }
+    ],
 
     "size": {
       "type": "minecraft:uniform",

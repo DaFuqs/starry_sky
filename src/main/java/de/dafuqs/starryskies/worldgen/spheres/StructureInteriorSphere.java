@@ -76,6 +76,15 @@ public class StructureInteriorSphere extends ShellSphere<StructureInteriorSphere
 			this.outerStructures = outerStructures;
 		}
 		
+		@Override
+		public String getDescription(DynamicRegistryManager registryManager) {
+			return "+++ StructureInteriorSphere +++" +
+					"\nPosition: x=" + this.getPosition().getX() + " y=" + this.getPosition().getY() + " z=" + this.getPosition().getZ() +
+					"\nTemplateID: " + this.getID(registryManager) +
+					"\nRadius: " + this.radius +
+					"\nShell: " + this.shellBlock.toString() + " (Radius: " + this.shellRadius + ")" +
+					"\nCore: " + this.innerBlock.toString();
+		}
 		
 		@Override
 		public void decorate(StructureWorldAccess world, BlockPos origin, Random random) {

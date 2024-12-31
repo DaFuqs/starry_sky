@@ -62,9 +62,9 @@ public class ShellSphere<SC extends ShellSphere.Config> extends Sphere<SC> {
 	
 	public static class Placed<SC extends SphereConfig> extends PlacedSphere<SC> {
 		
-		private final BlockStateProvider innerBlock;
-		private final BlockStateProvider shellBlock;
-		private final float shellRadius;
+		protected final BlockStateProvider innerBlock;
+		protected final BlockStateProvider shellBlock;
+		protected final float shellRadius;
 		
 		public Placed(ConfiguredSphere<? extends Sphere<SC>, SC> configuredSphere, float radius, List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> decorators, List<Pair<EntityType<?>, Integer>> spawns, ChunkRandom random, BlockStateProvider innerBlock, BlockStateProvider shellBlock, int shellRadius) {
 			super(configuredSphere, radius, decorators, spawns, random);
