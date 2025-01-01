@@ -26,7 +26,13 @@
     "spawns": [
       {
         "type": "minecraft:turtle",
-        "chance": 0.7,
+        "chance": 0.4,
+        "min_count": 3,
+        "max_count": 4
+      },
+      {
+        "type": "minecraft:frog",
+        "chance": 0.4,
         "min_count": 3,
         "max_count": 4
       }

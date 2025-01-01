@@ -30,6 +30,12 @@
         "chance": 0.4,
         "min_count": 2,
         "max_count": 2
+      },
+      {
+        "type": "minecraft:frog",
+        "chance": 0.1,
+        "min_count": 2,
+        "max_count": 3
       }
     ],
     "generation": {
