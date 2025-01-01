@@ -28,8 +28,8 @@ public class SystemGenerator {
 					Codec.INT.fieldOf("spheres_per_system").forGetter(generator -> generator.spheresPerSystem),
 					Codec.INT.fieldOf("min_distance_between_spheres").forGetter(generator -> generator.minDistanceBetweenSpheres),
 					Codec.INT.fieldOf("floor_height").forGetter(generator -> generator.floorHeight),
-					BLOCKSTATE_STRING_CODEC.fieldOf("floor_state").forGetter(generator -> generator.floorState),
-					BLOCKSTATE_STRING_CODEC.fieldOf("bottom_state").forGetter(generator -> generator.bottomState),
+					BlockState.CODEC.fieldOf("floor_state").forGetter(generator -> generator.floorState),
+					BlockState.CODEC.fieldOf("bottom_state").forGetter(generator -> generator.bottomState),
 					DefaultSphere.CODEC.listOf().fieldOf("fixed_spheres").forGetter(generator -> generator.defaultSpheres)
 			).apply(instance, SystemGenerator::new)
 	);
