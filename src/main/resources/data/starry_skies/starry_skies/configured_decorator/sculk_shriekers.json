@@ -1,7 +1,9 @@
 {
   "type": "starry_skies:cave_bottom_block",
   "config": {
-    "block": "minecraft:sculk_shrieker",
+    "block": {
+      "Name": "minecraft:sculk_shrieker"
+    },
     "chance": 0.05
   }
 }

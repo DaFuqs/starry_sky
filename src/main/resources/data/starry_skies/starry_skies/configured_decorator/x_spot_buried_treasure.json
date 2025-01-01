@@ -2,6 +2,8 @@
   "type": "starry_skies:x_spot",
   "config": {
     "loot_table": "minecraft:chests/buried_treasure",
-    "marking_block": "minecraft:prismarine"
+    "marking_block": {
+      "Name": "minecraft:prismarine"
+    }
   }
 }

@@ -1,7 +1,9 @@
 {
   "type": "starry_skies:single_block",
   "config": {
-    "block": "minecraft:azalea",
+    "block": {
+      "Name": "minecraft:azalea"
+    },
     "chance": 0.03
   }
 }

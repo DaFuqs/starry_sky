@@ -2,6 +2,8 @@
   "type": "starry_skies:x_spot",
   "config": {
     "loot_table": "minecraft:chests/ruined_portal",
-    "marking_block": "minecraft:obsidian"
+    "marking_block": {
+      "Name": "minecraft:obsidian"
+    }
   }
 }

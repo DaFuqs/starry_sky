@@ -1,7 +1,9 @@
 {
   "type": "starry_skies:hanging_block",
   "config": {
-    "block": "minecraft:hanging_roots",
+    "block": {
+      "Name": "minecraft:hanging_roots"
+    },
     "chance": 0.2
   }
 }

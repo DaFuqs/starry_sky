@@ -1,7 +1,9 @@
 {
   "type": "starry_skies:single_block",
   "config": {
-    "block": "minecraft:nether_wart",
+    "block": {
+      "Name": "minecraft:nether_wart"
+    },
     "chance": 0.02
   }
 }
