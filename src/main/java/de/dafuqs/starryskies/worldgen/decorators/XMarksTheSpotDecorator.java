@@ -104,7 +104,7 @@ public class XMarksTheSpotDecorator extends SphereDecorator<XMarksTheSpotDecorat
 					}
 					BlockPos currentBlockPos = findNextNonAirBlockInDirection(world, startBlockPos, direction, sphere.getRadius());
 					if (currentBlockPos != null) {
-						world.setBlockState(currentBlockPos, markingState, 3);
+						world.setBlockState(currentBlockPos, markingState, Block.NOTIFY_ALL);
 					}
 				}
 			}

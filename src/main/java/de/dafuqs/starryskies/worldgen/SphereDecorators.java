@@ -20,7 +20,7 @@ public class SphereDecorators {
 	public static SphereDecorator<HangingCaveBlockDecoratorConfig> HANGING_CAVE_BLOCK = register("hanging_cave_block", new HangingCaveBlockDecorator(HangingCaveBlockDecoratorConfig.CODEC));
 	public static SphereDecorator<XMarksTheSpotDecoratorConfig> X_SPOT = register("x_spot", new XMarksTheSpotDecorator(XMarksTheSpotDecoratorConfig.CODEC));
 	public static SphereDecorator<HugePlantDecoratorConfig> HUGE_PLANT = register("huge_plant", new HugePlantDecorator(HugePlantDecoratorConfig.CODEC));
-	public static SphereDecorator<HugePlantDecoratorConfig> HUGE_HANGING_PLANT = register("huge_hanging_plant", new HugePlantDecorator(HugePlantDecoratorConfig.CODEC));
+	public static SphereDecorator<HugePlantDecoratorConfig> HUGE_HANGING_PLANT = register("huge_hanging_plant", new HugeHangingPlantDecorator(HugePlantDecoratorConfig.CODEC));
 	public static SphereDecorator<DripleafDecoratorConfig> DRIPLEAF = register("dripleaf", new DripleafDecorator(DripleafDecoratorConfig.CODEC));
 	public static SphereDecorator<SphereDecoratorConfig.DefaultSphereDecoratorConfig> COCOA = register("cocoa", new CocoaDecorator(SphereDecoratorConfig.DefaultSphereDecoratorConfig.CODEC));
 	public static SphereDecorator<SphereDecoratorConfig.DefaultSphereDecoratorConfig> SEA_GREENS = register("sea_greens", new SeaGreensDecorator(SphereDecoratorConfig.DefaultSphereDecoratorConfig.CODEC));
@@ -29,6 +29,7 @@ public class SphereDecorators {
 	public static SphereDecorator<SphereDecoratorConfig.DefaultSphereDecoratorConfig> END_GATEWAY = register("end_gateway", new EndGatewayDecorator(SphereDecoratorConfig.DefaultSphereDecoratorConfig.CODEC));
 	public static SphereDecorator<ChorusFruitDecoratorConfig> CHORUS_FRUIT = register("chorus_fruit", new ChorusFruitDecorator(ChorusFruitDecoratorConfig.CODEC));
 	public static SphereDecorator<BrushableBlockDecoratorConfig> BRUSHABLE_BLOCK = register("brushable_block", new BrushableBlockDecorator(BrushableBlockDecoratorConfig.CODEC));
+	public static SphereDecorator<CaveColumnDecoratorConfig> CAVE_COLUMN = register("cave_column", new CaveColumnDecorator(CaveColumnDecoratorConfig.CODEC));
 
 	public static void initialize() {
 
