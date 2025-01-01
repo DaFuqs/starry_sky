@@ -22,8 +22,9 @@ public class WeightedBlockGroupDataLoader extends JsonDataLoader<WeightedBlockGr
 	
 	protected static final Map<String, Map<Block, Float>> GROUPS = new Object2ObjectArrayMap<>();
 	
-	public record Entry(Map<Identifier, Float> weightedBlockIDs) {
+	public record Entry(String group, Map<Identifier, Float> weightedBlockIDs) {
 		public static final Codec<WeightedBlockGroupDataLoader.Entry> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+				Codec.STRING.fieldOf("group").forGetter(WeightedBlockGroupDataLoader.Entry::group),
 				Codec.unboundedMap(Identifier.CODEC, Codec.FLOAT).fieldOf("blocks").forGetter(WeightedBlockGroupDataLoader.Entry::weightedBlockIDs)
 		).apply(instance, WeightedBlockGroupDataLoader.Entry::new));
 	}
@@ -35,14 +36,14 @@ public class WeightedBlockGroupDataLoader extends JsonDataLoader<WeightedBlockGr
 	@Override
 	protected void apply(Map<Identifier, WeightedBlockGroupDataLoader.Entry> prepared, ResourceManager manager, Profiler profiler) {
 		for (Map.Entry<Identifier, WeightedBlockGroupDataLoader.Entry> entry : prepared.entrySet()) {
-			String path = entry.getKey().getPath();
+			String group = entry.getValue().group;
 			
 			for (Map.Entry<Identifier, Float> e : entry.getValue().weightedBlockIDs.entrySet()) {
 				Optional<Block> optionalBlock = Registries.BLOCK.getOptionalValue(e.getKey());
 				if (optionalBlock.isPresent()) {
 					Block block = optionalBlock.get();
 					float weight = e.getValue();
-					GROUPS.computeIfAbsent(path, k -> new Object2FloatArrayMap<>()).put(block, weight);
+					GROUPS.computeIfAbsent(group, k -> new Object2FloatArrayMap<>()).put(block, weight);
 				}
 			}
 		}

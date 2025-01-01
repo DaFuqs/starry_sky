@@ -22,8 +22,9 @@ public class UniqueBlockGroupDataLoader extends JsonDataLoader<UniqueBlockGroupD
 	
 	protected static final Map<String, Block> GROUPS = new Object2ObjectArrayMap<>();
 	
-	public record Entry(List<Identifier> blockIDs) {
+	public record Entry(String group, List<Identifier> blockIDs) {
 		public static final Codec<Entry> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+				Codec.STRING.fieldOf("group").forGetter(Entry::group),
 				Identifier.CODEC.listOf().fieldOf("blocks").forGetter(Entry::blockIDs)
 		).apply(instance, Entry::new));
 	}
@@ -35,15 +36,14 @@ public class UniqueBlockGroupDataLoader extends JsonDataLoader<UniqueBlockGroupD
 	@Override
 	protected void apply(Map<Identifier, Entry> prepared, ResourceManager manager, Profiler profiler) {
 		for (Map.Entry<Identifier, Entry> entry : prepared.entrySet()) {
-			String path = entry.getKey().getPath();
-			
-			if (GROUPS.containsKey(path)) {
+			String groupName = entry.getValue().group;
+			if (GROUPS.containsKey(groupName)) {
 				return;
 			}
 			
 			for (Identifier blockId : entry.getValue().blockIDs) {
 				Optional<Block> optionalBlock = Registries.BLOCK.getOptionalValue(blockId);
-				optionalBlock.ifPresent(block -> GROUPS.put(path, block));
+				optionalBlock.ifPresent(block -> GROUPS.put(groupName, block));
 				return;
 			}
 		}
