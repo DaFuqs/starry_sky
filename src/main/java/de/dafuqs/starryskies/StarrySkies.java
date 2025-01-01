@@ -98,7 +98,7 @@ public class StarrySkies implements ModInitializer {
 		ServerTickEvents.END_SERVER_TICK.register(new ProximityAdvancementCheckEvent());
 		
 		// Build a final map of sphere generation data for each chunk generator
-		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+		ServerLifecycleEvents.SERVER_STARTING.register(server -> {
 			Set<Map.Entry<RegistryKey<ConfiguredSphere<?, ?>>, ConfiguredSphere<?, ?>>> allSpheres = server.getRegistryManager().get(StarryRegistryKeys.CONFIGURED_SPHERE).getEntrySet();
 			
 			for (var generationGroup : server.getRegistryManager().get(StarryRegistryKeys.GENERATION_GROUP).getEntrySet()) {

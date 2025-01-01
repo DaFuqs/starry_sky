@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:the_end",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "minecraft:the_void",
+      "lakes": false,
+      "features": false,
+      "layers": []
+    }
+  }
+}

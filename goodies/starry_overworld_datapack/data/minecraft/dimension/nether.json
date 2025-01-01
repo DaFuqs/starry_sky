@@ -1,0 +1,11 @@
+{
+  "type": "starry_skies:nether",
+  "generator": {
+    "type": "starry_skies:starry_skies",
+    "system_generator": "starry_skies:nether",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "starry_skies:nether"
+    }
+  }
+}
