@@ -1,0 +1,42 @@
+{
+  "type": "starry_skies:cave",
+  "config": {
+    "shell_thickness": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 1,
+      "max_exclusive": 2
+    },
+    "shell_block": {
+      "type": "starry_skies:weighted_block_group_state_provider",
+      "group": "deepslates"
+    },
+    "cave_floor_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:sculk"
+      }
+    },
+    "treasure_chest": {
+      "loot_table": "minecraft:chests/ancient_city",
+      "chance": 0.5
+    },
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 7,
+      "max_exclusive": 18
+    },
+
+    "decorators": {
+      "starry_skies:sculk_veins": 0.8,
+      "starry_skies:sculk_sensors": 0.8,
+      "starry_skies:sculk_catalysts": 0.8,
+      "starry_skies:sculk_shriekers": 0.8
+    },
+    "spawns": [],
+    "generation": {
+      "weight": 1.0,
+      "group": "starry_skies:overworld/treasure"
+    }
+  }
+}

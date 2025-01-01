@@ -1,0 +1,18 @@
+{
+  "type": "starry_skies:multiface_growth",
+  "config": {
+    "block": "minecraft:sculk_vein",
+    "placeable_on_blocks": [
+      "minecraft:sculk",
+      "minecraft:stone",
+      "minecraft:andesite",
+      "minecraft:diorite",
+      "minecraft:granite",
+      "minecraft:dripstone_block",
+      "minecraft:calcite",
+      "minecraft:tuff",
+      "minecraft:deepslate"
+    ],
+    "chance": 0.2
+  }
+}
