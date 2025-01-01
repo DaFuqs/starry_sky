@@ -28,7 +28,9 @@
       "max_exclusive": 15
     },
 
-    "decorators": {},
+    "decorators": {
+      "starry_skies:x_spot_pink_petals": 0.25
+    },
     "spawns": [],
     "generation": {
       "weight": 2.5,
