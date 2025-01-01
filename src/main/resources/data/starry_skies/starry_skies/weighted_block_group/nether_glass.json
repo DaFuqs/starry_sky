@@ -1,6 +1,9 @@
 {
-  "minecraft:black_stained_glass": 1.0,
-  "minecraft:orange_stained_glass": 1.0,
-  "minecraft:red_stained_glass": 1.0,
-  "minecraft:yellow_stained_glass": 1.0
+  "group": "nether_glass",
+  "blocks": {
+    "minecraft:black_stained_glass": 1.0,
+    "minecraft:orange_stained_glass": 1.0,
+    "minecraft:red_stained_glass": 1.0,
+    "minecraft:yellow_stained_glass": 1.0
+  }
 }
