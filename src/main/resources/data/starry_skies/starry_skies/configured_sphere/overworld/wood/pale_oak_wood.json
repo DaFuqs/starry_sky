@@ -1,0 +1,50 @@
+{
+  "type": "starry_skies:shell_core",
+  "config": {
+    "main_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:pale_oak_log"
+      }
+    },
+    "core_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:cave_air"
+      }
+    },
+    "core_radius": {
+      "type": "minecraft:constant",
+      "value": 4
+    },
+    "shell_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:pale_oak_leaves",
+        "Properties": {
+          "distance": "1"
+        }
+      }
+    },
+    "shell_thickness": {
+      "type": "minecraft:constant",
+      "value": 2
+    },
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 8,
+      "max_exclusive": 12
+    },
+
+    "decorators": {
+      "starry_skies:creaking_heart": 0.9,
+      "starry_skies:pale_hanging_moss": 0.9
+    },
+    "spawns": [],
+    "generation": {
+      "weight": 0.5,
+      "group": "starry_skies:overworld/wood"
+    }
+  }
+}

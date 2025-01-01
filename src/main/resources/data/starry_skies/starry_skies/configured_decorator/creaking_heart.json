@@ -1,0 +1,22 @@
+{
+  "type": "starry_skies:cave_column",
+  "config": {
+    "center_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:creaking_heart",
+        "Properties": {
+          "active": "false",
+          "axis": "y",
+          "natural": "true"
+        }
+      }
+    },
+    "column_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:pale_oak_log"
+      }
+    }
+  }
+}

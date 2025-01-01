@@ -1,0 +1,9 @@
+{
+  "type": "starry_skies:single_block",
+  "config": {
+    "block": {
+      "Name": "minecraft:closed_eyeblossom"
+    },
+    "chance": 0.05
+  }
+}

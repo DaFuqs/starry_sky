@@ -1,0 +1,27 @@
+{
+  "type": "starry_skies:simple",
+  "config": {
+    "block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:pale_moss_block"
+      }
+    },
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_exclusive": 10
+    },
+
+    "decorators": {
+      "starry_skies:eyeblossoms": 0.9,
+      "starry_skies:pale_hanging_moss": 0.9
+    },
+    "spawns": [],
+    "generation": {
+      "weight": 0.5,
+      "group": "starry_skies:overworld/decorative"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "starry_skies:huge_hanging_plant",
+  "config": {
+    "block": {
+      "Name": "minecraft:pale_hanging_moss",
+      "Properties": {
+        "tip": "false"
+      }
+    },
+    "last_block": {
+      "Name": "minecraft:pale_hanging_moss",
+      "Properties": {
+        "tip": "true"
+      }
+    },
+    "min_height": 1,
+    "max_height": 4,
+    "chance": 0.2
+  }
+}
