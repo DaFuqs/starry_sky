@@ -1,7 +1,9 @@
 {
   "type": "starry_skies:single_block",
   "config": {
-    "block": "minecraft:crimson_roots",
+    "block": {
+      "Name": "minecraft:crimson_roots"
+    },
     "chance": 0.08
   }
 }

@@ -1,7 +1,9 @@
 {
   "type": "starry_skies:single_block",
   "config": {
-    "block": "minecraft:pink_petals",
+    "block": {
+      "Name": "minecraft:pink_petals"
+    },
     "chance": 0.1
   }
 }

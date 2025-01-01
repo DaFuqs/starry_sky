@@ -2,6 +2,8 @@
   "type": "starry_skies:x_spot",
   "config": {
     "loot_table": "starry_skies:chests/pink_petals",
-    "marking_block": "minecraft:stripped_cherry_wood"
+    "marking_block": {
+      "Name": "minecraft:stripped_cherry_wood"
+    }
   }
 }

@@ -1,7 +1,9 @@
 {
   "type": "starry_skies:single_block",
   "config": {
-    "block": "minecraft:nether_sprouts",
+    "block": {
+      "Name": "minecraft:nether_sprouts"
+    },
     "chance": 0.08
   }
 }

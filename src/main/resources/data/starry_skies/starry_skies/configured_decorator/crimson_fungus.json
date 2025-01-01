@@ -1,7 +1,9 @@
 {
   "type": "starry_skies:single_block",
   "config": {
-    "block": "minecraft:crimson_fungus",
+    "block": {
+      "Name": "minecraft:crimson_fungus"
+    },
     "chance": 0.05
   }
 }

@@ -1,7 +1,9 @@
 {
   "type": "starry_skies:single_block",
   "config": {
-    "block": "minecraft:sweet_berry_bush",
+    "block": {
+      "Name": "minecraft:sweet_berry_bush"
+    },
     "chance": 0.02
   }
 }

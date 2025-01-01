@@ -1,7 +1,9 @@
 {
   "type": "starry_skies:single_block",
   "config": {
-    "block": "minecraft:soul_fire",
+    "block": {
+      "Name": "minecraft:soul_fire"
+    },
     "chance": 0.1
   }
 }

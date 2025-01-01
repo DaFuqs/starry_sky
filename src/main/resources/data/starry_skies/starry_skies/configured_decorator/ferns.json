@@ -1,7 +1,9 @@
 {
   "type": "starry_skies:single_block",
   "config": {
-    "block": "minecraft:fern",
+    "block": {
+      "Name": "minecraft:fern"
+    },
     "chance": 0.1
   }
 }

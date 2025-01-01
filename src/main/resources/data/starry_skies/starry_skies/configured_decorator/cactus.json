@@ -1,7 +1,9 @@
 {
   "type": "starry_skies:stacked_block",
   "config": {
-    "block": "minecraft:cactus",
+    "block": {
+      "Name": "minecraft:cactus"
+    },
     "chance": 0.15,
     "min_height": 1,
     "max_height": 3

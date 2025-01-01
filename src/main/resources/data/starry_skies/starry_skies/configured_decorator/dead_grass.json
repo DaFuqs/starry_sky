@@ -1,7 +1,9 @@
 {
   "type": "starry_skies:single_block",
   "config": {
-    "block": "minecraft:dead_bush",
+    "block": {
+      "Name": "minecraft:dead_bush"
+    },
     "chance": 0.05
   }
 }

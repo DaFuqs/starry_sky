@@ -1,8 +1,12 @@
 {
   "type": "starry_skies:center_pond",
   "config": {
-    "beach_block": "minecraft:sand",
-    "fluid_block": "minecraft:water",
+    "beach_block": {
+      "Name": "minecraft:sand"
+    },
+    "fluid_block": {
+      "Name": "minecraft:water"
+    },
     "loot_table": "minecraft:chests/underwater_ruin_big",
     "loot_table_chance": 0.5
   }
