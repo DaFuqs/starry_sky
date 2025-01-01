@@ -65,8 +65,8 @@
     "decorators": {},
     "spawns": [],
     "generation": {
-      "weight": 1.0,
-      "group": "starry_skies:overworld/treasure"
+      "weight": 0.2,
+      "group": "starry_skies:overworld/decorative"
     }
   }
 }

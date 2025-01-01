@@ -1,7 +1,7 @@
 {
   "type": "starry_skies:dungeon",
   "config": {
-    "entity_type": "minecraft:zombie",
+    "entity_type": "minecraft:bogged",
     "shell_block": {
       "type": "starry_skies:weighted_block_group_state_provider",
       "group": "overworld_dungeon_stones"

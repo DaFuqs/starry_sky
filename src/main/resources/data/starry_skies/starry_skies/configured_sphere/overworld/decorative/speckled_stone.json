@@ -1,0 +1,23 @@
+{
+  "type": "starry_skies:simple",
+  "config": {
+    "reroll_for_every_pos": true,
+    "block": {
+      "type": "starry_skies:weighted_block_group_state_provider",
+      "group": "stones"
+    },
+
+    "size": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 4,
+      "max_exclusive": 15
+    },
+
+    "decorators": {},
+    "spawns": [],
+    "generation": {
+      "weight": 0.5,
+      "group": "starry_skies:overworld/decorative"
+    }
+  }
+}

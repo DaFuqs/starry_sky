@@ -26,7 +26,7 @@
     "spawns": [],
     "generation": {
       "weight": 1.5,
-      "group": "starry_skies:overworld/decorative"
+      "group": "starry_skies:overworld/dungeon"
     }
   }
 }
