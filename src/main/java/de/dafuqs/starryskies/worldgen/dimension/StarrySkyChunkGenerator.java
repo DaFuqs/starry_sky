@@ -59,9 +59,9 @@ public class StarrySkyChunkGenerator extends ChunkGenerator {
 			}
 		}
 	}
-
+	
 	@Override
-	public void carve(ChunkRegion chunkRegion, long seed, NoiseConfig noiseConfig, BiomeAccess world, StructureAccessor structureAccessor, Chunk chunk, GenerationStep.Carver carverStep) {
+	public void carve(ChunkRegion chunkRegion, long seed, NoiseConfig noiseConfig, BiomeAccess biomeAccess, StructureAccessor structureAccessor, Chunk chunk) {
 		// no carver
 		// generate spheres
 		for (PlacedSphere<?> sphere : systemGenerator.value().getSystem(chunk, seed, structureAccessor.getRegistryManager())) {
@@ -86,7 +86,7 @@ public class StarrySkyChunkGenerator extends ChunkGenerator {
 	@Override
 	public void populateEntities(@NotNull ChunkRegion chunkRegion) {
 		ChunkPos chunkPos = chunkRegion.getCenterPos();
-		RegistryEntry<Biome> biome = chunkRegion.getBiome(chunkPos.getStartPos().withY(chunkRegion.getTopY() - 1));
+		RegistryEntry<Biome> biome = chunkRegion.getBiome(chunkPos.getStartPos().withY(chunkRegion.getTopYInclusive()));
 		ChunkRandom chunkRandom = new ChunkRandom(new CheckedRandom(RandomSeed.getSeed()));
 		chunkRandom.setPopulationSeed(chunkRegion.getSeed(), chunkPos.getStartX(), chunkPos.getStartZ());
 		SpawnHelper.populateEntities(chunkRegion, biome, chunkPos, chunkRandom);
@@ -110,10 +110,10 @@ public class StarrySkyChunkGenerator extends ChunkGenerator {
 	public int getHeight(int x, int z, Heightmap.Type heightmap, HeightLimitView world, NoiseConfig noiseConfig) {
 		return systemGenerator.value().getFloorHeight();
 	}
-
+	
 	@Override
-	public void getDebugHudText(List<String> text, NoiseConfig noiseConfig, BlockPos pos) {
-
+	public void appendDebugHudText(List<String> text, NoiseConfig noiseConfig, BlockPos pos) {
+	
 	}
 
 	@Override
@@ -122,7 +122,7 @@ public class StarrySkyChunkGenerator extends ChunkGenerator {
 		Arrays.fill(states, Blocks.AIR.getDefaultState());
 		return new VerticalBlockSample(world.getBottomY(), states);
 	}
-
+	
 	public SystemGenerator getSystemGenerator() {
 		return this.systemGenerator.value();
 	}

@@ -1,11 +1,8 @@
 package de.dafuqs.starryskies;
 
 import com.mojang.datafixers.util.*;
-import com.mojang.serialization.*;
 import de.dafuqs.starryskies.worldgen.*;
 import de.dafuqs.starryskies.worldgen.dimension.*;
-import net.minecraft.block.*;
-import net.minecraft.command.argument.*;
 import net.minecraft.registry.*;
 import net.minecraft.registry.entry.*;
 import net.minecraft.server.world.*;
@@ -32,13 +29,6 @@ public class Support {
 		add(new Point(-1, 0));
 		add(new Point(-1, 1));
 	}};
-	public static Codec<BlockState> BLOCKSTATE_STRING_CODEC = Codec.STRING.xmap(StarrySkies::getNullableStateFromString, BlockArgumentParser::stringifyBlockState);
-	public static Codec<BlockArgumentParser.BlockResult> BLOCK_RESULT_CODEC = Codec.STRING.xmap(StarrySkies::getBlockResult, Support::blockResultToParseableString);
-
-	public static String blockResultToParseableString(BlockArgumentParser.BlockResult result) {
-		var stringifiedBlockState = BlockArgumentParser.stringifyBlockState(result.blockState());
-		return result.nbt() == null ? stringifiedBlockState : stringifiedBlockState.concat(result.nbt().toString());
-	}
 	
 	public static Optional<SphereDistance> getClosestSphere(ServerWorld world, BlockPos pos) {
 		if (!(world.getChunkManager().getChunkGenerator() instanceof StarrySkyChunkGenerator starrySkyChunkGenerator)) {

@@ -54,20 +54,11 @@ public class StarrySkyBox implements DimensionRenderingRegistry.SkyRenderer {
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
 		RenderSystem.depthMask(false);
-		RenderSystem.setShader(GameRenderer::getPositionTexColorProgram);
 		Tessellator tessellator = Tessellator.getInstance();
-		BufferBuilder bufferBuilder = tessellator.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
-		
 		Matrix4f matrix4f = context.positionMatrix();
 		
-		/*Vec3d vec3d = context.world().getSkyColor(context.camera().getPos(), 0);  // TODO: how to get tickdelta?
-		float f = (float)vec3d.x;
-		float g = (float)vec3d.y;
-		float h = (float)vec3d.z;
-		RenderSystem.setShaderColor(f, g, h, 1.0F);*/
-		
 		RenderSystem.setShaderTexture(0, DOWN);
-		bufferBuilder = tessellator.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
+		BufferBuilder bufferBuilder = tessellator.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
 		bufferBuilder.vertex(matrix4f, -100.0f, -100.0f, -100.0f).texture(0.0F, 0.0F).color(255, 255, 255, 255);
 		bufferBuilder.vertex(matrix4f, -100.0f, -100.0f, 100.0f).texture(0.0F, 1.0F).color(255, 255, 255, 255);
 		bufferBuilder.vertex(matrix4f, 100.0f, -100.0f, 100.0f).texture(1.0F, 1.0F).color(255, 255, 255, 255);

@@ -32,17 +32,17 @@ public class CoralsSphere extends Sphere<CoralsSphere.Config> {
 		add(Blocks.HORN_CORAL_BLOCK.getDefaultState());
 	}};
 	public static final ArrayList<BlockState> LIST_WATERLOGGABLE_CORAL_BLOCKS = new ArrayList<>() {{
-		add(Blocks.BRAIN_CORAL.getDefaultState().with(CoralParentBlock.WATERLOGGED, true));
-		add(Blocks.TUBE_CORAL.getDefaultState().with(CoralParentBlock.WATERLOGGED, true));
-		add(Blocks.BUBBLE_CORAL.getDefaultState().with(CoralParentBlock.WATERLOGGED, true));
-		add(Blocks.FIRE_CORAL.getDefaultState().with(CoralParentBlock.WATERLOGGED, true));
-		add(Blocks.HORN_CORAL.getDefaultState().with(CoralParentBlock.WATERLOGGED, true));
+		add(Blocks.BRAIN_CORAL.getDefaultState().with(AbstractCoralBlock.WATERLOGGED, true));
+		add(Blocks.TUBE_CORAL.getDefaultState().with(AbstractCoralBlock.WATERLOGGED, true));
+		add(Blocks.BUBBLE_CORAL.getDefaultState().with(AbstractCoralBlock.WATERLOGGED, true));
+		add(Blocks.FIRE_CORAL.getDefaultState().with(AbstractCoralBlock.WATERLOGGED, true));
+		add(Blocks.HORN_CORAL.getDefaultState().with(AbstractCoralBlock.WATERLOGGED, true));
 		
-		add(Blocks.BRAIN_CORAL_FAN.getDefaultState().with(CoralParentBlock.WATERLOGGED, true));
-		add(Blocks.TUBE_CORAL_FAN.getDefaultState().with(CoralParentBlock.WATERLOGGED, true));
-		add(Blocks.BUBBLE_CORAL_FAN.getDefaultState().with(CoralParentBlock.WATERLOGGED, true));
-		add(Blocks.FIRE_CORAL_FAN.getDefaultState().with(CoralParentBlock.WATERLOGGED, true));
-		add(Blocks.HORN_CORAL_FAN.getDefaultState().with(CoralParentBlock.WATERLOGGED, true));
+		add(Blocks.BRAIN_CORAL_FAN.getDefaultState().with(AbstractCoralBlock.WATERLOGGED, true));
+		add(Blocks.TUBE_CORAL_FAN.getDefaultState().with(AbstractCoralBlock.WATERLOGGED, true));
+		add(Blocks.BUBBLE_CORAL_FAN.getDefaultState().with(AbstractCoralBlock.WATERLOGGED, true));
+		add(Blocks.FIRE_CORAL_FAN.getDefaultState().with(AbstractCoralBlock.WATERLOGGED, true));
+		add(Blocks.HORN_CORAL_FAN.getDefaultState().with(AbstractCoralBlock.WATERLOGGED, true));
 		
 		add(Blocks.SEA_PICKLE.getDefaultState().with(SeaPickleBlock.WATERLOGGED, true).with(SeaPickleBlock.PICKLES, 1));
 		add(Blocks.SEA_PICKLE.getDefaultState().with(SeaPickleBlock.WATERLOGGED, true).with(SeaPickleBlock.PICKLES, 2));

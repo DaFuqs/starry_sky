@@ -159,9 +159,9 @@ public class OceanMonumentSphere extends Sphere<OceanMonumentSphere.Config> {
 		private boolean spawnGuardian(ChunkPos chunkPos, ChunkRegion chunkRegion, BlockPos guardianPosition) {
 			MobEntity mobentity;
 			if (random.nextFloat() < 0.08) {
-				mobentity = EntityType.ELDER_GUARDIAN.create(chunkRegion.toServerWorld());
+				mobentity = EntityType.ELDER_GUARDIAN.create(chunkRegion.toServerWorld(), SpawnReason.CHUNK_GENERATION);
 			} else {
-				mobentity = EntityType.GUARDIAN.create(chunkRegion.toServerWorld());
+				mobentity = EntityType.GUARDIAN.create(chunkRegion.toServerWorld(), SpawnReason.CHUNK_GENERATION);
 			}
 			
 			if (mobentity != null) {

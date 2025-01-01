@@ -7,15 +7,13 @@ import net.minecraft.block.*;
 
 import java.util.*;
 
-import static de.dafuqs.starryskies.Support.*;
-
 public class HugePlantDecoratorConfig implements SphereDecoratorConfig {
 
 	public static final Codec<HugePlantDecoratorConfig> CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
-					BLOCKSTATE_STRING_CODEC.fieldOf("block").forGetter(decorator -> decorator.block),
-					BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("first_block").forGetter(decorator -> Optional.ofNullable(decorator.firstBlock)),
-					BLOCKSTATE_STRING_CODEC.lenientOptionalFieldOf("last_block").forGetter(decorator -> Optional.ofNullable(decorator.lastBlock)),
+					BlockState.CODEC.fieldOf("block").forGetter(decorator -> decorator.block),
+					BlockState.CODEC.lenientOptionalFieldOf("first_block").forGetter(decorator -> Optional.ofNullable(decorator.firstBlock)),
+					BlockState.CODEC.lenientOptionalFieldOf("last_block").forGetter(decorator -> Optional.ofNullable(decorator.lastBlock)),
 					Codec.FLOAT.fieldOf("chance").forGetter(decorator -> decorator.chance),
 					Codec.INT.fieldOf("min_height").forGetter(decorator -> decorator.minHeight),
 					Codec.INT.fieldOf("max_height").forGetter(decorator -> decorator.maxHeight)

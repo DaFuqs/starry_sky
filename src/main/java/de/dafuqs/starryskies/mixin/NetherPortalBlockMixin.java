@@ -32,7 +32,7 @@ public abstract class NetherPortalBlockMixin {
 				boolean bl = targetWorld.getRegistryKey() == World.NETHER;
 				WorldBorder worldBorder = targetWorld.getWorldBorder();
 				double d = DimensionType.getCoordinateScaleFactor(world.getDimension(), targetWorld.getDimension());
-				BlockPos blockPos = worldBorder.clamp(entity.getX() * d, entity.getY(), entity.getZ() * d);
+				BlockPos blockPos = worldBorder.clampFloored(entity.getX() * d, entity.getY(), entity.getZ() * d);
 				cir.setReturnValue(this.getOrCreateExitPortalTarget(targetWorld, entity, pos, blockPos, bl, worldBorder));
 			}
 		}

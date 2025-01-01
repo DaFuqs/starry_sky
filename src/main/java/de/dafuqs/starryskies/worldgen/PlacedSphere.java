@@ -38,15 +38,15 @@ public abstract class PlacedSphere<SC extends SphereConfig> {
 	}
 	
 	public Optional<RegistryKey<ConfiguredSphere<?, ?>>> getRegistryKey(DynamicRegistryManager registryManager) {
-		return registryManager.get(StarryRegistryKeys.CONFIGURED_SPHERE).getKey(this.configuredSphere);
+		return registryManager.getOrThrow(StarryRegistryKeys.CONFIGURED_SPHERE).getKey(this.configuredSphere);
 	}
 	
 	public RegistryEntry<ConfiguredSphere<?, ?>> getRegistryEntry(DynamicRegistryManager registryManager) {
-		return registryManager.get(StarryRegistryKeys.CONFIGURED_SPHERE).getEntry(this.configuredSphere);
+		return registryManager.getOrThrow(StarryRegistryKeys.CONFIGURED_SPHERE).getEntry(this.configuredSphere);
 	}
 
 	public Identifier getID(DynamicRegistryManager registryManager) {
-		Registry<ConfiguredSphere<?, ?>> registry = registryManager.get(StarryRegistryKeys.CONFIGURED_SPHERE);
+		Registry<ConfiguredSphere<?, ?>> registry = registryManager.getOrThrow(StarryRegistryKeys.CONFIGURED_SPHERE);
 		return registry.getId(this.configuredSphere);
 	}
 
@@ -147,7 +147,7 @@ public abstract class PlacedSphere<SC extends SphereConfig> {
 					int height = Support.getLowerGroundBlock(chunkRegion, blockPos, minHeight) + 1;
 
 					if (height != 0) {
-						Entity entity = spawnEntry.getLeft().create(chunkRegion.toServerWorld());
+						Entity entity = spawnEntry.getLeft().create(chunkRegion.toServerWorld(), SpawnReason.CHUNK_GENERATION);
 						if (entity != null) {
 							float width = entity.getWidth();
 							double xPos = MathHelper.clamp(startingX, (double) xCord + (double) width, (double) xCord + 16.0D - (double) width);

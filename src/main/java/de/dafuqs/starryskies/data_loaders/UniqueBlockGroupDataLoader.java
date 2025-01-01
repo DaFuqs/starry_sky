@@ -1,6 +1,7 @@
 package de.dafuqs.starryskies.data_loaders;
 
-import com.google.gson.*;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
 import it.unimi.dsi.fastutil.objects.*;
 import net.fabricmc.fabric.api.resource.*;
@@ -13,7 +14,7 @@ import net.minecraft.util.profiler.*;
 
 import java.util.*;
 
-public class UniqueBlockGroupDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
+public class UniqueBlockGroupDataLoader extends JsonDataLoader<UniqueBlockGroupDataLoader.Entry> implements IdentifiableResourceReloadListener {
 	
 	public static final String LOCATION = "starry_skies/unique_block_group";
 	public static final Identifier ID = StarrySkies.id(LOCATION);
@@ -21,27 +22,31 @@ public class UniqueBlockGroupDataLoader extends JsonDataLoader implements Identi
 	
 	protected static final Map<String, Block> GROUPS = new Object2ObjectArrayMap<>();
 	
+	public record Entry(List<Identifier> blockIDs) {
+		public static final Codec<Entry> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+				Identifier.CODEC.listOf().fieldOf("blocks").forGetter(Entry::blockIDs)
+		).apply(instance, Entry::new));
+	}
+	
 	private UniqueBlockGroupDataLoader() {
-		super(new Gson(), LOCATION);
+		super(Entry.CODEC, ResourceFinder.json(LOCATION));
 	}
 	
 	@Override
-	protected void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
-		prepared.forEach((identifier, jsonElement) -> {
-			String path = identifier.getPath();
+	protected void apply(Map<Identifier, Entry> prepared, ResourceManager manager, Profiler profiler) {
+		for (Map.Entry<Identifier, Entry> entry : prepared.entrySet()) {
+			String path = entry.getKey().getPath();
 			
 			if (GROUPS.containsKey(path)) {
 				return;
 			}
 			
-			JsonArray array = jsonElement.getAsJsonArray();
-			for (JsonElement e : array) {
-				Identifier id = Identifier.tryParse(e.getAsString());
-				Optional<Block> optionalBlock = Registries.BLOCK.getOrEmpty(id);
+			for (Identifier blockId : entry.getValue().blockIDs) {
+				Optional<Block> optionalBlock = Registries.BLOCK.getOptionalValue(blockId);
 				optionalBlock.ifPresent(block -> GROUPS.put(path, block));
 				return;
 			}
-		});
+		}
 	}
 	
 	@Override

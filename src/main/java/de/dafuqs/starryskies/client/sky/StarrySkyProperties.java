@@ -27,13 +27,7 @@ public class StarrySkyProperties extends DimensionEffects {
 	public boolean useThickFog(int camX, int camY) {
 		return false;
 	}
-
-	// NO sunrise / sunset
-	@Override
-	public float[] getFogColorOverride(float skyAngle, float tickDelta) {
-		return null;
-	}
-
+	
 	@Override
 	public boolean shouldBrightenLighting() {
 		return false;

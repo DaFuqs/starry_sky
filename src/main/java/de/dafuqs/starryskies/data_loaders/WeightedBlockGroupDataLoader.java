@@ -1,6 +1,7 @@
 package de.dafuqs.starryskies.data_loaders;
 
-import com.google.gson.*;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
 import de.dafuqs.starryskies.*;
 import it.unimi.dsi.fastutil.objects.*;
 import net.fabricmc.fabric.api.resource.*;
@@ -13,7 +14,7 @@ import net.minecraft.util.profiler.*;
 
 import java.util.*;
 
-public class WeightedBlockGroupDataLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
+public class WeightedBlockGroupDataLoader extends JsonDataLoader<WeightedBlockGroupDataLoader.Entry> implements IdentifiableResourceReloadListener {
 	
 	public static final String LOCATION = "starry_skies/weighted_block_group";
 	public static final Identifier ID = StarrySkies.id(LOCATION);
@@ -21,26 +22,30 @@ public class WeightedBlockGroupDataLoader extends JsonDataLoader implements Iden
 	
 	protected static final Map<String, Map<Block, Float>> GROUPS = new Object2ObjectArrayMap<>();
 	
+	public record Entry(Map<Identifier, Float> weightedBlockIDs) {
+		public static final Codec<WeightedBlockGroupDataLoader.Entry> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+				Codec.unboundedMap(Identifier.CODEC, Codec.FLOAT).fieldOf("blocks").forGetter(WeightedBlockGroupDataLoader.Entry::weightedBlockIDs)
+		).apply(instance, WeightedBlockGroupDataLoader.Entry::new));
+	}
+	
 	private WeightedBlockGroupDataLoader() {
-		super(new Gson(), LOCATION);
+		super(Entry.CODEC, ResourceFinder.json(LOCATION));
 	}
 	
 	@Override
-	protected void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
-		prepared.forEach((identifier, jsonElement) -> {
-			String path = identifier.getPath();
+	protected void apply(Map<Identifier, WeightedBlockGroupDataLoader.Entry> prepared, ResourceManager manager, Profiler profiler) {
+		for (Map.Entry<Identifier, WeightedBlockGroupDataLoader.Entry> entry : prepared.entrySet()) {
+			String path = entry.getKey().getPath();
 			
-			JsonObject object = jsonElement.getAsJsonObject();
-			for (Map.Entry<String, JsonElement> e : object.asMap().entrySet()) {
-				Identifier id = Identifier.tryParse(e.getKey());
-				Optional<Block> optionalBlock = Registries.BLOCK.getOrEmpty(id);
+			for (Map.Entry<Identifier, Float> e : entry.getValue().weightedBlockIDs.entrySet()) {
+				Optional<Block> optionalBlock = Registries.BLOCK.getOptionalValue(e.getKey());
 				if (optionalBlock.isPresent()) {
 					Block block = optionalBlock.get();
-					float weight = e.getValue().getAsFloat();
+					float weight = e.getValue();
 					GROUPS.computeIfAbsent(path, k -> new Object2FloatArrayMap<>()).put(block, weight);
 				}
 			}
-		});
+		}
 	}
 	
 	@Override

@@ -12,7 +12,7 @@ public class MultifaceGrowthDecoratorConfig implements SphereDecoratorConfig {
 
 	public static final Codec<MultifaceGrowthDecoratorConfig> CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
-					Registries.BLOCK.getCodec().fieldOf("block").forGetter(decorator -> decorator.featureConfig.lichen),
+					Registries.BLOCK.getCodec().fieldOf("block").forGetter(decorator -> decorator.featureConfig.block),
 					RegistryCodecs.entryList(RegistryKeys.BLOCK, true).fieldOf("placeable_on_blocks").forGetter(decorator -> decorator.featureConfig.canPlaceOn),
 					Codec.FLOAT.fieldOf("chance").forGetter(decorator -> decorator.chance)
 			).apply(instance, MultifaceGrowthDecoratorConfig::new)

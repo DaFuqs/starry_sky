@@ -41,7 +41,7 @@ public abstract class EndPortalBlockMixin {
 					Vec3d targetVec = targetPos.toBottomCenterPos();
 					float entityYaw = entity.getYaw();
 					if (isInStarryOverworld) {
-						entityYaw = Direction.WEST.asRotation();
+						entityYaw = Direction.WEST.getPositiveHorizontalDegrees();
 						if (entity instanceof ServerPlayerEntity) {
 							targetVec = targetVec.subtract(0.0, 1.0, 0.0);
 						}

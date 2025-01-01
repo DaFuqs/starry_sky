@@ -1,6 +1,5 @@
 package de.dafuqs.starryskies;
 
-import com.mojang.brigadier.exceptions.*;
 import de.dafuqs.starryskies.advancements.*;
 import de.dafuqs.starryskies.commands.*;
 import de.dafuqs.starryskies.configs.*;
@@ -20,7 +19,6 @@ import net.fabricmc.fabric.api.resource.*;
 import net.kyrptonaught.customportalapi.*;
 import net.kyrptonaught.customportalapi.util.*;
 import net.minecraft.block.*;
-import net.minecraft.command.argument.*;
 import net.minecraft.registry.*;
 import net.minecraft.resource.*;
 import net.minecraft.server.network.*;
@@ -28,7 +26,6 @@ import net.minecraft.server.world.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.gen.chunk.*;
-import org.jetbrains.annotations.*;
 import org.slf4j.*;
 
 import java.util.*;
@@ -45,28 +42,6 @@ public class StarrySkies implements ModInitializer {
 	
 	public static String idPlain(String name) {
 		return id(name).toString();
-	}
-	
-	public static BlockState getStateFromString(String s) throws CommandSyntaxException {
-		return BlockArgumentParser.block(Registries.BLOCK.getReadOnlyWrapper(), s, false).blockState();
-	}
-	
-	public static @Nullable BlockState getNullableStateFromString(String s) {
-		try {
-			return BlockArgumentParser.block(Registries.BLOCK.getReadOnlyWrapper(), s, false).blockState();
-		} catch (Exception ignored) {
-			StarrySkies.LOGGER.error("Encountered invalid blockstate: {}", s);
-			return null;
-		}
-	}
-	
-	public static @Nullable BlockArgumentParser.BlockResult getBlockResult(String element) {
-		try {
-			return BlockArgumentParser.block(Registries.BLOCK.getReadOnlyWrapper(), element, true);
-		} catch (Exception ignored) {
-			StarrySkies.LOGGER.error("Encountered invalid block result: {}", element);
-			return null;
-		}
 	}
 	
 	public static boolean isStarryWorld(ServerWorld world) {
@@ -99,9 +74,9 @@ public class StarrySkies implements ModInitializer {
 		
 		// Build a final map of sphere generation data for each chunk generator
 		ServerLifecycleEvents.SERVER_STARTING.register(server -> {
-			Registry<GenerationGroup> generationGroupRegistry = server.getRegistryManager().get(StarryRegistryKeys.GENERATION_GROUP);
-			Registry<SystemGenerator> systemGeneratorRegistry = server.getRegistryManager().get(StarryRegistryKeys.SYSTEM_GENERATOR);
-			Registry<ConfiguredSphere<?, ?>> configuredSphereRegistry = server.getRegistryManager().get(StarryRegistryKeys.CONFIGURED_SPHERE);
+			Registry<GenerationGroup> generationGroupRegistry = server.getRegistryManager().getOrThrow(StarryRegistryKeys.GENERATION_GROUP);
+			Registry<SystemGenerator> systemGeneratorRegistry = server.getRegistryManager().getOrThrow(StarryRegistryKeys.SYSTEM_GENERATOR);
+			Registry<ConfiguredSphere<?, ?>> configuredSphereRegistry = server.getRegistryManager().getOrThrow(StarryRegistryKeys.CONFIGURED_SPHERE);
 			
 			for (GenerationGroup generationGroup : generationGroupRegistry) {
 				// cursed generator group id lookup. Using getEntries() does return random order, making worldgen undeterministic :C
