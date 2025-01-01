@@ -28,16 +28,17 @@ public class WeightedBlockGroupDataLoader extends JsonDataLoader implements Iden
 	@Override
 	protected void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		prepared.forEach((identifier, jsonElement) -> {
-			String path = identifier.getPath();
+			JsonObject o = jsonElement.getAsJsonObject();
+			String group = o.get("group").getAsString();
 			
-			JsonObject object = jsonElement.getAsJsonObject();
-			for (Map.Entry<String, JsonElement> e : object.asMap().entrySet()) {
+			JsonObject blockArray = o.get("blocks").getAsJsonObject();
+			for (Map.Entry<String, JsonElement> e : blockArray.asMap().entrySet()) {
 				Identifier id = Identifier.tryParse(e.getKey());
 				Optional<Block> optionalBlock = Registries.BLOCK.getOrEmpty(id);
 				if (optionalBlock.isPresent()) {
 					Block block = optionalBlock.get();
 					float weight = e.getValue().getAsFloat();
-					GROUPS.computeIfAbsent(path, k -> new Object2FloatArrayMap<>()).put(block, weight);
+					GROUPS.computeIfAbsent(group, k -> new Object2FloatArrayMap<>()).put(block, weight);
 				}
 			}
 		});

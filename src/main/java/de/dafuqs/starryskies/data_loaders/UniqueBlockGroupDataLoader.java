@@ -28,17 +28,18 @@ public class UniqueBlockGroupDataLoader extends JsonDataLoader implements Identi
 	@Override
 	protected void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
 		prepared.forEach((identifier, jsonElement) -> {
-			String path = identifier.getPath();
+			JsonObject o = jsonElement.getAsJsonObject();
+			String group = o.get("group").getAsString();
 			
-			if (GROUPS.containsKey(path)) {
+			if (GROUPS.containsKey(group)) {
 				return;
 			}
 			
-			JsonArray array = jsonElement.getAsJsonArray();
-			for (JsonElement e : array) {
+			JsonArray blockArray = o.get("blocks").getAsJsonArray();
+			for (JsonElement e : blockArray) {
 				Identifier id = Identifier.tryParse(e.getAsString());
 				Optional<Block> optionalBlock = Registries.BLOCK.getOrEmpty(id);
-				optionalBlock.ifPresent(block -> GROUPS.put(path, block));
+				optionalBlock.ifPresent(block -> GROUPS.put(group, block));
 				return;
 			}
 		});
