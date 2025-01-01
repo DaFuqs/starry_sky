@@ -2,8 +2,12 @@
   "spheres_per_system": 1500,
   "min_distance_between_spheres": 8,
   "floor_height": 0,
-  "floor_state": "minecraft:water",
-  "bottom_state": "minecraft:bedrock",
+  "floor_state": {
+    "Name": "minecraft:water"
+  },
+  "bottom_state": {
+    "Name": "minecraft:bedrock"
+  },
   "fixed_spheres": [
     {
       "system_x": 0,
