@@ -56,11 +56,11 @@ public abstract class SphereDecorator<FC extends SphereDecoratorConfig> {
 			((ChestBlockEntity) chestBlockEntity).setLootTable(lootTable, random.nextLong());
 		}
 	}
-
-	protected BlockPos findNextNonAirBlockInDirection(StructureWorldAccess world, BlockPos blockPos, Direction direction, int maxBlocks) {
+	
+	protected @Nullable BlockPos findNextNonAirBlockInDirection(StructureWorldAccess world, BlockPos blockPos, Direction direction, int maxBlocks) {
 		for (int i = 0; i < maxBlocks; i++) {
 			if (!world.getBlockState(blockPos.offset(direction, i)).isAir()) {
-				return blockPos;
+				return blockPos.offset(direction, i);
 			}
 		}
 		return null;
