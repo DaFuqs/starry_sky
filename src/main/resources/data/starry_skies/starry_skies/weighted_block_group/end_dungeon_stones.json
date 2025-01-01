@@ -1,5 +1,8 @@
 {
-  "minecraft:end_stone_bricks": 10.0,
-  "minecraft:purpur_block": 5.0,
-  "minecraft:end_stone": 1.0
+  "group": "end_dungeon_stones",
+  "blocks": {
+    "minecraft:end_stone_bricks": 10.0,
+    "minecraft:purpur_block": 5.0,
+    "minecraft:end_stone": 1.0
+  }
 }

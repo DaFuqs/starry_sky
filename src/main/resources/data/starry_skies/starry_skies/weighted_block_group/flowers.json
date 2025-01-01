@@ -1,18 +1,21 @@
 {
-  "minecraft:dandelion": 1,
-  "minecraft:poppy": 1,
-  "minecraft:blue_orchid": 1,
-  "minecraft:allium": 1,
-  "minecraft:azure_bluet": 1,
-  "minecraft:orange_tulip": 1,
-  "minecraft:pink_tulip": 1,
-  "minecraft:red_tulip": 1,
-  "minecraft:white_tulip": 1,
-  "minecraft:oxeye_daisy": 1,
-  "minecraft:cornflower": 1,
-  "minecraft:lily_of_the_valley": 1,
-  "minecraft:lilac": 1,
-  "minecraft:peony": 1,
-  "minecraft:azalea": 1,
-  "minecraft:flowering_azalea": 1
+  "group": "flowers",
+  "blocks": {
+    "minecraft:dandelion": 1,
+    "minecraft:poppy": 1,
+    "minecraft:blue_orchid": 1,
+    "minecraft:allium": 1,
+    "minecraft:azure_bluet": 1,
+    "minecraft:orange_tulip": 1,
+    "minecraft:pink_tulip": 1,
+    "minecraft:red_tulip": 1,
+    "minecraft:white_tulip": 1,
+    "minecraft:oxeye_daisy": 1,
+    "minecraft:cornflower": 1,
+    "minecraft:lily_of_the_valley": 1,
+    "minecraft:lilac": 1,
+    "minecraft:peony": 1,
+    "minecraft:azalea": 1,
+    "minecraft:flowering_azalea": 1
+  }
 }
