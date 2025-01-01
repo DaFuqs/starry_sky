@@ -99,27 +99,31 @@ public class StarrySkies implements ModInitializer {
 		
 		// Build a final map of sphere generation data for each chunk generator
 		ServerLifecycleEvents.SERVER_STARTING.register(server -> {
-			Set<Map.Entry<RegistryKey<ConfiguredSphere<?, ?>>, ConfiguredSphere<?, ?>>> allSpheres = server.getRegistryManager().get(StarryRegistryKeys.CONFIGURED_SPHERE).getEntrySet();
+			Registry<GenerationGroup> generationGroupRegistry = server.getRegistryManager().get(StarryRegistryKeys.GENERATION_GROUP);
+			Registry<SystemGenerator> systemGeneratorRegistry = server.getRegistryManager().get(StarryRegistryKeys.SYSTEM_GENERATOR);
+			Registry<ConfiguredSphere<?, ?>> configuredSphereRegistry = server.getRegistryManager().get(StarryRegistryKeys.CONFIGURED_SPHERE);
 			
-			for (var generationGroup : server.getRegistryManager().get(StarryRegistryKeys.GENERATION_GROUP).getEntrySet()) {
-				Identifier systemGeneratorId = generationGroup.getValue().systemGeneratorId();
+			for (GenerationGroup generationGroup : generationGroupRegistry) {
+				// cursed generator group id lookup. Using getEntries() does return random order, making worldgen undeterministic :C
+				Identifier generationGroupId = generationGroupRegistry.getKey(generationGroup).get().getValue();
+				Identifier systemGeneratorId = generationGroup.systemGeneratorId();
 				
-				SystemGenerator systemGenerator = server.getRegistryManager().get(StarryRegistryKeys.SYSTEM_GENERATOR).get(systemGeneratorId);
+				SystemGenerator systemGenerator = systemGeneratorRegistry.get(systemGeneratorId);
 				if (systemGenerator == null) {
-					LOGGER.error("System generator with id {} referenced in generation group {} was not found", generationGroup.getKey().getValue(), generationGroup.getValue().systemGeneratorId());
+					LOGGER.error("System generator with id {} referenced in starry skies generation group {} was not found", generationGroup.systemGeneratorId(), generationGroupId);
 					continue;
 				}
 				
 				Map<ConfiguredSphere<?, ?>, Float> weightedSpheres = new Object2ObjectArrayMap<>();
-				for (Map.Entry<RegistryKey<ConfiguredSphere<?, ?>>, ConfiguredSphere<?, ?>> sphere : allSpheres) {
-					Optional<SphereConfig.Generation> sphereGenerationGroup = sphere.getValue().getGenerationGroup();
-					if (sphereGenerationGroup.isPresent() && sphereGenerationGroup.get().group().equals(generationGroup.getKey().getValue())) {
-						weightedSpheres.put(sphere.getValue(), sphereGenerationGroup.get().weight());
+				for (ConfiguredSphere<?, ?> sphere : configuredSphereRegistry) {
+					Optional<SphereConfig.Generation> sphereGenerationGroup = sphere.getGenerationGroup();
+					if (sphereGenerationGroup.isPresent() && sphereGenerationGroup.get().group().equals(generationGroupId)) {
+						weightedSpheres.put(sphere, sphereGenerationGroup.get().weight());
 					}
 				}
 				
 				if (!weightedSpheres.isEmpty()) {
-					systemGenerator.addGenerationGroup(weightedSpheres, generationGroup.getValue().weight());
+					systemGenerator.addGenerationGroup(weightedSpheres, generationGroup.weight());
 				}
 			}
 		});
