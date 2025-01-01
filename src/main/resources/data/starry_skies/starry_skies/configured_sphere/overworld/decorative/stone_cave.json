@@ -65,8 +65,8 @@
     },
 
     "decorators": {
-      "starry_skies:red_mushrooms": 0.3,
-      "starry_skies:brown_mushrooms": 0.3
+      "starry_skies:red_mushrooms_cave": 0.3,
+      "starry_skies:brown_mushrooms_cave": 0.3
     },
     "spawns": [],
     "generation": {

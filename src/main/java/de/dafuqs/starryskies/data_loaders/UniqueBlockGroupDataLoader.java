@@ -19,7 +19,7 @@ public class UniqueBlockGroupDataLoader extends JsonDataLoader implements Identi
 	public static final Identifier ID = StarrySkies.id(LOCATION);
 	public static final UniqueBlockGroupDataLoader INSTANCE = new UniqueBlockGroupDataLoader();
 	
-	protected static final Map<String, Block> GROUPS = new Object2ObjectOpenHashMap<>();
+	protected static final Map<String, Block> GROUPS = new Object2ObjectArrayMap<>();
 	
 	private UniqueBlockGroupDataLoader() {
 		super(new Gson(), LOCATION);

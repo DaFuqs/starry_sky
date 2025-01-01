@@ -31,7 +31,11 @@ public class SeaGreensDecorator extends SphereDecorator<SphereDecoratorConfig.De
 
 		for (BlockPos bp : getCaveBottomBlocks(world, origin, sphere)) {
 			int r = random.nextInt(4);
-
+			
+			if (world.getBlockState(bp).getBlock() != Blocks.WATER) {
+				continue;
+			}
+			
 			if (r == 0) {
 				int kelpHeight = random.nextInt(8);
 				for (int i = 0; i < kelpHeight; i++) {

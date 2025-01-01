@@ -19,7 +19,7 @@ public class WeightedBlockGroupDataLoader extends JsonDataLoader implements Iden
 	public static final Identifier ID = StarrySkies.id(LOCATION);
 	public static final WeightedBlockGroupDataLoader INSTANCE = new WeightedBlockGroupDataLoader();
 	
-	protected static final Map<String, Map<Block, Float>> GROUPS = new Object2ObjectOpenHashMap<>();
+	protected static final Map<String, Map<Block, Float>> GROUPS = new Object2ObjectArrayMap<>();
 	
 	private WeightedBlockGroupDataLoader() {
 		super(new Gson(), LOCATION);

@@ -110,7 +110,7 @@ public class StarrySkies implements ModInitializer {
 					continue;
 				}
 				
-				Map<ConfiguredSphere<?, ?>, Float> weightedSpheres = new Object2ObjectOpenHashMap<>();
+				Map<ConfiguredSphere<?, ?>, Float> weightedSpheres = new Object2ObjectArrayMap<>();
 				for (Map.Entry<RegistryKey<ConfiguredSphere<?, ?>>, ConfiguredSphere<?, ?>> sphere : allSpheres) {
 					Optional<SphereConfig.Generation> sphereGenerationGroup = sphere.getValue().getGenerationGroup();
 					if (sphereGenerationGroup.isPresent() && sphereGenerationGroup.get().group().equals(generationGroup.getKey().getValue())) {

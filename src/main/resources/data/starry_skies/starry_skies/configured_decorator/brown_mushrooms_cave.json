@@ -1,0 +1,7 @@
+{
+  "type": "starry_skies:cave_bottom_block",
+  "config": {
+    "block": "minecraft:brown_mushroom",
+    "chance": 0.05
+  }
+}
