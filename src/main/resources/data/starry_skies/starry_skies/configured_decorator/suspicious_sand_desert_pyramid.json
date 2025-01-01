@@ -1,0 +1,8 @@
+{
+  "type": "starry_skies:brushable_block",
+  "config": {
+    "block": "minecraft:suspicious_sand",
+    "loot_table": "minecraft:archaeology/desert_pyramid",
+    "chance": 0.1
+  }
+}

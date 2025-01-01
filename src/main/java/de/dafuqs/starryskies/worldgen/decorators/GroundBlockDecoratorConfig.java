@@ -7,12 +7,12 @@ import net.minecraft.block.*;
 
 import static de.dafuqs.starryskies.Support.*;
 
-public record GroundDecoratorConfig(BlockState state, float chance) implements SphereDecoratorConfig {
-
-	public static final Codec<GroundDecoratorConfig> CODEC = RecordCodecBuilder.create((instance) ->
+public record GroundBlockDecoratorConfig(BlockState state, float chance) implements SphereDecoratorConfig {
+	
+	public static final Codec<GroundBlockDecoratorConfig> CODEC = RecordCodecBuilder.create((instance) ->
 			instance.group(
 					BLOCKSTATE_STRING_CODEC.fieldOf("block").forGetter(decorator -> decorator.state),
 					Codec.floatRange(0.0F, 1.0F).fieldOf("chance").forGetter(decorator -> decorator.chance)
-			).apply(instance, GroundDecoratorConfig::new));
-
+			).apply(instance, GroundBlockDecoratorConfig::new));
+	
 }

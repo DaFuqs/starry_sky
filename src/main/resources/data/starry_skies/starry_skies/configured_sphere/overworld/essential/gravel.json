@@ -20,7 +20,10 @@
       "max_exclusive": 10
     },
 
-    "decorators": {},
+    "decorators": {
+      "starry_skies:suspicious_gravel_ocean_ruin_cold": 0.05,
+      "starry_skies:suspicious_gravel_ocean_ruin_common": 0.05
+    },
     "spawns": [],
     "generation": {
       "weight": 1.0,

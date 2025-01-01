@@ -11,7 +11,7 @@ public class SphereDecorators {
 	public static SphereDecorator<SingleBlockDecoratorConfig> SINGLE_BLOCK = register("single_block", new SingleBlockDecorator(SingleBlockDecoratorConfig.CODEC));
 	public static SphereDecorator<DoubleBlockDecoratorConfig> DOUBLE_BLOCK = register("double_block", new DoubleBlockDecorator(DoubleBlockDecoratorConfig.CODEC));
 	public static SphereDecorator<StackedBlockDecoratorConfig> STACKED_BLOCK = register("stacked_block", new StackedBlockDecorator(StackedBlockDecoratorConfig.CODEC));
-	public static SphereDecorator<GroundDecoratorConfig> GROUND_BLOCK = register("ground_block", new GroundDecorator(GroundDecoratorConfig.CODEC));
+	public static SphereDecorator<GroundBlockDecoratorConfig> GROUND_BLOCK = register("ground_block", new GroundBlockDecorator(GroundBlockDecoratorConfig.CODEC));
 	public static SphereDecorator<CaveBottomDecoratorConfig> CAVE_BOTTOM_BLOCK = register("cave_bottom_block", new CaveBottomDecorator(CaveBottomDecoratorConfig.CODEC));
 	public static SphereDecorator<PlantAroundPondDecoratorConfig> PLANT_AROUND_POND = register("plant_around_pond", new PlantAroundPondDecorator(PlantAroundPondDecoratorConfig.CODEC));
 	public static SphereDecorator<CenterPondDecoratorConfig> CENTER_POND = register("center_pond", new CenterPondDecorator(CenterPondDecoratorConfig.CODEC));
@@ -28,6 +28,7 @@ public class SphereDecorators {
 	public static SphereDecorator<SphereDecoratorConfig.DefaultSphereDecoratorConfig> END_PORTAL = register("end_portal", new EndPortalDecorator(SphereDecoratorConfig.DefaultSphereDecoratorConfig.CODEC));
 	public static SphereDecorator<SphereDecoratorConfig.DefaultSphereDecoratorConfig> END_GATEWAY = register("end_gateway", new EndGatewayDecorator(SphereDecoratorConfig.DefaultSphereDecoratorConfig.CODEC));
 	public static SphereDecorator<ChorusFruitDecoratorConfig> CHORUS_FRUIT = register("chorus_fruit", new ChorusFruitDecorator(ChorusFruitDecoratorConfig.CODEC));
+	public static SphereDecorator<BrushableBlockDecoratorConfig> BRUSHABLE_BLOCK = register("brushable_block", new BrushableBlockDecorator(BrushableBlockDecoratorConfig.CODEC));
 
 	public static void initialize() {
 

@@ -21,6 +21,10 @@
     },
 
     "decorators": {
+      "starry_skies:suspicious_sand_desert_pyramid": 0.03,
+      "starry_skies:suspicious_sand_desert_well": 0.03,
+      "starry_skies:suspicious_sand_trail_ruins_common": 0.03,
+      "starry_skies:suspicious_sand_trail_ruins_rare": 0.03,
       "starry_skies:cactus": 0.3,
       "starry_skies:dead_grass": 0.3,
       "starry_skies:x_spot_desert_pyramid": 0.1
