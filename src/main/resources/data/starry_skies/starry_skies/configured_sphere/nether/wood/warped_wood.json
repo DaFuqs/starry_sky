@@ -15,6 +15,7 @@
     },
     "shell_block": {
       "type": "minecraft:weighted_state_provider",
+      "reroll_for_every_pos": true,
       "entries": [
         {
           "weight": 9,
