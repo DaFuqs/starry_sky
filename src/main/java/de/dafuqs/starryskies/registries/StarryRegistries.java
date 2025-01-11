@@ -13,8 +13,8 @@ public class StarryRegistries {
 	public static void register() {
 		DynamicRegistries.register(StarryRegistryKeys.SYSTEM_GENERATOR, SystemGenerator.CODEC);
 		DynamicRegistries.register(StarryRegistryKeys.GENERATION_GROUP, GenerationGroup.CODEC);
-		DynamicRegistries.registerSynced(StarryRegistryKeys.CONFIGURED_SPHERE, ConfiguredSphere.CODEC); // Synced since it is used in the locate command
-		DynamicRegistries.registerSynced(StarryRegistryKeys.CONFIGURED_SPHERE_DECORATOR, ConfiguredSphereDecorator.CODEC);
+		DynamicRegistries.register(StarryRegistryKeys.CONFIGURED_SPHERE, ConfiguredSphere.CODEC);
+		DynamicRegistries.register(StarryRegistryKeys.CONFIGURED_SPHERE_DECORATOR, ConfiguredSphereDecorator.CODEC);
 	}
 
 	public static <T> Registry<T> create(RegistryKey<Registry<T>> key) {

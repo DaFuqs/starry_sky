@@ -1,7 +1,6 @@
 package de.dafuqs.starryskies;
 
 import de.dafuqs.starryskies.advancements.*;
-import de.dafuqs.starryskies.commands.*;
 import de.dafuqs.starryskies.configs.*;
 import de.dafuqs.starryskies.data_loaders.*;
 import de.dafuqs.starryskies.registries.*;
@@ -12,13 +11,9 @@ import it.unimi.dsi.fastutil.objects.*;
 import me.shedaniel.autoconfig.*;
 import me.shedaniel.autoconfig.serializer.*;
 import net.fabricmc.api.*;
-import net.fabricmc.fabric.api.command.v2.*;
 import net.fabricmc.fabric.api.entity.event.v1.*;
 import net.fabricmc.fabric.api.event.lifecycle.v1.*;
 import net.fabricmc.fabric.api.resource.*;
-import net.kyrptonaught.customportalapi.*;
-import net.kyrptonaught.customportalapi.util.*;
-import net.minecraft.block.*;
 import net.minecraft.registry.*;
 import net.minecraft.resource.*;
 import net.minecraft.server.network.*;
@@ -69,7 +64,6 @@ public class StarrySkies implements ModInitializer {
 		SphereDecorators.initialize();
 		StarryAdvancementCriteria.register();
 		
-		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> ClosestSphereCommand.register(dispatcher, registryAccess));
 		ServerTickEvents.END_SERVER_TICK.register(new ProximityAdvancementCheckEvent());
 		
 		// Build a final map of sphere generation data for each chunk generator
@@ -123,22 +117,7 @@ public class StarrySkies implements ModInitializer {
 			}
 		});
 		
-		
-		if (CONFIG.registerStarryPortal) {
-			setupPortals();
-		}
-		
 		LOGGER.info("Finished loading.");
-	}
-	
-	public static void setupPortals() {
-		StarrySkies.LOGGER.info("Setting up Portal to Starry Skies...");
-		
-		Identifier portalFrameBlockIdentifier = Identifier.tryParse(StarrySkies.CONFIG.starrySkyPortalFrameBlock.toLowerCase());
-		Block portalFrameBlock = Registries.BLOCK.get(portalFrameBlockIdentifier);
-		
-		PortalLink portalLink = new PortalLink(portalFrameBlockIdentifier, StarryDimensionKeys.STARRY_SKIES_DIMENSION_ID, StarrySkies.CONFIG.starrySkyPortalColor);
-		CustomPortalApiRegistry.addPortal(portalFrameBlock, portalLink);
 	}
 	
 }
