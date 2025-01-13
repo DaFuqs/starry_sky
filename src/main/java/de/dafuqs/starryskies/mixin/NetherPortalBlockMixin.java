@@ -34,10 +34,11 @@ public abstract class NetherPortalBlockMixin {
 				RegistryKey<World> targetWorldKey = sourceIsStarryNether ? StarryDimensionKeys.OVERWORLD_KEY : StarryDimensionKeys.NETHER_KEY;
 				ServerWorld targetWorld = world.getServer().getWorld(targetWorldKey);
 				if (targetWorld != null) {
+					boolean targetIsStarryNether = targetWorld.getRegistryKey() == StarryDimensionKeys.NETHER_KEY;
 					WorldBorder worldBorder = targetWorld.getWorldBorder();
 					double d = DimensionType.getCoordinateScaleFactor(world.getDimension(), targetWorld.getDimension());
 					BlockPos blockPos = worldBorder.clampFloored(entity.getX() * d, entity.getY(), entity.getZ() * d);
-					cir.setReturnValue(this.getOrCreateExitPortalTarget(targetWorld, entity, pos, blockPos, sourceIsStarryNether, worldBorder));
+					cir.setReturnValue(this.getOrCreateExitPortalTarget(targetWorld, entity, pos, blockPos, targetIsStarryNether, worldBorder));
 				}
 			}
 		}
