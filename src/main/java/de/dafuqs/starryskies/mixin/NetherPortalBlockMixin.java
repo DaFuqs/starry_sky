@@ -26,14 +26,20 @@ public abstract class NetherPortalBlockMixin {
 	@Inject(at = @At("HEAD"), method = "createTeleportTarget(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/world/TeleportTarget;", cancellable = true)
 	void starryskies$createTeleportTarget(ServerWorld world, Entity entity, BlockPos pos, CallbackInfoReturnable<TeleportTarget> cir) {
 		if (StarrySkies.CONFIG.enableNetherPortalsToStarryNether) {
-			RegistryKey<World> targetWorldKey = world.getRegistryKey() == StarryDimensionKeys.NETHER_KEY ? StarryDimensionKeys.OVERWORLD_KEY : StarryDimensionKeys.NETHER_KEY;
-			ServerWorld targetWorld = world.getServer().getWorld(targetWorldKey);
-			if (targetWorld != null) {
-				boolean bl = targetWorld.getRegistryKey() == World.NETHER;
-				WorldBorder worldBorder = targetWorld.getWorldBorder();
-				double d = DimensionType.getCoordinateScaleFactor(world.getDimension(), targetWorld.getDimension());
-				BlockPos blockPos = worldBorder.clamp(entity.getX() * d, entity.getY(), entity.getZ() * d);
-				cir.setReturnValue(this.getOrCreateExitPortalTarget(targetWorld, entity, pos, blockPos, bl, worldBorder));
+			RegistryKey<World> sourceWorldKey = world.getRegistryKey();
+			boolean sourceIsStarryNether = sourceWorldKey == StarryDimensionKeys.NETHER_KEY;
+			boolean sourceIsStarryOverworld = sourceWorldKey == StarryDimensionKeys.OVERWORLD_KEY;
+			
+			if (sourceIsStarryNether || sourceIsStarryOverworld) {
+				RegistryKey<World> targetWorldKey = sourceIsStarryNether ? StarryDimensionKeys.OVERWORLD_KEY : StarryDimensionKeys.NETHER_KEY;
+				ServerWorld targetWorld = world.getServer().getWorld(targetWorldKey);
+				if (targetWorld != null) {
+					boolean bl = targetWorld.getRegistryKey() == World.NETHER;
+					WorldBorder worldBorder = targetWorld.getWorldBorder();
+					double d = DimensionType.getCoordinateScaleFactor(world.getDimension(), targetWorld.getDimension());
+					BlockPos blockPos = worldBorder.clamp(entity.getX() * d, entity.getY(), entity.getZ() * d);
+					cir.setReturnValue(this.getOrCreateExitPortalTarget(targetWorld, entity, pos, blockPos, sourceIsStarryNether, worldBorder));
+				}
 			}
 		}
 	}
