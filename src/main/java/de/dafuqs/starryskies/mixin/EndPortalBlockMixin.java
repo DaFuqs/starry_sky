@@ -19,28 +19,28 @@ public abstract class EndPortalBlockMixin {
 	@Inject(at = @At("HEAD"), method = "createTeleportTarget(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/world/TeleportTarget;", cancellable = true)
 	void starryskies$createTeleportTarget(ServerWorld world, Entity entity, BlockPos pos, CallbackInfoReturnable<TeleportTarget> cir) {
 		if (StarrySkies.CONFIG.enableEndPortalsToStarryEnd) {
-			boolean isInStarryEnd = world.getRegistryKey() == StarryDimensionKeys.END_KEY;
-			boolean isInStarryOverworld = world.getRegistryKey() == StarryDimensionKeys.OVERWORLD_KEY;
+			boolean sourceIsStarryEnd = world.getRegistryKey() == StarryDimensionKeys.END_KEY;
+			boolean sourceIsStarryOverworld = world.getRegistryKey() == StarryDimensionKeys.OVERWORLD_KEY;
 			
-			if (isInStarryEnd || isInStarryOverworld) {
+			if (sourceIsStarryEnd || sourceIsStarryOverworld) {
 				// show the credits
 				// taken from EndPortalBlock.onEntityCollision()
-				if (!world.isClient && isInStarryEnd && entity instanceof ServerPlayerEntity serverPlayerEntity) {
+				if (!world.isClient && sourceIsStarryEnd && entity instanceof ServerPlayerEntity serverPlayerEntity) {
 					if (!serverPlayerEntity.seenCredits) {
 						serverPlayerEntity.detachForDimensionChange();
 						cir.cancel();
 					}
 				}
 				
-				RegistryKey<World> targetWorldKey = isInStarryEnd ? StarryDimensionKeys.OVERWORLD_KEY : StarryDimensionKeys.END_KEY;
+				RegistryKey<World> targetWorldKey = sourceIsStarryEnd ? StarryDimensionKeys.OVERWORLD_KEY : StarryDimensionKeys.END_KEY;
 				ServerWorld serverWorld = world.getServer().getWorld(targetWorldKey);
 				if (serverWorld == null) {
 					cir.cancel();
 				} else {
-					BlockPos targetPos = isInStarryOverworld ? StarryDimensionKeys.STARRY_END_SPAWN_BLOCK_POS : StarryDimensionKeys.STARRY_OVERWORLD_SPAWN_BLOCK_POS;
+					BlockPos targetPos = sourceIsStarryOverworld ? StarryDimensionKeys.STARRY_END_SPAWN_BLOCK_POS : StarryDimensionKeys.STARRY_OVERWORLD_SPAWN_BLOCK_POS;
 					Vec3d targetVec = targetPos.toBottomCenterPos();
 					float entityYaw = entity.getYaw();
-					if (isInStarryOverworld) {
+					if (sourceIsStarryOverworld) {
 						entityYaw = Direction.WEST.getPositiveHorizontalDegrees();
 						if (entity instanceof ServerPlayerEntity) {
 							targetVec = targetVec.subtract(0.0, 1.0, 0.0);
