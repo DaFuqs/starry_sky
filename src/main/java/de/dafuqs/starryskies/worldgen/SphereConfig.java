@@ -41,12 +41,6 @@ public class SphereConfig {
 		this.generation = generation;
 	}
 	
-	DefaultSphereConfig DEFAULT = DefaultSphereConfig.INSTANCE;
-
-	static float randomBetween(net.minecraft.util.math.random.Random random, int min, int max) {
-		return min + random.nextFloat() * (max - min);
-	}
-	
 	List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> selectDecorators(Random random) {
 		List<RegistryEntry<ConfiguredSphereDecorator<?, ?>>> result = new ArrayList<>();
 		for (Map.Entry<RegistryEntry<ConfiguredSphereDecorator<?, ?>>, Float> entry : decorators.entrySet()) {
